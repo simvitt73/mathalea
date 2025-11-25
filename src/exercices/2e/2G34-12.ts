@@ -180,32 +180,31 @@ export default class IntersectionDroitesPoints extends Exercice {
       let pAproxInt13 = point(0, 0)
       let pAproxInt23 = point(0, 0)
       do {
-        a = randint(-8, 8, [0]) // numérateut coefficient directeur non nul
-        b = randint(-8, 8) // ordonnée à l'origine
-        aFrac = choice(listeFractions)
-        a = aFrac[0] * choice([-1, 1]) //
-        d = aFrac[1] //
-        a2 = randint(-8, 8, [0]) // numérateut coefficient directeur non nul
-        b2 = randint(-8, 8) // ordonnée à l'origine
-        a2Frac = choice(listeFractions)
-        a2 = a2Frac[0] * choice([-1, 1]) //
-        d2 = a2Frac[1] //
-        a3 = randint(-8, 8, [0]) // numérateut coefficient directeur non nul
-        b3 = randint(-8, 8) // ordonnée à l'origine
-        a3Frac = choice(listeFractions)
-        a3 = a3Frac[0] * choice([-1, 1]) //
-        d3 = a3Frac[1] //
-        c = droite(a / d, -1, b)
-        c2 = droite(a2 / d2, -1, b2)
-        c3 = droite(a3 / d3, -1, b3)
-        c3.epaisseur = 2
+        do {
+          a = randint(-8, 8, [0]) // numérateut coefficient directeur non nul
+          b = randint(-8, 8) // ordonnée à l'origine
+          aFrac = choice(listeFractions)
+          a = aFrac[0] * choice([-1, 1]) //
+          d = aFrac[1] //
+          a2 = randint(-8, 8, [0]) // numérateut coefficient directeur non nul
+          b2 = randint(-8, 8) // ordonnée à l'origine
+          a2Frac = choice(listeFractions)
+          a2 = a2Frac[0] * choice([-1, 1]) //
+          d2 = a2Frac[1] //
+          a3 = randint(-8, 8, [0]) // numérateut coefficient directeur non nul
+          b3 = randint(-8, 8) // ordonnée à l'origine
+          a3Frac = choice(listeFractions)
+          a3 = a3Frac[0] * choice([-1, 1]) //
+          d3 = a3Frac[1] //
+          c = droite(a / d, -1, b)
+          c2 = droite(a2 / d2, -1, b2)
+          c3 = droite(a3 / d3, -1, b3)
+          c3.epaisseur = 2
+        } while (a2 / d2 === a / d || a3 / d3 === a / d || a2 / d2 === a3 / d3)
         pAproxInt12 = pointIntersectionDD(c, c2)
         pAproxInt13 = pointIntersectionDD(c, c3)
         pAproxInt23 = pointIntersectionDD(c2, c3)
       } while (
-        a2 / d2 === a / d ||
-        a3 / d3 === a / d ||
-        a2 / d2 === a3 / d3 ||
         coordEntieres(pAproxInt12) ||
         coordEntieres(pAproxInt13) ||
         coordEntieres(pAproxInt23)
