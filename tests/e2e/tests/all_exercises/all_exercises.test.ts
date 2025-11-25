@@ -34,6 +34,15 @@ vi.mock('../../../../src/lib/renderScratch', () => ({
   renderScratch: vi.fn(() => 'mocked value'),
 }))
 
+vi.mock('apigeom', async (original) => {
+  const real = await original()
+
+  // On étend l'original en patchant APP_VERSION **dans** le module
+  ;(globalThis as any).APP_VERSION = 'test'
+
+  return real
+})
+
 const { mathaleaLoadExerciceFromUuid } = await import(
   '../../../../src/lib/mathalea'
 )

@@ -112,6 +112,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   labels!: string[][]
   d!: Line[]
   exoCustomResultat: boolean
+
   constructor() {
     super()
     this.exoCustomResultat = true
@@ -137,6 +138,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   nouvelleVersion() {
+    this.sup = Number(this.sup) || 1 // valeur min 1
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml
       ? ['red', 'green', 'purple', 'blue', 'gray']
