@@ -18,7 +18,12 @@ import { vide2d, Vide2d } from '../../lib/2d/Vide2d'
 import { texcolors } from '../../lib/format/style'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { choice, shuffle, shuffle3tableaux } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  shuffle,
+  shuffle3tableaux,
+} from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
   texteEnCouleurEtGras,
@@ -43,7 +48,7 @@ import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const dateDePublication = '3/12/2021'
-export const dateDeModifImportante = '10/05/2025'
+export const dateDeModifImportante = '25/11/2025'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -663,12 +668,13 @@ export default class TrouverLaTransformation extends Exercice {
     if (this.sup === 1) typeDeTransfos = ['symax', 'rot180']
     else if (this.sup === 2) typeDeTransfos = ['symax', 'trans', 'rot180']
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
+    typeDeTransfos = combinaisonListes(typeDeTransfos, 4)
 
     for (let i = 0, texte, texteCorr, trans; i < this.nbQuestions; i++) {
       const objetsEnonce: NestedObjetMathalea2dArray = []
       const objetsCorrection: NestedObjetMathalea2dArray = []
       const polys: (Polygone | Vide2d)[] = []
-      const transfos: {
+      type transformations = {
         texte: string
         axe?: Droite
         centre?: Point
@@ -680,7 +686,8 @@ export default class TrouverLaTransformation extends Exercice {
         depart: number
         arrivee: number
         type: 'symax' | 'trans' | 'rot90' | 'rot180'
-      }[] = []
+      }
+      const transfos: transformations[] = []
       polys[0] = homothetie(choice(motifs), A, 0.4)
       for (let x = 0; x < 5; x++) {
         for (let y = 0, dalle, transfoAlea; y < 5; y++) {
@@ -733,7 +740,7 @@ export default class TrouverLaTransformation extends Exercice {
       const arrivee = []
       depart[0] = randint(0, 3)
       arrivee[0] = depart[0] + (choice([true, false]) ? 1 : 6)
-      let choixTransfo = choice(typeDeTransfos)
+      let choixTransfo = typeDeTransfos[0]
       let choixSens = choice([true, false])
       transfos[0] = definitElements(
         choixTransfo,
@@ -751,7 +758,7 @@ export default class TrouverLaTransformation extends Exercice {
         arrivee[ee] = arrivee.includes(depart[ee] + choixArrivee[0])
           ? depart[ee] + choixArrivee[1]
           : depart[ee] + choixArrivee[0]
-        choixTransfo = choice(typeDeTransfos)
+        choixTransfo = typeDeTransfos[ee]
         choixSens = choice([true, false])
         transfos[ee] = definitElements(
           choixTransfo,
@@ -838,7 +845,7 @@ export default class TrouverLaTransformation extends Exercice {
       for (let k = 0; k < 4; k++) {
         // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|k].depart à transfo[k].arrivee
         propositions[k] = []
-        for (const transforme of typeDeTransfos) {
+        for (const transforme of [...new Set(typeDeTransfos)]) {
           switch (transforme) {
             case 'rot90':
               {
@@ -853,11 +860,11 @@ export default class TrouverLaTransformation extends Exercice {
                 let centre = trans.centre
                 if (centre == null) break
                 propositions[k].push({
-                  latex: `\\text{la rotation de centre }\\,${centre.nom}\\text{, d'angle }\\,90°\\text{ dans le sens des aiguilles d'une montre}`,
+                  latex: `\\text{la rotation de centre }\\,${centre.nom}\\text{, d'angle }\\,90°~\\text{ dans le sens des aiguilles d'une montre}`,
                   value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`,
                 })
                 propositions[k].push({
-                  latex: `\\text{la rotation de centre}\\,${centre.nom}\\text{, d'angle }\\,90°\\text{ dans le sens inverse des aiguilles d'une montre}`,
+                  latex: `\\text{la rotation de centre}\\,${centre.nom}\\text{, d'angle }\\,90°~\\text{ dans le sens inverse des aiguilles d'une montre}`,
                   value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`,
                 })
 
@@ -872,11 +879,11 @@ export default class TrouverLaTransformation extends Exercice {
                 centre = trans.centre
                 if (centre == null) break
                 propositions[k].push({
-                  latex: `\\text{la rotation de centre}\\, ${centre.nom}\\text{, d'angle }\\, 90°\\text{ dans le sens des aiguilles d'une montre}`,
+                  latex: `\\text{la rotation de centre}\\, ${centre.nom}\\text{, d'angle }\\, 90°~\\text{ dans le sens des aiguilles d'une montre}`,
                   value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`,
                 })
                 propositions[k].push({
-                  latex: `\\text{la rotation de centre }\\,${centre.nom}\\text{, d'angle }\\,90°\\text{ dans le sens inverse des aiguilles d'une montre}`,
+                  latex: `\\text{la rotation de centre }\\,${centre.nom}\\text{, d'angle }\\,90°~\\text{ dans le sens inverse des aiguilles d'une montre}`,
                   value: `la rotation de centre ${centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`,
                 })
               }
@@ -916,7 +923,19 @@ export default class TrouverLaTransformation extends Exercice {
         texteCorrPossible.push(transfos[k].texteCorr)
         reponsePossible.push(transfos[k].texteInteractif)
       }
-      shuffle3tableaux(objetEnonce, transfos, propositions)
+
+      function hasConsecutiveDuplicates(transfos: transformations[]) {
+        for (let i = 0; i < transfos.length - 1; i++) {
+          if (transfos[i].type === transfos[i + 1].type) {
+            return true
+          }
+        }
+        return false
+      }
+      do {
+        shuffle3tableaux(objetEnonce, transfos, propositions)
+      } while (hasConsecutiveDuplicates(transfos))
+
       texte = mathalea2d(paramsEnonce, objetsEnonce)
       let texteCorrComplement = ''
       for (let ee = 0; ee < nbSousQuestions; ee++) {
