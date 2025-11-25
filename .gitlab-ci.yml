@@ -531,6 +531,13 @@ playwright-testInteractivity:
     - when: never
   artifacts:
     when: on_failure
+  retry:
+    max: 2
+    when:
+      - runner_system_failure
+      - api_failure
+      - unknown_failure
+      - script_failure
 
 testExosModifiedWithoutPlayWright:
   extends: .testCI
