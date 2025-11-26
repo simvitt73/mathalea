@@ -1,5 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { courbeInterpolee } from '../../lib/2d/CourbeInterpolee.1'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -22,7 +23,7 @@ export default class TraceCourbeInterpolee1 extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireTexte = [
-      'Liste des points sous la forme: (x0;y0),(x1;y1);..',
+      'Liste des points (au moins deux) sous la forme: (x0;y0)/(x1;y1)/...',
       '',
     ]
     this.besoinFormulaire2CaseACocher = ['Afficher les points ', true]
@@ -41,6 +42,13 @@ export default class TraceCourbeInterpolee1 extends Exercice {
   }
 
   nouvelleVersion() {
+    if (
+      this.sup === undefined ||
+      typeof this.sup !== 'string' ||
+      this.sup.trim() === ''
+    ) {
+      exit.call(this)
+    }
     const liste = this.sup.split('/')
     const points = []
     const objets = []
@@ -51,10 +59,19 @@ export default class TraceCourbeInterpolee1 extends Exercice {
     ]
     for (let i = 0, coords; i < liste.length; i++) {
       coords = liste[i].split(';')
-      points.push([
-        parseFloat(coords[0].substring(1)),
-        parseFloat(coords[1].substring(0, coords[1].length - 1)),
-      ])
+      if (coords.length !== 2) {
+        continue
+      }
+      const x = parseFloat(coords[0].substring(1))
+      const y = parseFloat(coords[1].substring(0, coords[1].length - 1))
+      if (isNaN(x) || isNaN(y)) {
+        continue
+      }
+      points.push([x, y])
+    }
+    if (points.length < 2) {
+      exit.call(this)
+      return
     }
     let xMin = 100
     let xMax = -100
@@ -70,7 +87,7 @@ export default class TraceCourbeInterpolee1 extends Exercice {
       xMin: xMin - 1,
       xMax: xMax + 1,
       yMin: yMin - 1,
-      yMax: yMax - 1,
+      yMax: yMax + 1,
     })
     const c = courbeInterpolee(points, {
       color: couleurs[parseInt(this.sup3) - 1].colCourbe,
@@ -89,10 +106,12 @@ export default class TraceCourbeInterpolee1 extends Exercice {
         objets.push(p)
       }
     }
-    this.contenu = mathalea2d(
-      { xmin: xMin - 1, xmax: xMax + 1, ymin: yMin - 1, ymax: yMax + 1 },
-      objets,
-    )
+    this.contenu = mathalea2d(fixeBordures(objets), objets)
     this.listeQuestions[0] = this.contenu
   }
+}
+
+function exit(this: TraceCourbeInterpolee1) {
+  this.listeQuestions[0] = "La liste de points n'est pas correctement formatée."
+  return
 }
