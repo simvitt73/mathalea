@@ -50,9 +50,9 @@ export default class ExerciceEquationCongruence extends Exercice {
 
       const q = (diff - r) / k
 
-      texte = `Résoudre dans $\\mathbb{Z}$ l'équation suivante : $ x ${ecritureAlgebrique(a)} \\equiv ${b} \\,\\,[${k}]$.<br>
-      On donnera le plus petit entier positif ou nul $x$ solution de cette équation.`
-
+      if (this.interactif===true) texte = `Donner la plus petite valeur entière et supérieure ou égale à $0$ solution de cette équation :<br> $ x ${ecritureAlgebrique(a)} \\equiv ${b} \\,\\,[${k}]$.<br> `
+      else {
+        texte = `Résoudre dans $\\mathbb{Z}$, l'équation suivante : <br>$ x ${ecritureAlgebrique(a)} \\equiv ${b} \\,\\,[${k}]$.`}
       // correction
       texteCorr += ` $\\begin{aligned}
       x ${ecritureAlgebrique(a)} &\\equiv ${b} \\,\\,[${k}]\\\\
@@ -63,13 +63,13 @@ export default class ExerciceEquationCongruence extends Exercice {
       \\end{aligned}$<br>`
       
      
-     texteCorr += `<br>Le plus petit entier positif ou nul $x$ solution est donc $${miseEnEvidence(`${r}`)}$.`
+     if (this.interactif===false) texteCorr += `<br>$S=\\{ ${miseEnEvidence(`${r} +  ${k}k, k\\in \\mathbb{Z}`)}\\}$.`
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] =
           texte +
           ajouteChampTexteMathLive(this, i, `  ${KeyboardType.lycee}`, {
-            texteAvant: `<br>$x \\equiv ~~$`,
+            texteAvant: ` <br>$x \\equiv ~~$`,
             texteApres: `$~[${k}]$.`,
           })
 
