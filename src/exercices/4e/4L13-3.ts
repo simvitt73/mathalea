@@ -107,7 +107,7 @@ export default class PaternNum0 extends Exercice {
     typesPattern = typesPattern.slice(0, 25)
     typesPattern = typesPattern.reverse()
 
-    const listePreDef = typesPattern.map((i) => listePatternsFor4A13[i])
+    const listePreDef = typesPattern.map((i) => listePatternsFor4A13[i - 1])
     const nbFigures = Math.max(2, this.sup)
     const typesQuestions = Array.from(
       new Set(

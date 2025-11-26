@@ -146,7 +146,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
     let typesQuestions
     let indexInteractif = 0
-    const listePreDef = typesPattern.map((i) => listePatternsFor5I13[i])
+    const listePreDef = typesPattern.map((i) => listePatternsFor5I13[i - 1])
 
     for (
       let i = 0, cpt = 0;
