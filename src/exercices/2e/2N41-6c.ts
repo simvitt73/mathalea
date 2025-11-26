@@ -231,11 +231,12 @@ export default class DevelopperIdentitesRemarquables5 extends Exercice {
         switch (
           Math.floor(typesDeQuestions / 10) // Selon le type d'IR
         ) {
-          case 1: // (bx+a)²
+          case 1: // (bx+a)² // 11, 12 et 13
             identiteRemarquable = estInverse
               ? `(${a}+${rienSi1(b)}x)^2`
               : `(${rienSi1(b)}x+${a})^2`
 
+            IRdeveloppee = `${rienSi1(b * b)}x^2 + ${2 * b * a}x + ${a * a}`
             IRdeveloppee = `${rienSi1(b * b)}x^2 + ${2 * b * a}x + ${a * a}`
 
             IRdeveloppeeSignee = `${ecritureAlgebriqueSauf1(-b * b)}x^2 - ${2 * a * b}x - ${a * a}`
@@ -245,7 +246,7 @@ export default class DevelopperIdentitesRemarquables5 extends Exercice {
             }
             break
 
-          case 2: // (bx-a)²
+          case 2: // (bx-a)² // 21, 22 et 23
             identiteRemarquable = estInverse
               ? `(${a}-${rienSi1(b)}x)^2`
               : `(${rienSi1(b)}x-${a})^2`
@@ -260,6 +261,7 @@ export default class DevelopperIdentitesRemarquables5 extends Exercice {
             break
 
           case 3: {
+            // 31, 32 et 33
             // (bx-a)(bx+a)
             const estInverse2 = choice([true, false])
             const first = estInverse
@@ -308,7 +310,7 @@ export default class DevelopperIdentitesRemarquables5 extends Exercice {
               : `$${identiteRemarquable}+${expressionAvecC}$`
 
             texteCorr += cEstAGauche
-              ? `${texte.slice(0, -1)}  = ${expressionAvecC} + (${IRdeveloppee}) = ${expressionAvecC} ${IRdeveloppeeSignee} `
+              ? `${texte.slice(0, -1)}  = ${expressionAvecC} + (${IRdeveloppee}) = ${expressionAvecC} ${IRdeveloppee[0] === '-' ? '' : '+'}${IRdeveloppee} `
               : `${texte.slice(0, -1)}  = (${IRdeveloppee}) + ${expressionAvecC} = ${IRdeveloppee} + ${expressionAvecC} `
             break
 
