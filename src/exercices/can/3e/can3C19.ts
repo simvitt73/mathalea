@@ -41,7 +41,8 @@ export default class CalculComplexeFraction extends ExerciceSimple {
     const b = randint(1, 6, [frac1.num]) // sinon division par zéro avec les distracteurs
 
     this.question = this.versionQcm
-      ? `On considère $A=\\dfrac{${a}}{${b}-${frac1.texFraction}}$. On a :`
+      ? `On considère $A=\\dfrac{${a}}{${b}-${frac1.texFraction}}$.<br>
+       $A$ est égal à  :`
       : `Calculer $A=\\dfrac{${a}}{${b}-${frac1.texFraction}}$.`
 
     // Calculs pour la correction
