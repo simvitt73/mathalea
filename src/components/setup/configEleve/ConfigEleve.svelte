@@ -291,7 +291,6 @@
                     "Les élèves n'auront qu'une seule possibilité pour répondre aux exercices.",
                     "Les élèves pourront refaire les exercices autant de fois qu'ils le souhaitent.",
                   ]}"
-                  on:toggle="{handleSeed}"
                 />
               </div>
             </div>
