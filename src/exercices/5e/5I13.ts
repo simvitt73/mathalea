@@ -7,7 +7,7 @@ import {
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  listePatternsFor5I13,
+  listePatternsSansRatioNiFraction,
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
@@ -68,7 +68,7 @@ export default class PatternIteratif extends Exercice {
  Cet exercice propose d'étudier les premiers termes d'une série de motifs afin de répondre à différentes questions possibles.<br>
 Grâce au premier paramètre, on peut choisir le nombre de motifs visibles.<br>
 Grâce au deuxième paramètre, on peut choisir les questions à poser.<br>
-Grâce au troisième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Grâce au troisième paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=3" target="_blank" style="color: blue">liste de patterns</a>.<br>
 Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.
     `
     this.besoinFormulaireNumerique = [
@@ -93,7 +93,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     ]
     this.sup2 = '7'
 
-    const nbDePattern = listePatternsFor5I13.length
+    const nbDePattern = listePatternsSansRatioNiFraction.length
     this.besoinFormulaire3Texte = [
       'Numéros des pattern désirés :',
       [
@@ -132,7 +132,7 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
     if (typesQuestionsInitiales.length === 6)
       typesQuestionsInitiales = range1(5)
 
-    const nbDePattern = listePatternsFor5I13.length
+    const nbDePattern = listePatternsSansRatioNiFraction.length
     let typesPattern = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: nbDePattern,
@@ -146,7 +146,9 @@ Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'
 
     let typesQuestions
     let indexInteractif = 0
-    const listePreDef = typesPattern.map((i) => listePatternsFor5I13[i - 1])
+    const listePreDef = typesPattern.map(
+      (i) => listePatternsSansRatioNiFraction[i - 1],
+    )
 
     for (
       let i = 0, cpt = 0;

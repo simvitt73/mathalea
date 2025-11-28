@@ -11,7 +11,7 @@ import { context } from '../../modules/context'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Comprendre un algorithme itératif'
+export const titre = 'Comprendre un algorithme itératif sur des élements en 3D'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -28,7 +28,7 @@ export const dateDeModifImportante = '22/11/2025'
 export const uuid = '328b7'
 
 export const refs = {
-  'fr-fr': ['6I13-2'],
+  'fr-fr': ['6N4B-2'],
   'fr-ch': ['autres-15'],
 }
 
@@ -39,7 +39,10 @@ export default class PaternNum0 extends Exercice {
     this.nbQuestions = 1
     this.comment = `Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.\n
  Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.\n
- Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
+ Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/.\n
+ Grâce au dernier paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=2" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.
+`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
     this.besoinFormulaire4Texte = [
@@ -72,7 +75,7 @@ export default class PaternNum0 extends Exercice {
     typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
     typesPattern = enleveDoublonNum(typesPattern)
 
-    if (this.nbQuestions > 25) this.nbQuestions = 25 // EE : Pourquoi ce code ? Pourquoi 25 ? Le code était avant moi : je le laisse.
+    // if (this.nbQuestions > 25) this.nbQuestions = 25 // EE : Pourquoi ce code ? Pourquoi 25 ? Le code était avant moi : je le laisse.
     typesPattern = typesPattern.slice(0, 25)
     typesPattern = typesPattern.reverse()
 

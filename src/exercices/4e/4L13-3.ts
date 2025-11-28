@@ -1,7 +1,7 @@
 import { listeShapes2DInfos } from '../../lib/2d/figures2d/shapes2d'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import {
-  listePatternsFor4A13,
+  listePatternsSansRatioNiFraction,
   type PatternRiche,
   type PatternRiche3D,
 } from '../../lib/2d/patterns/patternsPreDef'
@@ -60,7 +60,9 @@ export default class PaternNum0 extends Exercice {
     this.nbQuestions = 3
     this.comment = `Étudier les premiers termes d'une série de motifs afin de donner le nombre de formes du motif suivant.\n
  Les patterns sont des motifs figuratifs qui évoluent selon des règles définies.\n
- Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/`
+ Cet exercice contient des patterns issus de l'excellent site : https://www.visualpatterns.org/.<br>
+Grâce au dernier paramètre, on peut imposer des patterns choisis dans cette <a href="https://coopmaths.fr/alea/?uuid=71ff5&s=6" target="_blank" style="color: blue">liste de patterns</a>.<br>
+Si le nombre de questions est supérieur au nombre de patterns choisis, alors l'exercice sera complété par des patterns choisis au hasard.`
     this.besoinFormulaireNumerique = ['Nombre de figures par question', 4]
     this.sup = 3
     this.besoinFormulaire4Texte = [
@@ -68,7 +70,7 @@ export default class PaternNum0 extends Exercice {
       'Nombres séparés par des tirets :\n1: Motif suivant à dessiner\n2 : Motif suivant (nombre)\n3 : Motif 10 (nombre)\n4 : Numéro du motif\n5 : Motif 100 (nombre)\n6 : Question au hasard parmi les 5 précédentes',
     ]
     this.sup4 = '6'
-    const nbDePattern = listePatternsFor4A13.length
+    const nbDePattern = listePatternsSansRatioNiFraction.length
     this.besoinFormulaire5Texte = [
       'Numéros des pattern désirés :',
       [
@@ -90,7 +92,7 @@ export default class PaternNum0 extends Exercice {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach((destroy) => destroy())
     this.destroyers.length = 0
-    const nbDePattern = listePatternsFor4A13.length
+    const nbDePattern = listePatternsSansRatioNiFraction.length
 
     let typesPattern = gestionnaireFormulaireTexte({
       saisie: this.sup5,
@@ -103,11 +105,13 @@ export default class PaternNum0 extends Exercice {
     typesPattern = [...typesPattern, ...shuffle(range1(nbDePattern))]
     typesPattern = enleveDoublonNum(typesPattern)
 
-    if (this.nbQuestions > 25) this.nbQuestions = 25 // EE : Pourquoi ce code ? Pourquoi 25 ? Le code était avant moi : je le laisse.
+    //if (this.nbQuestions > 25) this.nbQuestions = 25 // EE : Pourquoi ce code ? Pourquoi 25 ? Le code était avant moi : je le laisse.
     typesPattern = typesPattern.slice(0, 25)
     typesPattern = typesPattern.reverse()
 
-    const listePreDef = typesPattern.map((i) => listePatternsFor4A13[i - 1])
+    const listePreDef = typesPattern.map(
+      (i) => listePatternsSansRatioNiFraction[i - 1],
+    )
     const nbFigures = Math.max(2, this.sup)
     const typesQuestions = Array.from(
       new Set(
