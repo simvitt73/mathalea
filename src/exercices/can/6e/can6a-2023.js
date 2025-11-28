@@ -159,6 +159,8 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+
           nbChamps = 1
 
           break
@@ -196,6 +198,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -260,6 +263,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           break
         case 5:
           if (choice([true, false])) {
@@ -620,6 +624,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
 
           nbChamps = 1
 
@@ -693,6 +698,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -848,6 +854,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -898,6 +905,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
             texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
@@ -1187,6 +1195,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -1275,6 +1284,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
 
           break
@@ -1805,6 +1815,7 @@ Par exemple, en choisissant 20 questions, la course aux nombres sera composée d
           }
 
           this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
           nbChamps = 1
           break
 
