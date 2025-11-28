@@ -5,6 +5,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
@@ -47,19 +48,23 @@ export default class DecimalToScientifique extends ExerciceSimple {
       this.question = `Donner l'écriture scientifique de $${texNombre(nombre)}$.`
       this.reponse = `$${texNombre(mantisse)} \\times 10^{${exposant}}$`
       const glisseNumber = glisseNombre(nombre, -exposant)
-      this.correction = mathalea2d(
-        Object.assign({}, fixeBordures([glisseNumber])),
-        glisseNumber,
-      )
+      this.correction = context.isHtml
+        ? mathalea2d(
+            Object.assign({}, fixeBordures([glisseNumber])),
+            glisseNumber,
+          )
+        : ''
       this.correction += `L'écriture scientifique de $${texNombre(nombre)}$ est $${miseEnEvidence(`${texNombre(mantisse)} \\times 10^{${exposant}}`)}$.`
     } else {
       this.question = `Donner l'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$.`
       this.reponse = texNombre(nombre)
       const glisseNumber = glisseNombre(mantisse, exposant)
-      this.correction = mathalea2d(
-        Object.assign({}, fixeBordures([glisseNumber])),
-        glisseNumber,
-      )
+      this.correction = context.isHtml
+        ? mathalea2d(
+            Object.assign({}, fixeBordures([glisseNumber])),
+            glisseNumber,
+          )
+        : ''
       this.correction += `L'écriture décimale de $${texNombre(mantisse)} \\times 10^{${exposant}}$ est $${miseEnEvidence(texNombre(nombre))}$.`
     }
   }
