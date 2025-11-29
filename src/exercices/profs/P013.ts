@@ -19,6 +19,24 @@ export const uuid = '5b767'
  * @author Jean-Claude Lhote
 
 */
+function valideListeOfPoints(liste: string): boolean {
+  const points = liste.split('/')
+  if (points.length < 2) {
+    return false
+  }
+  for (let i = 0; i < points.length; i++) {
+    const coords = points[i].split(';')
+    if (coords.length !== 2) {
+      return false
+    }
+    const x = parseFloat(coords[0].substring(1))
+    const y = parseFloat(coords[1].substring(0, coords[1].length - 1))
+    if (isNaN(x) || isNaN(y)) {
+      return false
+    }
+  }
+  return true
+}
 export default class TraceCourbeInterpolee1 extends Exercice {
   constructor() {
     super()
@@ -47,7 +65,10 @@ export default class TraceCourbeInterpolee1 extends Exercice {
       typeof this.sup !== 'string' ||
       this.sup.trim() === ''
     ) {
-      exit.call(this)
+      this.sup = '(-5;0)/(0;5)/(5;0)'
+    }
+    if (!valideListeOfPoints(this.sup)) {
+      this.sup = '(-5;0)/(0;5)/(5;0)'
     }
     const liste = this.sup.split('/')
     const points = []
