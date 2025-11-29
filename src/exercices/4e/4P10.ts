@@ -393,7 +393,7 @@ export default class ProblemesGrandeursComposees extends Exercice {
                 numAlpha(1) +
                 ` Si on le remplit ${liquides[index2][0]} (dont la ` +
                 ajouterAide(
-                  "La densité d'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l'eau est utilisée comme référence (sa masse volumique est de $1$\\text{ kg/dm}^3$), pour les gaz, la mesure s'effectue par rapport à l'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en $\\text{kg/dm}^3$.",
+                  "La densité d'une substance est égale à la masse volumique de la substance divisée par la masse volumique du corps de référence à la même température.<br>Pour les liquides et les solides, l'eau est utilisée comme référence (sa masse volumique est de $1 \\text{ kg/dm}^3$), pour les gaz, la mesure s'effectue par rapport à l'air.<br>Donc pour les liquides, la densité est égale à la masse volumique exprimée en $\\text{kg/dm}^3$.",
                   {
                     texteAvant: 'densité',
                     titreAide: 'Définition : Densité (grandeur physique)',
