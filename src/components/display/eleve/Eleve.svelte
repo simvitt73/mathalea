@@ -756,7 +756,7 @@
                       </div>
                     {/if}
                   </div>
-                  {#if exercices[indiceExercice[k]].interactif}
+                  {#if exercices[indiceExercice[k]].interactif && exercices[indiceExercice[k]].interactifReady}
                     <div class="pb-4 mt-10">
                       <ButtonTextAction
                         text="Vérifier"
