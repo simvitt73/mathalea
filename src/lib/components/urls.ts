@@ -153,7 +153,7 @@ export function buildMathAleaURL(options: {
   } else {
     const title = global.title ?? 'Évaluation'
     if (title !== '') {
-      url.addParam('title', title)
+      url.addParam('title', encodeURIComponent(title))
     }
   }
   if (global.beta) {
