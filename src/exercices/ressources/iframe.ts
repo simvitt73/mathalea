@@ -22,6 +22,7 @@ class ressourceVideo extends Exercice {
     this.iframe.setAttribute('height', '315')
     window.addEventListener('resize', this.updateSize)
     this.container.addEventListener('addedToDom', this.updateSize)
+    document.addEventListener('questionDisplay', this.updateSize)
     this.iframe.classList.add('my-10')
     this.fieldUrl = createTextInput({ placeholder: 'URL', autoCorrect: false })
     this.button = createButon()
