@@ -41,11 +41,9 @@
   "scripts": {
     "dev": "npm run makeJson && vite",
     "start": "npm run makeJson && vite",
-    "build": "npm run makeJson && npm run prebuild-unit-tests&& npm run prebuild-e2e-tests && npm run doc && vite build",
     "buildRam": "npm run makeJson && npm run doc && node --max-old-space-size=4096 ./node_modules/vite/bin/vite.js build",
-    "forceBuild": "npm run makeJson && npm run doc && vite build",
+    "build": "npm run makeJson && npm run doc && vite build",
     "build:deploy": "npm run build && tasks/deploy_site.sh",
-    "forceBuild:deploy": "npm run forceBuild && tasks/deploy_site.sh",
     "deploy:site": "tasks/deploy_site.sh && open https://coopmaths.fr/alea",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
     "getNewUuid": "npm run makeJson",
