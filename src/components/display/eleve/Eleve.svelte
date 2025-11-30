@@ -31,6 +31,12 @@
   } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import { vendor } from '../../../lib/stores/vendorStore'
+  import {
+    isInteractivityType,
+    isOldFormatInteractifType,
+    type InteractivityType,
+    type OldFormatInteractifType,
+  } from '../../../lib/types'
   import { loadMathLive } from '../../../modules/loaders'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
@@ -311,11 +317,17 @@
   async function checkQuestion(i: number) {
     // ToFix exercices custom avec pointsCliquable
     const exercice = exercices[indiceExercice[i]]
-    let type =
+    let type: InteractivityType | OldFormatInteractifType | undefined =
       exercice.autoCorrection[indiceQuestionInExercice[i]]?.reponse?.param
         ?.formatInteractif
     if (type === undefined || type === null) {
-      type = exercice.interactifType
+      const interactifType = exercice.interactifType
+      if (
+        isInteractivityType(interactifType) ||
+        isOldFormatInteractifType(interactifType)
+      ) {
+        type = interactifType
+      }
     }
     if (type == null) {
       // @fixme on ne devrait jamais arriver ici pour un exercice non interactif !
@@ -333,7 +345,8 @@
         exercices[indiceExercice[i]],
         indiceQuestionInExercice[i],
       )
-      resultsByQuestion[i] = resu.isOk === 'Ok' || resu.isOk === true
+      resultsByQuestion[i] =
+        resu !== undefined && (resu.isOk === 'Ok' || resu.isOk === true)
     } else if (type === 'qcm') {
       resultsByQuestion[i] =
         verifQuestionQcm(
