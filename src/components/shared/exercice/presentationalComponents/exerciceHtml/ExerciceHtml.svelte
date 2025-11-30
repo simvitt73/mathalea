@@ -14,15 +14,9 @@
   let divExercice: HTMLDivElement
 
   const headerExerciceProps = {
+    isMenuNeededForExercises: true,
     title: exercise.titre,
-    id: '',
-    indiceExercice,
-    indiceLastExercice,
-    interactifReady: false,
-    randomReady: false,
-    settingsReady: false,
-    correctionReady: false,
-    isHidable: false,
+    indiceExercice: indiceExercice,
   }
 
   onMount(async () => {
@@ -41,7 +35,6 @@
 
   $: {
     headerExerciceProps.indiceExercice = indiceExercice
-    headerExerciceProps.indiceLastExercice = indiceLastExercice
   }
 </script>
 
@@ -52,8 +45,17 @@
     presMode="{$globalOptions.presMode ?? 'liste_exos'}"
   />
 {:else}
-  <HeaderExerciceVueProf {...headerExerciceProps} on:exerciseRemoved />
+  <HeaderExerciceVueProf
+    {...headerExerciceProps}
+    id="{exercise.id ?? ''}"
+    interactifReady="{exercise.interactifReady}"
+    {indiceLastExercice}
+    on:exerciseRemoved
+  />
 {/if}
-<section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5">
+<section
+  id="insert-html-{indiceExercice}"
+  class="mt-6 mb-2 ml-2 lg:mx-5 w-full"
+>
   <div bind:this="{divExercice}"></div>
 </section>

@@ -36,6 +36,7 @@ class ressourceVideo extends Exercice {
     this.teacherText = document.createElement('div')
     window.addEventListener('resize', this.updateSize)
     this.container.addEventListener('addedToDom', this.updateSize)
+    document.addEventListener('questionDisplay', this.updateSize)
 
     // constitution d'une ID pour mise en forme dans app.css
     this.iframe.setAttribute(

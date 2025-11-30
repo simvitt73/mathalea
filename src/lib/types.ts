@@ -321,6 +321,21 @@ export type InteractivityType =
   | 'dnd'
   | 'listeDeroulante'
   | 'custom'
+export function isInteractivityType(
+  value: unknown,
+): value is InteractivityType {
+  return (
+    value === 'qcm' ||
+    value === 'mathlive' ||
+    value === 'fillInTheBlank' ||
+    value === 'tableauMathlive' ||
+    value === 'texte' ||
+    value === 'cliqueFigure' ||
+    value === 'dnd' ||
+    value === 'listeDeroulante' ||
+    value === 'custom'
+  )
+}
 
 export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'
 
@@ -701,6 +716,24 @@ export type OldFormatInteractifType =
   | 'puissance'
   | 'canonicalAdd'
   | 'ignorerCasse'
+export function isOldFormatInteractifType(
+  value: unknown,
+): value is OldFormatInteractifType {
+  return (
+    value === 'calcul' ||
+    value === 'texte' ||
+    value === 'tableauMathlive' ||
+    value === 'Num' ||
+    value === 'Den' ||
+    value === 'fractionEgale' ||
+    value === 'unites' ||
+    value === 'intervalleStrict' ||
+    value === 'intervalle' ||
+    value === 'puissance' ||
+    value === 'canonicalAdd' ||
+    value === 'ignorerCasse'
+  )
+}
 
 export interface IExercice {
   titre: string
