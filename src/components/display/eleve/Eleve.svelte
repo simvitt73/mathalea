@@ -777,7 +777,7 @@
                         disabled="{isDisabledButton[k]}"
                       />
                     </div>
-                  {:else if $globalOptions.isSolutionAccessible}
+                  {:else if $globalOptions.isSolutionAccessible && corrections[k]}
                     <div class="{$isMenuNeededForExercises ? 'ml-4' : ''}">
                       <ButtonToggle
                         titles="{[
