@@ -137,6 +137,8 @@
   }
 
   function reroll(exercise: IExercice, idVue?: 0 | 1 | 2 | 3) {
+    const interactif = exercise.interactif
+    exercise.interactif = false
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     const originalSeed = exercise.seed
     if (idVue !== undefined && idVue > 0)
@@ -148,6 +150,7 @@
       exercise.nouvelleVersionWrapper?.()
     }
     exercise.seed = originalSeed
+    exercise.interactif = interactif
   }
 
   function splitSvgFromText(sourceText: string) {
