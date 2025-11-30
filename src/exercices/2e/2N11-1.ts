@@ -5,7 +5,7 @@ import {
   crochetG,
   intervalle,
 } from '../../lib/2d/intervalles'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Segment, segment } from '../../lib/2d/segmentsVecteurs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -134,8 +134,8 @@ export default class IntervallesDeR extends Exercice {
       const int = intervalle(X1, X2, 'black', 0)
       let a: number
       let b: number = 0
-      let A: Point
-      let B: Point
+      let A: PointAbstrait
+      let B: PointAbstrait
       let c1: CrochetG
       let c2: CrochetD
       let int1: Segment

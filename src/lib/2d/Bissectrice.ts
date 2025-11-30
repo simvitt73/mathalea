@@ -162,9 +162,9 @@ export class Bissectrice extends DemiDroite {
 // JSDOC Validee par EE Juin 2022
 
 export function bissectrice(
-  A: Point | PointAbstrait,
-  O: Point | PointAbstrait,
-  B: Point | PointAbstrait,
+  A: PointAbstrait,
+  O: PointAbstrait,
+  B: PointAbstrait,
   couleurBissectrice = 'red',
   color = 'blue',
   couleurConstruction = 'black',

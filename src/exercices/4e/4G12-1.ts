@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droite } from '../../lib/2d/droites'
 import { grille } from '../../lib/2d/Grille'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { point, PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { Polygone, polygone } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPointEchelle } from '../../lib/2d/textes'
@@ -403,7 +403,7 @@ const motifs = [
     point(4, 1),
   ]),
 ]
-const noeuds: Point[] = []
+const noeuds: PointAbstrait[] = []
 const maGrille: NestedObjetMathalea2dArray = []
 const labels = []
 maGrille.push(grille(0, 0, 16, 16, 'black', 0.2, 0.4))
@@ -436,7 +436,7 @@ export function transfoPoly(
     sens = true,
   }: {
     type: 'symax' | 'trans' | 'rot90' | 'rot180'
-    centre?: Point
+    centre?: PointAbstrait
     axe?: Droite
     vecteur?: Vecteur
     angle?: number
@@ -480,7 +480,7 @@ function definitElements(
 ): {
   texte: string
   axe?: Droite
-  centre?: Point
+  centre?: PointAbstrait
   sens?: boolean
   texteCorr: string
   texteInteractif: string
@@ -670,14 +670,18 @@ export default class TrouverLaTransformation extends Exercice {
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
     typeDeTransfos = combinaisonListes(typeDeTransfos, 4)
 
-    for (let i = 0, texte, texteCorr, trans; i < this.nbQuestions; i++) {
+    for (
+      let i = 0, texte, texteCorr, trans, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+      i++
+    ) {
       const objetsEnonce: NestedObjetMathalea2dArray = []
       const objetsCorrection: NestedObjetMathalea2dArray = []
       const polys: (Polygone | Vide2d)[] = []
       type transformations = {
         texte: string
         axe?: Droite
-        centre?: Point
+        centre?: PointAbstrait
         sens?: boolean
         texteCorr: string
         texteInteractif: string
@@ -694,7 +698,7 @@ export default class TrouverLaTransformation extends Exercice {
           let elements: {
             texte: string
             axe?: Droite
-            centre?: Point
+            centre?: PointAbstrait
             sens?: boolean
             texteCorr: string
             texteInteractif: string
@@ -963,9 +967,14 @@ export default class TrouverLaTransformation extends Exercice {
 
       texteCorr =
         mathalea2d(paramsCorrection, objetsCorrection) + texteCorrComplement
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, texte)) {
+        // Si la question n'a jamais été posée, on en crée une autre
+        this.listeQuestions[i] = texte
+        this.listeCorrections[i] = texteCorr
+        i++
+      }
+      listeQuestionsToContenu(this)
+      cpt++
     }
-    listeQuestionsToContenu(this)
   }
 }

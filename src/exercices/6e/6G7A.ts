@@ -1,7 +1,10 @@
 import Figure from 'apigeom'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import type Line from 'apigeom/src/elements/lines/Line'
-import type PointApigeom from 'apigeom/src/elements/points/Point'
+import type {
+  default as Point,
+  default as PointApigeom,
+} from 'apigeom/src/elements/points/Point'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageMilieu } from '../../lib/2d/CodageMilieu'

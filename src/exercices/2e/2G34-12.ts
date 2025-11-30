@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites'
-import { Point, point } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, point } from '../../lib/2d/PointAbstrait'
 import {
   pointIntersectionDD,
   pointSurDroite,
@@ -114,7 +114,7 @@ export default class IntersectionDroitesPoints extends Exercice {
         `\\begin{cases}\\begin{aligned}${eq1}\\\\${eq2}\\end{aligned}\\end{cases}`
       return expr
     }
-    const coordEntieres = function (p: Point) {
+    const coordEntieres = function (p: PointAbstrait) {
       return p.x % 1 === 0 && p.y % 1 === 0
     }
     const listeFractions = [

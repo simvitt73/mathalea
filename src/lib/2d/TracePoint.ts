@@ -5,7 +5,7 @@ import { colorToLatexOrHTML } from './colorToLatexOrHtml'
 import { ObjetMathalea2D } from './ObjetMathalea2D'
 import { plot } from './Plot'
 import type { PointAbstrait } from './PointAbstrait'
-import { Point, point } from './PointAbstrait'
+import { pointAbstrait } from './PointAbstrait'
 import { Polygone } from './polygones'
 import { carre } from './polygonesParticuliers'
 import { segment } from './segmentsVecteurs'
@@ -26,12 +26,12 @@ import { segment } from './segmentsVecteurs'
 export class TracePoint extends ObjetMathalea2D {
   taille: number
   tailleTikz: number
-  points: (Point | Point3d)[]
+  points: (PointAbstrait | Point3d)[]
   couleurDeRemplissage?: string[]
   usePgfplots: boolean
   pgfplotsOptions?: string
   pgfplotsMark?: string
-  constructor(...points: (PointAbstrait | Point | Point3d | string)[]) {
+  constructor(...points: (PointAbstrait | PointAbstrait | Point3d | string)[]) {
     super()
     this.taille = 3
     this.tailleTikz = this.taille / 15
@@ -48,9 +48,9 @@ export class TracePoint extends ObjetMathalea2D {
       this.color = colorToLatexOrHTML(String(points[points.length - 1]))
       points.pop()
     } else this.color = colorToLatexOrHTML('black')
-    this.points = points as (Point | Point3d)[]
+    this.points = points as (PointAbstrait | Point3d)[]
     for (const unPoint of this.points) {
-      const point = unPoint as Point | Point3d
+      const point = unPoint as PointAbstrait | Point3d
       if (point.typeObjet !== 'point3d' && point.typeObjet !== 'point')
         window.notify('TracePoint : argument invalide', { ...points })
       lePoint = point.typeObjet === 'point' ? point : (point as Point3d).c2d
@@ -77,13 +77,13 @@ export class TracePoint extends ObjetMathalea2D {
       }
       if (this.style === 'x') {
         s1 = segment(
-          point(A.x - this.taille / coeff, A.y + this.taille / coeff),
-          point(A.x + this.taille / coeff, A.y - this.taille / coeff),
+          pointAbstrait(A.x - this.taille / coeff, A.y + this.taille / coeff),
+          pointAbstrait(A.x + this.taille / coeff, A.y - this.taille / coeff),
           this.color[0],
         )
         s2 = segment(
-          point(A.x - this.taille / coeff, A.y - this.taille / coeff),
-          point(A.x + this.taille / coeff, A.y + this.taille / coeff),
+          pointAbstrait(A.x - this.taille / coeff, A.y - this.taille / coeff),
+          pointAbstrait(A.x + this.taille / coeff, A.y + this.taille / coeff),
           this.color[0],
         )
         s1.epaisseur = this.epaisseur
@@ -92,7 +92,7 @@ export class TracePoint extends ObjetMathalea2D {
         s2.opacite = this.opacite
         objetssvg.push(s1, s2)
       } else if (this.style === 'o') {
-        p1 = point(A.x, A.y)
+        p1 = pointAbstrait(A.x, A.y)
         c = cercle(p1, this.taille / coeff, this.color[0])
         c.epaisseur = this.epaisseur
         c.opacite = this.opacite
@@ -100,8 +100,8 @@ export class TracePoint extends ObjetMathalea2D {
         c.opaciteDeRemplissage = this.opacite / 2
         objetssvg.push(c)
       } else if (this.style === '#') {
-        p1 = point(A.x - this.taille / coeff, A.y - this.taille / coeff)
-        p2 = point(A.x + this.taille / coeff, A.y - this.taille / coeff)
+        p1 = pointAbstrait(A.x - this.taille / coeff, A.y - this.taille / coeff)
+        p2 = pointAbstrait(A.x + this.taille / coeff, A.y - this.taille / coeff)
         c = carre(p1, p2, this.color[0]) as unknown as Polygone
         c.epaisseur = this.epaisseur
         c.opacite = this.opacite
@@ -113,13 +113,13 @@ export class TracePoint extends ObjetMathalea2D {
         objetssvg.push(c)
       } else if (this.style === '+') {
         s1 = segment(
-          point(A.x, A.y + this.taille / coeff),
-          point(A.x, A.y - this.taille / coeff),
+          pointAbstrait(A.x, A.y + this.taille / coeff),
+          pointAbstrait(A.x, A.y - this.taille / coeff),
           this.color[0],
         )
         s2 = segment(
-          point(A.x - this.taille / coeff, A.y),
-          point(A.x + this.taille / coeff, A.y),
+          pointAbstrait(A.x - this.taille / coeff, A.y),
+          pointAbstrait(A.x + this.taille / coeff, A.y),
           this.color[0],
         )
         s1.epaisseur = this.epaisseur
@@ -129,8 +129,8 @@ export class TracePoint extends ObjetMathalea2D {
         objetssvg.push(s1, s2)
       } else if (this.style === '|') {
         s1 = segment(
-          point(A.x, A.y + this.taille / coeff),
-          point(A.x, A.y - this.taille / coeff),
+          pointAbstrait(A.x, A.y + this.taille / coeff),
+          pointAbstrait(A.x, A.y - this.taille / coeff),
           this.color[0],
         )
         s1.epaisseur = this.epaisseur
@@ -155,12 +155,12 @@ export class TracePoint extends ObjetMathalea2D {
 
   tikz() {
     if (this.usePgfplots) {
-      const coords: Point[] = []
+      const coords: PointAbstrait[] = []
       for (const unPoint of this.points) {
         if (unPoint.typeObjet === 'point3d') {
           coords.push((unPoint as Point3d).c2d)
         } else {
-          coords.push(unPoint as Point)
+          coords.push(unPoint as PointAbstrait)
         }
       }
       if (coords.length === 0) return ''
@@ -219,13 +219,13 @@ export class TracePoint extends ObjetMathalea2D {
       if (this.style === 'x') {
         this.tailleTikz = this.taille / 16 // EE : Sinon, on ne voit pas la croix.
         s1 = segment(
-          point(A.x - this.tailleTikz, A.y + this.tailleTikz),
-          point(A.x + this.tailleTikz, A.y - this.tailleTikz),
+          pointAbstrait(A.x - this.tailleTikz, A.y + this.tailleTikz),
+          pointAbstrait(A.x + this.tailleTikz, A.y - this.tailleTikz),
           this.color[1],
         )
         s2 = segment(
-          point(A.x - this.tailleTikz, A.y - this.tailleTikz),
-          point(A.x + this.tailleTikz, A.y + this.tailleTikz),
+          pointAbstrait(A.x - this.tailleTikz, A.y - this.tailleTikz),
+          pointAbstrait(A.x + this.tailleTikz, A.y + this.tailleTikz),
           this.color[1],
         )
         s1.epaisseur = this.epaisseur / 1.6
@@ -234,7 +234,7 @@ export class TracePoint extends ObjetMathalea2D {
         s2.opacite = this.opacite
         objetstikz.push(s1, s2)
       } else if (this.style === 'o') {
-        p1 = point(A.x, A.y)
+        p1 = pointAbstrait(A.x, A.y)
         c = cercle(p1, this.tailleTikz, this.color[1])
         c.epaisseur = this.epaisseur
         c.opacite = this.opacite
@@ -242,8 +242,8 @@ export class TracePoint extends ObjetMathalea2D {
         c.opaciteDeRemplissage = this.opacite / 2
         objetstikz.push(c)
       } else if (this.style === '#') {
-        p1 = point(A.x - this.tailleTikz, A.y - this.tailleTikz)
-        p2 = point(A.x + this.tailleTikz, A.y - this.tailleTikz)
+        p1 = pointAbstrait(A.x - this.tailleTikz, A.y - this.tailleTikz)
+        p2 = pointAbstrait(A.x + this.tailleTikz, A.y - this.tailleTikz)
         c = carre(p2, p1, this.color[1]) as unknown as Polygone
         c.epaisseur = this.epaisseur
         c.opacite = this.opacite
@@ -255,13 +255,13 @@ export class TracePoint extends ObjetMathalea2D {
         objetstikz.push(c)
       } else if (this.style === '+') {
         s1 = segment(
-          point(A.x, A.y + this.tailleTikz),
-          point(A.x, A.y - this.tailleTikz),
+          pointAbstrait(A.x, A.y + this.tailleTikz),
+          pointAbstrait(A.x, A.y - this.tailleTikz),
           this.color[1],
         )
         s2 = segment(
-          point(A.x - this.tailleTikz, A.y),
-          point(A.x + this.tailleTikz, A.y),
+          pointAbstrait(A.x - this.tailleTikz, A.y),
+          pointAbstrait(A.x + this.tailleTikz, A.y),
           this.color[1],
         )
         s1.epaisseur = this.epaisseur
@@ -271,8 +271,8 @@ export class TracePoint extends ObjetMathalea2D {
         objetstikz.push(s1, s2)
       } else if (this.style === '|') {
         s1 = segment(
-          point(A.x, A.y + this.tailleTikz),
-          point(A.x, A.y - this.tailleTikz),
+          pointAbstrait(A.x, A.y + this.tailleTikz),
+          pointAbstrait(A.x, A.y - this.tailleTikz),
           this.color[1],
         )
         s1.epaisseur = this.epaisseur
@@ -296,7 +296,7 @@ export class TracePoint extends ObjetMathalea2D {
 }
 
 /**
- * @param  {(Point |PointCliquable| string)[]} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
+ * @param  {(PointAbstrait |PointCliquable| string)[]} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
  * @return  {TracePoint}
  * @example tracePoint(A,B,C,'red) // Trace les points A,B,C précédemment créés en rouge
  * @example tracePoint(A).style = '|' // Le style du point A sera '|' et non 'x' par défaut.
@@ -305,7 +305,7 @@ export class TracePoint extends ObjetMathalea2D {
  */
 
 export function tracePoint(
-  ...args: (PointAbstrait | Point | Point3d | string)[]
+  ...args: (PointAbstrait | PointAbstrait | Point3d | string)[]
 ) {
   return new TracePoint(...args)
 }
