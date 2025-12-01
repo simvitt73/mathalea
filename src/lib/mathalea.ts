@@ -578,7 +578,13 @@ export function mathaleaUpdateExercicesParamsFromUrl(
   let title = ''
   let iframe = ''
   let answers = ''
-  let recorder: 'capytale' | 'moodle' | 'labomep' | 'anki' | undefined
+  let recorder:
+    | 'capytale'
+    | 'moodle'
+    | 'labomep'
+    | 'anki'
+    | 'flowmath'
+    | undefined
   let done: '1' | undefined
   let es
   let presMode:
@@ -667,7 +673,8 @@ export function mathaleaUpdateExercicesParamsFromUrl(
           entry[1] === 'capytale' ||
           entry[1] === 'moodle' ||
           entry[1] === 'labomep' ||
-          entry[1] === 'anki'
+          entry[1] === 'anki' ||
+          entry[1] === 'flowmath'
         ) {
           recorder = entry[1]
         }
