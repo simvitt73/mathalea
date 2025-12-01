@@ -30,6 +30,7 @@
   } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import { vendor } from '../../../lib/stores/vendorStore'
+  import { handleFlowmath } from '../../../lib/handleFlowmath'
   import {
     isInteractivityType,
     isOldFormatInteractifType,
@@ -249,11 +250,11 @@
       $globalOptions.recorder === 'capytale' ||
       $globalOptions.recorder === 'moodle' ||
       $globalOptions.recorder === 'anki' ||
-      $globalOptions.recorder === 'labomep'
+      $globalOptions.recorder === 'labomep' ||
+      $globalOptions.recorder === 'flowmath'
     ) {
       // attend la fin de la mise à jour pour mettre l'observer
       await tick()
-
       /*
       Ce code est nécessaire seulement si coopmaths est intégré dans un autre site pour permettre de redimensionner la fenêtre
       */
@@ -273,6 +274,12 @@
       if (eleveSection != null) resizeObserver.observe(eleveSection)
     }
     log('fin mount eleve')
+
+    if ($globalOptions.recorder === 'flowmath') {
+      // Wait for exercises to be loaded before initializing RPC
+      await tick()
+      handleFlowmath(exercicesParams, resultsByExercice)
+    }
   })
 
   onDestroy(() => {
