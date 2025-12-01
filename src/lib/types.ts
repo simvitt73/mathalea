@@ -44,7 +44,7 @@ export interface InterfaceGlobalOptions {
   isTitleDisplayed?: boolean
   isInteractiveFree?: boolean
   oneShot?: boolean
-  recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki'
+  recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki' | 'flowmath'
   done?: '1' | '0' // pourquoi n'y a-t-il qu'une valeur possible ? à vérifier JC
   answers?: string
   iframe?: string
