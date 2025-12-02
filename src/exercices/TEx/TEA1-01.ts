@@ -14,7 +14,11 @@ export const refs = {
   'fr-fr': ['TEA1-01'],
   'fr-ch': [],
 }
+/**
+ *
+ * @author Stéphane Guyon
 
+*/
 export default class ExerciceCongruence extends Exercice {
   constructor() {
     super()
@@ -76,7 +80,5 @@ while (a >= -9 && a <= 9);
     listeQuestionsToContenu(this)
   }
 }
-function ecritureParentheseSiNegatif(q: number) {
-  throw new Error('Function not implemented.')
-}
+
 

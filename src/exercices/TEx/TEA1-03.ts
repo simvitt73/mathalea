@@ -13,10 +13,14 @@ export const dateDePublication = '26/11/2025'
 export const uuid = '87538'
 
 export const refs = {
-  'fr-fr': ['TEA1-04'],
+  'fr-fr': ['TEA1-03'],
   'fr-ch': [],
 }
+/**
+ *
+ * @author Stéphane Guyon
 
+*/
 // modulo positif
 function mod(n: number, k: number): number {
   return ((n % k) + k) % k
@@ -138,6 +142,4 @@ $${a}x \\equiv ${b} \\,[${k}]$.<br> `
     listeQuestionsToContenu(this)
   }
 }
-function rienSi1(a: number) {
-  throw new Error('Function not implemented.')
-}
+
