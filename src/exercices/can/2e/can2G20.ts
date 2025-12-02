@@ -229,7 +229,7 @@ $m=\\dfrac{${miseEnEvidence(deltaY, 'blue')}}{${miseEnEvidence(deltaX, 'red')}}$
           this.distracteurs = [
             `$y= ${rienSi1(maFraction.multiplieEntier(-1).valeurDecimale)}x${ecritureAlgebrique(yA)}$`, // Coefficient opposé
             `$y=${yA}$`, // Droite horizontale (erreur)
-            `$y= ${rienSi1(yA)}x${ecritureAlgebrique(yA)}$`, // Fraction inversée
+            `$y= ${rienSi1(yA)}x${ecritureAlgebrique(-yA)}$`, // Fraction inversée
           ]
         } else {
           this.distracteurs = [
