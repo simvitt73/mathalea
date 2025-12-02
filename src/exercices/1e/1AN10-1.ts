@@ -103,7 +103,7 @@ export default class Tauxvariation extends Exercice {
       const Q2 = `En déduire que $f$ est dérivable en $${a}$ et déterminer $f'(${a})$.`
       const IntroCorrection = `Pour déterminer le taux de variation de $f$ entre $${a}$ et $${a}+h$, on applique la définition (avec $h\\neq 0$) :<br>`
       const Conclusion =
-        'Comme la limite existe, on peut en conclure que $f$ est dérivable en '
+        'Comme la limite existe et est finie, on peut en conclure que $f$ est dérivable en '
       // Textes communs pour la correction détaillée
       const texteDef = `\\text{Définition du taux de variation}`
       const texteDev = `\\text{Développement au numérateur}`
