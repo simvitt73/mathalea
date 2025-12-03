@@ -3,8 +3,10 @@ import { tick } from 'svelte'
 import { get } from 'svelte/store'
 
 import type { Activity, InterfaceResultExercice } from '../lib/types'
-import { mathaleaWriteStudentPreviousAnswers } from './mathalea'
-import { mathaleaGoToView } from './mathaleaUtils'
+import {
+  mathaleaGoToView,
+  mathaleaWriteStudentPreviousAnswers,
+} from './mathaleaUtils'
 
 import { canOptions as canOptionsStore } from './stores/canStore'
 import {
@@ -43,8 +45,9 @@ export let answersFromCapytale: InterfaceResultExercice[] = []
 export let assignmentDataFromCapytale: AssignmentData = {}
 
 // timer pour ne pas lancer hasChanged trop souvent
-export let timerId: ReturnType<typeof setTimeout> | undefined
-export const firstTime = true
+let timerId: ReturnType<typeof setTimeout> | undefined
+let firstTime = true
+
 let currentMode: 'create' | 'assignment' | 'review' | 'view'
 
 /**
@@ -260,6 +263,22 @@ async function toolSetActivityParams({
         return l
       })
     }
+  }
+}
+
+export async function sendToCapytaleMathaleaHasChanged() {
+  if (firstTime) {
+    // attendre 1 seconde
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    firstTime = false
+    return
+  }
+  // On ne prévient Capytale qu'une fois toutes les demi-secondes
+  if (timerId === undefined) {
+    timerId = setTimeout(() => {
+      rpc.call('hasChanged', {})
+      timerId = undefined
+    }, 500)
   }
 }
 
