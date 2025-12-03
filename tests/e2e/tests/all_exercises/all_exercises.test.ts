@@ -482,7 +482,7 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   }
 } else {
   // testRunAllLots('2e/2F22-1')
-  testRunAllLots('5e/5M11-5')
+  testRunAllLots('6e/6N3H-1')
   // testRunAllLots('4e/4G52')
 
   // testRunAllLots('techno1')
