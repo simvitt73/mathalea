@@ -510,7 +510,7 @@ export function mathaleaRenderDiv(
   }
 }
 
-function renderKatex(element: HTMLElement) {
+export function renderKatex(element: HTMLElement) {
   renderMathInElement(element, {
     delimiters: [
       { left: '\\[', right: '\\]', display: true },
