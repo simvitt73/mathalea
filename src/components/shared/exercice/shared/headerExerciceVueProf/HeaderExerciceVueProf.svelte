@@ -138,7 +138,7 @@
       {#key titleAddendum}
         <div
           id="exotitle-{indiceExercice}"
-          class="flex items-center text-sm md:text-base xl:text-lg pl-0
+          class="flex items-center gap-x-1 text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
         >
           {titleBase}
