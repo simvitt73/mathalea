@@ -203,6 +203,9 @@
   "canTSpeE": {
     "titre": "Espace"
   },
+  "canTSpeP": {
+    "titre": "Probabilités"
+  },
   "canExa": {
     "titre": "Sujets (annales/créations)"
   },
