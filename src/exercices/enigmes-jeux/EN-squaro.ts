@@ -8,7 +8,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import { randint } from '../../modules/outils'
-import ExerciceSimple from '../Exercice'
+import Exercice from '../Exercice'
 import bluePoint from './svg/blueCirclePoint.svg'
 import redPoint from './svg/redPoint.svg'
 
@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': [],
 }
 
-class squaro extends ExerciceSimple {
+class squaro extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
@@ -42,10 +42,8 @@ class squaro extends ExerciceSimple {
     super()
     this.goodAnswers = []
     this.nbSommets = []
-    this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.reponse = ''
 
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
@@ -143,7 +141,8 @@ class squaro extends ExerciceSimple {
     const drawRedPoint = () => {
       this.figure.options.shape = 'x'
       this.figure.options.color = 'red'
-      this.figure.ui?.send({ type: 'POINT' })
+      //this.figure.ui?.send({ type: 'POINT' })
+      this.figure.ui?.send('POINT')
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {
@@ -327,9 +326,10 @@ class squaro extends ExerciceSimple {
       this.figure.divUserMessage.style.display = 'none'
     }
 
-    const texteCorr = 'Voici une solution possible :<br>'
-    this.question = (this.sup3 ? enonce : '') + emplacementPourFigure
-    this.correction = texteCorr + this.figureCorrection.getStaticHtml()
+    let texteCorr =
+      'Voici une solution possible :<br>' +
+      this.figureCorrection.getStaticHtml()
+    let texte = (this.sup3 ? enonce : '') + emplacementPourFigure
 
     if (!context.isHtml) {
       let persoSquaro = ''
@@ -338,16 +338,18 @@ class squaro extends ExerciceSimple {
       }
       persoSquaro += codagePoints[codagePoints.length - 1]
 
-      this.question =
+      texte =
         (this.sup3 ? '<br>' + enonce : '') +
         `<br><br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso]{`
-      this.question += persoSquaro
-      this.question += '}'
+      texte += persoSquaro
+      texte += '}'
 
-      this.correction = `Voici une solution possible :<br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso,Solution]{`
-      this.correction += persoSquaro
-      this.correction += '}'
+      texteCorr = `Voici une solution possible :<br>\\SquarO[Largeur=${this.largeur},Longueur=${this.longueur},Perso,Solution]{`
+      texteCorr += persoSquaro
+      texteCorr += '}'
     }
+    this.listeQuestions.push(texte)
+    this.listeCorrections.push(texteCorr)
   }
 
   correctionInteractive = () => {
