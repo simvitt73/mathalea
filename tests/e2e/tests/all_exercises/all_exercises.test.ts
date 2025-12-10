@@ -11,6 +11,7 @@ beforeAll(() => {
       return { x: 0, y: 0, width: 0, height: 0 }
     }
   }
+  window.matchMedia = vi.fn().mockReturnValue({ matches: false })
 })
 
 vi.mock('../../../../src/lib/3d/3d_dynamique/Canvas3DElement', () => ({
@@ -302,7 +303,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
             ]
               .map(String)
               .join(':')
-            // log(signature)
+            // log('sig:' + signature)
             const c = mockConsole()
             try {
               exercice.nouvelleVersionWrapper()
@@ -325,14 +326,25 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
               )
             }
             if (c.logs.log.length > 0) {
-              logError(
-                `logs for exercice ${exercice.uuid} with signature ${signature}:`,
-                c.logs.log,
+              const filtered = c.logs.log.filter(
+                (msg) =>
+                  !msg.filter((item) =>
+                    String(item)
+                      .toLowerCase()
+                      .includes('figure destroyed successfully'),
+                  ),
               )
-              logError(
-                `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
-                createURL(exercice),
-              )
+              c.logs.log = filtered
+              if (filtered.length > 0) {
+                logError(
+                  `logs for exercice ${exercice.uuid} with signature ${signature}:`,
+                  filtered,
+                )
+                logError(
+                  `URL: for exercice ${exercice.uuid} with signature ${signature}:`,
+                  createURL(exercice),
+                )
+              }
             }
             if (c.logs.warn.length > 0) {
               logError(
