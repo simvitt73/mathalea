@@ -19,9 +19,9 @@ export const refs = {
   'fr-ch': [],
 }
 export default class LeCompteEstBonV3 extends Exercice {
-  constructor(maxSolution) {
+  constructor() {
     super()
-    this.besoinFormulaireNumerique = ['Limite inférieure', maxSolution ?? 100]
+    this.besoinFormulaireNumerique = ['Limite inférieure', 100]
     this.besoinFormulaire2Numerique = ['Limite supérieure', 100]
     this.consigne =
       'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
