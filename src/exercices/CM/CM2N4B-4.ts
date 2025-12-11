@@ -118,6 +118,7 @@ export default class CompteEstBon extends Exercice {
           }
           break
         case 3:
+        default:
           a = randint(2, 5)
           b = randint(3, 8, a)
           c = randint(3, 9, [a, b])
