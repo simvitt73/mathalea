@@ -20,6 +20,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'Lier nombre décimal, fraction spécifique et pourcentage'
 export const dateDePublication = '04/06/2025'
+export const dateDeModifImportante = '12/12/2025'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -170,16 +171,19 @@ export default class DecimalFractionPourcentage extends Exercice {
         tabLinesCorr: nbDecimalCorrNu
           .concat(fractionDecimaleCorrNu)
           .concat(pourcentageCorrNu),
-        enonce: `${tableauColonneLigne([], 
-          ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], 
+        enonce: `${tableauColonneLigne(
+          [],
+          ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'],
           nbDecimal.concat(fractionDecimale).concat(pourcentage),
-        2.5,
-        true
-      )}`,
-        correction: `${tableauColonneLigne([], ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'], 
+          2.5,
+          true,
+        )}`,
+        correction: `${tableauColonneLigne(
+          [],
+          ['\\text{Nombre décimal}', '\\text{Fraction}', '\\text{Pourcentage}'],
           nbDecimalCorr.concat(fractionDecimaleCorr).concat(pourcentageCorr),
-        2.5,
-        true
+          2.5,
+          true,
         )}`,
       })
       let objetReponse = {}
@@ -242,7 +246,7 @@ export default class DecimalFractionPourcentage extends Exercice {
       }
       texteCorr = `${enonces[0].correction}`
 
-      if (this.questionJamaisPosee(i, JSON.stringify(objetReponse))) {
+      if (this.questionJamaisPosee(i, texteCorr)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
