@@ -48,10 +48,12 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
       'Indiquer que la calculatrice est autorisée',
     ]
     this.sup = 1
+    this.sup = 1
     this.sup2 = 1
     this.sup3 = 1
     this.sup4 = false
     this.sup5 = true
+    this.correctionDetailleeDisponible
     this.correctionDetailleeDisponible
   }
 
@@ -60,7 +62,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     if (this.sup5) {
       this.consigne += ' La calculatrice est autorisée.'
     }
-    this.sup = contraindreValeur(1, 3, this.sup, 1)
+    this.sup = contraindreValeur(1, 4, this.sup, 1)
     this.sup2 = contraindreValeur(1, 3, this.sup2, 1)
     this.sup3 = contraindreValeur(0, 3, this.sup3, 1)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
@@ -72,12 +74,11 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
         randint(10 ** (this.sup2 - 1), 10 ** this.sup2 - 1) /
           10 ** randint(0, this.sup2),
         0,
+        0,
       )
       let decimal = 0
-      let decimalDivision = 0
       if (this.sup3 === 0) {
         decimal = 0
-        decimalDivision = 0
       } else {
         decimalDivision = randint(0, this.sup3)
         decimal = Math.ceil(
