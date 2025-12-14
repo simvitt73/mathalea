@@ -30,17 +30,17 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
 
     this.besoinFormulaireNumerique = [
       'Longueur maximale de la période',
-      4,
-      '1\n2\n3\n4',
+      1,
+      '1\n2\n3',
     ]
     this.besoinFormulaire2Numerique = [
       'Nombre de chiffres maximum dans la partie entière',
-      3,
+      1,
       '1\n2\n3',
     ]
     this.besoinFormulaire3Numerique = [
       'Nombre de chiffres maximum dans la partie décimale (hors période)',
-      3,
+      1,
       '0\n1\n2\n3',
     ]
     this.besoinFormulaire4CaseACocher = ['Partie entière égale à 0']
@@ -60,7 +60,7 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
     if (this.sup5) {
       this.consigne += ' La calculatrice est autorisée.'
     }
-    this.sup = contraindreValeur(1, 4, this.sup, 1)
+    this.sup = contraindreValeur(1, 3, this.sup, 1)
     this.sup2 = contraindreValeur(1, 3, this.sup2, 1)
     this.sup3 = contraindreValeur(0, 3, this.sup3, 1)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
@@ -74,18 +74,30 @@ export default class NombrePeriodiqueVersFraction extends Exercice {
         0,
       )
       let decimal = 0
+      let decimalDivision = 0
       if (this.sup3 === 0) {
         decimal = 0
+        decimalDivision = 0
       } else {
+        decimalDivision = randint(0, this.sup3)
         decimal = Math.ceil(
           randint(10 ** (this.sup3 - 1), 10 ** this.sup3 - 1) /
-            10 ** randint(0, this.sup3),
+            10 ** decimalDivision,
         )
       }
       if (this.sup4 === true) {
         entier = 0
       }
-      const nombrePerio = new NombrePeriodique(entier, decimal, periode)
+      // Déterminer si le decimal contient un 0 en première position
+      const contient0PremierePosition =
+        decimal > 0 && this.sup3 > decimal.toString().length
+      const nombrePerio = new NombrePeriodique(
+        entier,
+        decimal,
+        periode,
+        contient0PremierePosition,
+      )
+
       let texte = ''
       let texteCorr = ''
 
