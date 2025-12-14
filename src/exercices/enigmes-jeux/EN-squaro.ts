@@ -141,8 +141,7 @@ class squaro extends Exercice {
     const drawRedPoint = () => {
       this.figure.options.shape = 'x'
       this.figure.options.color = 'red'
-      //this.figure.ui?.send({ type: 'POINT' })
-      this.figure.ui?.send('POINT')
+      this.figure.ui?.send({ type: 'POINT' })
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {
@@ -215,14 +214,14 @@ class squaro extends Exercice {
           text: nbPoints.toString(),
           x: i + 0.5,
           y: this.largeur - j - 0.5,
-          isDeletable: false
+          isDeletable: false,
         })
         this.figureCorrection.create('TextByPosition', {
           anchor: 'middleCenter',
           text: nbPoints.toString(),
           x: i + 0.5,
           y: this.largeur - j - 0.5,
-          isDeletable: false
+          isDeletable: false,
         })
       }
     }
