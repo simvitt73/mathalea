@@ -89,11 +89,11 @@ export default class LoiBinomialeUrne extends Exercice {
         texte +=
           numAlpha(0) +
           ' Déterminer la loi de probabilité suivie par la variable aléatoire $X$.<br>'
-        //let texteCorr = `${texteGras('1. Déterminer la loi de probabilité suivie par la variable aléatoire $X$.<br>')}`
+        // let texteCorr = `${texteGras('1. Déterminer la loi de probabilité suivie par la variable aléatoire $X$.<br>')}`
         let texteCorr = ''
         texteCorr +=
           numAlpha(0) +
-          `Les tirages sont identiques et indépendants puisqu'un tirage est effectué avec remise.<br>
+          `Les tirages sont identiques et indépendants puisque chaque tirage est effectué avec remise.<br>
       Il y a ${r} boules rouges pour un total de ${r + b} boules dans l'urne.<br>
       La probabilité d'obtenir une boule rouge lors d'un tirage est donc $p = ${p.texFractionSimplifiee}$ .<br>
       Si on appelle succès le fait d'obtenir une boule rouge, l'expérience consiste à répéter ${n} fois une épreuve de Bernoulli de paramètre $p = ${p.texFractionSimplifiee}$.`
@@ -104,17 +104,17 @@ export default class LoiBinomialeUrne extends Exercice {
           texte += numAlpha(j + 1)
           texteCorr += numAlpha(j + 1)
           switch (typesDeQuestionsDisponibles[j]) {
-            case 1:
+            case 1:{
               texte += 'Calculer $P(X=0)$ et en déduire $P(X>0)$.<br>'
               // texteCorr += `${texteGras('2. Calculer $P(X=0)$ puis $P(X>0)$.<br>')}`
               const reponseNum0 = arrondi(Xzero.valeurDecimale, 2)
               const reponseNum1 = arrondi(1 - Xzero.valeurDecimale, 2)
               texteCorr += `On sait que la probabilité d'avoir $k$ succès quand $X$ suit une loi binomiale de paramètre $n$ et $p$ est :<br>
-      $p(X=k)=\\displaystyle\\binom{n}{k}\\times p^k\\times (1-p)^{n-k}$.<br> 
-      ce qui donne dans notre situation : $p(X=k)=\\displaystyle\\binom{${n}}{k}\\times \\left(${p.texFractionSimplifiee}\\right)^k\\times \\left(${q.texFractionSimplifiee}\\right)^{${n}-k}\\quad$ (pour $0\\leqslant k\\leqslant ${n}$).<br> 
-      Pour $k=0$, on a $P(X=0) = \\displaystyle\\binom{${n}}{0}\\times \\left(${p.texFractionSimplifiee}\\right)^0\\times \\left(${q.texFractionSimplifiee}\\right)^{${n}}$.
-      <br>Par calcul, on obtient que $P(X=0)\\approx ${miseEnEvidence(texNombre(reponseNum0))}$.<br>`
-              texteCorr += `Et comme $P(X>0) = 1 - P(X=0)$, on en déduit que $P(X>0) \\approx ${miseEnEvidence(texNombre(reponseNum1))}$.<br>`
+      $\\mathrm{P}(X=k)=\\displaystyle\\binom{n}{k}\\times p^k\\times (1-p)^{n-k}$.<br> 
+      ce qui donne dans notre situation : $\\mathrm{P}(X=k)=\\displaystyle\\binom{${n}}{k}\\times \\left(${p.texFractionSimplifiee}\\right)^k\\times \\left(${q.texFractionSimplifiee}\\right)^{${n}-k}\\quad$ (pour $0\\leqslant k\\leqslant ${n}$).<br> 
+      Pour $k=0$, on a $\\mathrm{P}(X=0) = \\displaystyle\\binom{${n}}{0}\\times \\left(${p.texFractionSimplifiee}\\right)^0\\times \\left(${q.texFractionSimplifiee}\\right)^{${n}}$.
+      <br>Par calcul, on obtient que $\\mathrm{P}(X=0)\\approx ${miseEnEvidence(texNombre(reponseNum0))}$.<br>`
+              texteCorr += `Et comme $\\mathrm{P}(X>0) = 1 - \\mathrm{P}(X=0)$, on en déduit que $\\mathrm{P}(X>0) \\approx ${miseEnEvidence(texNombre(reponseNum1))}$.<br>`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(
                   this,
@@ -148,8 +148,8 @@ export default class LoiBinomialeUrne extends Exercice {
                 })
               }
               indiceInteractif = indiceInteractif + 2
-              break
-            case 2:
+            }break
+            case 2:{
               texte += `Calculer $P(X=${k})$.<br>`
               // texteCorr += `${texteGras(`3. Calculer $P(X=${k})$.<br>`)}`
               texteCorr += `On sait que  $P(X=${k}) = \\displaystyle\\binom{${n}}{${k}}\\times \\left(${p.texFractionSimplifiee}\\right)^{${k}}\\times \\left(${q.texFractionSimplifiee}\\right)^{${n - k}}$.<br>`
@@ -176,14 +176,14 @@ export default class LoiBinomialeUrne extends Exercice {
                 })
               }
               indiceInteractif++
-              break
-            default:
+            }break
+            default:{
               // texte += "Calculer l'espérance $E(X)$ et interpréter ce résultat."
-              texte += "Calculer l'espérance $E(X)$.<br>"
+              texte += "Calculer l'espérance $\\mathrm{E}(X)$.<br>"
               // texteCorr += `${texteGras("4. Calculer l'espérance $E(X)$ et interprétez ce résultat.<br>")}`
               const reponse = esp.texFractionSimplifiee
-              texteCorr += `On sait que l'espérance de $X \\sim \\mathcal B\\left(n\\,;\\,p\\right)$ est donnée par $E(X) = n\\,p $.
-      <br>On obtient donc $E(X)= ${n}\\times ${p.texFractionSimplifiee}$ et finalement $E(X) = ${miseEnEvidence(reponse)}$.<br>`
+              texteCorr += `On sait que l'espérance de $X \\sim \\mathcal B\\left(n\\,;\\,p\\right)$ est donnée par $\\mathrm{E}(X) = n\\,p $.
+      <br>On obtient donc $\\mathrm{E}(X)= ${n}\\times ${p.texFractionSimplifiee}$ et finalement $\\mathrm{E}(X) = ${miseEnEvidence(reponse)}$.<br>`
               texteApres = sp(5) + '(Saisir la valeur exacte.)'
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(
@@ -204,7 +204,8 @@ export default class LoiBinomialeUrne extends Exercice {
                 })
               }
               indiceInteractif++
-              break
+            }
+            break
           }
         }
 
