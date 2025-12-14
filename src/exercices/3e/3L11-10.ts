@@ -145,7 +145,7 @@ export default class TableDoubleDistributivite extends Exercice {
         // const NumEx = this.numeroExercice ? this.numeroExercice : 1
         // OM:  fonctionne pas
         const tabMathlive = AddTabDbleEntryMathlive.create(
-          this.numeroExercice,
+          this.numeroExercice ?? 0,
           3 * i,
           tableauVide,
           ` ${KeyboardType.clavierDeBaseAvecVariable}`,
