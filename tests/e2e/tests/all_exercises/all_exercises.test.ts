@@ -207,7 +207,13 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
       typeof exercice.besoinFormulaireNumerique[1] === 'number'
         ? exercice.besoinFormulaireNumerique[1]
         : parseInt(exercice.besoinFormulaireNumerique[1])
-    max = isNaN(max) ? 1 : max
+    if (isNaN(max)) {
+      window.notify(
+        `Exercice ${exercice.uuid} : besoinFormulaireNumerique[1] is NaN`,
+        { formulaire: exercice.besoinFormulaireNumerique },
+      )
+    }
+    max = isNaN(max) ? 2 : max
     for (let i = 0; i < max; i++) {
       sup[i] = i + 1
     }
@@ -237,7 +243,13 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
       typeof exercice.besoinFormulaire2Numerique[1] === 'number'
         ? exercice.besoinFormulaire2Numerique[1]
         : parseInt(exercice.besoinFormulaire2Numerique[1])
-    max = isNaN(max) ? 1 : max
+    if (isNaN(max)) {
+      window.notify(
+        `Exercice ${exercice.uuid} : besoinFormulaire2Numerique[1] is NaN`,
+        { formulaire: exercice.besoinFormulaire2Numerique },
+      )
+    }
+    max = isNaN(max) ? 2 : max
     for (let i = 0; i < max; i++) {
       sup2[i] = i + 1
     }
@@ -267,7 +279,13 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
       typeof exercice.besoinFormulaire3Numerique[1] === 'number'
         ? exercice.besoinFormulaire3Numerique[1]
         : parseInt(exercice.besoinFormulaire3Numerique[1])
-    max = isNaN(max) ? 1 : max
+    if (isNaN(max)) {
+      window.notify(
+        `Exercice ${exercice.uuid} : besoinFormulaire3Numerique[1] is NaN`,
+        { formulaire: exercice.besoinFormulaire3Numerique },
+      )
+    }
+    max = isNaN(max) ? 2 : max
     for (let i = 0; i <= max; i++) {
       sup3[i] = i + 1
     }
