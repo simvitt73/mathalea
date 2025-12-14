@@ -478,7 +478,7 @@ export default class CalculsHomothetie extends Exercice {
         legendeOhAi:
           !agrandissement || !kpositif
             ? texteSurSegmentDessus('$?$', figure.O, figure.hA, 'black', 0.6)
-            : texteSurArc('$?$', figure.hA, figure.O, 60, 'black', 0.3),
+            : texteSurArc('$?$', figure.hA, figure.O, 60, 'black', 0.3, true),
         legendeOBi:
           agrandissement || !kpositif
             ? texteSurSegmentDessus('$?$', figure.O, figure.B, 'black', 0.6)
@@ -486,7 +486,7 @@ export default class CalculsHomothetie extends Exercice {
         legendeOhBi:
           !agrandissement || !kpositif
             ? texteSurSegmentDessus('$?$', figure.O, figure.hB, 'black', 0.6)
-            : texteSurArc('$?$', figure.hB, figure.O, 60, 'black', 0.3),
+            : texteSurArc('$?$', figure.hB, figure.O, 60, 'black', 0.3, true),
       })
 
       let objetsEnonce = []

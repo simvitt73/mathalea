@@ -34,7 +34,7 @@ export class TexteSurArc extends ObjetMathalea2D {
     angle: number,
     color = 'black',
     d = 0.5,
-    horizontalite = 0,
+    horizontalite = false,
   ) {
     if (angle === undefined) angle = NaN
     super()
@@ -130,7 +130,7 @@ export function texteSurArc(
   angle: number,
   color = 'black',
   d = 0.5,
-  horizontalite = 0,
+  horizontalite = false,
 ) {
   return new TexteSurArc(texte, A, B, angle, color, d, horizontalite)
 }
