@@ -203,12 +203,13 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
     Array.isArray(exercice.besoinFormulaireNumerique) &&
     exercice.besoinFormulaireNumerique.length > 0
   ) {
-    const max =
+    let max =
       typeof exercice.besoinFormulaireNumerique[1] === 'number'
         ? exercice.besoinFormulaireNumerique[1]
         : parseInt(exercice.besoinFormulaireNumerique[1])
-    for (let i = 0; i <= max; i++) {
-      sup[i] = i
+    max = isNaN(max) ? 1 : max
+    for (let i = 0; i < max; i++) {
+      sup[i] = i + 1
     }
   } else if (exercice.besoinFormulaireCaseACocher) {
     sup[0] = true
@@ -232,12 +233,13 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
     Array.isArray(exercice.besoinFormulaire2Numerique) &&
     exercice.besoinFormulaire2Numerique.length > 0
   ) {
-    const max =
+    let max =
       typeof exercice.besoinFormulaire2Numerique[1] === 'number'
         ? exercice.besoinFormulaire2Numerique[1]
         : parseInt(exercice.besoinFormulaire2Numerique[1])
-    for (let i = 0; i <= max; i++) {
-      sup2[i] = i
+    max = isNaN(max) ? 1 : max
+    for (let i = 0; i < max; i++) {
+      sup2[i] = i + 1
     }
   } else if (exercice.besoinFormulaire2CaseACocher) {
     sup2[0] = true
@@ -261,12 +263,13 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
     Array.isArray(exercice.besoinFormulaire3Numerique) &&
     exercice.besoinFormulaire3Numerique.length > 0
   ) {
-    const max =
+    let max =
       typeof exercice.besoinFormulaire3Numerique[1] === 'number'
         ? exercice.besoinFormulaire3Numerique[1]
         : parseInt(exercice.besoinFormulaire3Numerique[1])
+    max = isNaN(max) ? 1 : max
     for (let i = 0; i <= max; i++) {
-      sup3[i] = i
+      sup3[i] = i + 1
     }
   } else if (exercice.besoinFormulaire3CaseACocher) {
     sup3[0] = true

@@ -80,13 +80,21 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion() {
     this.figuresApiGeom.forEach((fig) => {
-      if (fig instanceof Figure) {
+      if (
+        fig instanceof Figure &&
+        'destroy' in fig &&
+        typeof fig.destroy === 'function'
+      ) {
         fig.destroy()
       }
     })
     this.figuresApiGeom = []
     this.figuresApiGeomCorr.forEach((fig) => {
-      if (fig instanceof Figure) {
+      if (
+        fig instanceof Figure &&
+        'destroy' in fig &&
+        typeof fig.destroy === 'function'
+      ) {
         fig.destroy()
       }
     })
