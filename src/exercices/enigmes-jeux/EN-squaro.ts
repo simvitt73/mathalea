@@ -215,12 +215,14 @@ class squaro extends Exercice {
           text: nbPoints.toString(),
           x: i + 0.5,
           y: this.largeur - j - 0.5,
+          isDeletable: false
         })
         this.figureCorrection.create('TextByPosition', {
           anchor: 'middleCenter',
           text: nbPoints.toString(),
           x: i + 0.5,
           y: this.largeur - j - 0.5,
+          isDeletable: false
         })
       }
     }

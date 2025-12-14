@@ -407,6 +407,7 @@ export default class shikaku extends Exercice {
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
         this.figure.create('TextByPosition', {
+          isDeletable: false,
           anchor: 'middleCenter',
           text: newGrid[this.largeur - j - 1][i].value.toString(),
           //  x: i + 0.5,
