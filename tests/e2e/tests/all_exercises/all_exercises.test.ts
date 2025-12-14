@@ -44,9 +44,8 @@ vi.mock('apigeom', async (original) => {
   return real
 })
 
-const { mathaleaLoadExerciceFromUuid } = await import(
-  '../../../../src/lib/mathalea'
-)
+const { mathaleaLoadExerciceFromUuid } =
+  await import('../../../../src/lib/mathalea')
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
