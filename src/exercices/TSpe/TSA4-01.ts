@@ -13,6 +13,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { signe } from '../../lib/outils/nombres'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -23,7 +24,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Travailler un sujet de synthèse avec lafonction exponentielle."
+export const titre = "Travailler un sujet de synthèse avec la fonction exponentielle."
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '18/12/2025'
@@ -85,7 +86,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const fAff = new Polynome({ coeffs: [b, a] })
       const questions: string[] = []
       const corrections: string[] = []
-      const sommet = new FractionEtendue(a+m*b,a*m)
+      const sommet = new FractionEtendue(a+m*b,-a*m)
       if (this.questionJamaisPosee(i, a, b, m)) {
         const texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}.$<br>`
         let indiceInteractif = 0
@@ -101,42 +102,37 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               let corrMoins = ''
 
               if (m > 0) {
-                 corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(a,)}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${m}x}=+\\infty$, donc $\\displaystyle\\lim_{x \\to +\\infty} f(x) = ${signe(
-                  a,)}\\infty$.`
+                 corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(a,)}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${m}x}=+\\infty$, donc par produit, $\\displaystyle\\lim_{x \\to +\\infty} f(x) = ${signe(
+                  a,)}\\infty$.<br>`
                 corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(-a)}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${m}x}= 0$. <br>On reconnaît une forme indéterminée $${signe(-a)}\\infty \\times 0$.<br>
-                Pour la lever, on écrit : <br>
+                Pour la lever, on développe : <br>
                 $\\begin{aligned}
                 f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\
-                  &=${a}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
-                &=\\dfrac{1}{${m}}\\times${a} \\times${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}${ecritureAlgebriqueSauf1(b,)}\\mathrm{e}^{${m}x}
+                  &=${rienSi1(a)}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
+                &=\\dfrac{1}{${m}}\\times${ecritureParentheseSiNegatif(a)} \\times${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}${ecritureAlgebriqueSauf1(b,)}\\mathrm{e}^{${m}x}
                 \\end{aligned}$ <br>
-                 On sait avec les croissances comparées que $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^X=0$ , donc $\\displaystyle\\lim_{X\\to -\\infty}${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}=0$
-                 et $\\displaystyle\\lim_{x\\to -\\infty} \\mathrm{e}^{${m}x}=0$, donc $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
+                 On sait, avec les croissances comparées, que $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^X=0$ , donc par composition, $\\displaystyle\\lim_{x\\to -\\infty}${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}=0.$<br>
+                 Comme $\\displaystyle\\lim_{x\\to -\\infty} \\mathrm{e}^{${m}x}=0$, alors par somme $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
               } else if (m < 0) {
                 corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(
                   a,
                 )}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${m}x}= 0$.<br>
                 On reconnaît une forme indéterminée $${signe(a)}\\infty \\times 0$.<br>
-                Pour la lever, on écrit : <br>
+                Pour la lever, on développe : <br>
                 $\\begin{aligned}
                 f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\
-                  &=${a}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
+                  &=${rienSi1(a)}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
                 &=\\dfrac{1}{${m}}\\times${ecritureParentheseSiNegatif(a)} \\times${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}${ecritureAlgebriqueSauf1(
                   b,
                 )}\\mathrm{e}^{${m}x}
                 \\end{aligned}$ <br>
                 Avec les croissances comparées, on sait que $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^X=0$. <br>
-               donc $\\displaystyle\\lim_{x\\to -\\infty}${m}x\\mathrm{e}^{${m}x}=0$
-                 et $\\displaystyle\\lim_{x\\to -\\infty} \\mathrm{e}^{${m}x}=0$, donc $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
+               donc par composition, $\\displaystyle\\lim_{x\\to +\\infty}${m}x\\mathrm{e}^{${m}x}=0.$<br>
+                 Comme $\\displaystyle\\lim_{x\\to +\\infty} \\mathrm{e}^{${m}x}=0$, alors par somme $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
                 corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(
                   -a,
-                )}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${m}x}= +\\infty$ donc $\\displaystyle\\lim_{x \\to -\\infty} f(x) = ${signe(-a)}\\infty$.`
-              } else {
-                corrPlus =
-                  '$m=0$ donc $f$ est affine : $\\lim_{x \\to +\\infty} f(x)=+\\infty$.'
-                corrMoins =
-                  '$m=0$ donc $f$ est affine : $\\lim_{x \\to -\\infty} f(x)=-\\infty$.'
-              }
+                )}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${m}x}= +\\infty$ donc par produit $\\displaystyle\\lim_{x \\to -\\infty} f(x) = ${signe(-a)}\\infty$.`
+              } 
 
               question +=
                 ' Étudier les limites de la fonction $f$ en $+\\infty$ et $-\\infty$.<br>' 
@@ -169,11 +165,11 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               correction += `Pour calculer la dérivée de la fonction $f$, on utilise la règle du produit :<br>
       Si $f = uv$, alors $f' = u' v + u v'$.<br>
       Ici, on a $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${m}x}$.<br>
-      Donc, $u'(x) = ${a}$ et $v'(x) = ${m} \\times \\mathrm{e}^{${m}x}$.<br>
+      Donc :  $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${m}x}$.<br>
       On obtient :<br>
       $\\begin{aligned}
-      f'(x) &= ${a} \\mathrm{e}^{${m}x} + (${reduireAxPlusB(a, b)})  (${m}  \\mathrm{e}^{${m}x})\\\\
-      &=  \\mathrm{e}^{${m}x} \\left(${a} + ${m} \\times (${reduireAxPlusB(a, b)})\\right)\\\\
+      f'(x) &= ${rienSi1(a)} \\mathrm{e}^{${m}x} + (${reduireAxPlusB(a, b)})  (${m}  \\mathrm{e}^{${m}x})\\\\
+      &=  \\mathrm{e}^{${m}x} \\left(${a} ${ecritureAlgebriqueSauf1(m)} (${reduireAxPlusB(a, b)})\\right)\\\\
       &=\\mathrm{e}^{${m}x}  \\left( ${a*m}x${ecritureAlgebrique(a+m*b)} \\right)
       \\end{aligned}$.<br>`
      
@@ -200,15 +196,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               question += `Étudier les variations de la fonction $f$.<br>`
               correction += `Pour étudier les variations de la fonction $f$, on analyse le signe de sa dérivée $f'(x)$.<br>
       On a $f'(x) = \\mathrm{e}^{${m}x}  \\left( ${a*m}x${ecritureAlgebrique(a+m*b)} \\right)$.<br>
-      Comme pour tout $x\\in\\mathbb{R}$, $\\mathrm{e}^{${m}x}>0$, le signe de $f'(x)$ dépend du signe de $${a*m}x${ecritureAlgebrique(a+m*b)}$.<br>
-     On résout <br>`
+      Pour tout $x\\in\\mathbb{R}$, $\\mathrm{e}^{${m}x}>0$. <br>On étudie le signe de $${a*m}x${ecritureAlgebrique(a+m*b)}$.`
+
      
       if (a*m>0) {
      correction += `<br>$\\begin{aligned}
-     f'(x)&>0\\\\
-     ${a*m}x${ecritureAlgebrique(a+m*b)}&>0\\\\
-     x&>${sommet.texFraction}\\\\
-     x&>${sommet.texFractionSimplifiee}
+    &${a*m}x${ecritureAlgebrique(a+m*b)}>0\\\\
+     \\iff x&>${sommet.texFraction}\\\\
+     \\iff x&>${sommet.texFractionSimplifiee}
      \\end{aligned}$, <br>
      $f$ est donc croissante quand $x>${sommet.texFractionSimplifiee}$<br>`}
      else if (a*m<0) {
