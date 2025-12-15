@@ -64,11 +64,7 @@ export default class EcrireEntierSousFormeDeFraction extends Exercice {
         figure,
         isDynamic: true,
       })
-      // Pourquoi cette instruction ? ça fait planter l'exo.
-      /* if (figure.ui) {
-        figure.ui.send('', { type: 'FILL' })
-      }
-        */
+      if (figure.ui) figure.ui.send({ type: 'FILL' })
     } else {
       this.introduction = ''
     }
