@@ -322,7 +322,7 @@ $\\lim\\limits_{h \\rightarrow 0} ${2 * a + b}+h=${2 * a + b}$<br>
           const poly6 = new Trinome(coefA, b, c)
           const valeurEnA6 = coefA * a * a + b * a + c
           const valeurEnAh6 = `(${rienSi1(coefA)}(${a}+h)^2${b === 0 ? `` : `${ecritureAlgebriqueSauf1(b)}(${a}+h)`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`})`
-          const developpementAh6 = `${rienSi1(coefA)}${ecritureParentheseSiNegatif(a)}^2${ecritureAlgebrique(2 * coefA * a)} h${ecritureAlgebriqueSauf1(coefA)}h^2${b === 0 ? `` : `${ecritureAlgebrique(b * a)}${ecritureAlgebriqueSauf1(b)}h`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`}`
+          const developpementAh6 = `${rienSi1(coefA)}\\times${ecritureParentheseSiNegatif(a)}^2${ecritureAlgebrique(2 * coefA * a)} h${ecritureAlgebriqueSauf1(coefA)}h^2${b === 0 ? `` : `${ecritureAlgebrique(b * a)}${ecritureAlgebriqueSauf1(b)}h`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`}`
           const simplificationAh6 = `${coefA * a * a}${ecritureAlgebrique(2 * coefA * a)}h${ecritureAlgebriqueSauf1(coefA)}h^2${b === 0 ? `` : `${ecritureAlgebrique(b * a)}${ecritureAlgebriqueSauf1(b)}h`}${c === 0 ? `` : `${ecritureAlgebrique(c)}`}`
           const reductionNum6 = `${rienSi1(2 * coefA * a + b)}h${ecritureAlgebriqueSauf1(coefA)}h^2`
           const factorisation6 = `h(${2 * coefA * a + b}${ecritureAlgebriqueSauf1(coefA)}h)`
