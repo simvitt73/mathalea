@@ -40,11 +40,12 @@ export function RedactionPythagore(
   $\\begin{aligned}`
   if (rechercheHypotenuse === 1 || rechercheHypotenuse === 2)
     texte += `${B + C}^2&=${A + B}^2+${A + C}^2\\\\`
-  else
+  else {
     texte += `${miseEnEvidence(
-      `${B + C}^2&=${A + B}^2+${A + C}^2`,
+      `${B + C}^2=${A + B}^2+${A + C}^2`,
       couleurReponse,
     )}\\\\`
+  }
   if (rechercheHypotenuse === 1) {
     texte += `${B + C}^2&=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2\\\\`
     texte += `${B + C}^2&=${texNombre(AB ** 2)}+${texNombre(AC ** 2)}\\\\`
