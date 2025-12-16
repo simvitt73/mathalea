@@ -22,6 +22,7 @@ import {
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
+import TableauSignes from '../can/2e/can2F06'
 import Exercice from '../Exercice'
 
 export const titre = "Travailler un sujet de synthèse avec la fonction exponentielle."
@@ -214,20 +215,30 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       x&<${sommet.texFractionSimplifiee}
       \\end{aligned}$, <br>
       $f$ est donc croissante quand $x<${sommet.texFractionSimplifiee}$<br><br>`}
- 
+ correction += TableauSignes
  correction +=   tableauDeVariation({
                 tabInit: [
-                  [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 1.5, 40],
-                    [`$f(x)$`, 4, 40],
-                  ],
+                  [['$x$', 1.5, 40],[`$f(x)$`, 4, 40]],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                   [`$-\\infty$`, 30, `$${sommet.texFractionSimplifiee}$`, 10, `$+\\infty$`, 30],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [
                   [
+          'Line',
+          30,
+          '',
+          10,
+          '-',
+          10,
+          'z',
+          10,
+          '-',
+          10,
+          'z',
+          10,
+          '-',
+        ],[
                     'Var',
                     20,
                     `-/`,
