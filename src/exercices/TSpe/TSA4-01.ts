@@ -92,6 +92,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
         (a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),
         2,
       )
+          const sommetConvexite = new FractionEtendue(-m*(2*a+m*b),a*m*m)
       if (this.questionJamaisPosee(i, a, b, m)) {
         const texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$<br>`
         let indiceInteractif = 0
@@ -235,8 +236,8 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 colorBackground: '',
                 espcl: 4, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 2.5, // taille de la première colonne en cm
-                hauteurLignes: [15, 15, 15],
+                lgt: 3.5, // taille de la première colonne en cm
+                hauteurLignes: [30, 30, 30],
               })
            correction +=`avec $f\\left(${sommet.texFractionSimplifiee}\\right) \\approx ${texNombre(extremum)}$.<br>`
      
@@ -246,17 +247,53 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
             case 4:
               question += `Soit $f''$ la dérivée de la fonction $f'$. <br>
               On donne, pour tout $x\\in\\mathbb{R}, f''(x) = \\mathrm{e}^{${rienSi1(m)}x}\\left(${rienSi1(a*m*m)}x${ecritureAlgebrique(m*(2*a+m*b))}\\right)$.<br>
-              Étudier la convexité de la fonction $f$.<br>`
+              Étudier la convexité de la fonction $f$.<br>
+              Déterminer la présence éventuelle de points d'inflexion.<br>`
               correction += `Pour étudier la convexité de la fonction $f$, on étudie le signe de la dérivée seconde $f''(x)$.<br>
-      On a $f'(x) = \\mathrm{e}^{${rienSi1(m)}x}  \\left( ${rienSi1(a*m)}x${ecritureAlgebrique(a+m*b)} \\right)$<br>
-      On reconnaît une forme $f'=uv$ que l'on dérive en $f''=u'v+uv'$ 
-      En dérivant $f'(x)$, on obtient :<br>
-      $f''(x) = \\mathrm{e}^{${m}x} \\times (${m} \\times (${a} + ${m} \\times (${reduireAxPlusB(a, b)})) + ${m} \\times (${a} + ${m} \\times (${reduireAxPlusB(a, b)})))$.<br>
-      En factorisant par $\\mathrm{e}^{${m}x}$, on a :<br>
-      $f''(x) = \\mathrm{e}^{${m}x} \\times (${m}^2 \\times (${reduireAxPlusB(a, b)}) + 2${m} \\times ${a})$.<br>
-      Le signe de $f''(x)$ dépend du signe de la partie entre parenthèses : ${m}^2 \\times (${reduireAxPlusB(a, b)}) + 2${m} \\times ${a}$.<br>
-      En résolvant l'inéquation ${m}^2 \\times (${reduireAxPlusB(a, b)}) + 2${m} \\times ${a} > 0$, on détermine les intervalles de convexité et concavité de $f$.<br>`
-            
+      Soit $x\\in\\mathbb{R}$, on a $f''(x) = \\mathrm{e}^{${rienSi1(m)}x}\\left(${rienSi1(a*m*m)}x${ecritureAlgebrique(m*(2*a+m*b))}\\right)$<br>
+    On sait que pour tout $x\\in\\mathbb{R}$, $\\mathrm{e}^{${rienSi1(m)}x}>0$.<br>
+    On étudie donc le signe de $${rienSi1(a*m*m)}x${ecritureAlgebrique(m*(2*a+m*b))}$.<br>
+    On résout <br>$\\begin{aligned}
+      &${rienSi1(a*m*m)}x${ecritureAlgebrique(m*(2*a+m*b))}>0\\\\
+      \\iff&${rienSi1(a*m*m)}x>${-m*(2*a+m*b)}\\\\
+      \\end{aligned}$<br>`
+  
+      if (a*m*m>0) {
+        correction += `$\\begin{aligned}
+       \\iff x&>${sommetConvexite.texFraction}\\\\
+       \\iff x&>${sommetConvexite.texFractionSimplifiee}
+       \\end{aligned}$ <br>
+       `}
+       else if (a*m*m<0) {
+        correction += `$\\begin{aligned}
+        \\iff&x<${sommetConvexite.texFraction}\\\\
+        \\iff&x<${sommetConvexite.texFractionSimplifiee}
+        \\end{aligned}$ <br>`}
+       correction += '  $f$ est convexe quand sa dérivée seconde est positive, concave quand elle est négative. On en déduit le tableau récapitulatif : <br>'
+       const ligneFseconde =
+                a * m * m > 0
+                  ? ['Line', 20,'', 20, '-', 20, 'z', 20, '+', 20]
+                  : ['Line', 20, '',20,'+', 20, 'z', 20, '-', 20]
+          const ligneFconvexite =
+                a * m * m > 0
+                  ? ['Line', 20,'', 20, '$\\text{Concave}$', 20, 't', 20, '$\\text{Convexe}$', 20]
+                  : ['Line', 20, '$\\text{Convexe}$',20,'', 20, 't', 20, '$\\text{Concave}$', 20]
+                  correction += tableauDeVariation({
+                tabInit: [
+                  [['x', 3.5, 100],['f\'\'(x)', 2, 30],['$f$', 4, 30]],
+                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                  ['$-\\infty$', 30, `$${sommetConvexite.texFractionSimplifiee}$`, 30, '$+\\infty$', 30],
+                ],
+                // tabLines ci-dessous contient les autres lignes du tableau.
+               tabLines: [ ligneFseconde, ligneFconvexite],
+                colorBackground: '',
+                espcl: 4, // taille en cm entre deux antécédents
+                deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
+                lgt: 3.5, // taille de la première colonne en cm
+                hauteurLignes: [30, 30, 30],
+              })
+           correction += `Une courbe admet un point d\'inflexion si et seulement si sa dérivée seconde s'annule et change de signe. <br>
+           On peut donc conlure que la courbe représentative de $f$ admet un unique point d'inflexion en $x = ${sommetConvexite.texFractionSimplifiee}$.<br>`
               break
             case 5:
               question += `Résoudre l'équation $f(x) = ${k}$.<br>`
