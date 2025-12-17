@@ -1,5 +1,6 @@
 import { bleuMathalea } from '../../lib/colors'
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -40,6 +41,12 @@ export const amcType = 'AMCHybride'
  * Relecture : Décembre 2021 par EE
  */
 
+type QuestionReturn = {
+  qtexte: string
+  qtexteCorr: string
+  incrementInteractif: number
+  incrementAMC: number
+}
 let versionSimplifiee = false
 let indexN: number = 0
 const couplePremiersEntreEux: [number, number][] = [
@@ -68,7 +75,7 @@ const couplePremiersEntreEux: [number, number][] = [
   [12, 13],
 ] // Couples de nombres premiers entre eux
 
-function questionAchat(exo: Exercice, i: number) {
+function questionAchat(exo: Exercice, i: number): QuestionReturn {
   // questions d'origine du 6P11 : achat.
   const listeDeLieux: string[] = [
     'dans un magasin de bricolage',
@@ -272,10 +279,12 @@ function questionAchat(exo: Exercice, i: number) {
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
-function questionRecette(exo: Exercice, i: number) {
+function questionRecette(exo: Exercice, i: number): QuestionReturn {
   // questions avec des masses pour un nombre de personne dans des recettes correction : passage à l'unité
   let texte, texteCorr
   const liste = [
@@ -393,6 +402,8 @@ function questionRecette(exo: Exercice, i: number) {
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 /*
@@ -490,7 +501,7 @@ function questionDillution (exo:Exercice, i:number) { // questions de mélange d
   }
 }
 */
-function questionDistance(exo: Exercice, i: number) {
+function questionDistance(exo: Exercice, i: number): QuestionReturn {
   // questions de distance parcourue à une vitesse moyenne donnée
   let texte, texteCorr
   const liste = [
@@ -685,10 +696,12 @@ function questionDistance(exo: Exercice, i: number) {
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
-function questionEchelle(exo: Exercice, i: number) {
+function questionEchelle(exo: Exercice, i: number): QuestionReturn {
   // X$\\text{ cm}$ sur une carte correspond à x $\\text{km}$ dans la réalité...
   let texte, texteCorr
   const distanceCarte = couplePremiersEntreEux[indexN][0] // Choix d'un nombre de$\\text{ cm}$ sur la carte
@@ -792,10 +805,12 @@ Or $${distanceReel}\\text{ km}$ est représenté par $${miseEnEvidence(texNombre
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
-function questionRecouvrirSurface(exo: Exercice, i: number) {
+function questionRecouvrirSurface(exo: Exercice, i: number): QuestionReturn {
   // peinture, gazon, carrelage pour une surface donnée.
   let texte, texteCorr
   const liste = [
@@ -900,7 +915,9 @@ function questionRecouvrirSurface(exo: Exercice, i: number) {
   texte +=
     '<br>' +
     enonceAMC2 +
-    ajouteChampTexteMathLive(exo, i + 1, '', { texteApres: ' (oui ou non)' })
+    ajouteChampTexteMathLive(exo, i + 1, KeyboardType.vFON, {
+      texteApres: ' (O pour oui ou N pour non)',
+    })
   texteCorr +=
     `${numAlpha(1)} $${texNombre(quantite2)}$${sp()}${liste[alea1].unite}, c'est $${miseEnEvidence(texNombre(rapport[alea5]), bleuMathalea)}$ fois $${qttaffichage}$${sp()}${liste[alea1].unite}. <br>` +
     `Avec $${texNombre(quantite2)}$${sp()}${liste[alea1].unite} on peut donc traiter une surface de $${miseEnEvidence(texNombre(rapport[alea5]), bleuMathalea)}$
@@ -919,8 +936,8 @@ fois $${miseEnEvidence(texNombre(liste[alea1].qtt_surface[alea3]), bleuMathalea)
       exo,
       i + 1,
       rapport[alea5] * liste[alea1].qtt_surface[alea3] > surfaceFinale2
-        ? 'oui'
-        : 'non',
+        ? 'O'
+        : 'N',
     )
   } else {
     exo.autoCorrection[i] = {
@@ -969,6 +986,8 @@ fois $${miseEnEvidence(texNombre(liste[alea1].qtt_surface[alea3]), bleuMathalea)
   return {
     qtexte: texte,
     qtexteCorr: texteCorr,
+    incrementInteractif: 2,
+    incrementAMC: 1,
   }
 }
 
@@ -1041,11 +1060,6 @@ export default class ProportionnaliteParLinearite extends Exercice {
           break
         case 2:
           question = questionRecette(this, indiceChampTexte)
-          if (!context.isAmc) {
-            incrementInteractif = 2
-          } else {
-            incrementInteractif = 1
-          }
           break
         /* case 3:
           question = questionDillution(this, indiceChampTexte)
@@ -1054,36 +1068,13 @@ export default class ProportionnaliteParLinearite extends Exercice {
           */
         case 3:
           question = questionDistance(this, indiceChampTexte)
-          if (versionSimplifiee) {
-            incrementInteractif = 1
-          } else {
-            if (!context.isAmc) {
-              incrementInteractif = 2
-            } else {
-              incrementInteractif = 1
-            }
-          }
           break
         case 4:
           question = questionEchelle(this, indiceChampTexte)
-          if (!context.isAmc) {
-            incrementInteractif = 2
-          } else {
-            incrementInteractif = 1
-          }
           break
         case 5:
         default:
           question = questionRecouvrirSurface(this, indiceChampTexte)
-          if (versionSimplifiee) {
-            incrementInteractif = 1
-          } else {
-            if (!context.isAmc) {
-              incrementInteractif = 2
-            } else {
-              incrementInteractif = 1
-            }
-          }
           break
       }
       if (this.questionJamaisPosee(i, indexN, question.qtexteCorr)) {
@@ -1091,7 +1082,9 @@ export default class ProportionnaliteParLinearite extends Exercice {
         this.listeQuestions[i] = question.qtexte
         this.listeCorrections[i] = question.qtexteCorr
         i++
-        indiceChampTexte += incrementInteractif
+        indiceChampTexte += context.isAmc
+          ? question.incrementAMC || 1
+          : question.incrementInteractif || 2
       }
       cpt++
     }
