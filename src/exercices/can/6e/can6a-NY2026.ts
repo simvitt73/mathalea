@@ -39,7 +39,6 @@ export const refs = {
   'fr-ch': [''],
 }
 export const dateDePublication = '13/12/2025'
-export const dateDePublication = '13/12/2025'
 /**
  * Annales CAN 2026
  * @author Gilles Mora
