@@ -35,8 +35,6 @@ export function RedactionPythagore(
 ) {
   let texte = ``
   let signeEgal = ``
-  let texte = ``
-  let signeEgal = ``
   texte = `Le triangle $${A + B + C}$ est rectangle en $${A}$.`
   texte += `<br> D'après le théorème de Pythagore, on a : <br> <br>
   $\\begin{aligned}`
