@@ -313,7 +313,7 @@ const shortcutsByKeyboards = {
   },
 
   complexes: {
-    i: { mode: 'text', value: '{\\text{i}}' },
+    i: { mode: 'text', value: '{\\mathrm{i}}' },
   },
 
   unit: {

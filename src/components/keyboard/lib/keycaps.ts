@@ -280,7 +280,7 @@ const basicKeys = {
   g: { display: 'g' },
   h: { display: 'h' },
   i: { display: 'i' },
-  iComplex: { display: 'i', insert: '\\text{i}' },
+  iComplex: { display: 'i', insert: '\\mathrm{i}' },
   j: { display: 'j' },
   k: { display: 'k' },
   l: { display: 'l' },
