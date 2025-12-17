@@ -562,7 +562,7 @@ export function loadPackagesFromContent(contents: contentsType) {
     '\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}',
     contents,
   )
-  testIfLoaded(['\\e'], '\\newcommand{\\e}{\\text{e}}', contents)
+  testIfLoaded(['\\e'], '\\newcommand{\\e}{\\mathrm{e}}', contents)
   testIfLoaded(
     [
       '\\ldots',

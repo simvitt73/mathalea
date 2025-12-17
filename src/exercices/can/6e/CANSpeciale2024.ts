@@ -1765,17 +1765,17 @@ export default class CourseAuxNombresSpeciale2024 extends Exercice {
             const b = choice([2024, -2024])
             const c = choice([-1, 1])
             if (choice([true, false])) {
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=\\text{e}^{${reduireAxPlusB(a, b)}}$.<br>
+              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=\\mathrm{e}^{${reduireAxPlusB(a, b)}}$.<br>
             Donner sa fonction dérivée. `
-              texteCorr = `$f$ est de la forme $\\text{e}^{u}$ avec $u(x)=${reduireAxPlusB(a, b)}$. On a donc $u'(x)=${a}$.<br>
-            Comme $f'=u'\\text{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a)}\\text{e}^{${reduireAxPlusB(a, b)}}`)}$
+              texteCorr = `$f$ est de la forme $\\mathrm{e}^{u}$ avec $u(x)=${reduireAxPlusB(a, b)}$. On a donc $u'(x)=${a}$.<br>
+            Comme $f'=u'\\mathrm{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a)}\\mathrm{e}^{${reduireAxPlusB(a, b)}}`)}$
              `
               reponse = `${a}e^{${reduireAxPlusB(a, b)}}`
             } else {
-              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${texNombre(a)}\\text{e}^{${rienSi1(c)}x}$.<br>
+              texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par : $f(x)=${texNombre(a)}\\mathrm{e}^{${rienSi1(c)}x}$.<br>
           Donner sa fonction dérivée. `
-              texteCorr = `$f$ est de la forme $\\text{e}^{u}$ avec $u(x)=${rienSi1(c)}x$. On a donc $u'(x)=${c}$.<br>
-          Comme $f'=u'\\text{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a * c)}\\text{e}^{${rienSi1(c)}x}`)}$
+              texteCorr = `$f$ est de la forme $\\mathrm{e}^{u}$ avec $u(x)=${rienSi1(c)}x$. On a donc $u'(x)=${c}$.<br>
+          Comme $f'=u'\\mathrm{e}^u$,  $f'(x)=${miseEnEvidence(`${texNombre(a * c)}\\mathrm{e}^{${rienSi1(c)}x}`)}$
            `
               reponse = `${a * c}e^{${rienSi1(c)}x}`
             }

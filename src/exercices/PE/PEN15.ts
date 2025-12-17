@@ -1,8 +1,8 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { choice } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 import {
   analyzeDecimal,
   texNombreAvecZeroInutile,
@@ -49,7 +49,7 @@ export default class nomExercice extends Exercice {
 
     const n = new Date().getFullYear()
     const { periodLength, firstRepeat } = analyzeDecimal(num, den)
-    let question3 = `Déterminer sa $${n}^{\\text{e}}$ décimale.`
+    let question3 = `Déterminer sa $${n}^{\\mathrm{e}}$ décimale.`
     question3 += '<br>'
 
     let correction3 = Operation({
@@ -72,13 +72,13 @@ export default class nomExercice extends Exercice {
     correction3 += '<br><br>'
     const rang = n % periodLength
     const rangString =
-      rang === 1 ? `$${rang}^{\\text{re}}$` : `$${rang}^{\\text{e}}$`
+      rang === 1 ? `$${rang}^{\\text{re}}$` : `$${rang}^{\\mathrm{e}}$`
     if (rang === 0) {
       correction3 += `$${n} = ${periodLength} \\times ${Math.floor(n / periodLength)}$<br>`
-      correction3 += `La $${n}^{\\text{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la dernière décimale de la période soit ${toFixedTruncate(num / den, periodLength).at(-1)}.`
+      correction3 += `La $${n}^{\\mathrm{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la dernière décimale de la période soit ${toFixedTruncate(num / den, periodLength).at(-1)}.`
     } else {
       correction3 += `$${n} = ${periodLength} \\times ${Math.floor(n / periodLength)} + ${n % periodLength}$<br>`
-      correction3 += `La $${n}^{\\text{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la ${rangString} décimale soit ${toFixedTruncate(num / den, n % periodLength).at(-1)}.`
+      correction3 += `La $${n}^{\\mathrm{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$ est donc identique à la ${rangString} décimale soit ${toFixedTruncate(num / den, n % periodLength).at(-1)}.`
     }
 
     this.listeQuestions.push(question1, question2, question3)
