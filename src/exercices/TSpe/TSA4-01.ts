@@ -1,3 +1,4 @@
+import { int } from 'three/src/nodes/TSL.js'
 import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -83,11 +84,13 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const a = randint(-5, 5, 0)
       const b = randint(-5, 5, 0)
       const m = randint(-5, 5, [0, 1])
-      const k = randint(-5, 5, 0)
+     
       const fAff = new Polynome({ coeffs: [b, a] })
       const questions: string[] = []
       const corrections: string[] = []
       const sommet = new FractionEtendue(-a - m * b, a * m)
+     const k1: number = Math.trunc(Number(sommet.valeurDecimale))
+       const k = a * m > 0 ? randint(k1+2, k1+10, 0) : randint(-k1-10, k1-2, 0)
       const extremum = arrondi(
         (a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),
         2,
@@ -242,9 +245,9 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                         'Var',
                         20,
                         '-/$0$',
-                        20,
+                        40,
                         `+/$f\\left(${sommet.texFractionSimplifiee}\\right)$`,
-                        20,
+                        40,
                         '-/$-\\infty$',
                         20,
                       ]
@@ -259,7 +262,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     [
                       '$-\\infty$',
                       30,
-                      `$${sommet.texFractionSimplifiee}$`,
+                      `$\\quad${sommet.texFractionSimplifiee}\\quad$`,
                       30,
                       '$+\\infty$',
                       30,
@@ -268,8 +271,8 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   // tabLines ci-dessous contient les autres lignes du tableau.
                   tabLines: [ligneFprime, ligneVariation],
                   colorBackground: '',
-                  espcl: 6, // taille en cm entre deux antécédents
-                  deltacl: 2, // distance entre la bordure et les premiers et derniers antécédents
+                  espcl: 8, // taille en cm entre deux antécédents
+                  deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 3.5, // taille de la première colonne en cm
                   hauteurLignes: [30, 30, 30],
                 })
@@ -310,24 +313,13 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   : ['Line', 20, '', 20, '+', 20, 'z', 20, '-', 20]
               const ligneFconvexite =
                 a * m * m > 0
-                  ? [
-                      'Line',
-                      20,
-                      '',
-                      20,
-                      '$\\text{Concave}$',
-                      20,
-                      't',
-                      20,
-                      '$\\text{Convexe}$',
-                      20,
-                    ]
+                  ? ['Line',20,'',20,'$\\text{Concave}$',30,'t',20,'$\\text{Convexe}$',20,]
                   : [
                       'Line',
                       20,
-                      '$\\text{Convexe}$',
-                      20,
                       '',
+                      20,
+                      '$\\text{Convexe}$',
                       20,
                       't',
                       20,
@@ -354,7 +346,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 // tabLines ci-dessous contient les autres lignes du tableau.
                 tabLines: [ligneFseconde, ligneFconvexite],
                 colorBackground: '',
-                espcl: 4, // taille en cm entre deux antécédents
+                espcl: 8, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3.5, // taille de la première colonne en cm
                 hauteurLignes: [30, 30, 30],
@@ -365,14 +357,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
             case 5:
               question += `Déterminer le nombre de solution(s) de l'équation $f(x) = ${k}$.<br>
               On donnera, le cas échéant, une valeur approchée au centième près, de la ou des solutions.<br>`
-              correction += `Pour résoudre l'équation $f(x) = k$, on écrit :<br>
-      $${reduireAxPlusB(a, b)} \\times \\mathrm{e}^{${m}x} = k$.<br>
+              correction += `Pour résoudre l'équation $f(x) = ${k}$, on écrit :<br>
+      $${reduireAxPlusB(a, b)} \\times \\mathrm{e}^{${m}x} = ${k}$.<br>
       En isolant le terme exponentiel, on obtient :<br>
-      $\\mathrm{e}^{${m}x} = \\frac{k}{${reduireAxPlusB(a, b)}}$.<br>
+      $\\mathrm{e}^{${m}x} = \\frac{${k}}{${reduireAxPlusB(a, b)}}$.<br>
       En prenant le logarithme népérien des deux côtés, on a :<br>
-      $${m}x = \\ln\\left(\\frac{k}{${reduireAxPlusB(a, b)}}\\right)$.<br>
+      $${m}x = \\ln\\left(\\frac{${k}}{${reduireAxPlusB(a, b)}}\\right)$.<br>
       Finalement, en isolant $x$, on trouve :<br>
-      $x = \\frac{1}{${m}} \\times \\ln\\left(\\frac{k}{${reduireAxPlusB(a, b)}}\\right)$.<br>`
+      $x = \\frac{1}{${m}} \\times \\ln\\left(\\frac{${k}}{${reduireAxPlusB(a, b)}}\\right)$.<br>`
 
               if (this.interactif) {
                 question += ajouteChampTexteMathLive(
