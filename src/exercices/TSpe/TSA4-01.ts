@@ -15,7 +15,8 @@ import {
   reduireAxPlusB,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { signe } from '../../lib/outils/nombres'
+import { arrondi, signe } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
@@ -87,6 +88,10 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const questions: string[] = []
       const corrections: string[] = []
       const sommet = new FractionEtendue(-a-m*b,a*m)
+      const extremum = arrondi(
+        (a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),
+        2,
+      )
       if (this.questionJamaisPosee(i, a, b, m)) {
         const texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$<br>`
         let indiceInteractif = 0
@@ -105,29 +110,25 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   a,)}\\infty$.<br>`
                 
                 corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(-a)}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${m}x}= 0$. <br>On reconnaît une forme indéterminée $${signe(-a)}\\infty \\times 0$.<br>
-                Pour la lever, on développe : <br>
+                Pour la lever, on utilise le théorème des croissances comparées : <br>
                 $\\begin{aligned}
-                f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\
+                f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\ 
                   &=${rienSi1(a)}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
-                &=\\dfrac{1}{${m}}\\times${ecritureParentheseSiNegatif(a)} \\times${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}${ecritureAlgebriqueSauf1(b,)}\\mathrm{e}^{${m}x}
-                \\end{aligned}$ <br>
-                 On sait, avec les croissances comparées, que $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^X=0$ , donc par composition, $\\displaystyle\\lim_{x\\to -\\infty}${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}=0.$<br>
+                              \\end{aligned}$ <br>
+                 On sait que , pour tout réel $a$ non-nul, $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^{aX}=0$, donc  $\\displaystyle\\lim_{x\\to -\\infty}${rienSi1(a)}x\\mathrm{e}^{${m}x}=0.$<br>
                  Comme $\\displaystyle\\lim_{x\\to -\\infty} \\mathrm{e}^{${m}x}=0$, alors par somme $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
               } else if (m < 0) {
                 corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(
                   a,
                 )}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${m}x}= 0$.<br>
                 On reconnaît une forme indéterminée $${signe(a)}\\infty \\times 0$.<br>
-                Pour la lever, on développe : <br>
+              Pour la lever, on utilise le théorème des croissances comparées : <br>
                 $\\begin{aligned}
                 f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\
                   &=${rienSi1(a)}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
-                &=\\dfrac{1}{${m}}\\times${ecritureParentheseSiNegatif(a)} \\times${ecritureParentheseSiNegatif(m)}x\\mathrm{e}^{${m}x}${ecritureAlgebriqueSauf1(
-                  b,
-                )}\\mathrm{e}^{${m}x}
-                \\end{aligned}$ <br>
-                Avec les croissances comparées, on sait que $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^X=0$. <br>
-               donc par composition, $\\displaystyle\\lim_{x\\to +\\infty}${m}x\\mathrm{e}^{${m}x}=0.$<br>
+                               \\end{aligned}$ <br>
+               On sait que , pour tout réel $a$ non-nul, $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^{aX}=0$,
+               donc , $\\displaystyle\\lim_{x\\to +\\infty}${rienSi1(a)}x\\mathrm{e}^{${m}x}=0.$<br>
                  Comme $\\displaystyle\\lim_{x\\to +\\infty} \\mathrm{e}^{${m}x}=0$, alors par somme $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
                 corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(
                   -a,
@@ -162,13 +163,12 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
             }
             case 2:
               question += `Calculer la dérivée $f'(x)$ de la fonction $f$.<br>`
-              correction += `Pour calculer la dérivée de la fonction $f$, on utilise la règle du produit :<br>
-      Si $f = uv$, alors $f' = u' v + u v'$.<br>
-      Ici, on a $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${m}x}$.<br>
-      Donc :  $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${m}x}$.<br>
-      On obtient :<br>
+              correction += `On a $f=uv$, avec pour tout $x\\in\\mathbb{R}$ , $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${m}x}$.<br>
+      On calcule :    $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${m}x}$.<br>
+     Par dérivation d'un produit,<br>
       $\\begin{aligned}
-      f'(x) &= ${rienSi1(a)} \\mathrm{e}^{${m}x} + (${reduireAxPlusB(a, b)})  (${m}  \\mathrm{e}^{${m}x})\\\\
+      f'(x) &=u'(x)v(x) + u(x)v'(x)\\\\
+      &= ${rienSi1(a)} \\mathrm{e}^{${m}x} + (${reduireAxPlusB(a, b)})  (${m}  \\mathrm{e}^{${m}x})\\\\
       &=  \\mathrm{e}^{${m}x} \\left(${a} ${ecritureAlgebriqueSauf1(m)} (${reduireAxPlusB(a, b)})\\right)\\\\
       &=\\mathrm{e}^{${m}x}  \\left( ${a*m}x${ecritureAlgebrique(a+m*b)} \\right)
       \\end{aligned}$.<br>`
@@ -221,12 +221,12 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   : ['Line', 20, '',20,'+', 20, 'z', 20, '-', 20]
               const ligneVariation =
                 a * m > 0
-                  ? ['Var', 20, '+/$0$', 20, '-/', 20, '+/$+\\infty$', 20]
-                  : ['Var', 20, '-/$0$', 20, '+/', 20, '-/$-\\infty$', 20]
+                  ? ['Var', 20, '+/$0$', 20, `-/$f\\left(${sommet.texFractionSimplifiee}\\right)$`, 20, '+/$+\\infty$', 20]
+                  : ['Var', 20, '-/$0$', 20, `+/$f\\left(${sommet.texFractionSimplifiee}\\right)$`, 20, '-/$-\\infty$', 20]
               correction += 
               tableauDeVariation({
                 tabInit: [
-                  [ ['x', 1.5, 70],['f\'(x)', 2, 70],['f(x)', 4, 70]],
+                  [['x', 1.5, 100],['f\'(x)', 2, 30],['f(x)', 4, 30]],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                   ['$-\\infty$', 30, `$${sommet.texFractionSimplifiee}$`, 30, '$+\\infty$', 30],
                 ],
@@ -238,8 +238,8 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 lgt: 2.5, // taille de la première colonne en cm
                 hauteurLignes: [15, 15, 15],
               })
-          
-      
+           correction +=`avec $f\\left(${sommet.texFractionSimplifiee}\\right) \\approx ${texNombre(extremum)}$.<br>`
+     
         
             }
               break
