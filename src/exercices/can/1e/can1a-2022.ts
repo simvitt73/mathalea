@@ -1522,13 +1522,13 @@ export default class SujetCAN2022Premiere extends Exercice {
             b = randint(-10, 10, [0, 1])
             const c = randint(1, 10, [0, 1])
             const reponse = a + b - c
-            texte = `$\\dfrac{\\text{e}^{${a}}\\times \\text{e}^{${b}}}{\\text{e}^{${c}}}=$`
+            texte = `$\\dfrac{\\mathrm{e}^{${a}}\\times \\mathrm{e}^{${b}}}{\\mathrm{e}^{${c}}}=$`
 
-            texteCorr = `$\\dfrac{\\text{e}^{${a}}\\times \\text{e}^{${b}}}{\\text{e}^{${c}}}=
-          \\dfrac{\\text{e}^{${a}+${ecritureParentheseSiNegatif(b)}}}{\\text{e}^{${c}}}=\\text{e}^{${a + b}-${c}}=\\text{e}^{${reponse}}$`
+            texteCorr = `$\\dfrac{\\mathrm{e}^{${a}}\\times \\mathrm{e}^{${b}}}{\\mathrm{e}^{${c}}}=
+          \\dfrac{\\mathrm{e}^{${a}+${ecritureParentheseSiNegatif(b)}}}{\\mathrm{e}^{${c}}}=\\mathrm{e}^{${a + b}-${c}}=\\mathrm{e}^{${reponse}}$`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '$\\text{e}^a$ avec $a=$'
+              texte += '$\\mathrm{e}^a$ avec $a=$'
               texte += ajouteChampTexteMathLive(this, index, '')
             } else {
               texte += '$\\ldots$'
