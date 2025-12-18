@@ -1,4 +1,3 @@
-import { int } from 'three/src/nodes/TSL.js'
 import { createList } from '../../lib/format/lists'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -84,13 +83,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const a = randint(-5, 5, 0)
       const b = randint(-5, 5, 0)
       const m = randint(-5, 5, [0, 1])
-     
+
       const fAff = new Polynome({ coeffs: [b, a] })
       const questions: string[] = []
       const corrections: string[] = []
       const sommet = new FractionEtendue(-a - m * b, a * m)
-     const k1: number = Math.trunc(Number(sommet.valeurDecimale))
-       const k = a * m > 0 ? randint(k1+2, k1+10, 0) : randint(-k1-10, k1-2, 0)
+      const k1: number = Math.trunc(Number(sommet.valeurDecimale))
+      const k =
+        a * m > 0 ? randint(k1 + 2, k1 + 10, 0) : randint(-k1 - 10, k1 - 2, 0)
       const extremum = arrondi(
         (a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),
         2,
@@ -233,23 +233,21 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   a * m > 0
                     ? [
                         'Var',
-                        20,
+                        10,
                         '+/$0$',
-                        20,
+                        30,
                         `-/$f\\left(${sommet.texFractionSimplifiee}\\right)$`,
-                        20,
+                        15,
                         '+/$+\\infty$',
-                        20,
                       ]
                     : [
                         'Var',
-                        20,
+                        10,
                         '-/$0$',
-                        40,
+                        30,
                         `+/$f\\left(${sommet.texFractionSimplifiee}\\right)$`,
-                        40,
+                        15,
                         '-/$-\\infty$',
-                        20,
                       ]
                 correction += tableauDeVariation({
                   tabInit: [
@@ -313,7 +311,18 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   : ['Line', 20, '', 20, '+', 20, 'z', 20, '-', 20]
               const ligneFconvexite =
                 a * m * m > 0
-                  ? ['Line',20,'',20,'$\\text{Concave}$',30,'t',20,'$\\text{Convexe}$',20,]
+                  ? [
+                      'Line',
+                      20,
+                      '',
+                      20,
+                      '$\\text{Concave}$',
+                      30,
+                      't',
+                      20,
+                      '$\\text{Convexe}$',
+                      20,
+                    ]
                   : [
                       'Line',
                       20,
@@ -357,17 +366,15 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
             case 5:
               question += `Déterminer le nombre de solution(s) de l'équation $f(x) = ${k}$.<br>
               On donnera, le cas échéant, une valeur approchée au centième près, de la ou des solutions.<br>`
-              
-              
+
               if (a * m > 0) {
-                correction +=` Sur l'intervalle $]-\\infty ; ${sommet.texFractionSimplifiee}[$, on a $f(x)<0$ donc l'équation $f(x) = ${k}$ n'admet aucune solution.
+                correction += ` Sur l'intervalle $]-\\infty ; ${sommet.texFractionSimplifiee}[$, on a $f(x)<0$ donc l'équation $f(x) = ${k}$ n'admet aucune solution.
                 <br>Sur l'intervalle $[ ${sommet.texFractionSimplifiee};+\\infty [$ :
                 <br>On sait que $f$ est dérivable donc continue.
                 <br>${k}\\in [${sommet.texFractionSimplifiee};+\\infty [$ 
                 <br>$f$ est strictement croissante.
                 D'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution.<br>
                  Par disjon des cas, l'équation $f(x) = ${k}$ admet donc une unique solution sur $\\mathbb{R}$.<br>`
-                
               } else if (a * m < 0) {
                 correction += ` Sur l'intervalle $]-\\infty ; ${sommet.texFractionSimplifiee}]$, $f$ est croissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>
                 Comme $${texNombre(k)}< 0$, $${k}$ ne possède pas d'antécedent par $f$ sur cet intervalle.
@@ -378,7 +385,8 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 Comme $${texNombre(k)} \\in]-\\infty ; $, d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur $[${sommet.texFractionSimplifiee};+\\infty[$.<br>
                   extremum,
                 )}]$.<br>
-                Comme ${k} > ${texNombre(extremum)}, ${k}$ n'appartient pas à l'image de $f$ et l'équation $f(x) = ${k}$ n'admet aucune solution sur $\\mathbb{R}$.<br>`  }
+                Comme ${k} > ${texNombre(extremum)}, ${k}$ n'appartient pas à l'image de $f$ et l'équation $f(x) = ${k}$ n'admet aucune solution sur $\\mathbb{R}$.<br>`
+              }
 
               if (this.interactif) {
                 question += ajouteChampTexteMathLive(
