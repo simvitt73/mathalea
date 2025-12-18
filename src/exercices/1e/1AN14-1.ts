@@ -11,7 +11,8 @@ import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Dérivée de $\\lambda u$ (version étendue)'
+export const titre =
+  'Dériver une fonction du type $\\lambda u$ (version étendue)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd8a'
@@ -183,15 +184,15 @@ class DerivationFonctionsUsuellesEtendue extends Exercice {
           {
             // Racine carrée avec coefficient
             df = 'pour tout $x\\in\\R^*_+$'
-
-            if (choice([true, false, false])) {
+            const monChoix = choice([true, false])
+            if (monChoix) {
               // Forme simple: a√x
               const a = randint(-10, 10, [-1, 0, 1])
               laFonction = `${rienSi1(a)}\\sqrt{x}`
               const frac = new FractionEtendue(a, 2)
               laDerivee = `\\dfrac{${frac.num}}{${frac.den}\\sqrt{x}}`
               correctionDetaillee = `La dérivée d'une fonction d'expression $f(x)=a\\sqrt{x}$ est $f'(x)=\\dfrac{a}{2\\sqrt{x}}$.<br>`
-            } else if (choice([true, false])) {
+            } else {
               // Forme fractionnaire: (a/b)√x
               const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
               laFonction = `${frac.texFractionSimplifiee}\\sqrt{x}`

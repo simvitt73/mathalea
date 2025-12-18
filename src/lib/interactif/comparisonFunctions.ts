@@ -2063,6 +2063,7 @@ export function ensembleNombres(
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input).replaceAll('∅', '\\emptyset')
   goodAnswer = clean(goodAnswer)
+
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer)
     return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset'))
@@ -2100,7 +2101,8 @@ export function ensembleNombres(
         feedback:
           'Une suite de nombres ne doit pas se terminer par un point-virgule.',
       }
-    if (!/^\d+(;\d+)*$/.test(cleanInput))
+
+    if (!/^-?\d+(?:\.\d+)?(?:;-?\d+(?:\.\d+)?)*$/.test(cleanInput))
       // Pour vérifier que le séparateur est bien un point-virgule.
       return {
         isOk: false,
