@@ -352,11 +352,12 @@ export function sendToCapytaleSaveStudentAssignment({
         console.info('Sauvegarde effectuée')
         // Afficher sauvegarde réussie
       })
-      .catch(() => {
-        console.error('Problème avec la sauvegarde')
+      .catch((err) => {
+        console.error('Problème avec la sauvegarde', err)
         // Indiquer à l'élève qu'il y a un soucis réseau
 
         window.notify('Problème avec la sauvegarde Capytale', {
+          error: err,
           mode: currentMode,
           indiceExercice,
           data,
