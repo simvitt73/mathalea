@@ -53,10 +53,9 @@ export function exportedReinit(this: IExerciceSimple) {
   this.checkSum = undefined
   if (this.figures) {
     // figure APIGEOM
-    this.figures.forEach((fig) => {
+    this.figures.forEach((fig: Figure) => {
       if (fig instanceof Figure) {
-        fig.clearHtml()
-        fig.container = document.createElement('div')
+        fig.destroy()
       }
     })
   }
