@@ -80,9 +80,13 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
     if (compteOccurences(typesDeQuestionsDisponibles, 1) > 0) nbDeQuestions++
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const a = randint(-5, 5, 0)
-      const b = randint(-5, 5, 0)
-      const m = randint(-5, 5, [0, 1])
+      let a :number 
+      let b : number 
+      let m : number
+      do { a = randint(-5, 5, 0)
+       b = randint(-5, 5, 0)
+       m = randint(-5, 5, [0, 1,a,-a])} 
+      while (-m*b-a === 0 || -m*b-a === a || -m*m-a === -a)
 
       const fAff = new Polynome({ coeffs: [b, a] })
       const questions: string[] = []
@@ -91,12 +95,15 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const k1: number = Math.trunc(Number(sommet.valeurDecimale))// déterminer un seuil k1 pour choisir k dans la question du TVI et assurer l'existence d'une solution
       const k =
         a * m > 0 ? randint(k1 + 2, k1 + 10, 0) : randint(-k1 - 10, k1 - 2, 0)// Pour le TVI
-      const extremum = arrondi((a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),4,)// valeur approchée du maximum ou minimum de f
+      let extremum : number
+      if (m>0) extremum = arrondi((a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),0,)
+        else extremum = arrondi((a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),4,) // valeur approchée du maximum ou minimum de f
+
       const extremumF1 =new FractionEtendue(-a,m) // image du sommet dans (ax+b)  
       const extremumF2 = new FractionEtendue(-m*b-a, a) // image du sommet dans e^(mx)
       const sommetConvexite = new FractionEtendue(-m * (2 * a + m * b),a * m * m,)// abscisse du point d'inflexion de f
       if (this.questionJamaisPosee(i, a, b, m)) {
-        const texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$<br>`
+        const texte = `Soit $f$ la fonction deux fois dérivable sur $\\mathbb{R}$,  définie pour tout réel $x$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$<br>`
         let indiceInteractif = 0
         for (let j = 0; j < typesDeQuestionsDisponibles.length; j++) {
           let question: string = ''
@@ -108,11 +115,11 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               let corrMoins = ''
 
               if (m > 0) {
-                corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(a)}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${m}x}=+\\infty$, donc par produit, $\\displaystyle\\lim_{x \\to +\\infty} f(x) = ${signe(
+                corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(a)}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${rienSi1(m)}x}=+\\infty$, donc par produit, $\\displaystyle\\lim_{x \\to +\\infty} f(x) = ${signe(
                   a,
                 )}\\infty$.<br>`
 
-                corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(-a)}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${m}x}= 0$. <br>On reconnaît une forme indéterminée $${signe(-a)}\\infty \\times 0$.<br>
+                corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(-a)}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${rienSi1(m)}x}= 0$. <br>On reconnaît une forme indéterminée $${signe(-a)}\\infty \\times 0$.<br>
                 Pour la lever, on utilise le théorème des croissances comparées : <br>
                 $\\begin{aligned}
                 f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\ 
@@ -123,16 +130,16 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               } else if (m < 0) {
                 corrPlus = `$\\displaystyle\\lim_{x \\to +\\infty} ${fAff.toString()}=${signe(
                   a,
-                )}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${m}x}= 0$.<br>
+                )}\\infty$ et $\\displaystyle\\lim_{x \\to +\\infty}\\mathrm{e}^{${rienSi1(m)}x}= 0$.<br>
                 On reconnaît une forme indéterminée $${signe(a)}\\infty \\times 0$.<br>
               Pour la lever, on utilise le théorème des croissances comparées : <br>
                 $\\begin{aligned}
-                f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${m}x}\\\\
-                  &=${rienSi1(a)}x\\times \\mathrm{e}^{${m}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${m}x}\\\\
+                f(x)&=\\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}\\\\
+                  &=${rienSi1(a)}x\\times \\mathrm{e}^{${rienSi1(m)}x}${ecritureAlgebrique(b)}\\times \\mathrm{e}^{${rienSi1(m)}x}\\\\
                                \\end{aligned}$ <br>
                On sait que , pour tout réel $a$ non-nul, $\\displaystyle\\lim_{X\\to -\\infty} X\\mathrm{e}^{aX}=0$,
-               donc , $\\displaystyle\\lim_{x\\to +\\infty}${rienSi1(a)}x\\mathrm{e}^{${m}x}=0.$<br>
-                 Comme $\\displaystyle\\lim_{x\\to +\\infty} \\mathrm{e}^{${m}x}=0$, alors par somme $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
+               donc , $\\displaystyle\\lim_{x\\to +\\infty}${rienSi1(a)}x\\mathrm{e}^{${rienSi1(m)}x}=0.$<br>
+                 Comme $\\displaystyle\\lim_{x\\to +\\infty} \\mathrm{e}^{${rienSi1(m)}x}=0$, alors par somme $\\displaystyle\\lim_{x \\to -\\infty} f(x)=0$.`
                 corrMoins = `$\\displaystyle\\lim_{x \\to -\\infty} ${fAff.toString()}=${signe(
                   -a,
                 )}\\infty$ et $\\displaystyle\\lim_{x \\to -\\infty}\\mathrm{e}^{${m}x}= +\\infty$ donc par produit $\\displaystyle\\lim_{x \\to -\\infty} f(x) = ${signe(-a)}\\infty$.`
@@ -169,14 +176,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
             }
             case 2:
               question += `Calculer la dérivée $f'(x)$ de la fonction $f$.<br>`
-              correction += `On a $f=uv$, avec pour tout $x\\in\\mathbb{R}$ , $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${m}x}$.<br>
-      On calcule :    $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${m}x}$.<br>
+              correction += `On a $f=uv$, avec pour tout $x\\in\\mathbb{R}$ , $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${rienSi1(m)}x}$.<br>
+      On calcule :    $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${rienSi1(m)}x}$.<br>
      Par dérivation d'un produit,<br>
       $\\begin{aligned}
       f'(x) &=u'(x)v(x) + u(x)v'(x)\\\\
-      &= ${rienSi1(a)} \\mathrm{e}^{${m}x} + (${reduireAxPlusB(a, b)})  (${m}  \\mathrm{e}^{${m}x})\\\\
-      &=  \\mathrm{e}^{${m}x} \\left(${a} ${ecritureAlgebriqueSauf1(m)} (${reduireAxPlusB(a, b)})\\right)\\\\
-      &=\\mathrm{e}^{${m}x}  \\left( ${a * m}x${ecritureAlgebrique(a + m * b)} \\right)
+      &= ${rienSi1(a)} \\mathrm{e}^{${rienSi1(m)}x} + (${reduireAxPlusB(a, b)})  (${m}  \\mathrm{e}^{${rienSi1(m)}x})\\\\
+      &=  \\mathrm{e}^{${rienSi1(m)}x} \\left(${a} ${ecritureAlgebriqueSauf1(m)} (${reduireAxPlusB(a, b)})\\right)\\\\
+      &=\\mathrm{e}^{${rienSi1(m)}x}  \\left( ${a * m}x${ecritureAlgebrique(a + m * b)} \\right)
       \\end{aligned}$.<br>`
 
               if (this.interactif) {
@@ -200,7 +207,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               break
             case 3:
               {
-                question += `Étudier les variations de la fonction $f$.<br>`
+                question += `Étudier les variations de la fonction $f$ sur $\\mathbb{R}$.<br>`
                 correction += `Pour étudier les variations de la fonction $f$, on analyse le signe de sa dérivée $f'(x)$.<br>
       On a $f'(x) = \\mathrm{e}^{${rienSi1(m)}x}  \\left( ${rienSi1(a * m)}x${ecritureAlgebrique(a + m * b)} \\right)$.<br>
       Pour tout $x\\in\\mathbb{R}$, $\\mathrm{e}^{${rienSi1(m)}x}>0$. <br>On étudie le signe de $${rienSi1(a * m)}x${ecritureAlgebrique(a + m * b)}$.`
@@ -270,7 +277,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   lgt: 3.5, // taille de la première colonne en cm
                   hauteurLignes: [30, 30, 30],
                 })
-                correction += `avec $f\\left(${sommet.texFractionSimplifiee}\\right) = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\approx ${texNombre(extremum)}$.<br>`
+                correction += `$\\begin{aligned}f\\left(${sommet.texFractionSimplifiee}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.<br>`
               }
               break
             case 4:
@@ -359,31 +366,54 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               correction += `Une fonction admet un point d'inflexion si et seulement si sa dérivée seconde s'annule et change de signe. <br>
            On peut donc conlure que la courbe représentative de $f$ admet un unique point d'inflexion en $x = ${sommetConvexite.texFractionSimplifiee}$.<br>`
               break
+// *********************************
+// TVI
+// ******************************** */
             case 5:
-              question += `Déterminer le nombre de solution(s) de l'équation $f(x) = ${k}$.<br>
+              question += `Déterminer  le nombre de solution(s) sur $\\mathbb{R}$ , de l'équation $f(x) = ${k}$.<br>
               On donnera, le cas échéant, une valeur approchée au centième près, de la ou des solutions.<br>`
-
+              let TVIPlus="  "
+              let TVIMoins=" "
+              let TVI1=" "
+              let TVI2=" "
+              let TVI3=" "
               if (a * m > 0) {
-                correction += ` Sur l'intervalle $]-\\infty ; ${sommet.texFractionSimplifiee}[$, on a $f(x)<0$ donc l'équation $f(x) = ${k}$ n'admet aucune solution.
-                <br>Sur l'intervalle $[ ${sommet.texFractionSimplifiee};+\\infty [$ :
-                <br>On sait que $f$ est dérivable donc continue.
-                <br>${k}\\in [${sommet.texFractionSimplifiee};+\\infty [$ 
-                <br>$f$ est strictement croissante.
-                D'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution.<br>
-                 Par disjon des cas, l'équation $f(x) = ${k}$ admet donc une unique solution sur $\\mathbb{R}$.<br>`
+                TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right[$ :<br> $f$ est strictement décroissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>  Pour tout $x$ de cet intervalle, on a donc $f(x)<0$ et l'équation $f(x) = ${k}$ n'admet alors aucune solution.`
+                TVIMoins +=`Sur l'intervalle $\\left[ ${sommet.texFractionSimplifiee};+\\infty \\right[$ :`
+                TVI1='On sait que $f$ est dérivable donc continue.'
+                TVI2=`$${k}\\in \\left[${sommet.texFractionSimplifiee};+\\infty \\right[.$ `
+                TVI3=`$f$ est strictement croissante.`
+                correction =`D'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br>`
+                correction = createList({
+                style: 'fleches',
+                items: [TVIPlus, TVIMoins],
+              })
+               correction += createList({
+                style: 'carres',
+                items: [ TVI1, TVI2, TVI3],
+              })
+               correction +=`d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
               } else if (a * m < 0) {
-                correction += ` Sur l'intervalle $]-\\infty ; ${sommet.texFractionSimplifiee}]$, $f$ est croissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>
-                Comme $${texNombre(k)}< 0$, $${k}$ ne possède pas d'antécedent par $f$ sur cet intervalle.
-                <br> L'équation $f(x) = ${k}$ n'admet donc aucune solution sur $]-\\infty ; ${sommet.texFractionSimplifiee}]$.<br>
-                Sur l'intervalle $[${sommet.texFractionSimplifiee};+\\infty[$ :<br>
-                $f$ est décroissante, <br>
-                $\\displaystyle\\lim_{x \\to +\\infty} f(x) =  -\\infty$.<br>
-                Comme $${texNombre(k)} \\in]-\\infty ; $, d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur $[${sommet.texFractionSimplifiee};+\\infty[$.<br>
-                  extremum,
-                )}]$.<br>
-                Comme ${k} > ${texNombre(extremum)}, ${k}$ n'appartient pas à l'image de $f$ et l'équation $f(x) = ${k}$ n'admet aucune solution sur $\\mathbb{R}$.<br>`
+                TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$ : <br> $f$ est strictement croissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>
+                Pour tout $x$ de cet intervalle, on a donc $f(x)>0$. L'équation $f(x) = ${k}$ n'admet alors aucune solution sur $\\left]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$.<br>`
+                TVIMoins +=`Sur l'intervalle $\\left[${sommet.texFractionSimplifiee};+\\infty \\right[$ :<br>`
+                TVI1='$f$ est strictement décroissante,'
+                TVI2=`$\\displaystyle\\lim_{x \\to +\\infty} f(x) =  -\\infty$.<br>`
+               TVI3=`$f\\left(${sommet.texFractionSimplifiee}\\right) = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\approx ${texNombre(extremum)}$. <br>
+                Donc $${texNombre(k)} \\in\\left]-\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\right]$.<br>`
+                
+                 correction = createList({
+                style: 'fleches',
+                items: [TVIPlus, TVIMoins],
+              })
+               correction += createList({
+                style: 'carres',
+                items: [ TVI1, TVI2, TVI3],
+              })
+               correction +=`d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
               }
-
+              
+ correction += ` Par disjonction des cas, l'équation $f(x) = ${k}$ admet donc une unique solution sur $\\mathbb{R}$.<br>`
               if (this.interactif) {
                 question += ajouteChampTexteMathLive(
                   this,
