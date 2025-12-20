@@ -32,7 +32,7 @@
 
 <div
   id="diapoProgressContainer"
-  class:invisible="{isManualModeActive}"
+  class:invisible={isManualModeActive}
   class="flex flex-row flex-shrink-0 h-6 border
     border-coopmaths-warn dark:border-coopmathsdark-warn"
 >
@@ -45,7 +45,7 @@
 <ul id="stepsUl" class="steps w-full mt-3">
   {#each [...Array(totalQuestionsNumber).keys()] as i}
     <button
-      on:click="{() => goToQuestion(i)}"
+      on:click={() => goToQuestion(i)}
       class="cursor-pointer
         step dark:step-info
         {currentQuestionNumber === i ? 'step-current' : ''}

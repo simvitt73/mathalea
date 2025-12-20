@@ -11,7 +11,7 @@
 <div class="flex flex-row justify-start items-center px-4 mt-1">
   <input
     {id}
-    aria-describedby="{id}"
+    aria-describedby={id}
     type="checkbox"
     class="w-4 h-4 rounded
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
@@ -22,12 +22,12 @@
       text-coopmaths-action dark:text-coopmathsdark-action
       focus:ring-3
       focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action"
-    bind:checked="{isChecked}"
-    on:change="{() => dispatch('change', isChecked)}"
-    disabled="{isDisabled}"
+    bind:checked={isChecked}
+    on:change={() => dispatch('change', isChecked)}
+    disabled={isDisabled}
   />
   <label
-    for="{id}"
+    for={id}
     class="ml-3 text-sm
       text-coopmaths-corpus dark:text-coopmathsdark-corpus
       {isDisabled

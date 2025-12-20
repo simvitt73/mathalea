@@ -114,8 +114,8 @@
   <NavBar
     subtitle="Réglages du diaporama"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
   <div
     class="flex justify-end items-start mt-10
@@ -125,31 +125,31 @@
     <div class="flex flex-col justify-start ml-4">
       <DisplaySettings {goToOverview} />
       <ViewSettings
-        nbOfViews="{$globalOptions.nbVues ?? 1}"
+        nbOfViews={$globalOptions.nbVues ?? 1}
         {updateNbOfViews}
-        isImagesOnSides="{!!$globalOptions.isImagesOnSides}"
+        isImagesOnSides={!!$globalOptions.isImagesOnSides}
         {updateIsImagesOnSides}
       />
       <TransitionSettings
         {transitionSounds}
-        screenBetweenSlides="{!!$globalOptions.screenBetweenSlides}"
-        sound="{$globalOptions.sound ?? 0}"
+        screenBetweenSlides={!!$globalOptions.screenBetweenSlides}
+        sound={$globalOptions.sound ?? 0}
         {updateFlow}
         {updateScreenBetweenSlides}
         {updateTune}
         {updatePauseAfterEachQuestion}
-        questionThenCorrectionToggle="{$globalOptions.flow === 1 ||
-          $globalOptions.flow === 2}"
-        questionWithCorrectionToggle="{$globalOptions.flow === 2}"
-        pauseAfterEachQuestion="{!!$globalOptions.pauseAfterEachQuestion}"
+        questionThenCorrectionToggle={$globalOptions.flow === 1 ||
+          $globalOptions.flow === 2}
+        questionWithCorrectionToggle={$globalOptions.flow === 2}
+        pauseAfterEachQuestion={!!$globalOptions.pauseAfterEachQuestion}
       />
       <OrderSettings
-        isQuestionsOrdered="{!$globalOptions.shuffle}"
+        isQuestionsOrdered={!$globalOptions.shuffle}
         {updateQuestionsOrder}
       />
       <SelectedExercisesSettings
         {exercises}
-        selectedExercisesIndexes="{$globalOptions.select ?? []}"
+        selectedExercisesIndexes={$globalOptions.select ?? []}
         {applyRandomSelectionOfExercises}
       />
       <LinksSettings />
@@ -162,21 +162,21 @@
     >
       <GlobalDurationSettings
         {exercises}
-        isManualModeActive="{!!$globalOptions.manualMode}"
+        isManualModeActive={!!$globalOptions.manualMode}
         {updateManualMode}
-        durationGlobal="{$globalOptions.durationGlobal}"
+        durationGlobal={$globalOptions.durationGlobal}
         {updateDurationGlobal}
       />
       <div
         class="flex flex-col align-middle min-w-full h-[100vh] px-4"
-        bind:this="{divTableDurationsQuestions}"
+        bind:this={divTableDurationsQuestions}
       >
         <ExercisesSettings
           {exercises}
-          isManualModeActive="{!!$globalOptions.manualMode}"
+          isManualModeActive={!!$globalOptions.manualMode}
           {updateExercises}
-          durationGlobal="{$globalOptions.durationGlobal}"
-          selectedExercisesIndexes="{$globalOptions.select ?? []}"
+          durationGlobal={$globalOptions.durationGlobal}
+          selectedExercisesIndexes={$globalOptions.select ?? []}
           {remove}
         />
         <div class="flex flex-row items-center justify-end w-full my-4">
@@ -188,8 +188,8 @@
               bg-coopmaths-action dark:bg-coopmathsdark-action
               hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
               text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-            on:click="{startSlideshow}"
-            on:keydown="{startSlideshow}"
+            on:click={startSlideshow}
+            on:keydown={startSlideshow}
           >
             Play<i class="bx bx-play"></i>
           </button>

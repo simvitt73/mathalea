@@ -73,9 +73,9 @@
       class="flex {isExerciseDisplayed ? 'xl:h-[50px] md:h-[100px]' : 'h-0'}"
     >
       <div
-        class="{!isExerciseDisplayed
+        class={!isExerciseDisplayed
           ? 'hidden'
-          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}"
+          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
         id="barre-boutons"
       >
         <SideMenuWrapper {isRecorder} {isSidenavOpened} {toggleSidenav} />

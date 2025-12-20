@@ -77,11 +77,11 @@
           : 'cursor-pointer'}"
         type="radio"
         {name}
-        id="{name + i.toString()}"
-        bind:group="{valueSelected}"
-        value="{labelValue.value}"
-        disabled="{isDisabled || labelValue.isDisabled}"
-        on:change="{valueHasChanged}"
+        id={name + i.toString()}
+        bind:group={valueSelected}
+        value={labelValue.value}
+        disabled={isDisabled || labelValue.isDisabled}
+        on:change={valueHasChanged}
       />
       <label
         class="form-check-label inline-block text-sm
@@ -90,7 +90,7 @@
           {isDisabled || labelValue.isDisabled
           ? 'text-opacity-10'
           : 'text-opacity-70 cursor-pointer'}"
-        for="{name + i.toString()}"
+        for={name + i.toString()}
       >
         {labelValue.label}
       </label>

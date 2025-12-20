@@ -19,9 +19,9 @@
     data-te-target="#choiceSideMenuWrapper"
     aria-controls="#choiceSideMenuWrapper"
     aria-haspopup="true"
-    on:click="{() => {
+    on:click={() => {
       toggleSidenav(false)
-    }}"
+    }}
   >
     <i
       class="bx

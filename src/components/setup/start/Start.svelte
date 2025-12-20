@@ -422,22 +422,22 @@
     <div class="flex-1 flex flex-col w-full md:overflow-hidden">
       <Header
         {isNavBarVisible}
-        isExerciseDisplayed="{$exercicesParams.length !== 0}"
+        isExerciseDisplayed={$exercicesParams.length !== 0}
         {zoomUpdate}
         {setAllInteractive}
         {newDataForAll}
         {trash}
         {setFullScreen}
         {handleExport}
-        handleRecorder="{sendActivityParams}"
-        locale="{localeValue}"
+        handleRecorder={sendActivityParams}
+        locale={localeValue}
         {handleLanguage}
-        isCapytale="{$globalOptions.recorder === 'capytale'}"
-        isRecorder="{!!$globalOptions.recorder}"
+        isCapytale={$globalOptions.recorder === 'capytale'}
+        isRecorder={!!$globalOptions.recorder}
         {buildUrlAndOpenItInNewTab}
         {showSettingsDialog}
         {importExercises}
-        isExercisesListEmpty="{$exercicesParams.length === 0}"
+        isExercisesListEmpty={$exercicesParams.length === 0}
         {isSidenavOpened}
         {toggleSidenav}
         {exportQcmCam}
@@ -452,7 +452,7 @@
         >
           {#if $globalOptions.recorder}
             <SideMenuWrapper
-              isRecorder="{$globalOptions.recorder === 'capytale'}"
+              isRecorder={$globalOptions.recorder === 'capytale'}
               {isSidenavOpened}
               {toggleSidenav}
             />
@@ -483,7 +483,7 @@
           >
             <!-- MGu si la vue n'est pas START, le composant va être detruit et ici ca empeche de charger des exos inutilement-->
             {#if $exercicesParams.length !== 0 && ($globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'l')}
-              <Exercices exercicesParams="{$exercicesParams}" {toggleSidenav} />
+              <Exercices exercicesParams={$exercicesParams} {toggleSidenav} />
             {:else}
               <Placeholder text="Sélectionner les exercices" />
             {/if}
@@ -550,10 +550,7 @@
               class="flex w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
             >
               {#if $exercicesParams.length !== 0}
-                <Exercices
-                  exercicesParams="{$exercicesParams}"
-                  {toggleSidenav}
-                />
+                <Exercices exercicesParams={$exercicesParams} {toggleSidenav} />
               {:else}
                 <Placeholder text="Sélectionner les exercices" />
               {/if}
@@ -569,12 +566,12 @@
   <ModalThirdApps
     {thirdAppsChoiceModal}
     {showThirdAppsChoiceDialog}
-    appsTierceInExercisesList="{selectedThirdApps}"
+    appsTierceInExercisesList={selectedThirdApps}
   />
   <ModalCapytalSettings
     bind:isSettingsDialogDisplayed
-    globalOptions="{$globalOptions}"
-    canOptions="{$canOptions}"
+    globalOptions={$globalOptions}
+    canOptions={$canOptions}
     {toggleCan}
     {buildUrlAndOpenItInNewTab}
     {updateParams}

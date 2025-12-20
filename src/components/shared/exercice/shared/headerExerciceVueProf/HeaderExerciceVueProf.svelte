@@ -174,17 +174,17 @@
           correctionReady
             ? ''
             : 'hidden'}"
-          data-tip="{isCorrectionVisible
+          data-tip={isCorrectionVisible
             ? 'Masquer la correction'
-            : 'Montrer la correction'}"
+            : 'Montrer la correction'}
           type="button"
-          on:click="{() => {
+          on:click={() => {
             isCorrectionVisible = !isCorrectionVisible
             dispatch('clickCorrection', {
               isCorrectionVisible,
               isContentVisible,
             })
-          }}"
+          }}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isCorrectionVisible
@@ -197,19 +197,19 @@
           interactifReady
             ? ''
             : 'hidden'}"
-          data-tip="{isInteractif
+          data-tip={isInteractif
             ? "Désactiver l'interactivité"
-            : 'Rendre interactif'}"
+            : 'Rendre interactif'}
           type="button"
-          on:click="{switchInteractif}"
+          on:click={switchInteractif}
         >
-          <InteractivityIcon isOnStateActive="{isInteractif}" />
+          <InteractivityIcon isOnStateActive={isInteractif} />
         </button>
         <button
           class="mx-2 tooltip tooltip-left"
           data-tip="Nouvel énoncé"
           type="button"
-          on:click="{newData}"
+          on:click={newData}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady
@@ -220,10 +220,10 @@
         {#if isHidable}
           <button
             type="button"
-            on:click="{() => {
+            on:click={() => {
               isVisible = !isVisible
               dispatch('clickVisible', { isVisible })
-            }}"
+            }}
             class="mx-2 tooltip tooltip-left"
             data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
           >
@@ -238,7 +238,7 @@
           class="mx-2 tooltip tooltip-left tooltip-neutral"
           data-tip="Dupliquer l'exercice"
           type="button"
-          on:click="{duplicate}"
+          on:click={duplicate}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-duplicate"
@@ -249,7 +249,7 @@
             class="mx-2 tooltip tooltip-left tooltip-neutral"
             data-tip="Supprimer l'exercice"
             type="button"
-            on:click="{remove}"
+            on:click={remove}
           >
             <i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-trash"
@@ -262,10 +262,10 @@
             : 'hidden'} "
           data-tip="Changer les paramètres de l'exercice"
           type="button"
-          on:click="{() => {
+          on:click={() => {
             isSettingsVisible = !isSettingsVisible
             dispatch('clickSettings', { isSettingsVisible })
-          }}"
+          }}
         >
           <i
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-slider"
@@ -276,8 +276,8 @@
         class="flex flex-row justify-start items-center space-x-4 md:space-x-1"
       >
         {#if isSortable}
-          <BoutonMonter indice="{indiceExercice}" />
-          <BoutonDescendre indice="{indiceExercice}" {indiceLastExercice} />
+          <BoutonMonter indice={indiceExercice} />
+          <BoutonDescendre indice={indiceExercice} {indiceLastExercice} />
         {/if}
       </div>
     </div>
