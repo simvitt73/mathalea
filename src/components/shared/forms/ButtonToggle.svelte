@@ -44,15 +44,15 @@
     type="button"
     {id}
     class="flex justify-center items-center"
-    on:click="{toggle}"
-    disabled="{isDisabled}"
+    on:click={toggle}
+    disabled={isDisabled}
   >
     <i
       class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} translate-y-[0.15rem] {value
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
-      aria-describedby="{value ? titles[0] : titles[1]}"
+      aria-describedby={value ? titles[0] : titles[1]}
     ></i>
   </button>
   <div

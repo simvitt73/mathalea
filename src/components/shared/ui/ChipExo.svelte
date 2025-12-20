@@ -38,7 +38,7 @@
   </div>
   <button
     class="ml-2 w-2/12 bg-transparent hover focus:outline-none cursor-pointer"
-    on:click="{remove}"
+    on:click={remove}
   >
     <i
       class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-x font-semibold text-base"

@@ -45,15 +45,15 @@
       ? 'text-opacity-10 dark:text-opacity-10'
       : 'text-opacity-100 dark:text-opacity-100'}
       text-coopmaths-struct dark:text-coopmathsdark-struct"
-    for="{inputID}"
+    for={inputID}
   >
     {title}
   </label>
   <input
     type="text"
-    id="{inputID}"
-    name="{inputID}"
-    disabled="{isDisabled}"
+    id={inputID}
+    name={inputID}
+    disabled={isDisabled}
     bind:value
     {placeholder}
     class="block h-5 text-sm border-1

@@ -48,7 +48,7 @@
 
 <button
   type="button"
-  on:click="{zoomMinus}"
+  on:click={zoomMinus}
   class="tooltip tooltip-left tooltip-neutral"
   data-tip="Réduire la taille du texte"
 >
@@ -59,7 +59,7 @@
 </button>
 <button
   type="button"
-  on:click="{zoomPlus}"
+  on:click={zoomPlus}
   class="tooltip tooltip-left tooltip-neutral"
   data-tip="Augmenter la taille du texte"
 >

@@ -57,7 +57,7 @@
   }
 </script>
 
-<div class="{`${$$props.class || ''} flex flex-col`}">
+<div class={`${$$props.class || ''} flex flex-col`}>
   <div
     class="text-coopmaths-struct font-semibold text-sm px-1 border-b w-full border-coopmaths-struct"
   >
@@ -74,12 +74,12 @@
             aria-describedby="checkbox-{key}-{i}-{timeTag}"
             type="checkbox"
             class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-0 rounded"
-            value="{key}"
-            bind:checked="{filter.isSelected}"
-            on:change="{() => {
+            value={key}
+            bind:checked={filter.isSelected}
+            on:change={() => {
               handleFiltersChanges(key)
               dispatch('filters-change')
-            }}"
+            }}
           />
           <label
             for="checkbox-{key}-{i}-{timeTag}"

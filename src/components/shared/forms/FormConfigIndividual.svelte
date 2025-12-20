@@ -31,8 +31,8 @@
         Numération des questions
         <select
           class="w-40"
-          value="{latexFileInfos.exos?.[exo.index]?.labels}"
-          on:change="{(e) => {
+          value={latexFileInfos.exos?.[exo.index]?.labels}
+          on:change={(e) => {
             // Crée l'objet exo si inexistant
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
@@ -40,7 +40,7 @@
             // @ts-ignore
             const select = e.target.value
             latexFileInfos.exos[exo.index].labels = select || undefined
-          }}"
+          }}
         >
           <option value="">(aucune)</option>
           <option value="\alph*)">\alph* : a, b, c, ...</option>
@@ -57,7 +57,7 @@
           class="mt-1 border rounded px-2 py-1 w-24"
           min="0"
           max="50"
-          on:input="{(e) => {
+          on:input={(e) => {
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
@@ -75,8 +75,8 @@
                 latexFileInfos.exos[exo.index].itemsep = val
               }
             }
-          }}"
-          value="{latexFileInfos.exos?.[exo.index]?.itemsep ?? ''}"
+          }}
+          value={latexFileInfos.exos?.[exo.index]?.itemsep ?? ''}
         />
       </label>
       <label class="flex flex-col text-left">
@@ -86,7 +86,7 @@
           class="mt-1 border rounded px-2 py-1 w-24"
           min="1"
           max="5"
-          on:input="{(e) => {
+          on:input={(e) => {
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
@@ -104,8 +104,8 @@
                 latexFileInfos.exos[exo.index].cols = val
               }
             }
-          }}"
-          value="{latexFileInfos.exos?.[exo.index]?.cols ?? ''}"
+          }}
+          value={latexFileInfos.exos?.[exo.index]?.cols ?? ''}
         />
       </label>
       <label class="flex flex-col text-left">
@@ -115,7 +115,7 @@
           class="mt-1 border rounded px-2 py-1 w-24"
           min="1"
           max="5"
-          on:input="{(e) => {
+          on:input={(e) => {
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
@@ -133,8 +133,8 @@
                 latexFileInfos.exos[exo.index].cols_corr = val
               }
             }
-          }}"
-          value="{latexFileInfos.exos?.[exo.index]?.cols_corr ?? ''}"
+          }}
+          value={latexFileInfos.exos?.[exo.index]?.cols_corr ?? ''}
         />
       </label>
       <fieldset>
@@ -144,7 +144,7 @@
           <input
             type="number"
             class="mt-1 border rounded px-2 py-1 w-24"
-            on:input="{(e) => {
+            on:input={(e) => {
               latexFileInfos.exos = latexFileInfos.exos || {}
               latexFileInfos.exos[exo.index] =
                 latexFileInfos.exos[exo.index] || {}
@@ -166,8 +166,8 @@
                   latexFileInfos.exos[exo.index].blocrep.nbligs = val
                 }
               }
-            }}"
-            value="{latexFileInfos.exos?.[exo.index]?.blocrep?.nbligs ?? ''}"
+            }}
+            value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbligs ?? ''}
           />
         </label>
         <label class="flex flex-col text-left">
@@ -175,7 +175,7 @@
           <input
             type="number"
             class="mt-1 border rounded px-2 py-1 w-24"
-            on:input="{(e) => {
+            on:input={(e) => {
               latexFileInfos.exos = latexFileInfos.exos || {}
               latexFileInfos.exos[exo.index] =
                 latexFileInfos.exos[exo.index] || {}
@@ -196,8 +196,8 @@
                   latexFileInfos.exos[exo.index].blocrep.nbcols = val
                 }
               }
-            }}"
-            value="{latexFileInfos.exos?.[exo.index]?.blocrep?.nbcols ?? ''}"
+            }}
+            value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbcols ?? ''}
           />
         </label>
       </fieldset>

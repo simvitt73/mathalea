@@ -54,9 +54,9 @@
     <button
       class="absolute -right-3 -top-3"
       type="button"
-      on:click="{() => {
+      on:click={() => {
         chipsListDisplayed = false
-      }}"
+      }}
     >
       <i
         class="bx bx-x text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest"
@@ -74,7 +74,7 @@
     id="chips-list"
   >
     {#each listIdsForChips as id, indice (id.key)}
-      <ChipExo text="{id.title}" {indice} />
+      <ChipExo text={id.title} {indice} />
     {/each}
   </div>
 </div>

@@ -278,8 +278,8 @@
   <NavBar
     subtitle="LaTeX"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
 
   <section
@@ -317,7 +317,7 @@
                 data-te-carousel-active
               >
                 <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
+                  src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}
                   alt="{latexFileInfos.style} image-1"
                   class="block h-auto w-full rounded-r-lg"
                 />
@@ -328,7 +328,7 @@
                 data-te-carousel-item
               >
                 <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
+                  src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}
                   alt="{latexFileInfos.style} image-2"
                   class="block h-auto w-full rounded-r-lg"
                 />
@@ -338,44 +338,44 @@
         </div>
       </div>
 
-      <SimpleCard icon="{''}" title="{'Éléments de titres'}">
+      <SimpleCard icon={''} title={'Éléments de titres'}>
         <div class="flex flex-col w-full justify-start items-start space-y-2">
           <input
             type="text"
             id="export-latex-titre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Can'
+            placeholder={latexFileInfos.style === 'Can'
               ? 'Course aux nombres'
-              : 'Titre'}"
-            bind:value="{latexFileInfos.title}"
+              : 'Titre'}
+            bind:value={latexFileInfos.title}
           />
           <input
             type="text"
             id="export-latex-reference-input"
             class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+            placeholder={latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Référence'
-              : 'Haut de page gauche'}"
-            bind:value="{latexFileInfos.reference}"
-            disabled="{latexFileInfos.style === 'Can'}"
+              : 'Haut de page gauche'}
+            bind:value={latexFileInfos.reference}
+            disabled={latexFileInfos.style === 'Can'}
           />
           <input
             type="text"
             id="export-latex-soustitre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+            placeholder={latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
-              : 'Pied de page droit'}"
-            bind:value="{latexFileInfos.subtitle}"
-            disabled="{latexFileInfos.style === 'Can'}"
+              : 'Pied de page droit'}
+            bind:value={latexFileInfos.subtitle}
+            disabled={latexFileInfos.style === 'Can'}
           />
         </div>
       </SimpleCard>
-      <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}">
+      <SimpleCard icon={''} title={'Nombre de versions des exercices'}>
         <input
           type="number"
           id="export-latex-nb-versions-input"
@@ -384,12 +384,12 @@
           maxlength="2"
           min="1"
           max="20"
-          bind:value="{latexFileInfos.nbVersions}"
+          bind:value={latexFileInfos.nbVersions}
         />
       </SimpleCard>
     </div>
 
-    <div bind:this="{divText}">
+    <div bind:this={divText}>
       <h1
         class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
       >
@@ -404,7 +404,7 @@
         <div
           class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
-          <SimpleCard title="{'Compiler le code pour avoir un fichier PDF'}">
+          <SimpleCard title={'Compiler le code pour avoir un fichier PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
               J'essaie le nouveau compilateur en ligne (serveur TexLive.net) qui
@@ -423,7 +423,7 @@
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Obtenir un PDF'}">
+          <SimpleCard title={'Obtenir un PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
               vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir
@@ -437,12 +437,12 @@
                   class="flex w-full flex-col justify-center"
                   {latexFile}
                   {exercices}
-                  disabled="{false}"
+                  disabled={false}
                 />
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Copier le code'}" icon="{'bx-copy-alt'}">
+          <SimpleCard title={'Copier le code'} icon={'bx-copy-alt'}>
             <div>
               Je souhaite copier le code $\LaTeX$ pour le coller dans un autre
               logiciel.
@@ -453,9 +453,9 @@
               {:then}
                 <ButtonActionInfo
                   action="copy"
-                  textToCopy="{latexFile.latexWithoutPreamble}"
+                  textToCopy={latexFile.latexWithoutPreamble}
                   text="Code seul"
-                  successMessage="{messageForCopyPasteModal}"
+                  successMessage={messageForCopyPasteModal}
                   errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
                   class="px-2 py-1 rounded-md"
                 />
@@ -467,25 +467,25 @@
               {:then}
                 <ButtonActionInfo
                   action="copy"
-                  textToCopy="{latexFile.latexWithPreamble}"
+                  textToCopy={latexFile.latexWithPreamble}
                   text="Code + préambule"
-                  successMessage="{messageForCopyPasteModal}"
+                  successMessage={messageForCopyPasteModal}
                   errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
                   class="px-2 py-1 rounded-md"
                 />
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Télécharger le code'}" icon="{'bx-download'}">
+          <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="downloadFullArchive"
-                on:click="{async () => {
+                on:click={async () => {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
-                }}"
+                }}
                 text="Archive complète"
               />
             </div>
@@ -496,32 +496,29 @@
                 <ButtonTextAction
                   class="inline-block px-2 py-1 rounded-md"
                   id="downloadPicsButton"
-                  on:click="{handleDownloadPicsModalDisplay}"
+                  on:click={handleDownloadPicsModalDisplay}
                   text="Uniquement les figures"
-                  disabled="{!picsWanted}"
+                  disabled={!picsWanted}
                 />
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard
-            title="{'Basculer vers la vue PDF'}"
-            icon="{'bx-download'}"
-          >
+          <SimpleCard title={'Basculer vers la vue PDF'} icon={'bx-download'}>
             <div>Je souhaite basculer vers la vue PDF.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="vuePDF"
-                on:click="{() => {
+                on:click={() => {
                   mathaleaGoToView('pdf')
-                }}"
+                }}
                 text="Basculer sur la vue PDF"
               />
             </div>
           </SimpleCard>
         </div>
         <BasicClassicModal
-          bind:isDisplayed="{isDownloadPicsModalDisplayed}"
+          bind:isDisplayed={isDownloadPicsModalDisplayed}
           icon="bx-code"
         >
           <span slot="header"></span>
@@ -552,7 +549,7 @@
           <div slot="footer">
             <ButtonTextAction
               text="Télécharger les figures"
-              on:click="{handleActionFromDownloadPicsModal}"
+              on:click={handleActionFromDownloadPicsModal}
             />
           </div>
         </BasicClassicModal>
@@ -560,7 +557,7 @@
     </div>
 
     <dialog
-      bind:this="{dialogLua}"
+      bind:this={dialogLua}
       class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6"
     >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->

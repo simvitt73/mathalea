@@ -23,25 +23,25 @@
   </div>
   <CheckboxWithLabel
     id="slideshow-selected-exercises-checkbox"
-    isChecked="{isSelectedExercises}"
-    isDisabled="{exercises.length === 1}"
+    isChecked={isSelectedExercises}
+    isDisabled={exercises.length === 1}
     label="Seulement certains exercices de la liste"
-    on:change="{(e) => {
+    on:change={(e) => {
       const isChecked = e.detail
       selectedExercisesCount = isChecked ? exercises.length - 1 : 0
       applyRandomSelectionOfExercises(selectedExercisesCount)
-    }}"
+    }}
   />
   <div class="pl-8 mt-1 flex">
     <NumberInput
       id="slideshow-selected-exercises-count-input"
-      max="{exercises.length - 1}"
-      value="{selectedExercisesCount}"
-      isDisabled="{!selectedExercisesCount}"
-      on:change="{(e) => {
+      max={exercises.length - 1}
+      value={selectedExercisesCount}
+      isDisabled={!selectedExercisesCount}
+      on:change={(e) => {
         const selectedExercisesCount = e.detail
         applyRandomSelectionOfExercises(selectedExercisesCount)
-      }}"
+      }}
     />
     <span
       class="ml-2 my-auto

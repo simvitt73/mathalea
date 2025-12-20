@@ -88,14 +88,14 @@
   <ExerciceStatic
     {indiceExercice}
     {indiceLastExercice}
-    uuid="{paramsExercice.uuid}"
-    zoomFactor="{$globalOptions.z ?? '1'}"
-    isSolutionAccessible="{!!$globalOptions.isSolutionAccessible}"
+    uuid={paramsExercice.uuid}
+    zoomFactor={$globalOptions.z ?? '1'}
+    isSolutionAccessible={!!$globalOptions.isSolutionAccessible}
     on:exerciseRemoved
   />
 {:else if exerciseType === 'html'}
   <ExerciceHtml
-    vue="{$globalOptions.v}"
+    vue={$globalOptions.v}
     {exercise}
     {indiceExercice}
     {indiceLastExercice}
@@ -103,7 +103,7 @@
   />
 {:else if exerciseType === 'svelte'}
   <svelte:component
-    this="{ComponentExercice}"
+    this={ComponentExercice}
     {indiceExercice}
     {indiceLastExercice}
   />
@@ -111,7 +111,7 @@
   <ExerciceMathalea
     vue="eleve"
     {exercise}
-    exerciseIndex="{indiceExercice}"
+    exerciseIndex={indiceExercice}
     {indiceLastExercice}
     {isCorrectionVisible}
     {toggleSidenav}
@@ -121,7 +121,7 @@
   <ExerciceMathalea
     vue="prof"
     {exercise}
-    exerciseIndex="{indiceExercice}"
+    exerciseIndex={indiceExercice}
     {indiceLastExercice}
     {isCorrectionVisible}
     {toggleSidenav}

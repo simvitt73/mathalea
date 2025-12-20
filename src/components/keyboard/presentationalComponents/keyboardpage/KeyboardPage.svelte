@@ -41,9 +41,9 @@
       {/each}
     </div>
   {:else}
-    <div class="{unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}">
+    <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
       <BlockOfKeycapsWithPagination
-        blocksList="{unitsBlocks}"
+        blocksList={unitsBlocks}
         {isInLine}
         {clickKeycap}
       />

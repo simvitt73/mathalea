@@ -182,9 +182,9 @@
 >
   {#if showPopup}
     <Popup
-      message="{popupMessage}"
-      visible="{showPopup}"
-      onClose="{handlePopupClose}"
+      message={popupMessage}
+      visible={showPopup}
+      onClose={handlePopupClose}
     />
   {:else if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />

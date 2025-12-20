@@ -118,9 +118,9 @@
     <!-- 🟣 Bouton manuel pour lancer la compilation -->
     <div class="m-2 text-center">
       <button
-        on:click="{compileToPDF}"
+        on:click={compileToPDF}
         class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest disabled:opacity-50"
-        disabled="{clockAbled}"
+        disabled={clockAbled}
       >
         {#if clockAbled}
           Compilation en cours...
@@ -133,7 +133,7 @@
 
   {#if clockAbled}
     <div class="loader text-center m-2">
-      <progress value="{$timer / original}"></progress>
+      <progress value={$timer / original}></progress>
       {$timer.toFixed(0)}s
     </div>
   {/if}
@@ -142,8 +142,8 @@
     {#if downloadFilename}
       <div class="m-2">
         <a
-          href="{URL.createObjectURL(pdfBlob)}"
-          download="{downloadFilename}"
+          href={URL.createObjectURL(pdfBlob)}
+          download={downloadFilename}
           class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest"
         >
           Télécharger {downloadFilename}
@@ -152,7 +152,7 @@
     {/if}
 
     <div class="flex-1 overflow-auto m-2">
-      <PdFviewer blob="{pdfBlob}" />
+      <PdFviewer blob={pdfBlob} />
     </div>
   {/if}
 
