@@ -1,7 +1,4 @@
 import { createList } from '../../lib/format/lists'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import {
@@ -27,7 +24,7 @@ import Exercice from '../Exercice'
 
 export const titre =
   'Travailler un sujet de synthèse avec la fonction exponentielle.'
-export const interactifReady = true
+export const interactifReady = false
 export const interactifType = 'mathLive'
 export const dateDePublication = '18/12/2025'
 
@@ -104,8 +101,8 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const extremumF2 = new FractionEtendue(-m*b-a, a) // image du sommet dans e^(mx)
       const sommetConvexite = new FractionEtendue(-m * (2 * a + m * b),a * m * m,)// abscisse du point d'inflexion de f
       if (this.questionJamaisPosee(i, a, b, m)) {
-        const texte = `Soit $f$ la fonction deux fois dérivable sur $\\mathbb{R}$,  définie pour tout réel $x$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$<br>`
-        let indiceInteractif = 0
+        const texte = `Soit $f$ la fonction deux fois dérivable sur $\\mathbb{R}$,  définie pour tout réel $x$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$`
+       
         for (let j = 0; j < typesDeQuestionsDisponibles.length; j++) {
           let question: string = ''
           let correction: string = ''
@@ -147,36 +144,17 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
               }
 
               question +=
-                ' Étudier les limites de la fonction $f$ en $+\\infty$ et $-\\infty$.<br>'
+                ' Étudier les limites de la fonction $f$ en $+\\infty$ et $-\\infty$.'
 
               correction += createList({
                 style: 'fleches',
                 items: [corrPlus, corrMoins],
               })
-              correction += '<br>'
-              if (this.interactif) {
-                question += ajouteChampTexteMathLive(
-                  this,
-                  i * nbDeQuestions + indiceInteractif,
-                  KeyboardType.clavierNumbers,
-                  {
-                    texteAvant: `$\\displaystyle\\lim_{x \\to +\\infty}f(x)=$`,
-                  },
-                )
-                question += '<br>'
-                question += ajouteChampTexteMathLive(
-                  this,
-                  i * nbDeQuestions + indiceInteractif + 1,
-                  KeyboardType.clavierNumbers,
-                  {
-                    texteAvant: `$\\displaystyle\\lim_{x \\to -\\infty}f(x)=$`,
-                  },
-                )
-              }
-              break
+             
+            break
             }
             case 2:
-              question += `Calculer la dérivée $f'(x)$ de la fonction $f$.<br>`
+              question += `Calculer la dérivée $f'(x)$ de la fonction $f$.`
               correction += `On a $f=uv$, avec pour tout $x\\in\\mathbb{R}$ , $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${rienSi1(m)}x}$.<br>
       On calcule :    $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${rienSi1(m)}x}$.<br>
      Par dérivation d'un produit,<br>
@@ -187,28 +165,12 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       &=\\mathrm{e}^{${rienSi1(m)}x}  \\left( ${a * m}x${ecritureAlgebrique(a + m * b)} \\right)
       \\end{aligned}$.`
 correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = \\mathrm{e}^{${rienSi1(m)}x}  \\left( ${a * m}x${ecritureAlgebrique(a + m * b)} \\right)`)}.$<br>`
-              if (this.interactif) {
-                question += ajouteChampTexteMathLive(
-                  this,
-                  i * nbDeQuestions + indiceInteractif,
-                  KeyboardType.clavierNumbers,
-                  { texteAvant: `$f'(x)=$` },
-                )
-                question += '<br>'
-                handleAnswers(this, i * nbDeQuestions + indiceInteractif + 1, {
-                  reponse: {
-                    value: 3,
-                    options: {
-                      nombreDecimalSeulement: true,
-                    },
-                  },
-                })
-              }
-              indiceInteractif = indiceInteractif + 1
+             
+            
               break
             case 3:
               {
-                question += `Étudier les variations de la fonction $f$ sur $\\mathbb{R}$.<br>`
+                question += `Étudier les variations de la fonction $f$ sur $\\mathbb{R}$.`
                 correction += `Pour étudier les variations de la fonction $f$, on analyse le signe de sa dérivée $f'(x)$.<br>
       On a $f'(x) = \\mathrm{e}^{${rienSi1(m)}x}  \\left( ${rienSi1(a * m)}x${ecritureAlgebrique(a + m * b)} \\right)$.<br>
       Pour tout $x\\in\\mathbb{R}$, $\\mathrm{e}^{${rienSi1(m)}x}>0$. <br>On étudie le signe de $${rienSi1(a * m)}x${ecritureAlgebrique(a + m * b)}$.`
@@ -278,14 +240,14 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                   lgt: 3.5, // taille de la première colonne en cm
                   hauteurLignes: [30, 30, 30],
                 })
-                correction += `$\\begin{aligned}f\\left(${sommet.texFractionSimplifiee}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.<br>`
+                correction += `<br>$\\begin{aligned}f\\left(${sommet.texFractionSimplifiee}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.<br>`
               }
               break
             case 4:
-              question += `Soit $f''$ la dérivée de la fonction $f'$. <br>
+              question += `Soit $f''$ la dérivée de la fonction $f'$. 
               On donne, pour tout $x\\in\\mathbb{R}, f''(x) = \\mathrm{e}^{${rienSi1(m)}x}\\left(${rienSi1(a * m * m)}x${ecritureAlgebrique(m * (2 * a + m * b))}\\right)$.<br>
               Étudier la convexité de la fonction $f$.<br>
-              Déterminer la présence éventuelle de points d'inflexion.<br>`
+              Déterminer la présence éventuelle de points d'inflexion.`
               correction += `Pour étudier la convexité de la fonction $f$, on étudie le signe de la dérivée seconde $f''(x)$.<br>
       Soit $x\\in\\mathbb{R}$, on a $f''(x) = \\mathrm{e}^{${rienSi1(m)}x}\\left(${rienSi1(a * m * m)}x${ecritureAlgebrique(m * (2 * a + m * b))}\\right)$<br>
     On sait que pour tout $x\\in\\mathbb{R}$, $\\mathrm{e}^{${rienSi1(m)}x}>0$.<br>
@@ -364,14 +326,14 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                 lgt: 3.5, // taille de la première colonne en cm
                 hauteurLignes: [30, 30, 30],
               })
-              correction += `Une fonction admet un point d'inflexion si et seulement si sa dérivée seconde s'annule et change de signe. <br>
+              correction += `<br>Une fonction admet un point d'inflexion si et seulement si sa dérivée seconde s'annule et change de signe. <br>
            On peut donc conlure que la courbe représentative de $f$ admet un unique point d'inflexion en $x = ${sommetConvexite.texFractionSimplifiee}$.<br>`
               break
 // *********************************
 // TVI
 // ******************************** */
             case 5:
-              question += `Déterminer  le nombre de solution(s) sur $\\mathbb{R}$ , de l'équation $f(x) = ${k}$.<br>
+              question += `Déterminer  le nombre de solution(s) sur $\\mathbb{R}$ , de l'équation $f(x) = ${k}$.
               On donnera, le cas échéant, une valeur approchée au centième près, de la ou des solutions.<br>`
               let TVIPlus="  "
               let TVIMoins=" "
@@ -379,7 +341,8 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
               let TVI2=" "
               let TVI3=" "
               if (a * m > 0) {
-                TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right[$ :<br> $f$ est strictement décroissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>  Pour tout $x$ de cet intervalle, on a donc $f(x)<0$ et l'équation $f(x) = ${k}$ n'admet alors aucune solution.`
+                TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right[$ :<br> 
+                $f$ est strictement décroissante. Comme $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$, alors pour tout $x$ de cet intervalle, on a $f(x)<0$.<br> L'équation $f(x) = ${k}$ n'admet donc aucune solution.`
                 TVIMoins +=`Sur l'intervalle $\\left[ ${sommet.texFractionSimplifiee};+\\infty \\right[$ :`
                 TVI1='On sait que $f$ est dérivable donc continue.'
                 TVI2=`$${k}\\in \\left[${sommet.texFractionSimplifiee};+\\infty \\right[.$ `
@@ -396,12 +359,12 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                correction +=`d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
               } else if (a * m < 0) {
                 TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$ : <br> $f$ est strictement croissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>
-                Pour tout $x$ de cet intervalle, on a donc $f(x)>0$. L'équation $f(x) = ${k}$ n'admet alors aucune solution sur $\\left]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$.<br>`
-                TVIMoins +=`Sur l'intervalle $\\left[${sommet.texFractionSimplifiee};+\\infty \\right[$ :<br>`
-                TVI1='$f$ est strictement décroissante,'
-                TVI2=`$\\displaystyle\\lim_{x \\to +\\infty} f(x) =  -\\infty$.<br>`
-               TVI3=`$f\\left(${sommet.texFractionSimplifiee}\\right) = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\approx ${texNombre(extremum)}$. <br>
-                Donc $${texNombre(k)} \\in\\left]-\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\right]$.<br>`
+                Pour tout $x$ de cet intervalle, on a donc $f(x)>0$.<br> L'équation $f(x) = ${k}$ n'admet alors aucune solution sur $\\left]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$.`
+                TVIMoins +=`Sur l'intervalle $\\left[${sommet.texFractionSimplifiee};+\\infty \\right[$ :`
+                  TVI1='On sait que $f$ est dérivable donc continue.'
+                TVI2='$f$ est strictement décroissante.'
+                TVI3=`$\\displaystyle\\lim_{x \\to +\\infty} f(x) =  -\\infty$ et $f\\left(${sommet.texFractionSimplifiee}\\right) = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\approx ${texNombre(extremum)}$, 
+                donc $${texNombre(k)} \\in\\left]-\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\right]$.`
                 
                  correction = createList({
                 style: 'fleches',
@@ -414,25 +377,9 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                correction +=`d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
               }
               
- correction += ` Par disjonction des cas, l'équation $f(x) = ${k}$ admet donc une unique solution sur $\\mathbb{R}$.<br>`
-              if (this.interactif) {
-                question += ajouteChampTexteMathLive(
-                  this,
-                  i * nbDeQuestions + indiceInteractif,
-                  KeyboardType.clavierNumbers,
-                  { texteAvant: `` },
-                )
-                question += '<br>'
-                handleAnswers(this, i * nbDeQuestions + indiceInteractif, {
-                  reponse: {
-                    value: 3,
-                    options: {
-                      nombreDecimalSeulement: true,
-                    },
-                  },
-                })
-              }
-              indiceInteractif++
+ correction += ` Par disjonction des cas, l'équation $f(x) = ${k}$ admet donc une unique solution sur $\\mathbb{R}$.`
+             
+            
               break
           }
           questions.push(question)
