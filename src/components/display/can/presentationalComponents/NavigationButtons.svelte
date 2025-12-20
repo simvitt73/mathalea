@@ -1,8 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { swipe } from 'svelte-gestures'
-  import type { CanState } from '../../../../lib/types/can'
   import { Modal, initTE } from 'tw-elements'
+  import type { CanState } from '../../../../lib/types/can'
   import ShortPagination from './ShortPagination.svelte'
 
   export let current: number
@@ -10,6 +9,54 @@
   export let handleEndOfRace: () => void
   export let state: CanState
   export let resultsByQuestion: boolean[]
+
+  function swipe(node: HTMLElement) {
+    let touchStartX = 0
+    let touchStartY = 0
+    let touchStartTime = 0
+
+    const minSwipeDistance = 60
+    const maxSwipeTime = 300
+
+    function handleTouchStart(event: TouchEvent) {
+      touchStartX = event.touches[0].clientX
+      touchStartY = event.touches[0].clientY
+      touchStartTime = Date.now()
+    }
+
+    function handleTouchEnd(event: TouchEvent) {
+      const touchEndX = event.changedTouches[0].clientX
+      const touchEndY = event.changedTouches[0].clientY
+      const touchEndTime = Date.now()
+
+      const deltaX = touchEndX - touchStartX
+      const deltaY = touchEndY - touchStartY
+      const deltaTime = touchEndTime - touchStartTime
+
+      // Check if swipe is horizontal enough and fast enough
+      if (Math.abs(deltaX) > Math.abs(deltaY) && deltaTime <= maxSwipeTime) {
+        if (Math.abs(deltaX) >= minSwipeDistance) {
+          if (deltaX > 0 && current > 0) {
+            // Swipe right - go to previous
+            current -= 1
+          } else if (deltaX < 0 && current < numberOfQuestions - 1) {
+            // Swipe left - go to next
+            current += 1
+          }
+        }
+      }
+    }
+
+    node.addEventListener('touchstart', handleTouchStart, { passive: true })
+    node.addEventListener('touchend', handleTouchEnd, { passive: true })
+
+    return {
+      destroy() {
+        node.removeEventListener('touchstart', handleTouchStart)
+        node.removeEventListener('touchend', handleTouchEnd)
+      },
+    }
+  }
 
   onMount(() => {
     initTE({ Modal })
@@ -20,23 +67,10 @@
       }
     }, 5 * 1000)
   })
-
-  let direction
-
-  function handleSwipe(event: CustomEvent) {
-    direction = event.detail.direction
-    if (direction === 'left' && current < numberOfQuestions - 1) {
-      current += 1
-    }
-    if (direction === 'right' && current > 0) {
-      current -= 1
-    }
-  }
 </script>
 
 <div
-  use:swipe="{{ timeframe: 300, minSwipeDistance: 60 }}"
-  on:swipe="{handleSwipe}"
+  use:swipe
   class="w-full pb-8 md:pb-10 px-10 space-y-4 flex flex-col md:flex-row justify-start md:justify-between items-center"
 >
   <div></div>
@@ -44,11 +78,11 @@
     <button
       class="md:hidden flex justify-center items-center"
       type="button"
-      on:click="{() => {
+      on:click={() => {
         if (current >= 10) {
           current -= 10
         }
-      }}"
+      }}
     >
       <i
         class="bx bxs-chevrons-left text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
@@ -59,11 +93,11 @@
     </button>
     <button
       type="button"
-      on:click="{() => {
+      on:click={() => {
         if (current > 0) {
           current -= 1
         }
-      }}"
+      }}
     >
       <i
         class="bx bxs-chevron-left md:bxs-left-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
@@ -75,11 +109,11 @@
     <ShortPagination {current} {state} {resultsByQuestion} />
     <button
       type="button"
-      on:click="{() => {
+      on:click={() => {
         if (current < numberOfQuestions - 1) {
           current += 1
         }
-      }}"
+      }}
     >
       <i
         class="bx bxs-chevron-right md:bxs-right-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
@@ -91,11 +125,11 @@
     <button
       class="md:hidden flex justify-center items-center"
       type="button"
-      on:click="{() => {
+      on:click={() => {
         if (current + 10 <= numberOfQuestions - 1) {
           current += 10
         }
-      }}"
+      }}
     >
       <i
         class="bx bxs-chevrons-right text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
@@ -205,9 +239,9 @@
         <button
           type="button"
           class="ml-1 inline-block rounded bg-coopmaths-action dark:bg-coopmathsdark-action px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out hover:bg-coopmaths-action-dark focus:bg-coopmaths-action-dark dark:hover:bg-coopmathsdark-action-dark dark:focus:bg-coopmathsdark-action-dark focus:outline-none focus:ring-0 dark:active:bg-coopmathsdark-action-dark"
-          on:click="{() => {
+          on:click={() => {
             handleEndOfRace()
-          }}"
+          }}
           data-te-modal-dismiss
         >
           Terminer
