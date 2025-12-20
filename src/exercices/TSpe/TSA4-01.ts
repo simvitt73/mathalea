@@ -87,18 +87,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const fAff = new Polynome({ coeffs: [b, a] })
       const questions: string[] = []
       const corrections: string[] = []
-      const sommet = new FractionEtendue(-a - m * b, a * m)
-      const k1: number = Math.trunc(Number(sommet.valeurDecimale))
+      const sommet = new FractionEtendue(-a - m * b, a * m)// abscisse du maximum ou minimum de f
+      const k1: number = Math.trunc(Number(sommet.valeurDecimale))// déterminer un seuil k1 pour choisir k dans la question du TVI et assurer l'existence d'une solution
       const k =
-        a * m > 0 ? randint(k1 + 2, k1 + 10, 0) : randint(-k1 - 10, k1 - 2, 0)
-      const extremum = arrondi(
-        (a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),
-        2,
-      )
-      const sommetConvexite = new FractionEtendue(
-        -m * (2 * a + m * b),
-        a * m * m,
-      )
+        a * m > 0 ? randint(k1 + 2, k1 + 10, 0) : randint(-k1 - 10, k1 - 2, 0)// Pour le TVI
+      const extremum = arrondi((a * sommet.valeurDecimale + b) * Math.exp(m * sommet.valeurDecimale),4,)// valeur approchée du maximum ou minimum de f
+      const extremumF1 =new FractionEtendue(-a,m) // image du sommet dans (ax+b)  
+      const extremumF2 = new FractionEtendue(-m*b-a, a) // image du sommet dans e^(mx)
+      const sommetConvexite = new FractionEtendue(-m * (2 * a + m * b),a * m * m,)// abscisse du point d'inflexion de f
       if (this.questionJamaisPosee(i, a, b, m)) {
         const texte = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$<br>`
         let indiceInteractif = 0
@@ -236,7 +232,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                         10,
                         '+/$0$',
                         30,
-                        `-/$f\\left(${sommet.texFractionSimplifiee}\\right)$`,
+                        `-/$${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}$`,
                         15,
                         '+/$+\\infty$',
                       ]
@@ -245,7 +241,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                         10,
                         '-/$0$',
                         30,
-                        `+/$f\\left(${sommet.texFractionSimplifiee}\\right)$`,
+                        `+/$${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}$`,
                         15,
                         '-/$-\\infty$',
                       ]
@@ -274,7 +270,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   lgt: 3.5, // taille de la première colonne en cm
                   hauteurLignes: [30, 30, 30],
                 })
-                correction += `avec $f\\left(${sommet.texFractionSimplifiee}\\right) \\approx ${texNombre(extremum)}$.<br>`
+                correction += `avec $f\\left(${sommet.texFractionSimplifiee}\\right) = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.texFractionSimplifiee}}\\approx ${texNombre(extremum)}$.<br>`
               }
               break
             case 4:
@@ -360,7 +356,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 lgt: 3.5, // taille de la première colonne en cm
                 hauteurLignes: [30, 30, 30],
               })
-              correction += `Une courbe admet un point d\'inflexion si et seulement si sa dérivée seconde s'annule et change de signe. <br>
+              correction += `Une fonction admet un point d'inflexion si et seulement si sa dérivée seconde s'annule et change de signe. <br>
            On peut donc conlure que la courbe représentative de $f$ admet un unique point d'inflexion en $x = ${sommetConvexite.texFractionSimplifiee}$.<br>`
               break
             case 5:
