@@ -10,6 +10,7 @@
     remToPixels,
   } from '../../../lib/components/measures'
   import { resizeContent } from '../../../lib/components/sizeTools'
+  import { handleFlowmath } from '../../../lib/handleFlowmath'
   import { verifQuestionCliqueFigure } from '../../../lib/interactif/cliqueFigure'
   import { prepareExerciceCliqueFigure } from '../../../lib/interactif/gestionInteractif'
   import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
@@ -30,7 +31,6 @@
   } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import { vendor } from '../../../lib/stores/vendorStore'
-  import { handleFlowmath } from '../../../lib/handleFlowmath'
   import {
     isInteractivityType,
     isOldFormatInteractifType,
@@ -430,9 +430,9 @@
   }
 </script>
 
-<svelte:window bind:innerWidth="{currentWindowWidth}" />
+<svelte:window bind:innerWidth={currentWindowWidth} />
 <section
-  bind:this="{eleveSection}"
+  bind:this={eleveSection}
   class="relative flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
     ? 'dark'
     : ''}"
@@ -457,8 +457,8 @@
     >
       <BtnZoom
         size="bx-sm md:bx-md"
-        isBorderTransparent="{typeof $globalOptions.title === 'string' &&
-          $globalOptions.title.length > 0}"
+        isBorderTransparent={typeof $globalOptions.title === 'string' &&
+          $globalOptions.title.length > 0}
       />
     </div>
   </div>
@@ -503,8 +503,8 @@
                 class="relative group {currentIndex === i
                   ? 'border-b-4'
                   : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                disabled="{currentIndex === i}"
-                on:click="{() => handleIndexChange(i)}"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
               >
                 <div
                   id="exerciseTitleID{i}"
@@ -542,8 +542,8 @@
                 class="relative group {currentIndex === i
                   ? 'border-b-4'
                   : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                disabled="{currentIndex === i}"
-                on:click="{() => handleIndexChange(i)}"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
               >
                 <div
                   id="questionTitleID{i}"
@@ -579,13 +579,13 @@
       {#if $globalOptions.presMode === 'un_exo_par_page'}
         {#each $exercicesParams as paramsExercice, i (paramsExercice)}
           <div class="flex flex-col">
-            <div class="{$isMenuNeededForExercises ? '' : 'hidden'}">
+            <div class={$isMenuNeededForExercises ? '' : 'hidden'}>
               <button
                 class="w-full {currentIndex === i
                   ? 'bg-coopmaths-canvas-darkest'
                   : 'bg-coopmaths-canvas-dark'} hover:bg-coopmaths-canvas-darkest text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                disabled="{currentIndex === i}"
-                on:click="{() => handleIndexChange(i)}"
+                disabled={currentIndex === i}
+                on:click={() => handleIndexChange(i)}
               >
                 <div
                   id="exerciseTitleID2{i}"
@@ -606,13 +606,13 @@
                 </div>
               </button>
             </div>
-            <div class="{currentIndex === i ? '' : 'hidden'}">
+            <div class={currentIndex === i ? '' : 'hidden'}>
               <Exercice
                 {paramsExercice}
-                indiceExercice="{i}"
-                indiceLastExercice="{$exercicesParams.length - 1}"
-                isCorrectionVisible="{isCorrectionVisible[i]}"
-                toggleSidenav="{() => {}}"
+                indiceExercice={i}
+                indiceLastExercice={$exercicesParams.length - 1}
+                isCorrectionVisible={isCorrectionVisible[i]}
+                toggleSidenav={() => {}}
               />
             </div>
           </div>
@@ -628,10 +628,10 @@
             <div class="break-inside-avoid-column">
               <Exercice
                 {paramsExercice}
-                indiceExercice="{i}"
-                indiceLastExercice="{$exercicesParams.length - 1}"
-                isCorrectionVisible="{isCorrectionVisible[i]}"
-                toggleSidenav="{() => {}}"
+                indiceExercice={i}
+                indiceLastExercice={$exercicesParams.length - 1}
+                isCorrectionVisible={isCorrectionVisible[i]}
+                toggleSidenav={() => {}}
               />
             </div>
           {/each}
@@ -647,10 +647,10 @@
             <div class="break-inside-avoid-column">
               <Exercice
                 {paramsExercice}
-                indiceExercice="{i}"
-                indiceLastExercice="{$exercicesParams.length - 1}"
-                isCorrectionVisible="{$globalOptions.presMode === 'verso'}"
-                toggleSidenav="{() => {}}"
+                indiceExercice={i}
+                indiceLastExercice={$exercicesParams.length - 1}
+                isCorrectionVisible={$globalOptions.presMode === 'verso'}
+                toggleSidenav={() => {}}
               />
             </div>
           {/each}
@@ -659,13 +659,13 @@
         <div>
           {#each questions as question, k (k + '_' + question)}
             <div class="flex flex-col">
-              <div class="{$isMenuNeededForQuestions ? '' : 'hidden'}">
+              <div class={$isMenuNeededForQuestions ? '' : 'hidden'}>
                 <button
                   class="group w-full {currentIndex === k
                     ? 'bg-coopmaths-canvas-darkest'
                     : 'bg-coopmaths-canvas-dark'} hover:bg-coopmaths-canvas-darkest text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
-                  disabled="{currentIndex === k}"
-                  on:click="{() => handleIndexChange(k)}"
+                  disabled={currentIndex === k}
+                  on:click={() => handleIndexChange(k)}
                 >
                   <div
                     id="questionTitleID2{k}"
@@ -699,8 +699,8 @@
                 </button>
               </div>
               <div
-                class="{currentIndex === k ? '' : 'hidden'}"
-                id="{`exercice${indiceExercice[k]}Q${k}`}"
+                class={currentIndex === k ? '' : 'hidden'}
+                id={`exercice${indiceExercice[k]}Q${k}`}
               >
                 <div
                   class="pb-4 flex flex-col items-start justify-start relative {isMenuNeededForQuestions
@@ -710,13 +710,13 @@
                   {#if typeof questions[k] !== 'string'}
                     {''}
                     <Exercice
-                      paramsExercice="{$exercicesParams[indiceExercice[k]]}"
-                      indiceExercice="{indiceExercice[k]}"
-                      indiceLastExercice="{$exercicesParams.length - 1}"
-                      isCorrectionVisible="{isCorrectionVisible[
+                      paramsExercice={$exercicesParams[indiceExercice[k]]}
+                      indiceExercice={indiceExercice[k]}
+                      indiceLastExercice={$exercicesParams.length - 1}
+                      isCorrectionVisible={isCorrectionVisible[
                         indiceExercice[k]
-                      ]}"
-                      toggleSidenav="{() => {}}"
+                      ]}
+                      toggleSidenav={() => {}}
                     />
                   {:else}
                     <div
@@ -739,7 +739,7 @@
                             ? 'mt-6'
                             : 'mt-2'} mb-6 py-2 pl-4"
                           style="break-inside:avoid"
-                          bind:this="{divsCorrection[k]}"
+                          bind:this={divsCorrection[k]}
                         >
                           {#if consignesCorrections[k].length !== 0}
                             <div
@@ -780,18 +780,15 @@
                     <div class="pb-4 mt-10">
                       <ButtonTextAction
                         text="Vérifier"
-                        on:click="{() => checkQuestion(k)}"
-                        disabled="{isDisabledButton[k]}"
+                        on:click={() => checkQuestion(k)}
+                        disabled={isDisabledButton[k]}
                       />
                     </div>
                   {:else if $globalOptions.isSolutionAccessible && corrections[k]}
-                    <div class="{$isMenuNeededForExercises ? 'ml-4' : ''}">
+                    <div class={$isMenuNeededForExercises ? 'ml-4' : ''}>
                       <ButtonToggle
-                        titles="{[
-                          'Voir la correction',
-                          'Masquer la correction',
-                        ]}"
-                        on:toggle="{() => switchCorrectionVisible(k)}"
+                        titles={['Voir la correction', 'Masquer la correction']}
+                        on:toggle={() => switchCorrectionVisible(k)}
                       />
                     </div>
                   {/if}

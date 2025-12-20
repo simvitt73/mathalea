@@ -18,8 +18,7 @@
   import type { KeyCap } from './types/keycap'
   import { isPageKey } from './types/keycap'
 
-  $: innerWidth = 0
-
+  let innerWidth: number = 0
   let pages: KeyboardBlock[][] = []
   let usualBlocks: KeyboardBlock[] = []
   let unitsBlocks: KeyboardBlock[] = []
@@ -163,6 +162,7 @@
 </script>
 
 <svelte:window bind:innerWidth />
+{''}
 {#if isVisible}
   <div
     on:mousedown={(e) => {
