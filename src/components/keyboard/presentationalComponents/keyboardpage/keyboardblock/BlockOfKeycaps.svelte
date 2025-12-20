@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Key from './keycap/Keycap.svelte'
-  import { GAP_BETWEEN_KEYS, SM_BREAKPOINT, getMode } from '../../../lib/sizes'
-  import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { keys } from '../../../lib/keycaps'
+  import { GAP_BETWEEN_KEYS, getMode } from '../../../lib/sizes'
+  import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { type KeyCap, isSpecialKey } from '../../../types/keycap'
+  import Key from './keycap/Keycap.svelte'
   export let innerWidth: number
   export let block: KeyboardBlock
   export let isInLine: boolean = false
@@ -25,11 +25,11 @@
         class="grid grid-cols-{block.keycaps.inline.length} customgap h-full"
         style="--gapsize:{gapsize};"
       >
-        {#each block.keycaps.inline as key}
+        {#each block.keycaps.inline as key (key)}
           <Key
-            keyName="{key}"
-            key="{keys[key]}"
-            isSpecial="{isSpecialKey(key)}"
+            keyName={key}
+            key={keys[key]}
+            isSpecial={isSpecialKey(key)}
             {isInLine}
             {innerWidth}
             {clickKeycap}
@@ -41,11 +41,11 @@
         class="grid grid-cols-{block.cols} customgap h-full"
         style="--gapsize:{gapsize};"
       >
-        {#each block.keycaps.block as key}
+        {#each block.keycaps.block as key (key)}
           <Key
-            keyName="{key}"
-            key="{keys[key]}"
-            isSpecial="{isSpecialKey(key)}"
+            keyName={key}
+            key={keys[key]}
+            isSpecial={isSpecialKey(key)}
             {isInLine}
             {innerWidth}
             {clickKeycap}
