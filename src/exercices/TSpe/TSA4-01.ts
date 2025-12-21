@@ -100,6 +100,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       const extremumF2 = new FractionEtendue(-m*b-a, a) // image du sommet dans e^(mx)
       const sommetConvexite = new FractionEtendue(-m * (2 * a + m * b),a * m * m,)// abscisse du point d'inflexion de f
       let variation : string // pour le TVI
+      let variation2 : string // pour le TVI
       if (this.questionJamaisPosee(i, a, b, m)) {
         const texte = `Soit $f$ la fonction deux fois dérivable sur $\\mathbb{R}$,  définie pour tout réel $x$ par $f(x) = \\left(${reduireAxPlusB(a, b)} \\right) \\mathrm{e}^{${rienSi1(m)}x}.$`
        
@@ -265,7 +266,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                   lgt: 3.5, // taille de la première colonne en cm
                   hauteurLignes: [30, 30, 30],
                 })
-                extremumF2.numIrred === 0
+                extremumF2.numIrred === 1
                   ? (correction += `<br>$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.<br>`)
                   : (correction += `<br>$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.numIrred}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.<br>`)
 
@@ -355,7 +356,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                 hauteurLignes: [20, 20, 10],
               })
               correction += `<br><br>Une courbe représentative d'une fonction $f$ admet un point d'inflexion si et seulement si la dérivée seconde $f''$ s'annule et change de signe. <br>
-           On peut donc conlure que la courbe représentative de $f$ admet un unique point d'inflexion en $x = ${sommetConvexite.texFractionSimplifiee}$.<br>`
+           On peut donc conclure que la courbe représentative de $f$ admet un unique point d'inflexion en $x = ${sommetConvexite.texFractionSimplifiee}$.<br>`
               break
 // *********************************
 // TVI
@@ -363,25 +364,39 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
             case 5:{
               question += `Déterminer  le nombre de solution(s) sur $\\mathbb{R}$, de l'équation $f(x) = ${k}$.
               On donnera, le cas échéant, pour chacune, une valeur approchée au centième près.<br>`
-              let TVIPlus="  "
-              let TVIMoins=" "
-              let TVI1=" "
-              let TVI2=" "
-              let TVI3=" "
-              if (a>0) { variation='croissante'}
-              else { variation='décroissante'}
-             
-              
-              if ( m > 0) {
+            let TVIPlus="  "
+            let TVIMoins=" "
+            let TVI1=" "
+            let TVI2=" "
+            let TVI3=" "
+            let variation = ''
+            let variation2 = ''
+            if (a > 0) {
+              variation = 'croissante'
+              variation2 = 'décroissante'
+            } else {
+              variation = 'décroissante'
+              variation2 = 'croissante'
+            }
+            
+            if ( m > 0) {
                 TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right[$ :<br> 
-                $f$ est strictement ${variation }. `
+                $f$ est strictement  ${variation2 }. `
                 TVIPlus +=`Comme $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$, alors pour tout $x$ de cet intervalle, on a `
                 if (a>0) { TVIPlus +=`$f(x)<0$.<br> L'équation $f(x) = ${k}$ n'admet donc aucune solution.`}
                 else { TVIPlus +=`$f(x)>0$.<br> L'équation $f(x) = ${k}$ n'admet donc aucune solution.`}
                 TVIMoins +=`Sur l'intervalle $\\left[ ${sommet.texFractionSimplifiee};+\\infty \\right[$ :`
                 TVI1='On sait que $f$ est dérivable donc continue.'
-                TVI2=`$${k}\\in \\left[${sommet.texFractionSimplifiee};+\\infty \\right[.$ `
-                TVI3=`$f$ est strictement croissante.`
+                
+                if (a>0) {TVI2=`$${k}\\in \\left[ f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) ;+\\infty \\right[$ `}
+                else {TVI2=`$${k}\\in \\left]-\\infty ; f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) \\right[$ }`}
+                 TVI2+=` car `
+                extremumF2.numIrred === 1
+                  ? (TVI2 += `$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.`)
+                  : (TVI2 += `<br>$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.numIrred}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.`)
+          TVI2 += `<br>$\\displaystyle\\lim_{x \\to +\\infty} f(x) =`
+          TVI2 += a > 0 ? (`+\\infty$.<br>`) : (`-\\infty$.<br>`)
+          TVI3=`$f$ est strictement croissante.`
                 correction =`D'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br>`
                 correction = createList({
                 style: 'fleches',
@@ -394,13 +409,19 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                correction +=`D'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
               } 
               else if ( m < 0) {
-                TVIPlus += ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$ : <br> $f$ est strictement croissante et $\\displaystyle\\lim_{x \\to -\\infty} f(x) =  0$.<br>
-                Pour tout $x$ de cet intervalle, on a donc $f(x)>0$.<br> L'équation $f(x) = ${k}$ n'admet alors aucune solution sur $\\left]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$.`
-                TVIMoins +=`Sur l'intervalle $\\left[${sommet.texFractionSimplifiee};+\\infty \\right[$ :`
-                  TVI1='On sait que $f$ est dérivable donc continue.'
-                TVI2='$f$ est strictement décroissante.'
-                TVI3=`$\\displaystyle\\lim_{x \\to +\\infty} f(x) =  -\\infty$ et $f\\left(${sommet.texFractionSimplifiee}\\right) = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\approx ${texNombre(extremum)}$, 
-                donc $${texNombre(k)} \\in\\left]-\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\right]$.`
+                  TVIPlus =`Sur l'intervalle $\\left[${sommet.texFractionSimplifiee};+\\infty \\right[$ :<br>`
+                TVIPlus +=`$f$ est strictement ${variation2}.<br>`
+                TVIPlus +=`$\\begin{aligned}f\\left(${sommet.texFractionSimplifiee}\\right) &= ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$,<br>
+                et $\\displaystyle\\lim_{x \\to +\\infty} f(x) =  0$ . <br> 
+                donc $${texNombre(k)} \\notin\\left]-\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\right]$.`
+                TVIMoins = ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$ : `
+                TVI1='On sait que $f$ est dérivable donc continue.'
+                TVI2=`$f$ est strictement ${variation} `
+                TVI3=`$\\displaystyle\\lim_{x \\to -\\infty} f(x) =  ${signe(-a)}\\infty$.<br>`
+                if (a>0){TVI3 +=`Donc $${k} \\in \\left]${signe(-a)}\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\right]$.<br>`}
+                else {TVI3 +=`Donc $${k} \\in \\left] ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}};${signe(-a)}\\infty \\right[$.<br>`}
+                TVI3  +=`d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
+              
                 
                  correction = createList({
                 style: 'fleches',
@@ -410,7 +431,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                 style: 'carres',
                 items: [ TVI1, TVI2, TVI3],
               })
-               correction +=`d'après le corollaire du théorème des valeurs intermédiaires, l'équation $f(x) = ${k}$ admet une unique solution sur cet intervalle.<br> `
+           
               }
               
               correction += ` Par disjonction des cas, l'équation $f(x) = ${k}$ admet donc une unique solution sur $\\mathbb{R}$.`
@@ -418,8 +439,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
               const {root: x0} = brent(fEquation, -100, 100, 1e-10, 200)
              
             
-                correction += ` On en déduit que $f(x) = ${k}$ admet une unique solution.<br>
-                A la calculatrice, on trouve une valeur approchée au centième qui vaut $x_0 \\approx ${texNombre(
+                correction += ` <br> A la calculatrice, on trouve une valeur approchée au centième qui vaut $x_0 \\approx ${texNombre(
                   arrondi(x0, 2),
                 )}$.`
               }
