@@ -389,7 +389,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                 TVI1='On sait que $f$ est dérivable donc continue.'
                 
                 if (a>0) {TVI2=`$${k}\\in \\left[ f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) ;+\\infty \\right[$ `}
-                else {TVI2=`$${k}\\in \\left]-\\infty ; f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) \\right[$ }`}
+                else {TVI2=`$${k}\\in \\left]-\\infty ; f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) \\right[$ `}
                  TVI2+=` car `
                 extremumF2.numIrred === 1
                   ? (TVI2 += `$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.`)
