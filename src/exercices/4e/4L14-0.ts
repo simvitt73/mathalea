@@ -497,8 +497,7 @@ function testOneValueForCase6(sup3: boolean, x1: number, a: number, b: number) {
       )}<br><br>`
     }
   } else {
-    texteCorr +=
-      "On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l'égalité est vraie.<br>"
+    texteCorr += `$${a * x1 - a * b}\\not=${x1 * x1 - b * x1}$ donc l'égalité n'est pas vraie.<br>`
     if (sup3) {
       texteCorr += `${texteEnCouleur(
         `$x=${x1}$ n'est donc pas solution de l'équation $${rienSi1(a)}x${ecritureAlgebrique(-1 * a * b)}=x^2${ecritureAlgebrique(b)}x~$`,
