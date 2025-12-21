@@ -29,9 +29,9 @@
             {isSpecialKey(key)
               ? 'bg-coopmaths-canvas-moredark dark:bg-coopmathsdark-canvas-moredark'
               : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
-            on:click="{(e) => {
+            on:click={(e) => {
               clickKeycap(keys[key], e, key)
-            }}"
+            }}
           >
             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
             {@html keys[key].display}

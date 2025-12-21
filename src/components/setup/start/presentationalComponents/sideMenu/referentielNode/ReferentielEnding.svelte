@@ -134,18 +134,18 @@
   **nestedLevelCount** (_number_) : compteur du niveau d'imbrication (utilisé pour la mise en page)
  -->
 <div
-  class="{`${$$props.class || ''} w-full flex flex-row mr-4 text-start items-start text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}"
+  class={`${$$props.class || ''} w-full flex flex-row mr-4 text-start items-start text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
   style="padding-left: {(nestedLevelCount * 2) / 6}rem"
 >
   <div
-    class="{`w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest ${selectedCount >= 1 ? 'bg-coopmaths-warn dark:bg-coopmathsdark-warn' : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'} cursor-pointer`}"
+    class={`w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest ${selectedCount >= 1 ? 'bg-coopmaths-warn dark:bg-coopmathsdark-warn' : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'} cursor-pointer`}
   >
     <button
       type="button"
-      on:click="{addToList}"
+      on:click={addToList}
       class="ml-[3px] pl-2 pr-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
     >
-      <div bind:this="{nomDeExercice}" class="flex flex-row justify-start">
+      <div bind:this={nomDeExercice} class="flex flex-row justify-start">
         {#if isExerciceItemInReferentiel(ending)}
           <!-- Exercice MathALÉA -->
           <div
@@ -156,7 +156,7 @@
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="{ending.datePublication}"
+                data-tip={ending.datePublication}
               >
                 <span
                   class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
@@ -169,7 +169,7 @@
               &nbsp;
               <span
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="{ending.dateModification}"
+                data-tip={ending.dateModification}
               >
                 <span
                   class="tooltip tooltip-bottom tooltip-neutral
@@ -250,12 +250,12 @@
       <button
         type="button"
         class="absolute -left-4 top-1/2 transform -translate-y-1/2"
-        on:mouseover="{handleMouseOver}"
-        on:focus="{handleMouseOver}"
-        on:mouseout="{handleMouseOut}"
-        on:blur="{handleMouseOut}"
-        on:click="{removeFromList}"
-        on:keydown="{removeFromList}"
+        on:mouseover={handleMouseOver}
+        on:focus={handleMouseOver}
+        on:mouseout={handleMouseOut}
+        on:blur={handleMouseOut}
+        on:click={removeFromList}
+        on:keydown={removeFromList}
       >
         <i
           class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"

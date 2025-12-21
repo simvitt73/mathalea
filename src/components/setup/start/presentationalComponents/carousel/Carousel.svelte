@@ -95,8 +95,8 @@
   <div class="h-[90%]">
     <div
       class="carousel w-full h-full cursor-pause-circle"
-      on:mouseenter="{handleMouseEnter}"
-      on:mouseleave="{handleMouseLeave}"
+      on:mouseenter={handleMouseEnter}
+      on:mouseleave={handleMouseLeave}
       role="region"
       aria-label="Caroussel d'images"
     >
@@ -188,11 +188,11 @@
               {#if slide.link && slide.link.length !== 0}
                 <div class="absolute bottom-6 right-6">
                   <ButtonTextAction
-                    text="{slide.buttonTitle && slide.buttonTitle.length !== 0
+                    text={slide.buttonTitle && slide.buttonTitle.length !== 0
                       ? slide.buttonTitle
-                      : 'En savoir plus'}"
+                      : 'En savoir plus'}
                     class="inline-flex items-center py-1 px-3 rounded-md font-normal"
-                    on:click="{() => {
+                    on:click={() => {
                       const w = window.open(
                         slide.link || 'https://coopmaths.fr/alea/',
                         '_blank',
@@ -200,7 +200,7 @@
                       if (w) {
                         w.focus()
                       }
-                    }}"
+                    }}
                   />
                 </div>
               {/if}
@@ -216,7 +216,7 @@
             {i === currentSlideIndex
             ? 'bg-coopmaths-light text-coopmaths-canvas dark:bg-coopmathsdark-action dark:text-coopmathsdark-canvas-dark'
             : 'bg-coopmaths-canvas-darkest text-coopmaths dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-action'} font-light transition-all duration-200"
-          on:click="{() => handleIndicatorClick(i)}"
+          on:click={() => handleIndicatorClick(i)}
           aria-label="Aller au slide {i + 1}"
         >
           {i + 1}

@@ -307,9 +307,9 @@
               bg-coopmaths-struct dark:bg-coopmathsdark-struct
               hover:bg-coopmaths-struct-light dark:hover:bg-coopmathsdark-struct-lightest"
             text="Paramètres"
-            on:click="{() => {
+            on:click={() => {
               state = 'end'
-            }}"
+            }}
           />
         </KickOff>
       {:else if state === 'countdown'}

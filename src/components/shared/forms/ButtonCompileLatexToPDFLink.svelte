@@ -195,13 +195,13 @@
  -->
 
 <form
-  class="{`${$$props.class || 'flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center'}`}"
+  class={`${$$props.class || 'flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center'}`}
   target="_blank"
 >
   <button
     id="btn_overleaf"
     type="submit"
-    on:click|preventDefault="{dialogToDisplayToggle}"
+    on:click|preventDefault={dialogToDisplayToggle}
     class="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
   >
     Compiler et obtenir le PDF
@@ -218,9 +218,9 @@
         <div class="absolute top-2 right-3">
           <button
             type="button"
-            on:click="{() => {
+            on:click={() => {
               dialogToDisplayToggle()
-            }}"
+            }}
           >
             <i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl bx bx-x"
@@ -236,8 +236,9 @@
           {#if clockAbled}
             <div class="loader">
               <span
-                ><progress value="{$timer / original}"
-                ></progress>{$timer.toFixed(0)}s</span
+                ><progress value={$timer / original}></progress>{$timer.toFixed(
+                  0,
+                )}s</span
               >
             </div>
           {/if}
@@ -247,8 +248,8 @@
               {#if downloadFilename}
                 <div class="m-2">
                   <a
-                    href="{URL.createObjectURL(pdfBlob)}"
-                    download="{downloadFilename}"
+                    href={URL.createObjectURL(pdfBlob)}
+                    download={downloadFilename}
                     class="px-3 py-1 rounded bg-coopmaths-action text-white hover:bg-coopmaths-action-lightest"
                   >
                     Télécharger {downloadFilename}
@@ -258,7 +259,7 @@
 
               <!-- PDF viewer -->
               <div class="flex-1 overflow-auto m-2">
-                <PdFviewer blob="{pdfBlob}" />
+                <PdFviewer blob={pdfBlob} />
               </div>
             {/if}
           </div>
@@ -266,10 +267,10 @@
       </div>
       <div id="imagesLatex"></div>
       <ButtonTextAction
-        disabled="{clockAbled}"
+        disabled={clockAbled}
         class="px-2 py-1 rounded-md"
         text="Compiler en PDF"
-        on:click="{compileToPDF}"
+        on:click={compileToPDF}
       />
       <form id="form{idkey}"></form>
     </div>
