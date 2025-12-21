@@ -700,7 +700,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (exercise.interactif + '_' + exerciseIndex + '_' + i + '_' + (exercise.seed || ''))}
+              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
