@@ -2,13 +2,16 @@
   import {
     exercicesParams,
     moveExercice,
+    isReordering,
   } from '../../../../../lib/stores/generalStore'
   export let indice: number
   export let indiceLastExercice: number
   function descendre() {
+    isReordering.set(true)
     exercicesParams.update((l) => {
       return moveExercice(l, indice, indice + 1)
     })
+    setTimeout(() => isReordering.set(false), 300)
   }
 </script>
 

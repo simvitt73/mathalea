@@ -2,12 +2,15 @@
   import {
     exercicesParams,
     moveExercice,
+    isReordering,
   } from '../../../../../lib/stores/generalStore'
   export let indice: number
   function monter() {
+    isReordering.set(true)
     exercicesParams.update((l) => {
       return moveExercice(l, indice, indice - 1)
     })
+    setTimeout(() => isReordering.set(false), 300)
   }
 </script>
 
