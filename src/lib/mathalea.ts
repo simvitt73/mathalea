@@ -510,6 +510,10 @@ export function mathaleaRenderDiv(
   }
 }
 
+export function renderDiv(HtmlElement: HTMLElement, _content: string) {
+  mathaleaRenderDiv(HtmlElement, -1)
+}
+
 export function renderKatex(element: HTMLElement) {
   renderMathInElement(element, {
     delimiters: [
@@ -840,7 +844,6 @@ export function mathaleaHandleExerciceSimple(
   for (
     let i = 0, cptSecours = 0;
     i < exercice.nbQuestions && cptSecours < 50;
-
   ) {
     const compare =
       exercice.compare == null ? fonctionComparaison : exercice.compare
