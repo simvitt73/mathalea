@@ -1,6 +1,6 @@
 <script lang="ts">
   import katex from 'katex'
-  import { onDestroy } from 'svelte'
+  import { onDestroy, tick } from 'svelte'
   import {
     isExerciceItemInReferentiel,
     isGeoDynamic,
@@ -47,7 +47,9 @@
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   const unsubscribeToExerciceParams = exercicesParams.subscribe(() => {
-    selectedCount = countOccurences()
+    tick().then(() => {
+      selectedCount = countOccurences()
+    })
   })
 
   let endingTitre = ''
@@ -105,23 +107,6 @@
       ...list.slice(matchingIndex + 1),
     ])
     $changes--
-  }
-
-  /* --------------------------------------------------------------
-    Gestions des icônes en début de ligne
-   --------------------------------------------------------------- */
-  let icon = 'bxs-message-alt'
-  let rotation = '-rotate-90'
-  let mouseIsOut = true
-  function handleMouseOver() {
-    icon = 'bx-trash'
-    rotation = 'rotate-0'
-    mouseIsOut = false
-  }
-  function handleMouseOut() {
-    icon = 'bxs-message-alt'
-    rotation = '-rotate-90'
-    mouseIsOut = true
   }
 </script>
 
@@ -249,25 +234,35 @@
     {#if selectedCount >= 1}
       <button
         type="button"
-        class="absolute -left-4 top-1/2 transform -translate-y-1/2"
-        on:mouseover={handleMouseOver}
-        on:focus={handleMouseOver}
-        on:mouseout={handleMouseOut}
-        on:blur={handleMouseOut}
+        class="absolute -left-4 top-1/2 transform -translate-y-1/2 group"
         on:click={removeFromList}
         on:keydown={removeFromList}
+        aria-label="Retirer de la sélection"
+        title="Retirer de la sélection"
       >
-        <i
-          class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
-        ></i>
+        <div class="relative">
+          <i
+            class="text-base bx bxs-message-alt -rotate-90
+            text-coopmaths-action-light dark:text-coopmathsdark-action-light
+            opacity-100 group-hover:opacity-0 transition-opacity"
+          ></i>
+          <i
+            class="text-base bx bx-trash
+            absolute top-0 -left-0.5
+            text-coopmaths-action-light dark:text-coopmathsdark-action-light
+            opacity-0 group-hover:opacity-100 transition-opacity"
+          ></i>
+        </div>
+        {#if selectedCount >= 2}
+          <div
+            class="absolute left-1 top-0.5 text-[0.6rem] font-bold
+            text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark
+            group-hover:hidden"
+          >
+            {selectedCount}
+          </div>
+        {/if}
       </button>
-    {/if}
-    {#if selectedCount >= 2 && mouseIsOut}
-      <div
-        class="absolute -left-3 -top-0 text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark"
-      >
-        {selectedCount}
-      </div>
     {/if}
   </div>
 </div>
