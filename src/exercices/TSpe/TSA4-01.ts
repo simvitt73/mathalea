@@ -381,7 +381,8 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
               const x0 = brent(fEquation, -100, 100, 1e-10, 200)
               const x0Nombre = Number(x0)
              
-                correction += ` On en déduit que $f(x) = ${k}$ admet une unique solution $x_0 \\approx ${texNombre(
+                correction += ` On en déduit que $f(x) = ${k}$ admet une unique solution.<br>
+                A la calculatrice, on trouve une valeur approchée au centième qui vaut $x_0 \\approx ${texNombre(
                   arrondi(x0Nombre, 2),
                 )}$.`
               }
