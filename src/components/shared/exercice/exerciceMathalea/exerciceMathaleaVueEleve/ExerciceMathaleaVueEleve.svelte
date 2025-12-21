@@ -680,7 +680,7 @@
               : 'list-decimal'} list-inside mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || ''))}
+            {#each exercise.listeQuestions as question, questionIndex (exercise.interactif + '_' + exerciseIndex + '_' + questionIndex + '_' + (exercise.seed || ''))}
               <Question
                 {exercise}
                 {questionIndex}
