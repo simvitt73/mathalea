@@ -4,6 +4,7 @@
   import {
     exercicesParams,
     moveExercice,
+    isReordering,
   } from '../../../lib/stores/generalStore'
   import { onMount } from 'svelte'
   import {
@@ -41,9 +42,11 @@
       // Sortable étant écrit en JavaScript on ne connait pas le type de `evt`.
       // @ts-ignore
       onEnd: (evt) => {
+        isReordering.set(true)
         exercicesParams.update((l) => {
           return moveExercice(l, evt.oldIndex, evt.newIndex)
         })
+        setTimeout(() => isReordering.set(false), 300)
       },
     })
   })
