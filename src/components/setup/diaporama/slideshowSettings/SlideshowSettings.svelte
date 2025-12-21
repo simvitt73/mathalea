@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tick } from 'svelte'
   import type Exercice from '../../../../exercices/Exercice'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { listOfRandomIndexes } from '../../../../lib/outils/arrayOutils'
@@ -31,8 +32,10 @@
   let divTableDurationsQuestions: HTMLDivElement
   let previousNumberOfSelectedExercises: number
 
-  $: if (divTableDurationsQuestions) {
-    mathaleaRenderDiv(divTableDurationsQuestions)
+  $: if (divTableDurationsQuestions && exercises.length > 0) {
+    tick().then(() => {
+      mathaleaRenderDiv(divTableDurationsQuestions)
+    })
   }
 
   function applyRandomSelectionOfExercises(numberOfSelectedExercises: number) {

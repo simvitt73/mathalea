@@ -140,7 +140,7 @@
       </tr>
     </thead>
     <tbody class="overflow-y-auto" id="exercisesList">
-      {#each exercises as exercise, i}
+      {#each exercises as exercise, i (exercise.id + '-' + i)}
         <tr>
           <td
             class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
