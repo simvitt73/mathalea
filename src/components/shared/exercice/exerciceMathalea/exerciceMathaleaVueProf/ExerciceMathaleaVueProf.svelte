@@ -640,6 +640,8 @@
           <button
             class={columnsCount > 1 ? 'visible' : 'invisible'}
             type="button"
+            aria-label="Diminuer le nombre de colonnes"
+            title="Diminuer le nombre de colonnes"
             on:click={() => {
               columnsCount--
               updateDisplay(false)
@@ -652,6 +654,8 @@
           <i class="bx ml-1 bx-xs bx-columns"></i>
           <button
             type="button"
+            aria-label="Augmenter le nombre de colonnes"
+            title="Augmenter le nombre de colonnes"
             on:click={() => {
               columnsCount++
               updateDisplay(false)
