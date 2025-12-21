@@ -6,36 +6,41 @@
     moveExercice,
     isReordering,
   } from '../../../lib/stores/generalStore'
+  import { get } from 'svelte/store'
   import { onMount } from 'svelte'
   import {
     uuidCount,
     exercisesUuidRanking,
   } from '../../../lib/components/counts'
-  import { getUniqueStringBasedOnTimeStamp } from '../../../lib/components/time'
   import type { ChipContentType } from '../../../lib/types'
   export let chipsListDisplayed: boolean
   let listIdsForChips: ChipContentType[] = []
-  $: {
+
+  function buildChipsList(params: typeof $exercicesParams): ChipContentType[] {
     const lIFC: ChipContentType[] = []
-    let ranks: number[]
-    let counts: Record<string, number>
-    for (const [i, ex] of $exercicesParams.entries()) {
-      ranks = exercisesUuidRanking($exercicesParams)
-      counts = uuidCount($exercicesParams)
+    const ranks = exercisesUuidRanking(params)
+    const counts = uuidCount(params)
+    for (const [i, ex] of params.entries()) {
       const insert: string = `${
         counts[ex.uuid] > 1 ? ' [' + ranks[i] + ']' : ''
       }`
-      const keyValue = getUniqueStringBasedOnTimeStamp(i.toString())
       const obj: ChipContentType = {
         ref: ex.id ?? ex.uuid,
         title: `${ex.id ?? ex.uuid}${insert}`,
-        key: keyValue,
+        key: ex.uuid + '_' + (ex.alea || i.toString()),
       }
       lIFC.push(obj)
     }
-    listIdsForChips = lIFC
+    return lIFC
   }
+
+  // Initialisation et mise à jour uniquement quand ce n'est pas un réordonnancement
+  $: if (!$isReordering) {
+    listIdsForChips = buildChipsList($exercicesParams)
+  }
+
   onMount(() => {
+    listIdsForChips = buildChipsList(get(exercicesParams))
     Sortable.create(document.getElementById('chips-list'), {
       animation: 150,
       // Erreur dans le linter : Parameter 'evt' implicitly has an 'any' type.
@@ -43,6 +48,11 @@
       // @ts-ignore
       onEnd: (evt) => {
         isReordering.set(true)
+        // Réordonner listIdsForChips pour rester synchronisé avec le DOM
+        const [moved] = listIdsForChips.splice(evt.oldIndex, 1)
+        listIdsForChips.splice(evt.newIndex, 0, moved)
+        listIdsForChips = listIdsForChips
+        // Mettre à jour le store
         exercicesParams.update((l) => {
           return moveExercice(l, evt.oldIndex, evt.newIndex)
         })
