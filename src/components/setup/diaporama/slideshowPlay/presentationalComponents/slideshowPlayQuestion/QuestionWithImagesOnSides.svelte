@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { renderDiv } from '../../../../../../lib/mathalea'
   import type { Vue } from '../../../types'
 
   export let slideView: Vue
-  export let renderDiv: (node: HTMLElement, _content: string) => void
 </script>
 
 <div class="flex flex-row">

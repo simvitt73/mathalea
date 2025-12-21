@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { mathaleaRenderDiv } from '../../../../../../lib/mathalea'
   import type { Slide } from '../../../types'
   import CorrectionWithImagesInside from './CorrectionWithImagesInside.svelte'
   import CorrectionWithImagesOnSides from './CorrectionWithImagesOnSides.svelte'
@@ -16,10 +15,6 @@
 
   let nbVues
   $: nbVues = currentSlide?.vues.length || 0
-
-  function renderDiv(node: HTMLElement, _content: string) {
-    mathaleaRenderDiv(node, -1)
-  }
 </script>
 
 <div
@@ -51,15 +46,9 @@
         {#if isQuestionVisible && currentSlide.vues[i]}
           <div class="py-4 flex items-center" id="question{i}">
             {#if isImagesOnSides}
-              <QuestionWithImagesOnSides
-                slideView={currentSlide.vues[i]}
-                {renderDiv}
-              />
+              <QuestionWithImagesOnSides slideView={currentSlide.vues[i]} />
             {:else}
-              <QuestionWithImagesInside
-                slideView={currentSlide.vues[i]}
-                {renderDiv}
-              />
+              <QuestionWithImagesInside slideView={currentSlide.vues[i]} />
             {/if}
           </div>
         {/if}

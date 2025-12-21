@@ -18,6 +18,7 @@
     mathaleaHandleSup,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
+    renderDiv,
   } from '../../../../../lib/mathalea'
   import {
     changes,
@@ -717,6 +718,7 @@
                     <div
                       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus py-2 pl-4 mt-6 md:mt-4"
                       id="correction-exo{exerciseIndex}-Q{i}"
+                      use:renderDiv={exercise.listeCorrections[i]}
                     >
                       <div
                         class={exercise.consigneCorrection.length !== 0
