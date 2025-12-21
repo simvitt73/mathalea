@@ -21,12 +21,12 @@
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
   <dialog
-    bind:this="{dialog}"
-    on:click|self="{() => dialog.close()}"
-    on:close="{() => {
+    bind:this={dialog}
+    on:click|self={() => dialog.close()}
+    on:close={() => {
       isDisplayed = false
       dispatch('close')
-    }}"
+    }}
     class="rounded-xl
       w-full md:w-2/3 xl:w-1/2
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -36,7 +36,7 @@
         <ButtonIcon
           icon="bx-x text-2xl"
           class="absolute top-3 right-3"
-          on:click="{() => dialog.close()}"
+          on:click={() => dialog.close()}
         />
       {/if}
       {#if icon !== ''}

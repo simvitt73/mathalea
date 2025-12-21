@@ -495,14 +495,14 @@
     : ''} relative w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   {#if state === 'start' || state === 'canHomeScreen'}
-    <KickOff subTitle="{$canOptions.subTitle}" bind:state />
+    <KickOff subTitle={$canOptions.subTitle} bind:state />
   {/if}
   {#if state === 'countdown'}
     <CountDown bind:state />
   {/if}
   {#if state === 'race'}
     <Race
-      numberOfSeconds="{$canOptions.durationInMinutes * 60}"
+      numberOfSeconds={$canOptions.durationInMinutes * 60}
       bind:state
       {questions}
       {consignes}
@@ -510,7 +510,7 @@
     />
   {/if}
   {#if state === 'end'}
-    <End bind:state score="{buildStringScore()}" time="{buildTime()}" />
+    <End bind:state score={buildStringScore()} time={buildTime()} />
   {/if}
   {#if state === 'solutions'}
     <Solutions
@@ -520,8 +520,8 @@
       {consignesCorrections}
       {answers}
       {resultsByQuestion}
-      score="{buildStringScore()}"
-      time="{buildTime()}"
+      score={buildStringScore()}
+      time={buildTime()}
     />
   {/if}
   <div class="fixed flex bottom-2 right-2">
@@ -533,7 +533,7 @@
         id="hidden-checkbox-for-darkmode"
         type="checkbox"
         class="invisible"
-        bind:checked="{$darkMode.isActive}"
+        bind:checked={$darkMode.isActive}
       />
       <!-- sun icon -->
       <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>

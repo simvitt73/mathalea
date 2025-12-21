@@ -28,9 +28,9 @@
       type="checkbox"
       role="switch"
       id="input-{id}"
-      disabled="{isDisabled}"
-      on:change="{toggle}"
-      checked="{value}"
+      disabled={isDisabled}
+      on:change={toggle}
+      checked={value}
     />
     <label
       class="inline-block pl-[0.15rem] hover:cursor-pointer text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm

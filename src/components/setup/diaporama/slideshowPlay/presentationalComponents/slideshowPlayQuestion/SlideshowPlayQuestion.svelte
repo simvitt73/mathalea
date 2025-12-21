@@ -40,15 +40,15 @@
       {/if}
       <div
         id="exerciseContainer{i}"
-        bind:this="{divQuestion[i]}"
+        bind:this={divQuestion[i]}
         class="flex flex-col justify-center items-center px-4 w-full min-h-[100%] max-h-[100%]"
       >
         {#if isQuestionVisible && currentSlide.vues[i]}
           <div class="py-4 flex items-center" id="question{i}">
             {#if isImagesOnSides}
-              <QuestionWithImagesOnSides slideView="{currentSlide.vues[i]}" />
+              <QuestionWithImagesOnSides slideView={currentSlide.vues[i]} />
             {:else}
-              <QuestionWithImagesInside slideView="{currentSlide.vues[i]}" />
+              <QuestionWithImagesInside slideView={currentSlide.vues[i]} />
             {/if}
           </div>
         {/if}
@@ -60,9 +60,9 @@
               bg-coopmaths-warn-light dark:bg-coopmathsdark-warn-light"
           >
             {#if isImagesOnSides}
-              <CorrectionWithImagesOnSides slideView="{currentSlide.vues[i]}" />
+              <CorrectionWithImagesOnSides slideView={currentSlide.vues[i]} />
             {:else}
-              <CorrectionWithImagesInside slideView="{currentSlide.vues[i]}" />
+              <CorrectionWithImagesInside slideView={currentSlide.vues[i]} />
             {/if}
           </div>
         {/if}

@@ -4,26 +4,26 @@
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import {
-      exerciceInteractif,
-      prepareExerciceCliqueFigure,
+    exerciceInteractif,
+    prepareExerciceCliqueFigure,
   } from '../../../../../lib/interactif/gestionInteractif'
   import {
-      mathaleaGenerateSeed,
-      mathaleaHandleExerciceSimple,
-      mathaleaRenderDiv,
-      mathaleaUpdateUrlFromExercicesParams,
+    mathaleaGenerateSeed,
+    mathaleaHandleExerciceSimple,
+    mathaleaRenderDiv,
+    mathaleaUpdateUrlFromExercicesParams,
   } from '../../../../../lib/mathalea'
   import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
-      exercicesParams,
-      isMenuNeededForExercises,
-      resultsByExercice,
+    exercicesParams,
+    isMenuNeededForExercises,
+    resultsByExercice,
   } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   import type {
-      InterfaceParams,
-      InterfaceResultExercice,
+    InterfaceParams,
+    InterfaceResultExercice,
   } from '../../../../../lib/types'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { statsTracker } from '../../../../../modules/statsUtils'
@@ -602,16 +602,16 @@
   }
 </script>
 
-<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this="{divExercice}">
+<div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
   {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
     <HeaderExerciceVueEleve
       {...headerExerciceProps}
-      indiceExercice="{exerciseIndex}"
-      showNumber="{indiceLastExercice > 0 &&
-        $globalOptions.presMode !== 'un_exo_par_page'}"
-      isMenuNeededForExercises="{$isMenuNeededForExercises}"
-      presMode="{$globalOptions.presMode}"
-      seed="{exercise.seed}"
+      indiceExercice={exerciseIndex}
+      showNumber={indiceLastExercice > 0 &&
+        $globalOptions.presMode !== 'un_exo_par_page'}
+      isMenuNeededForExercises={$isMenuNeededForExercises}
+      presMode={$globalOptions.presMode}
+      seed={exercise.seed}
     />
   {/if}
 
@@ -621,22 +621,22 @@
       id="exercice{exerciseIndex}"
     >
       <ExerciceVueEleveButtons
-        globalOptions="{$globalOptions}"
+        globalOptions={$globalOptions}
         {indiceLastExercice}
         {exercise}
-        isCorrectionVisible="{isCorrectVisible}"
+        isCorrectionVisible={isCorrectVisible}
         {newData}
         {switchCorrectionVisible}
         {isInteractif}
         {switchInteractif}
         {columnsCount}
         {columnsCountUpdate}
-        showCorrectionButton="{$globalOptions.recorder === 'flowmath'
+        showCorrectionButton={$globalOptions.recorder === 'flowmath'
           ? boutonCorrectionUrlFlag
-          : true}"
-        showInteractivityButton="{$globalOptions.recorder === 'flowmath'
+          : true}
+        showInteractivityButton={$globalOptions.recorder === 'flowmath'
           ? boutonInteractiviteUrlFlag
-          : true}"
+          : true}
       />
       <article
         class=" {$isMenuNeededForExercises
@@ -680,28 +680,28 @@
               : 'list-decimal'} list-inside mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || ''))}
+            {#each exercise.listeQuestions as question, questionIndex (exercise.interactif + '_' + exerciseIndex + '_' + questionIndex + '_' + (exercise.seed || ''))}
               <Question
                 {exercise}
                 {questionIndex}
                 {exerciseIndex}
-                isCorrectionVisible="{isCorrectVisible}"
+                isCorrectionVisible={isCorrectVisible}
               />
             {/each}
-            <div bind:this="{divScore}" id="divScoreEx{exerciseIndex}"></div>
+            <div bind:this={divScore} id="divScoreEx{exerciseIndex}"></div>
           </ul>
         </div>
       </article>
       {#if isInteractif && !isCorrectVisible}
         <button
           type="submit"
-          on:click="{verifExerciceVueEleve}"
-          bind:this="{buttonScore}"
+          on:click={verifExerciceVueEleve}
+          bind:this={buttonScore}
           id="buttonScoreEx{exerciseIndex}"
-          class="{$globalOptions.recorder === 'flowmath' &&
+          class={$globalOptions.recorder === 'flowmath' &&
           !boutonValidationUrlFlag
             ? 'hidden'
-            : ''}"
+            : ''}
           >Vérifier {numberOfAnswerFields > 1
             ? 'les réponses'
             : 'la réponse'}</button

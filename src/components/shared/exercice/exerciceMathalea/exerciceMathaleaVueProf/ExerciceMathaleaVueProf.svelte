@@ -18,6 +18,7 @@
     mathaleaHandleSup,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams,
+    renderDiv,
   } from '../../../../../lib/mathalea'
   import {
     changes,
@@ -581,15 +582,15 @@
   }
 </script>
 
-<div class="z-0 flex-1" bind:this="{divExercice}">
+<div class="z-0 flex-1" bind:this={divExercice}>
   <HeaderExerciceVueProf
     {...headerProps}
-    on:clickVisible="{(event) => {
+    on:clickVisible={(event) => {
       isVisible = event.detail.isVisible
-    }}"
-    on:clickSettings="{(event) =>
-      (isSettingsVisible = event.detail.isSettingsVisible)}"
-    on:clickCorrection="{async (event) => {
+    }}
+    on:clickSettings={(event) =>
+      (isSettingsVisible = event.detail.isSettingsVisible)}
+    on:clickCorrection={async (event) => {
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
 
@@ -606,8 +607,8 @@
         await updateDisplay()
       }
       await adjustMathalea2dFiguresWidth()
-    }}"
-    on:clickInteractif="{async (event) => {
+    }}
+    on:clickInteractif={async (event) => {
       isInteractif = event.detail.isInteractif
       exercise.interactif = isInteractif
       exercicesParams.update((params) => {
@@ -615,14 +616,14 @@
         return params
       })
       await updateDisplay()
-    }}"
-    on:clickNewData="{newData}"
-    interactifReady="{Boolean(
+    }}
+    on:clickNewData={newData}
+    interactifReady={Boolean(
       exercise?.interactifReady &&
-        !isCorrectionVisible &&
-        headerProps?.interactifReady,
-    )}"
-    on:exerciseRemoved="{handleExerciseRemoved}"
+      !isCorrectionVisible &&
+      headerProps?.interactifReady,
+    )}
+    on:exerciseRemoved={handleExerciseRemoved}
   />
 
   {#if isVisible}
@@ -637,12 +638,12 @@
           class="print-hidden hidden md:flex flex-row justify-start text-coopmaths-struct dark:text-coopmathsdark-struct text-xs mt-2 pl-0 md:pl-2"
         >
           <button
-            class="{columnsCount > 1 ? 'visible' : 'invisible'}"
+            class={columnsCount > 1 ? 'visible' : 'invisible'}
             type="button"
-            on:click="{() => {
+            on:click={() => {
               columnsCount--
               updateDisplay(false)
-            }}"
+            }}
           >
             <i
               class=" text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus"
@@ -651,10 +652,10 @@
           <i class="bx ml-1 bx-xs bx-columns"></i>
           <button
             type="button"
-            on:click="{() => {
+            on:click={() => {
               columnsCount++
               updateDisplay(false)
-            }}"
+            }}
           >
             <i
               class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus"
@@ -699,7 +700,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (i + '_' + (exercise.seed || ''))}
+              {#each exercise.listeQuestions as item, i (exercise.interactif + '_' + exerciseIndex + '_' + i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
@@ -717,11 +718,12 @@
                     <div
                       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus py-2 pl-4 mt-6 md:mt-4"
                       id="correction-exo{exerciseIndex}-Q{i}"
+                      use:renderDiv={exercise.listeCorrections[i]}
                     >
                       <div
-                        class="{exercise.consigneCorrection.length !== 0
+                        class={exercise.consigneCorrection.length !== 0
                           ? 'container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3'
-                          : 'hidden'}"
+                          : 'hidden'}
                       >
                         <div
                           class="{exercise.consigneCorrection.length !== 0
@@ -770,20 +772,20 @@
           <button
             id="verif{exerciseIndex}"
             type="submit"
-            on:click="{verifExercice}"
-            bind:this="{buttonScore}"
+            on:click={verifExercice}
+            bind:this={buttonScore}
             >Vérifier {numberOfAnswerFields > 1
               ? 'les réponses'
               : 'la réponse'}</button
           >
         {/if}
-        <div bind:this="{divScore}"></div>
+        <div bind:this={divScore}></div>
       </div>
       <Settings
-        exercice="{exercise}"
-        bind:isVisible="{isSettingsVisible}"
-        exerciceIndex="{exerciseIndex}"
-        on:settings="{handleNewSettings}"
+        exercice={exercise}
+        bind:isVisible={isSettingsVisible}
+        exerciceIndex={exerciseIndex}
+        on:settings={handleNewSettings}
       />
     </div>
   {/if}

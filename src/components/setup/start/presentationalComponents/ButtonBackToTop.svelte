@@ -5,7 +5,7 @@
 
 {#if isBackToTopButtonVisible}
   <button
-    on:click="{backToTop}"
+    on:click={backToTop}
     type="button"
     data-te-ripple-init
     data-te-ripple-color="light"

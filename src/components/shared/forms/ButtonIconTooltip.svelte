@@ -15,10 +15,10 @@
 
 <div
   class="tooltip tooltip-{tooltipPosition} tooltip-neutral"
-  data-tip="{tooltip}"
+  data-tip={tooltip}
 >
   <ButtonIcon
-    class="{$$props.class || ''}"
+    class={$$props.class || ''}
     {icon}
     {title}
     {disabled}

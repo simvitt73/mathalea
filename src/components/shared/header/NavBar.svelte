@@ -62,8 +62,8 @@
       >
         <div>
           <div
-            on:click="{() => mathaleaGoToView('')}"
-            on:keydown="{() => mathaleaGoToView('')}"
+            on:click={() => mathaleaGoToView('')}
+            on:keydown={() => mathaleaGoToView('')}
             role="link"
             tabindex="0"
             class="relative inline-flex font-logo9 tracking-tighter font-black
@@ -93,7 +93,7 @@
             </a>
           </div>
         </div>
-        <NavBarSubtitle {subtitle} type="{subtitleType}" />
+        <NavBarSubtitle {subtitle} type={subtitleType} />
       </div>
     </div>
     <div
@@ -111,9 +111,9 @@
         <div class="md:hidden">
           <button
             type="button"
-            on:click="{() => {
+            on:click={() => {
               showLanguageChoiceModal = !showLanguageChoiceModal
-            }}"
+            }}
           >
             <LanguageIcon {locale} />
           </button>
@@ -129,7 +129,7 @@
           id="hidden-checkbox-for-darkmode"
           type="checkbox"
           class="invisible"
-          bind:checked="{$darkMode.isActive}"
+          bind:checked={$darkMode.isActive}
         />
         <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
         <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
@@ -137,9 +137,9 @@
       <ButtonIcon
         icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"
-        on:click="{() => {
+        on:click={() => {
           mathaleaGoToView('')
-        }}"
+        }}
       />
     </div>
   </div>

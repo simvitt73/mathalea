@@ -23,7 +23,7 @@
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    on:click="{backToSettings}"
+    on:click={backToSettings}
   >
     <i class="bx bx-sm bx-arrow-back"></i>
   </button>
@@ -32,7 +32,7 @@
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    on:click="{newDataForAll}"
+    on:click={newDataForAll}
   >
     <i class="bx bx-sm bx-refresh"></i>
   </button>
@@ -46,7 +46,7 @@
   </span>
   <button
     type="button"
-    on:click="{() => setQuestionsVisible(!isQuestionsVisible)}"
+    on:click={() => setQuestionsVisible(!isQuestionsVisible)}
   >
     <i
       class="bx bx-sm cursor-pointer
@@ -64,7 +64,7 @@
   </span>
   <button
     type="button"
-    on:click="{() => setCorrectionVisible(!isCorrectionVisible)}"
+    on:click={() => setCorrectionVisible(!isCorrectionVisible)}
   >
     <i
       class="mb-8 bx bx-sm cursor-pointer
@@ -86,13 +86,13 @@
   >
     <button
       type="button"
-      on:click="{() => handleCorrectionsStepsClick('backward')}"
+      on:click={() => handleCorrectionsStepsClick('backward')}
     >
       <i class="bx bxs-left-arrow mr-2 cursor-pointer"></i>
     </button>
     <button
       type="button"
-      on:click="{() => handleCorrectionsStepsClick('forward')}"
+      on:click={() => handleCorrectionsStepsClick('forward')}
     >
       <i class="bx bxs-right-arrow cursor-pointer"></i>
     </button>
@@ -104,9 +104,9 @@
       <input
         type="radio"
         id="tab{i + 1}"
-        value="{i}"
-        bind:group="{currentVue}"
-        on:change="{() => setCurrentVue(i)}"
+        value={i}
+        bind:group={currentVue}
+        on:change={() => setCurrentVue(i)}
         class="peer/tab{i + 1} items-center justify-center hidden"
       />
       <label
@@ -130,9 +130,9 @@
     <input
       type="radio"
       id="tab5"
-      value="{4}"
-      bind:group="{currentVue}"
-      on:change="{() => setCurrentVue(4)}"
+      value={4}
+      bind:group={currentVue}
+      on:change={() => setCurrentVue(4)}
       class="hidden peer/tab5 items-center justify-center"
     />
     <label
