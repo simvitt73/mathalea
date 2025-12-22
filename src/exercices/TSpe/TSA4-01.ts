@@ -82,7 +82,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
       let m : number
       do { a = randint(-5, 5, 0)
        b = randint(-5, 5, 0)
-       m = randint(-5, 5, [0, 1,a,-a])} 
+       m = randint(-2, 2, [0, 1,a,-a])} 
       while (-m*b-a === 0 || -m*b-a === a || -m*m-a === -a)
 
       const fAff = new Polynome({ coeffs: [b, a] })
@@ -155,7 +155,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
             break
             }
             case 2:
-              question += `Calculer la dérivée $f'(x)$ de la fonction $f$.`
+              question += `Calculer la dérivée $f'$ de la fonction $f$.`
               correction += `On a $f=uv$, avec pour tout $x\\in\\mathbb{R}$, $u(x) = ${reduireAxPlusB(a, b)}$ et $v(x) = \\mathrm{e}^{${rienSi1(m)}x}$.<br>
       On calcule :    $u'(x) = ${a}$ et $v'(x) = ${m} \\mathrm{e}^{${rienSi1(m)}x}$.<br>
      Par dérivation d'un produit,<br>
@@ -390,7 +390,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
                 
                 if (a>0) {TVI2=`$${k}\\in \\left[ f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) ;+\\infty \\right[$ `}
                 else {TVI2=`$${k}\\in \\left]-\\infty ; f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right) \\right[$ `}
-                 TVI2+=` car `
+                 TVI2+=` car <br>`
                 extremumF2.numIrred === 1
                   ? (TVI2 += `$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.`)
                   : (TVI2 += `<br>$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.numIrred}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.`)
@@ -411,7 +411,7 @@ correction += `<br>Donc, pour tout $x\\in\\mathbb{R}, ${miseEnEvidence(`f'(x) = 
               else if ( m < 0) {
                   TVIPlus =`Sur l'intervalle $\\left[${sommet.texFractionSimplifiee};+\\infty \\right[$ :<br>`
                 TVIPlus +=`$f$ est strictement ${variation2}.<br>`
-                TVIPlus +=`$\\begin{aligned}f\\left(${sommet.texFractionSimplifiee}\\right) &= ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$,<br>
+                TVIPlus +=`$\\begin{aligned}f\\left(${sommet.texFractionSimplifiee}\\right) &= ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$<br>
                 et $\\displaystyle\\lim_{x \\to +\\infty} f(x) =  0$ . <br> 
                 donc $${texNombre(k)} \\notin\\left]-\\infty ; ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{\\frac{${extremumF2.numIrred}}{${extremumF2.denIrred}}}\\right]$.`
                 TVIMoins = ` Sur l'intervalle $\\left ]-\\infty ; ${sommet.texFractionSimplifiee}\\right]$ : `
