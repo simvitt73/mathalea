@@ -9,7 +9,7 @@ import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import type { TracePoint } from '../../lib/2d/TracePoint'
 import { tracePoint } from '../../lib/2d/TracePoint'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
@@ -41,6 +41,7 @@ export const refs = {
 }
 export default class Representerfonctionaffine extends Exercice {
   coefficients!: [number, number][]
+  figuresApiGeom: Figure[] = []
   level: 3 | 2 = 2
   constructor() {
     super()
@@ -60,6 +61,7 @@ export default class Representerfonctionaffine extends Exercice {
   }
 
   nouvelleVersion() {
+    this.figuresApiGeom = []
     this.consigne =
       'Représenter graphiquement ' +
       (this.nbQuestions === 1 || context.isDiaporama
@@ -86,7 +88,7 @@ export default class Representerfonctionaffine extends Exercice {
       this.nbQuestions,
     )
     const textO = texteParPosition('O', -0.5, -0.5, 0, 'black', 1)
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let a: number,
         b: number,
         d: number,
@@ -278,6 +280,11 @@ export default class Representerfonctionaffine extends Exercice {
           break
       }
 
+      if (!this.questionJamaisPosee(i, a, b)) {
+        // on ne crée pas la figure, ca ne sert à rien
+        continue
+      }
+
       if (this.interactif) {
         const figure = new Figure({
           xMin: -5.5,
@@ -285,7 +292,8 @@ export default class Representerfonctionaffine extends Exercice {
           width: 330,
           height: 330,
         })
-        this.figures[i] = figure
+        if (isFigureArray(this.figures)) this.figures.push(figure)
+        this.figuresApiGeom[i] = figure
         figure.setToolbar({
           tools: ['POINT', 'LINE', 'DRAG', 'REMOVE'],
           position: 'top',
@@ -306,7 +314,6 @@ export default class Representerfonctionaffine extends Exercice {
         this.listeCorrections[i] = texteCorr
         i++
       }
-      cpt++
     }
     listeQuestionsToContenu(this)
   }
@@ -314,9 +321,9 @@ export default class Representerfonctionaffine extends Exercice {
   correctionInteractive = (i?: number) => {
     if (i === undefined) return 'KO'
     let result: 'OK' | 'KO' = 'KO'
-    if (this.figures?.[i] == null)
+    if (this.figuresApiGeom?.[i] == null)
       throw new Error("La figure n'a pas été créée")
-    const figure = this.figures[i] as Figure
+    const figure = this.figuresApiGeom[i] as Figure
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[figure.id] = figure.json
