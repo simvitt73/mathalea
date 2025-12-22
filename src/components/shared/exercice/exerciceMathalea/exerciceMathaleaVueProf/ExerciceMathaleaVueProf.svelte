@@ -640,6 +640,8 @@
           <button
             class={columnsCount > 1 ? 'visible' : 'invisible'}
             type="button"
+            aria-label="Diminuer le nombre de colonnes"
+            title="Diminuer le nombre de colonnes"
             on:click={() => {
               columnsCount--
               updateDisplay(false)
@@ -652,6 +654,8 @@
           <i class="bx ml-1 bx-xs bx-columns"></i>
           <button
             type="button"
+            aria-label="Augmenter le nombre de colonnes"
+            title="Augmenter le nombre de colonnes"
             on:click={() => {
               columnsCount++
               updateDisplay(false)
@@ -700,7 +704,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (exercise.interactif + '_' + exerciseIndex + '_' + i + '_' + (exercise.seed || ''))}
+              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + exercise.sup + '_' + exercise.sup2 + '_' + exercise.sup3 + '_' + exercise.sup4 + '_' + exercise.sup5 + '_' + i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
