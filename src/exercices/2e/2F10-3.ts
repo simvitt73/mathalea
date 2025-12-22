@@ -280,11 +280,6 @@ export default class Representerfonctionaffine extends Exercice {
           break
       }
 
-      if (!this.questionJamaisPosee(i, a, b)) {
-        // on ne crée pas la figure, ca ne sert à rien
-        continue
-      }
-
       if (this.interactif) {
         const figure = new Figure({
           xMin: -5.5,
@@ -321,9 +316,9 @@ export default class Representerfonctionaffine extends Exercice {
   correctionInteractive = (i?: number) => {
     if (i === undefined) return 'KO'
     let result: 'OK' | 'KO' = 'KO'
-    if (this.figuresApiGeom?.[i] == null)
-      throw new Error("La figure n'a pas été créée")
-    const figure = this.figuresApiGeom[i] as Figure
+    if (this.figuresApiGeom[i] == null)
+      throw new Error("La figure n'a pas été créée, n°" + i)
+    const figure = this.figuresApiGeom[i]
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[figure.id] = figure.json
