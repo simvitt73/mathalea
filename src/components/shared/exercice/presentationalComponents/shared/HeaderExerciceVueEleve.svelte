@@ -1,10 +1,10 @@
 <script lang="ts">
   export let isMenuNeededForExercises: boolean
-  export let presMode: string
+  export let presMode: string | undefined
   export let title: string
   export let indiceExercice: number
   export let showNumber = true
-  export let seed: string
+  export let seed: string | undefined
 </script>
 
 <!--
