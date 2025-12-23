@@ -2061,7 +2061,7 @@ export function ensembleNombres(
   { kUplet = false, avecAccolades = true } = {},
 ): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
-  const cleanInput = clean(input).replaceAll('∅', '\\emptyset')
+  const cleanInput = clean(input).replaceAll('∅', '\\emptyset').replaceAll('\\lbrace', '\\{').replaceAll('\\rbrace', '\\}')
   goodAnswer = clean(goodAnswer)
 
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer)
@@ -2131,7 +2131,7 @@ export function ensembleNombres(
     return {
       isOk: false,
       feedback:
-        'Résultat incorrect car cet ensemble ne contient pas assez de nombres.',
+        'Résultat incorrect car cet ensemble ne contient pas assez de nombres (les nombres doivent être séparés par un ; et non par une virgule).',
     }
   }
 
