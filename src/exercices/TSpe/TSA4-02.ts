@@ -4,6 +4,7 @@ import { repere } from '../../lib/2d/reperes'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mathalea2d } from '../../modules/mathalea2d'
 import ExerciceSimple from '../ExerciceSimple'
+import { randint } from '../../modules/outils'
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,16 +32,18 @@ export default class CourbeConvexite extends ExerciceSimple {
   }
 
   nouvelleVersion() {
+  const y0=randint(1,5)
+  const y1=y0+randint(-3,-1)
     const noeuds1: NoeudSpline[] = [
-      { x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: -1, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-      { x: 0, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-      { x: 2, y: -2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-      { x: 3, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
-      { x: 4, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: 5, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: -4, y: y0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
+      { x: -3, y: y1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
+      { x: -2, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: -1, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 0, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
+      { x: 2, y: 1, deriveeGauche: -3, deriveeDroit: -3, isVisible: true },
+      { x: 3, y: 2, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
+      { x: 4, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+      { x: 5, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     ]
 
     const theSpline = spline(noeuds1)
@@ -88,7 +91,7 @@ export default class CourbeConvexite extends ExerciceSimple {
     )
 
     this.question = `On donne la représentation graphique d'une fonction $f$.<br>${dessin}`
-
+    this.reponse = 'convexe sur [-4;-2] et [3;5], concave sur [-2;3]'
     this.correction = ''
     this.canEnonce = this.question
     this.canReponseACompleter = ''
