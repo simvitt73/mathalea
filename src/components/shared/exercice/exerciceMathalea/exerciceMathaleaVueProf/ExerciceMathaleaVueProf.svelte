@@ -704,7 +704,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + exercise.sup + '_' + exercise.sup2 + '_' + exercise.sup3 + '_' + exercise.sup4 + '_' + exercise.sup5 + '_' + i + '_' + (exercise.seed || ''))}
+              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + exercise.sup + '_' + exercise.sup2 + '_' + exercise.sup3 + '_' + exercise.sup4 + '_' + exercise.sup5 + '_' + exercise.correctionDetaillee + '_' + i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
