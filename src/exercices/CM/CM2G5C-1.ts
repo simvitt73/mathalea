@@ -22,6 +22,7 @@ import {
 import type { objetFace } from '../../lib/3d/utilsPatrons'
 import { cubesObj, fauxCubesObj } from '../../lib/3d/utilsPatrons'
 import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
+import type { MathaleaSVG } from '../../lib/types'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
