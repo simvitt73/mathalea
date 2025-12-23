@@ -2,7 +2,6 @@
   import seedrandom from 'seedrandom'
   import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
   import { get } from 'svelte/store'
-  import Exercice from '../../../../../exercices/Exercice'
   import ExerciceSimple from '../../../../../exercices/ExerciceSimple'
   import {
     exercisesUuidRanking,
@@ -27,7 +26,11 @@
   } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
-  import type { InterfaceParams } from '../../../../../lib/types'
+  import type {
+    IExercice,
+    IExerciceSimple,
+    InterfaceParams,
+  } from '../../../../../lib/types'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import { loadMathLive } from '../../../../../modules/loaders'
   import { countMathField } from '../../countMathField'
@@ -35,7 +38,7 @@
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import Settings from './presentationalComponents/Settings.svelte'
 
-  export let exercise: Exercice
+  export let exercise: IExercice | IExerciceSimple
   export let exerciseIndex: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
@@ -704,7 +707,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + exercise.sup + '_' + exercise.sup2 + '_' + exercise.sup3 + '_' + exercise.sup4 + '_' + exercise.sup5 + '_' + exercise.correctionDetaillee + '_' + i + '_' + (exercise.seed || ''))}
+              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + exercise.sup + '_' + exercise.sup2 + '_' + exercise.sup3 + '_' + exercise.sup4 + '_' + exercise.sup5 + '_' + exercise.correctionDetaillee + '_' + (exercise instanceof ExerciceSimple ? exercise.versionQcm + '_' : '') + i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
