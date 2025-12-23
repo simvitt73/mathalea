@@ -1,7 +1,7 @@
 import Figure from 'apigeom'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import type Point from 'apigeom/src/elements/points/Point'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { rangeMinMax } from '../../lib/outils/nombres'
@@ -53,11 +53,11 @@ export default class SommeDeVecteurs extends Exercice {
   nouvelleVersion() {
     this.longueur = 10
     this.largeur = 10
-    this.figureApig.forEach((fig: Figure) => {
-      fig.container = document.createElement('div')
+    this.figureApig.forEach((fig) => {
+      fig.destroy()
     })
     this.figureApigCorr.forEach((fig) => {
-      fig.container = document.createElement('div')
+      fig.destroy()
     })
     this.figureApig = []
     this.figureApigCorr = []
@@ -110,6 +110,8 @@ export default class SommeDeVecteurs extends Exercice {
         scale: 0.65,
       })
 
+      if (isFigureArray(this.figures)) this.figures.push(this.figureApig[i])
+
       // Préparation de la correction animée
       this.figureApigCorr[i] = new Figure({
         xMin: -this.longueur - 0.25, // On enlève 0.25 unités
@@ -119,6 +121,8 @@ export default class SommeDeVecteurs extends Exercice {
         border: false,
         scale: 0.65,
       })
+
+      if (isFigureArray(this.figures)) this.figures.push(this.figureApigCorr[i])
 
       this.figureApig[i].grid = this.figureApig[i].create('Grid', {
         strokeWidthGrid: 1,

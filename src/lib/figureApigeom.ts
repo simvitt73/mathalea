@@ -1,9 +1,13 @@
-import type Figure from 'apigeom'
+import Figure from 'apigeom'
 import { get } from 'svelte/store'
 import { canOptions } from '../../src/lib/stores/canStore'
 import type { IExercice } from '../lib/types'
 import { context } from '../modules/context'
 import { globalOptions } from './stores/globalOptions'
+
+export function isFigureArray(figs: IExercice['figures']): figs is Figure[] {
+  return Array.isArray(figs) && figs.length > 0 && figs[0] instanceof Figure
+}
 
 /**
  * - Insère une figure apigeom dans la sortie HTML de l'exercice

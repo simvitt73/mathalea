@@ -6,7 +6,7 @@ import Figure from 'apigeom'
 import checkCircle from 'apigeom/src/check/checkCircleRadius'
 import type Point from 'apigeom/src/elements/points/Point'
 import Decimal from 'decimal.js'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/outils/embellissements'
@@ -63,6 +63,7 @@ export default class defCercleDisque extends Exercice {
   nouvelleVersion() {
     this.figuresApiGeom = []
     this.figuresApiGeomCorr = []
+    this.figures = []
     this.lesPoints = []
     this.lesPointsCorr = []
     this.choixRayon = []
@@ -112,6 +113,7 @@ export default class defCercleDisque extends Exercice {
         height: 330,
         border: true,
       })
+      if (isFigureArray(this.figures)) this.figures.push(this.figuresApiGeom[i])
       this.figuresApiGeomCorr[i] = new Figure({
         xMin: -5.5,
         yMin: -5.5,
@@ -119,6 +121,8 @@ export default class defCercleDisque extends Exercice {
         height: 330,
         border: true,
       })
+      if (isFigureArray(this.figures))
+        this.figures.push(this.figuresApiGeomCorr[i])
       let isDuplicate = true // Pour ne pas créer deux points l'un sur l'autre
       let newElement: number[] = []
       for (let ee = 0; ee < this.sup2; ee++) {
