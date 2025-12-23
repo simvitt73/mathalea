@@ -21,10 +21,7 @@ import {
 } from '../../lib/3d/3d_dynamique/patrons3d'
 import type { objetFace } from '../../lib/3d/utilsPatrons'
 import { cubesObj, fauxCubesObj } from '../../lib/3d/utilsPatrons'
-import {
-  setCliqueFigure,
-  type MathaleaSVG,
-} from '../../lib/interactif/gestionInteractif'
+import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'

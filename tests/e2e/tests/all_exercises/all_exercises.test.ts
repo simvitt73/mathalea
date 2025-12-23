@@ -12,6 +12,37 @@ beforeAll(() => {
     }
   }
   window.matchMedia = vi.fn().mockReturnValue({ matches: false })
+
+  Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+    configurable: true,
+    value: () => {
+      return {
+        fillRect: () => {},
+        clearRect: () => {},
+        getImageData: () => ({ data: [] }),
+        putImageData: () => {},
+        createImageData: () => [],
+        setTransform: () => {},
+        drawImage: () => {},
+        save: () => {},
+        restore: () => {},
+        beginPath: () => {},
+        moveTo: () => {},
+        lineTo: () => {},
+        closePath: () => {},
+        stroke: () => {},
+        translate: () => {},
+        scale: () => {},
+        rotate: () => {},
+        arc: () => {},
+        fill: () => {},
+        measureText: () => ({ width: 0 }),
+        transform: () => {},
+        rect: () => {},
+        clip: () => {},
+      }
+    },
+  })
 })
 
 vi.mock('../../../../src/lib/3d/3d_dynamique/Canvas3DElement', () => ({
@@ -388,6 +419,7 @@ async function getConsoleTest(uuid: string, urlExercice: string) {
             expect(c.logs.error.length, signature).toBe(0)
             expect(c.logs.log.length, signature).toBe(0)
             expect(c.logs.warn.length, signature).toBe(0)
+            exercice.reinit()
             // expect(exercice.listeQuestions.length).toBe(i)
           }
         }

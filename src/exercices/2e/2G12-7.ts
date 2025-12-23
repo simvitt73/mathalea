@@ -3,7 +3,7 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { point, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { similitude } from '../../lib/2d/transformations'
 import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
-import figureApigeom from '../../lib/figureApigeom'
+import figureApigeom, { isFigureArray } from '../../lib/figureApigeom'
 import { Matrice } from '../../lib/mathFonctions/Matrice'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -29,10 +29,11 @@ export const refs = {
  * On se propose de placer des points aux coordonnées données dans un repère orthogonal, normé ou quelconque.
  */
 export default class BetaReperage2e extends Exercice {
-  figuresApiGeom!: Figure[]
-  labelsPoints!: string[][]
-  X!: number[][]
-  Y!: number[][]
+  figuresApiGeom: Figure[]
+  labelsPoints: string[][]
+  X: number[][]
+  Y: number[][]
+
   constructor() {
     super()
     this.nbQuestions = 1
@@ -65,6 +66,10 @@ export default class BetaReperage2e extends Exercice {
   }
 
   nouvelleVersion() {
+    this.figuresApiGeom = []
+    this.labelsPoints = []
+    this.X = []
+    this.Y = []
     const listeTypeDeReperes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -165,9 +170,12 @@ export default class BetaReperage2e extends Exercice {
             .map((el) => el.num)
             .includes(y[i][k].num)
         )
-        const [mdx, mdy] = matrice
-          .multiply([x[i][k].valeurDecimale, y[i][k].valeurDecimale])
-          .toArray()
+        const [mdx, mdy] = (
+          matrice.multiply([
+            x[i][k].valeurDecimale,
+            y[i][k].valeurDecimale,
+          ]) as Matrice
+        ).toArray() as [number, number]
         this.X[i][k] = mdx
         this.Y[i][k] = mdy
       }
@@ -185,6 +193,7 @@ export default class BetaReperage2e extends Exercice {
           scale: 1,
         }),
       )
+      if (isFigureArray(this.figures)) this.figures.push(this.figuresApiGeom[i])
       this.figuresApiGeom[i].options.latexHeight = 10
       this.figuresApiGeom[i].options.labelDxInPixels = 10
       this.figuresApiGeom[i].options.labelDyInPixels = 10
@@ -272,8 +281,14 @@ export default class BetaReperage2e extends Exercice {
       */
 
       for (let xx = -4; xx < 4 + 1 / denX; xx += 1 / denX) {
-        const coordL = matrice.multiply([xx, -3]).toArray() as [number, number]
-        const coordH = matrice.multiply([xx, 3]).toArray() as [number, number]
+        const coordL = (matrice.multiply([xx, -3]) as Matrice).toArray() as [
+          number,
+          number,
+        ]
+        const coordH = (matrice.multiply([xx, 3]) as Matrice).toArray() as [
+          number,
+          number,
+        ]
         const pointL = fig.create('Point', {
           x: coordL[0],
           y: coordL[1],
@@ -298,14 +313,12 @@ export default class BetaReperage2e extends Exercice {
           })
         for (let yy = -3; yy < 3 + 1 / denY; yy += 1 / denY) {
           if (xx === -4) {
-            const coordsL = matrice.multiply([-4, yy]).toArray() as [
-              number,
-              number,
-            ]
-            const coordsR = matrice.multiply([4, yy]).toArray() as [
-              number,
-              number,
-            ]
+            const coordsL = (
+              matrice.multiply([-4, yy]) as Matrice
+            ).toArray() as [number, number]
+            const coordsR = (
+              matrice.multiply([4, yy]) as Matrice
+            ).toArray() as [number, number]
             const pointL = fig.create('Point', {
               x: coordsL[0],
               y: coordsL[1],
@@ -341,6 +354,7 @@ export default class BetaReperage2e extends Exercice {
           scale: 1,
         }),
       )
+      if (isFigureArray(this.figures)) this.figures.push(figureCorrection)
       figureCorrection.options.latexHeight = 10
       figureCorrection.options.labelDxInPixels = 10
       figureCorrection.options.labelDyInPixels = 10
