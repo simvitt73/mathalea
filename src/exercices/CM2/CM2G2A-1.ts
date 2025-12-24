@@ -1,4 +1,4 @@
-import ParalleleEtPerpendiculaires from '../CM/CM2G2B-2'
+import ParalleleEtPerpendiculaires from './CM2G2B-2'
 
 export const dateDeModifImportante = '17/02/2025'
 export const titre = 'Tracer des perpendiculaires'
