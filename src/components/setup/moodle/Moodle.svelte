@@ -580,7 +580,7 @@
               page :<br />
               <!-- svelte-ignore a11y-invalid-attribute -->
               <a
-                href="javascript:var MathAleaBookmarkletScript = document.createElement('script');MathAleaBookmarkletScript.type='text/javascript';MathAleaBookmarkletScript.src='https://coopmaths.fr/alea/assets/externalJs/moodle-bookmarklet.js';document.body.appendChild(MathAleaBookmarkletScript);void(0);"
+                href="javascript:var MathAleaBookmarkletScript = document.createElement('script');MathAleaBookmarkletScript.type='text/javascript';MathAleaBookmarkletScript.src='https://coopmaths.fr/alea/assets/externalJs/moodle-bookmarklet.js?v=2';document.body.appendChild(MathAleaBookmarkletScript);void(0);"
                 style="color:blue;text-decoration:underline;"
                 >Activité MathALÉA</a
               >
