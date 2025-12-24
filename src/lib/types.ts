@@ -59,8 +59,9 @@ export interface InterfaceGlobalOptions {
   lang?: Language
 }
 
-export interface InterfaceParams
-  extends Partial<Record<string, string | number>> {
+export interface InterfaceParams extends Partial<
+  Record<string, string | number>
+> {
   uuid: string
   id?: string
   alea?: string
@@ -310,6 +311,7 @@ export type CleaningOperation =
   | 'espaceNormal'
   | 'mathrm'
   | 'operatorName'
+  | 'imaginaires'
 
 export type InteractivityType =
   | 'qcm'

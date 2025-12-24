@@ -204,6 +204,10 @@ function cleanMathRm(str: string): string {
   return str.replace(/\\mathrm\{(\w+)}/g, '$1')
 }
 
+function cleanImaginaire(str: string): string {
+  return str.replace(/\\mathrm\{i\}|\{i\}/g, 'i')
+}
+
 function cleanOperatorName(str: string): string {
   return str
     .replace(/\\operatorname\{\s*\}/g, ' ') // remplace les accolades vides
@@ -256,6 +260,8 @@ export function generateCleaner(
     switch (operation) {
       case 'fractions':
         return cleanFractions
+      case 'imaginaires':
+        return cleanImaginaire
       case 'fractionsMemesNegatives':
         return cleanFractionsMemesNegatives
       case 'virgules':
@@ -1238,9 +1244,11 @@ function expressionDeveloppeeEtReduiteCompare(
     'fractionsMemesNegatives',
     'parentheses',
     'foisUn',
+    'imaginaires',
   ])
   let localInput = clean(input)
   const localGoodAnswer = clean(goodAnswer)
+
   if (calculFormel)
     if (
       engine
@@ -2061,7 +2069,10 @@ export function ensembleNombres(
   { kUplet = false, avecAccolades = true } = {},
 ): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
-  const cleanInput = clean(input).replaceAll('∅', '\\emptyset').replaceAll('\\lbrace', '\\{').replaceAll('\\rbrace', '\\}')
+  const cleanInput = clean(input)
+    .replaceAll('∅', '\\emptyset')
+    .replaceAll('\\lbrace', '\\{')
+    .replaceAll('\\rbrace', '\\}')
   goodAnswer = clean(goodAnswer)
 
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer)
