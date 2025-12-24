@@ -373,7 +373,9 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
           })
 
         this.listeCorrections[i] = texteCorr
-        handleAnswers(this, i, { reponse: { value } })
+        handleAnswers(this, i, {
+          reponse: { value, options: { calculFormel: true } },
+        })
         i++
       }
       cpt++
