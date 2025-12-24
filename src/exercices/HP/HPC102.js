@@ -98,7 +98,6 @@ export default class CalculsLoiNormale extends Exercice {
         calculstep,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 'N01':
@@ -234,7 +233,7 @@ export default class CalculsLoiNormale extends Exercice {
             (1 / variables.sigma / math.sqrt(2 * math.pi)) *
             math.exp(-((x - variables.mu) ** 2) / 2 / variables.sigma ** 2)
           r = repere({
-            axeYisVisible: false,
+            labelsYareVisible: false,
             xMin: -4 * variables.sigma + variables.mu,
             xMax: 4 * variables.sigma + variables.mu,
             yMin: -1,

@@ -288,6 +288,8 @@ export default class Questions2023 extends Exercice {
             xMax: 3,
             yMin: -1,
             yMax: 10,
+            labelsXareVisible: false,
+            labelsYareVisible: false,
             axeXisVisible: false,
             axeYisVisible: false,
             grille: false,
