@@ -217,6 +217,9 @@ export default class ExoRose extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
+    if (this.answers === undefined) {
+      this.answers = {}
+    }
     const taille = this.nombreDeValeurs
     const champsTexte = []
     const spanResultat = document.querySelector(
@@ -227,6 +230,9 @@ export default class ExoRose extends Exercice {
       champsTexte[0] = document.getElementById(
         `champTexteEx${this.numeroExercice}Q${i}`,
       ) as MathfieldElement
+      if (champsTexte[0]) {
+        this.answers[champsTexte[0].id] = champsTexte[0].value
+      }
       if (champsTexte[0] != null) {
         saisies[0] = champsTexte[0].value
           .replace(',', '.')
@@ -236,6 +242,9 @@ export default class ExoRose extends Exercice {
       const mfe = document.querySelector(
         `math-field#champTexteEx${this.numeroExercice}Q${i}`,
       ) as MathfieldElement
+      if (mfe) {
+        this.answers[mfe.id] = mfe.value
+      }
       for (let k = 0; k < taille; k++) {
         champsTexte[k] = mfe.getPromptValue(`champ${k + 1}`)
         saisies[k] = champsTexte[k]
