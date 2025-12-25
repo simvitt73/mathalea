@@ -10,4 +10,19 @@ export default class ExerciceSimple extends Exercice {
     this.distracteurs = []
     this.typeExercice = 'simple'
   }
+
+  get key(): string {
+    return [
+      this.nbQuestions,
+      this.interactif,
+      this.sup,
+      this.sup2,
+      this.sup3,
+      this.sup4,
+      this.sup5,
+      this.seed,
+      this.correctionDetaillee,
+      this.versionQcm,
+    ].join('_')
+  }
 }
