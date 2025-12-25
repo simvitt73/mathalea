@@ -211,8 +211,8 @@
       "react-dom": "^18.3.1"
     },
     "onlyBuiltDependencies": [
-      "svelte-preprocess",
-      "apigeom"
+      "apigeom",
+      "svelte-preprocess"
     ]
   },
   "packageManager": "pnpm@10.26.1"
