@@ -676,26 +676,28 @@
           ).toString()}rem; line-height: calc({$globalOptions.z || 1});"
         >
           <div class="mt-6 mb-4">
-            {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
-              <div>
-                <p
-                  class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-                >
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html mathaleaFormatExercice(exercise.consigne)}
-                </p>
-              </div>
-            {/if}
-            {#if exercise.introduction}
-              <div>
-                <p
-                  class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-                >
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html exercise.introduction}
-                </p>
-              </div>
-            {/if}
+            {#key exercise.key}
+              {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
+                <div>
+                  <p
+                    class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                  >
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html mathaleaFormatExercice(exercise.consigne)}
+                  </p>
+                </div>
+              {/if}
+              {#if exercise.introduction}
+                <div>
+                  <p
+                    class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                  >
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html exercise.introduction}
+                  </p>
+                </div>
+              {/if}
+            {/key}
           </div>
           <div
             style="columns: {columnsCount.toString()}"
@@ -707,7 +709,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + exercise.sup + '_' + exercise.sup2 + '_' + exercise.sup3 + '_' + exercise.sup4 + '_' + exercise.sup5 + '_' + exercise.correctionDetaillee + '_' + (exercise instanceof ExerciceSimple ? exercise.versionQcm + '_' : '') + i + '_' + (exercise.seed || ''))}
+              {#each exercise.listeQuestions as item, i (exercise.key + '-' + i)}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"

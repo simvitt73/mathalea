@@ -857,6 +857,7 @@ export interface IExercice {
   dragAndDrops?: IDragAndDrop[]
   isDone?: boolean
   html: HTMLElement
+  key: string
   score?: number
   vspace?: number
 
