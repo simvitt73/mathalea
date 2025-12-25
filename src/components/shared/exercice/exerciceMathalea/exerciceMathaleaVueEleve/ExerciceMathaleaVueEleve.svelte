@@ -647,26 +647,28 @@
         ).toString()}rem;  line-height: calc({$globalOptions.z || 1});"
       >
         <div class="flex flex-col w-full mt-2 lg:mt-0 mb-2">
-          {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
-            <div>
-              <p
-                class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercise.consigne}
-              </p>
-            </div>
-          {/if}
-          {#if exercise.introduction}
-            <div>
-              <p
-                class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercise.introduction}
-              </p>
-            </div>
-          {/if}
+          {#key exercise.key}
+            {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
+              <div>
+                <p
+                  class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html exercise.consigne}
+                </p>
+              </div>
+            {/if}
+            {#if exercise.introduction}
+              <div>
+                <p
+                  class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html exercise.introduction}
+                </p>
+              </div>
+            {/if}
+          {/key}
         </div>
         <div
           style="columns: {window.innerWidth > 1000
@@ -680,7 +682,7 @@
               : 'list-decimal'} list-inside mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each exercise.listeQuestions as question, questionIndex (exercise.nbQuestions + '_' + exercise.interactif + '_' + exerciseIndex + '_' + questionIndex + '_' + (exercise.seed || ''))}
+            {#each exercise.listeQuestions as question, questionIndex (exercise.key + '_' + questionIndex)}
               <Question
                 {exercise}
                 {questionIndex}
