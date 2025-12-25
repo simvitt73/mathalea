@@ -13,6 +13,7 @@ export const amcType = 'qcmMono'
 /**
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
+ * MAJ en décembre 2025 par Mireille Gain pour augmenter le nombre de cas
 
  */
 export const uuid = 'ac56a'
@@ -35,20 +36,44 @@ export default class LaBonneUnite extends Exercice {
       ['gratte-ciel', 50, 180, 'm'],
       ['girafe', 40, 50, 'dm'],
       ['colline', 75, 150, 'm'],
+      ['maison', 30, 90, 'dm'],
+      ['poule', 15, 50, 'cm'],
+    ]
+
+    const longueurs = [
+      ['stade de football', 100, 110, 'm'],
+      ['crayon', 15, 20, 'cm'],
+      ["tronçon d'autoroute", 100, 500, 'km'],
+      ['camion', 7, 20, 'm'],
+      ['doigt', 30, 90, 'mm'],
+      ['livre de poche', 15, 20, 'cm'],
+      ['fleuve', 200, 6992, 'km'],
+      ['écran de téléphone', 10, 18, 'cm'],
     ]
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const unites = ['cm', 'dm', 'm']
-      const a = randint(0, 4)
-      const b = randint(hauteurs[a][1] as number, hauteurs[a][2] as number)
-      enleveElement(unites, hauteurs[a][3])
-      let texte = `Choisir parmi les propositions suivantes la hauteur d'une ${hauteurs[a][0]}.<br>`
+      const choixType = randint(0, 1) // 0 pour hauteur, 1 pour longueur
+      let liste: [string, number, number, string][]
+      let typeObjet: string
+      if (choixType === 0) {
+        liste = hauteurs.splice(0) as [string, number, number, string][]
+        typeObjet = "hauteur d'une"
+      } else {
+        liste = longueurs.splice(0) as [string, number, number, string][]
+        typeObjet = "longueur d'un"
+      }
+      const nbChoix = liste.length
+      const unites = ['mm', 'cm', 'dm', 'm', 'km']
+      const a = randint(0, nbChoix - 1)
+      const b = randint(liste[a][1] as number, liste[a][2] as number)
+      enleveElement(unites, liste[a][3])
+      let texte = `Choisir parmi les propositions suivantes la ${typeObjet} ${liste[a][0]}.<br>`
       this.canEnonce = texte
       this.autoCorrection[i] = {
         enonce: texte,
         propositions: [
           {
-            texte: `$${b}\\,\\text{${hauteurs[a][3]}}$`,
+            texte: `$${b}\\,\\text{${liste[a][3]}}$`,
             statut: true,
           },
           {
@@ -59,14 +84,18 @@ export default class LaBonneUnite extends Exercice {
             texte: `$${b}\\,\\text{${unites[1]}}$`,
             statut: false,
           },
+          {
+            texte: `$${b}\\,\\text{${unites[2]}}$`,
+            statut: false,
+          },
         ],
       }
       const monQcm = propositionsQcm(this, i)
       if (!context.isAmc) {
         texte += monQcm.texte
       }
-      const texteCorr = `La hauteur d'une ${hauteurs[a][0]} est $${miseEnEvidence(`${b}\\,\\text{${hauteurs[a][3]}}`)}$.`
-      if (this.questionJamaisPosee(i, a, b)) {
+      const texteCorr = `La ${typeObjet} ${liste[a][0]} est $${miseEnEvidence(`${b}\\,\\text{${liste[a][3]}}`)}$.`
+      if (this.questionJamaisPosee(i, a, b, choixType)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
 
