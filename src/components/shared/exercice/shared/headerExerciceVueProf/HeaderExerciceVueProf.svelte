@@ -6,6 +6,7 @@
   import { mathaleaGenerateSeed } from '../../../../../lib/mathalea'
   import { exercicesParams } from '../../../../../lib/stores/generalStore'
   import { globalOptions } from '../../../../../lib/stores/globalOptions'
+  import PdfDialog from '../../../../setup/latex/PdfDialog.svelte'
   import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
   import BoutonDescendre from './BoutonDescendre.svelte'
   import BoutonMonter from './BoutonMonter.svelte'
@@ -29,6 +30,7 @@
   export let isSettingsVisible = true
   const isContentVisible = true
   let isCorrectionVisible = false
+  let showPdfDialog = false
   // redéfinition du titre lorsqu'un exercice apparait plusieurs fois :
   // si le titre contient le caractère | (ajouté lors de la création de l'exercice)
   // on coupe le titre en deux et on distingue le titre de base de l'addendum
@@ -178,6 +180,7 @@
             ? 'Masquer la correction'
             : 'Montrer la correction'}
           type="button"
+          title="Afficher / Masquer la correction"
           on:click={() => {
             isCorrectionVisible = !isCorrectionVisible
             dispatch('clickCorrection', {
@@ -209,6 +212,7 @@
           class="mx-2 tooltip tooltip-left"
           data-tip="Nouvel énoncé"
           type="button"
+          title="Nouvel énoncé"
           on:click={newData}
         >
           <i
@@ -226,6 +230,7 @@
             }}
             class="mx-2 tooltip tooltip-left"
             data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
+            title="Masquer / Montrer l'exercice"
           >
             <i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isVisible
@@ -238,6 +243,7 @@
           class="mx-2 tooltip tooltip-left tooltip-neutral"
           data-tip="Dupliquer l'exercice"
           type="button"
+          title="Dupliquer l'exercice"
           on:click={duplicate}
         >
           <i
@@ -249,6 +255,7 @@
             class="mx-2 tooltip tooltip-left tooltip-neutral"
             data-tip="Supprimer l'exercice"
             type="button"
+            title="Supprimer"
             on:click={remove}
           >
             <i
@@ -261,6 +268,7 @@
             ? ''
             : 'hidden'} "
           data-tip="Changer les paramètres de l'exercice"
+          title="Paramètres de l'exercice"
           type="button"
           on:click={() => {
             isSettingsVisible = !isSettingsVisible
@@ -271,6 +279,20 @@
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-slider"
           ></i>
         </button>
+        <button
+          class="mx-2 tooltip tooltip-left tooltip-neutral"
+          data-tip="Fichier PDF"
+          title="pdf"
+          type="button"
+          on:click={() => (showPdfDialog = true)}
+        >
+          <i
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bxs-file-pdf"
+          ></i>
+        </button>
+        {#if showPdfDialog}
+          <PdfDialog {indiceExercice} onClose={() => (showPdfDialog = false)} />
+        {/if}
       </div>
       <div
         class="flex flex-row justify-start items-center space-x-4 md:space-x-1"

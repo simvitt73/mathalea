@@ -238,6 +238,7 @@
         class="mx-2 tooltip tooltip-left tooltip-neutral"
         data-tip="Changer les paramètres du PDF"
         type="button"
+        title="Changer les paramètres du PDF"
         on:click={() => {
           showAdvanced = !showAdvanced
         }}
@@ -446,7 +447,12 @@
         {#await promise}
           <p>Chargement en cours...</p>
         {:then}
-          <PdfResult {latex} {latexFileInfos} autoStart={!showAdvanced} />
+          <PdfResult
+            {latex}
+            {latexFileInfos}
+            autoStart={!showAdvanced}
+            pdfViewerDisplay={true}
+          />
         {/await}
       </div>
     </div>
