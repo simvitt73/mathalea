@@ -192,10 +192,6 @@ export default class defCercleDisque extends Exercice {
       this.figuresApiGeom[i].options.fillColorAndBorderColorAreSame = true
       this.figuresApiGeom[i].options.changeColorChangeActionToSetOptions = true
 
-      this.figuresApiGeomCorr[i].isDynamic = false
-      this.figuresApiGeomCorr[i].divButtons.style.display = 'none'
-      this.figuresApiGeomCorr[i].divUserMessage.style.display = 'none'
-
       texte += context.isHtml
         ? figureApigeom({
             exercice: this,
@@ -212,6 +208,7 @@ export default class defCercleDisque extends Exercice {
             i,
             figure: this.figuresApiGeomCorr[i],
             idAddendum: '6GXXCor' + i,
+            isDynamic: false,
           })
         : this.figuresApiGeomCorr[i].latex({ includePreambule: false })
 
