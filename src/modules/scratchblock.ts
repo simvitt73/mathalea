@@ -12,9 +12,11 @@ import { context } from './context'
  * @author Jean-Claude Lhote.
  */
 
-export function scratchblock(stringLatex: string) {
+export function scratchblock(
+  stringLatex: string,
+  style = 'block',
+): string | false {
   const regex1 = /[\\{}]/
-  const regex3 = /[[]<>]/
   const regex4 = /[{ ]/
   const litcommande = function (souschaine: string) {
     let extrait
@@ -436,11 +438,15 @@ export function scratchblock(stringLatex: string) {
   } else {
     const regex = /scale=([\d.]+)/
     const matches = stringLatex.match(regex)
+    const inlineStyle =
+      style !== 'block'
+        ? ' style="display:inline-block; vertical-align:middle";'
+        : ''
     if (matches) {
       const scale = matches[0]
-      codeScratch = `<pre class='blocks2' ${scale}>`
+      codeScratch = `<pre class="blocks2" ${inlineStyle} ${scale}>`
     } else {
-      codeScratch = "<pre class='blocks'>"
+      codeScratch = `<pre class="blocks" ${inlineStyle}>`
     }
     index = 0
     fin = false
