@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Modifie le style des sb3-comment-label */
+text.sb3-comment-label {
+  fill: #000 !important;
+}
 /* Cache le menu toggle de MathLive */
 math-field::part(menu-toggle) {
   display: none;

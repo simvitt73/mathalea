@@ -1,6 +1,8 @@
 import { deuxColonnesResp } from '../../lib/format/miseEnPage'
 import { ajouteQuestionMathlive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { scratchblock } from '../../modules/scratchblock'
 import Exercice from '../Exercice'
@@ -52,7 +54,7 @@ export default class BlocPersonnaliseScratch extends Exercice {
       longueurCote: number
       angle: number
     }) => {
-      return `\\begin{scratch}[num blocks,scale=0.8]\n
+      return `\\begin{scratch}[num blocks]\n
 \\initmoreblocks{définir \\namemoreblocks{${figure.nom}}}
 \\blockpen{stylo en position d'écriture}
 \\blockrepeat{répéter \\ovalnum{ } fois}
@@ -72,7 +74,7 @@ export default class BlocPersonnaliseScratch extends Exercice {
       longueurCote,
       angle: 360 / nbCotes,
     })
-    let codeScratch3 = String(scratchblock(codeScratch))
+    let codeScratch3 = String(scratchblock(codeScratch, 'block', true))
     if (context.isHtml) {
       let ligne = 1
       const lignes = codeScratch3.split('\n')
@@ -114,6 +116,6 @@ pour obtenir un ${nom} ?`,
         content:
           '\\text{Ligne 3 : }%{champ1}\\quad \\text{Ligne 5 : }%{champ2}',
       })
-    this.listeCorrections[0] = ``
+    this.listeCorrections[0] = `Pour obtenir un ${nom}, il faut répéter $${miseEnEvidence(nbCotes.toString())}$ fois et tourner de $\\dfrac{360}{${nbCotes}}=${miseEnEvidence(texNombre(360 / nbCotes, 0))}$ degrés.`
   }
 }

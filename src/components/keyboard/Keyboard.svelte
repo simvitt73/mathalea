@@ -189,6 +189,7 @@
         <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
           id="kb-nav-right"
+          aria-label="Page suivante"
           class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={navRight}
           on:mousedown={(e) => {
@@ -202,6 +203,7 @@
         <!-- Boutons de navigation entre les pages : vers la GAUCHE -->
         <button
           id="kb-nav-left"
+          aria-label="Page précédente"
           class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={navLeft}
           on:mousedown={(e) => {
@@ -220,6 +222,7 @@
     <button
       id="kb-nav-reduced"
       type="button"
+      aria-label={isInLine ? 'Agrandir le clavier' : 'Réduire le clavier'}
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
         e.preventDefault()
@@ -240,6 +243,9 @@
     <button
       id="kb-nav-alpha"
       type="button"
+      aria-label={alphanumericDisplayed
+        ? 'Clavier mathématique'
+        : 'Clavier alphanumérique'}
       class="z-[10000] {$keyboardState.blocks.includes('alphanumeric')
         ? 'flex justify-center items-center'
         : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
