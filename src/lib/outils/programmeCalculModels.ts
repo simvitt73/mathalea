@@ -15,6 +15,7 @@ type LiteralModel =
   | '(x+a)(x-a)'
   | 'x^2-abs(a)'
   | '(x+a)^2-x^2'
+  | '(x+a)^2+b'
   | 'x(x+a)'
 
 export interface GeneratedProgram {
@@ -61,7 +62,7 @@ export function generateProgram(
         solutionV: function (value: number): string[] {
           return [
             `- Choisir un nombre $ \\rightarrow ${value}$`,
-            `- Le multiplier par $${a}$ $ \\rightarrow ${value} \\times ${a} = ${value * a}$`,
+            `- Le multiplier par $${a}$ $ \\rightarrow ${value} \\times ${parNeg(a)} = ${value * a}$`,
             `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow ${value * a} ${sign(b)} = ${miseEnEvidence(value * a + b)}$.`,
           ]
         },
@@ -263,11 +264,11 @@ export function generateProgram(
         ],
         simplify: [
           '- Développer :',
-          `$(x ${sign(a)})^{2} = (x ${sign(a)})(x ${sign(a)}) - x^{2}$`,
-          `$(x ${sign(a)})^{2} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} - x^{2}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = (x ${sign(a)})(x ${sign(a)}) - x^{2}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} - x^{2}$`,
           '- Réduire :',
-          `$(x ${sign(a)})^{2} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} - x^{2}$`,
-          `$(x ${sign(a)})^{2} = ${sign(2 * a)} x ${sign(a * a)}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} - x^{2}$`,
+          `$(x ${sign(a)})^{2} - x^{2} = ${2 * a} x ${sign(a * a)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -279,6 +280,43 @@ export function generateProgram(
         },
         testV: function (value: number): number {
           return (value + a) ** 2 - value ** 2
+        },
+      }
+    }
+    case '(x+a)^2+b': {
+      return {
+        expression: `(x ${sign(a)})^2 ${sign(b)}`,
+        a,
+        program: [
+          'Choisir un nombre.',
+          `${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$.`,
+          'Élever le résultat au carré.',
+           `${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$.`,
+        ],
+        solutionX: [
+          '- Choisir un nombre $ \\rightarrow x$',
+          `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} ${Math.abs(a)} $ \\rightarrow x ${sign(a)}$.`,
+          `- Élever le résultat au carré $  \\rightarrow (x ${sign(a)})^{2} $.`,
+          `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow (x ${sign(a)})^{2} ${sign(b)} $.`,
+        ],
+        simplify: [
+          '- Développer :',
+          `$(x ${sign(a)})^{2} ${sign(b)} = (x ${sign(a)})(x ${sign(a)}) ${sign(b)}$`,
+          `$(x ${sign(a)})^{2} ${sign(b)} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} ${sign(b)}$`,
+          '- Réduire :',
+          `$(x ${sign(a)})^{2} ${sign(b)} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} ${sign(b)}$`,
+          `$(x ${sign(a)})^{2} ${sign(b)}= x^{2} ${sign(2 * a)} x ${sign(a * a + b)}$`,
+        ],
+        solutionV: function (value: number): string[] {
+          return [
+            `- Choisir un nombre : $${value}$`,
+            `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} ${Math.abs(a)} $ \\rightarrow ${value} ${sign(a)} = ${value + a}$.`,
+            `- Élever le résultat au carré $ \\rightarrow ${parNeg(value + a)}^2 = ${(value + a) ** 2} $.`,
+            `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ \\rightarrow ${(value + a) ** 2} ${sign(b)} = ${miseEnEvidence((value + a) ** 2 + b)} $.`,
+          ]
+        },
+        testV: function (value: number): number {
+          return (value + a) ** 2 + b
         },
       }
     }
