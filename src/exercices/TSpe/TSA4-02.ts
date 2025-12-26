@@ -8,13 +8,14 @@ import { texNombre } from '../../lib/outils/texNombre'
 import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { createList } from '../../lib/format/lists'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction'
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Reconnaître la convexité graphiquement'
 
 /**
- * @author Gilles Mora
+ * @author Stéphane Guyon
  */
 export const uuid = '5d293'
 
@@ -44,19 +45,19 @@ export default class CourbeConvexite extends ExerciceSimple {
       inflexion: number[]
       zero: number[]
       commentaire: string
-    }
+       }
 
     const perturb = (amplitude: number, offset = 0) =>
       offset + randint(-amplitude, amplitude) / 10
 
     const scenarios: ScenarioConvexite[] = [
-      {
+       {
         // f' en forme de U : concave puis convexe, minimum à x=0 (y<0)
         // noeud 0
         noeuds: [
           { x: -4, y: 2 + perturb(2), deriveeGauche: -0.6, deriveeDroit: -0.6, isVisible: true },
           { x: -2, y: 0, deriveeGauche: -0.3, deriveeDroit: -0.3, isVisible: true }, // zéro entier
-          { x: 0, y: -0.6 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // y≈0-, dérivée nulle
+          { x: 0, y: -1.5 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // y≈0-, dérivée nulle
           { x: 2, y: 0, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true }, // zéro entier
           { x: 4, y: 2.2 + perturb(2), deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true },
         ],
@@ -67,19 +68,20 @@ export default class CourbeConvexite extends ExerciceSimple {
         inflexion: [-2,2],
         zero: [],
         commentaire: "f' décroît puis croît, donc f est concave puis convexe.",
+
       },
       {
         // f' en cloche : concave, convexe, concave avec zéros entiers en x=-3,1,4 OK
         noeuds: [
           { x: -4, y: 2.6 + perturb(2), deriveeGauche: -0.6, deriveeDroit: -0.6, isVisible: true },
           { x: -3, y: 0, deriveeGauche: -0.9, deriveeDroit: -0.9, isVisible: true }, // zéro
-          { x: -2, y: -0.5 + perturb(1, -0.2), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min <0
-           { x: -1, y: 0, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true }, // min <0
-          { x: 0, y: 0.6 + perturb(1), deriveeGauche: 0.3, deriveeDroit: 0.3, isVisible: true },
-          { x: 1, y: 0, deriveeGauche: 0.3, deriveeDroit: 0.3, isVisible: true }, // zéro et palier
-          { x: 2, y: 1.9 + perturb(2, 0.2), deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true }, // max
-          { x: 4, y: 0, deriveeGauche: -0.3, deriveeDroit: -0.3, isVisible: true }, // zéro
-          { x: 5, y: 0.8 + perturb(1), deriveeGauche: -0.2, deriveeDroit: -0.2, isVisible: true },
+          { x: -2, y: -1.5 + perturb(1, -0.2), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min <0
+           { x: -1, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min <0
+          { x: 0, y: 1.5 + perturb(1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+          { x: 1, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // zéro et palier
+          { x: 2, y: 2 + perturb(2, 0.2), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // max
+          { x: 4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // zéro
+          { x: 5, y: 2 + perturb(1), deriveeGauche: -0.2, deriveeDroit: -0.2, isVisible: true },
         ],
         negatif: [
           [-3, -1]
@@ -95,16 +97,16 @@ export default class CourbeConvexite extends ExerciceSimple {
         zero: [1,4],
         commentaire:
           "f' décroît puis croît puis décroît : f est concave, puis convexe, puis concave.",
-      },
+      }, 
       {
         // f' strictement croissante : f convexe partout, zéros en x=-1,2
          // noeud 1
         noeuds: [
-          { x: -4, y: -1.2 + perturb(2, -0.2), deriveeGauche: 0.4, deriveeDroit: 0.4, isVisible: true },
-          { x: -2, y: -0.4 + perturb(1, -0.1), deriveeGauche: 0.45, deriveeDroit: 0.45, isVisible: true },
-          { x: -1, y: 0, deriveeGauche: 0.4, deriveeDroit: 0.4, isVisible: true }, // zéro
-          { x: 0, y: 2 + perturb(1), deriveeGauche: 0.35, deriveeDroit: 0.35, isVisible: true },
-          { x: 2, y: 0, deriveeGauche: 0.3, deriveeDroit: 0.3, isVisible: true }, // deuxième zéro
+          { x: -4, y: -2 + perturb(2, -0.2), deriveeGauche: 0.4, deriveeDroit: 0.4, isVisible: true },
+          
+          { x: -1, y: 0, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true }, // zéro
+          { x: 0, y: 3 + perturb(1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+          { x: 2, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // deuxième zéro
           { x: 4, y: 5.1 + perturb(2), deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true },
         ],
         negatif: [[-4,-1]],
@@ -119,13 +121,12 @@ export default class CourbeConvexite extends ExerciceSimple {
         // f' en S aplatie : convexité change deux fois, zéros en x=-2,1,3
         noeuds: [
           { x: -4, y: 3 + perturb(2), deriveeGauche: -0.4, deriveeDroit: -0.4, isVisible: true }, // décroissante
-          { x: -3, y: 1 + perturb(1), deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
           { x: -2, y: 0, deriveeGauche: -0.4, deriveeDroit: -0.4, isVisible: true }, // zéro, encore décroissant
-          { x: -1, y: -0.4 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min, pente nulle
+          { x: -1, y: -1.5 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min, pente nulle
           { x: 1, y: 0, deriveeGauche: 0.25, deriveeDroit: 0.25, isVisible: true }, // zéro, montée
           { x: 2, y: 2 + perturb(1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // max aplati
-          { x: 3, y: 0, deriveeGauche: -0.2, deriveeDroit: -0.2, isVisible: true }, // zéro, redescente
-          { x: 4, y: -0.6 + perturb(1, 0.1), deriveeGauche: -0.35, deriveeDroit: -0.35, isVisible: true },
+          { x: 3, y: 0, deriveeGauche: -0.4, deriveeDroit: -0.4, isVisible: true }, // zéro, redescente
+          { x: 4, y: -1.5 + perturb(1, 0.1), deriveeGauche: -0.35, deriveeDroit: -0.35, isVisible: true },
         ],
         positif: [
           [-4, -2],
@@ -140,20 +141,18 @@ export default class CourbeConvexite extends ExerciceSimple {
         zero: [],
         commentaire:
           "f' décroît, croît, puis décroît de nouveau : f est concave, puis convexe, puis concave.",
-      },
+      } , 
       {
         // f' oscillante douce : convexité alterne, zéros en x=-3,-1,2,4 OK
          // noeud 2
         noeuds: [
           { x: -4, y: 1.8 + perturb(2), deriveeGauche: -0.5, deriveeDroit: -0.5, isVisible: true },
           { x: -3, y: 0, deriveeGauche: -0.8, deriveeDroit: -0.8, isVisible: true }, // zéro
-          { x: -2, y: -0.8 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min
+          { x: -2, y: -1.4 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min
           { x: -1, y: 0, deriveeGauche: 0.8, deriveeDroit: 0.8, isVisible: true }, // zéro
-          { x: 0, y: 1.2 + perturb(1), deriveeGauche: 0.4, deriveeDroit: 0.4, isVisible: true }, // max
-          { x: 2, y: 0, deriveeGauche: -0.8, deriveeDroit: -0.8, isVisible: true }, // zéro
-          { x: 3, y: -0.5 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min
-          { x: 4, y: 0, deriveeGauche: 0.8, deriveeDroit: 0.8, isVisible: true }, // zéro
-          { x: 5, y: 0.9 + perturb(1), deriveeGauche: 0.2, deriveeDroit: 0.2, isVisible: true },
+          { x: 0, y: 2 + perturb(1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // max
+          { x: 1, y: 0, deriveeGauche: -0.8, deriveeDroit: -0.8, isVisible: true }, // zéro
+          { x: 2, y: -2 + perturb(1, -0.1), deriveeGauche: 0, deriveeDroit: 0, isVisible: true }, // min
         ],
         positif: [
           [-4, -3],
@@ -176,17 +175,26 @@ export default class CourbeConvexite extends ExerciceSimple {
         zero: [],
         commentaire:
           "f' alterne décroissance/croissance, fournissant plusieurs changements de convexité.",
-      },
+      }
     ]
 
-     const scenario = choice(scenarios)
-    
-    // Perturbation des abscisses : translation entière et pas multiplicatif entier (>=1)
+    const scenario = choice(scenarios)
+
+    // Perturbation des abscisses : translation entière et pas multiplicatif entier (>=2), borné pour rester sous 15.
     const baseX0 = scenario.noeuds[0].x
-    const deltaX = randint(-1, 1)
-    const pasX = 2 + randint(0, 1) // 2 ou 3 pour espacer davantage les abscisses
-    const transformX = (x: number) =>
-      x === Infinity || x === -Infinity ? x : baseX0 + deltaX + (x - baseX0) * pasX
+    let deltaX = 0
+    let pasX = 2
+    let transformX: (x: number) => number = (x) => x
+    let maxX = Infinity
+    do {
+      deltaX = randint(-1, 1)
+      pasX = 2 + randint(0, 1) // 2 ou 3 pour espacer davantage les abscisses
+      transformX = (x: number) =>
+        x === Infinity || x === -Infinity
+          ? x
+          : baseX0 + deltaX + (x - baseX0) * pasX
+      maxX = Math.max(...scenario.noeuds.map((n) => transformX(n.x)))
+    } while (maxX > 15)
 
     const k =
       choice([-1, 1]) *
@@ -279,7 +287,7 @@ export default class CourbeConvexite extends ExerciceSimple {
     const courbe1 = theSpline.courbe({
       epaisseur: 1.5,
       ajouteNoeuds: true,
-      optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
+      optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 1 },
       color: 'blue',
     })
     const objetsEnonce = [repere1, courbe1]
@@ -330,25 +338,33 @@ export default class CourbeConvexite extends ExerciceSimple {
       zero.length > 0
         ? zero.map((x) => texNombre(x)).join('\\;;\\;')
         : 'aucun'
-
+  let question1 =``
+  let question2 = ``
+  let reponse1=''
+  let reponse2=''
+        
      switch (randint(1,1)) {
       case 1 :
+         question1 =`Déterminer les variations de la fonction $f$`
+   question2 = `Etudier la convexité de la fonction $f$`
         this.question =
       `Soit $f$ une fonction deux fois dérivable sur $[${texBorne(a+1)};${texBorne(b-1)}]$. <bR>
       La représentation graphique $\\mathcal C_{f'}$ de sa fonction dérivée est donnée ci-dessous.<br>` +
       `Répondre, en justifiant, avec la précision permise par le graphique.<br>` +
-      createList({items:[`Déterminer les variations de la fonction $f$`, `Etudier la convexité de la fonction $f$`, 
-        ], style: 'nombres',}) 
+      createList({items:[question1,question2], style: 'nombres',}) 
         +
       dessin
 
-    this.correction = createList({items:[`Déterminer les variations de la fonction $f$`, `Etudier la convexité de la fonction $f$`, 
-        ], style: 'nombres',}) +`La convexité de $f$ dépend du sens de variation de $f'$. ${commentaireK}<br>
+reponse1=`La représentation graphique proposée est celle de la fonction dérivée de $f$.<br>
+On sait que le signe de la dérivée $f'$ donne les variations de $f$.<br>`
+
+reponse2=`La convexité de $f$ dépend du sens de variation de $f'$. ${commentaireK}<br>
     - $f''>0$ (donc $f$ convexe) sur $${positifTex}$.<br>
     - $f''<0$ (donc $f$ concave) sur $${negatifTex}$.<br>
     - $f'$ croissante sur $${croissantTex}$; $f'$ décroissante sur $${decroissantTex}$.<br>
     - Points d'inflexion (changement de signe) : $${inflexionTex}$.<br>
     - Zéros sans changement de signe : $${zeroTex}$.`
+    this.correction = createList({items:[reponse1, reponse2], style: 'nombres',}) 
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = ''
