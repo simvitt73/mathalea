@@ -114,7 +114,7 @@ $Q_2.$`,
 this.question += createList({
           items: [`$A$ l’évènement : « le candidat répond correctement à la question $Q_1$ » ;`,
 '$B$ l’évènement : « le candidat répond correctement à la question $Q_2$ »;',
-'$\\overline{A}$ et $\\overline{B}$ les évènements contraires de $A$ et de $B.$'],
+'$\\overline{A}$ et $\\overline{B}$ sont les évènements contraires de $A$ et de $B.$'],
           style: 'fleches',
         })  
 this.question +=`${texteEnCouleurEtGras('Partie A :')}`
@@ -153,17 +153,10 @@ this.question += `<br>On définit les variables aléatoires suivantes :`+ create
            `Déterminer la probabilité d'avoir deux points au questionnaire.`,
            `En déduire la loi de probabilité de $X$.`,
            `Montrer que la variance de $X$ vaut $${texNombre(V, 4)}$.`,
+           `A-t-on $\\mathrm V (X)= \\mathrm V (X_1) + \\mathrm V (X_2)$ ? Que peut-on conclure ?`
          ],
          style: 'alpha',
-       }),
-     createList({
-       items: [
-         `En remarquant que les évènements $A$ et $B$ de la première partie peuvent se définir ainsi :<br>$A=\\{X_1=1\\}$ et $B=\\{X_2=1\\}$, que peut-on déduire pour $X_1$ et $X_2$ ?`,
-         `A-t-on $\\mathrm V (X)= \\mathrm V (X_1) + \\mathrm V (X_2)$ ? Que peut-on conclure ?`,
-       ],
-       style: 'nombres',
-     }),
-   ],
+       })],
    style: 'nombres',
  })
      this.correction = `${texteEnCouleurEtGras('Partie A :')}<br>`
@@ -175,15 +168,15 @@ this.question += `<br>On définit les variables aléatoires suivantes :`+ create
                    ),
                    objets,
                  ) 
-       const correction1 = `L'événement «${texteItalique('le candidat répond correctement aux deux questions $Q_1$ et $Q_2$')}» est $A\\cap B.$<br>
+       const correction1 = `L'évènement «${texteItalique('le candidat répond correctement aux deux questions $Q_1$ et $Q_2$')}» est $A\\cap B.$<br>
         $\\begin{aligned}\\mathrm P (A\\cap B) &= \\mathrm P (A) \\times \\mathrm P_A (B)\\\\& = ${texNombre(pA)} \\times ${texNombre(pBsipA)}\\\\& = ${texNombre(pA * pBsipA)}\\end{aligned}.$`
-       const correction2 = `L'événement «${texteItalique('le candidat répond correctement à la question $Q_2$')}» est $B.$<br>
+       const correction2 = `L'évènement «${texteItalique('le candidat répond correctement à la question $Q_2$')}» est $B.$<br>
        Comme $A$ et $\\overline{A}$ forment une partition de l'univers, on utilise la formule des probabilités totales : <br>
        $\\begin{aligned}\\mathrm P (B) &= \\mathrm P (A) \\times \\mathrm P_B (B) + \\mathrm P (\\overline{A}) \\times \\mathrm P_{\\overline{A}} (B)\\\\& = ${texNombre(pA)} \\times ${texNombre(pBsipA)} + ${texNombre(1 - pA)} \\times ${texNombre(pBsiNonpA)}\\\\& = ${texNombre(pB)}\\end{aligned}.$`
        const correction3 =`On calcule $\\mathrm P (A) \\times \\mathrm P (B) :$ <br>
        $\\begin{aligned}\\mathrm P (A) \\times \\mathrm P (B) &= ${texNombre(pA)} \\times ${texNombre(pB)}\\\\& = ${texNombre(pA * pB)}\\end{aligned}.$ <br>
        Or, on a vu précédemment que $\\mathrm P (A \\cap B) = ${texNombre(pA * pBsipA)}.$ <br>
-       Comme $\\mathrm P (A) \\times \\mathrm P (B) \\ne \\mathrm P (A \\cap B)$, on en déduit que les événements $A$ et $B$ ne sont pas indépendants.`
+       Comme $\\mathrm P (A) \\times \\mathrm P (B) \\ne \\mathrm P (A \\cap B)$, on en déduit que les évènements $A$ et $B$ ne sont pas indépendants.`
     this.correction += createList({
         items: [correction1
         ,correction2,
@@ -191,7 +184,7 @@ this.question += `<br>On définit les variables aléatoires suivantes :`+ create
         style: 'nombres',
       })
        this.correction += `${texteEnCouleurEtGras('Partie B :')}<br>`
-      let correction4 = `Pour chaque question, le candidat peut soit répondre correctement (succès) soit répondre incorrectement (échec).<br>
+      let correction4 = `Pour chaque question, le candidat peut soit répondre correctement (succès), soit répondre incorrectement (échec).<br>
       On peut donc modéliser chaque question par une épreuve de Bernoulli.<br>
       La variable aléatoire $X_1$ suit donc une loi de Bernoulli de paramètre $\\mathrm{P}(A)$ et la variable aléatoire $X_2$ suit une loi de Bernoulli de paramètre $\\mathrm{P}(B).$<br>`
        correction4 += tableauColonneLigne(
@@ -210,7 +203,7 @@ this.question += `<br>On définit les variables aléatoires suivantes :`+ create
       $\\begin{aligned}\\mathrm E (X_1) &= 0 \\times \\mathrm P (X_1 = 0) + 1 \\times \\mathrm P (X_1 = 1)\\\\& = 0 \\times ${texNombre(1 - pA)} + 1 \\times ${texNombre(pA)}\\\\& = ${texNombre(E1)}\\end{aligned}.$<br>
       De même, pour $X_2$ : <br>
       $\\begin{aligned}\\mathrm E (X_2) &= 0 \\times \\mathrm P (X_2 = 0) + 1 \\times \\mathrm P (X_2 = 1)\\\\& = 0 \\times ${texNombre(1 - pB)} + 1 \\times ${texNombre(pB)}\\\\& = ${texNombre(E2)}\\end{aligned}.$<br>
-      ${texteEnCouleurEtGras('Remarque :' )} on retrouve un résultat de cours, que l'on pouvait utiliser ici directement : L'espérance d'une variable aléatoire suivant une loi de Bernoulli de paramètre $p$ est égale $p.$<br>`,
+      ${texteEnCouleurEtGras('Remarque :' )} on retrouve un résultat de cours, que l'on pouvait utiliser ici directement : l'espérance d'une variable aléatoire suivant une loi de Bernoulli de paramètre $p$ est égale à $p.$<br>`,
       ` Par linéarité de l'espérance, on en déduit : <br>
       $\\begin{aligned}\\mathrm E (X) &= \\mathrm E (X_1 + X_2) = \\mathrm E (X_1) + \\mathrm E (X_2)\\\\& = ${texNombre(E1)} + ${texNombre(E2)}\\\\& = ${texNombre(E)}\\end{aligned}.$`,
       `L'espérance de $X$ représente la note moyenne à cet exercice, pour un grand nombre de candidats.`],
@@ -251,23 +244,23 @@ this.question += `<br>On définit les variables aléatoires suivantes :`+ create
       // Partie B  Question 2
       const correction5 = createList({
         items: [
-          `La situation correspondant à $X = 0$ est celle où le candidat répond incorrectement à $Q_1$ et à $Q_2.$ Avec les notations de la partie A, cela correspond à l'événement $\\overline{A} \\cap \\overline{B}.$<br>
+          `La situation correspondant à $X = 0$ est celle où le candidat répond incorrectement à $Q_1$ et à $Q_2.$ Avec les notations de la partie A, cela correspond à l'évènement $\\overline{A} \\cap \\overline{B}.$<br>
           On obtient : <br>  $\\begin{aligned}\\mathrm P (X = 0) &= \\mathrm{P}(\\overline A \\cap \\overline B).\\\\
           & = \\mathrm{P}(\\overline A)\\times \\mathrm{P}_{\\overline A}(\\overline B)\\\\&=${texNombre(1 - pA)} \\times  ${texNombre(1-pBsiNonpA)} \\\\&= ${texNombre(p0)}\\end{aligned}.$`,
-          `L'événement «${texteItalique(`avoir 2 points au questionnaire`)}» est l'événement $X = 2$, c’est-à-dire à l'événement $A \\cap B$, donc d'après la question A.1., $\\mathrm P (X = 2) = ${texNombre(p2)}.$`,
-          `Comme l'ensemble des valeurs prises pas $X$ est $\\{0,1,2\\}$, on a <br>$\\begin{aligned}\\mathrm P (X = 0)+\\mathrm P (X = 1)+\\mathrm P (X = 2)&=1\\\\\\mathrm P (X = 1) &= 1 - ${texNombre((1 - pA) * (1- pBsiNonpA))} - ${texNombre(pA * pBsipA)}\\\\ \\mathrm P (X = 1)&= ${texNombre(1 - (1 - pA) * (1-pBsiNonpA) - pA * pBsipA)}\\end{aligned}.$ <br>
-          La loi de probabilité de $X$ est donnée par ${loiX}.`,
+          `L'évènement «${texteItalique(`avoir 2 points au questionnaire`)}» est l'évènement $\\{X = 2\\}$, c’est-à-dire à l'évènement $A \\cap B$, donc d'après la question A.1., $\\mathrm P (X = 2) = ${texNombre(p2)}.$`,
+          `Comme l'ensemble des valeurs prises par $X$ est $\\{0,1,2\\}$, on a :<br>$\\begin{aligned}\\mathrm P (X = 0)+\\mathrm P (X = 1)+\\mathrm P (X = 2)&=1\\\\\\mathrm P (X = 1) &= 1 - ${texNombre((1 - pA) * (1- pBsiNonpA))} - ${texNombre(pA * pBsipA)}\\\\ \\mathrm P (X = 1)&= ${texNombre(1 - (1 - pA) * (1-pBsiNonpA) - pA * pBsipA)}\\end{aligned}.$ <br>
+          La loi de probabilité de $X$ est donnée par :${loiX}.`,
           `Pour calculer la variance de $X$, on peut revenir à la définition ou bien utiliser la formule de König-Huygens :<br>
           ${texteEnCouleurEtGras(`Utilisation de la définition :`)}<br>
           On sait que la variance de la variable aléatoire $\\mathrm X$ est donnée par la formule suivante : <br>
           $\\begin{aligned}
-          \\mathrm V (X) &= P(X=0)\\times\\left(\\mathrm{E}(X)-0\\right)^2+p(X=1)\\times\\left(\\mathrm{E}(X)-1\\right)^2 +p(X=2)\\times\\left(\\mathrm{E}(X)-2\\right)^2\\\\
+          \\mathrm V (X) &= P(X=0)\\times\\left(\\mathrm{E}(X)-0\\right)^2+P(X=1)\\times\\left(\\mathrm{E}(X)-1\\right)^2 +P(X=2)\\times\\left(\\mathrm{E}(X)-2\\right)^2\\\\
           &=${texNombre(p0)}\\times\\left(${texNombre(E)}-0\\right)^2+${texNombre(p1)}\\times\\left(${texNombre(E)}-1\\right)^2 +${texNombre(p2)}\\times\\left(${texNombre(E)}-2\\right)^2\\\\
           &=${texNombre(V)}\\end{aligned}$<br>
 
            ${texteEnCouleurEtGras(`Utilisation de la formule de König-Huygens :`)}
            Pour toute variable aléatoire $X$, on a l'égalité : $\\mathrm V (X) = \\mathrm E (X^2) - \\mathrm E (X)^2.$ <br>
-          On calcule $\\mathrm E (X^2)$ avec le tableau suivant : <br>${tableauVariance} <br> d'où <br>
+          On calcule $\\mathrm E (X^2)$ grâce au tableau suivant : <br>${tableauVariance} <br> d'où <br>
           $\\begin{aligned}\\mathrm E (X^2)&= 0^2\\times \\mathrm{P}(X=0) + 1^2\\times \\mathrm{P}(X=1) + 2^2\\times \\mathrm{P}(X=2)\\\\
           & = \\mathrm{P}(X=1) + 4\\times \\mathrm{P}(X=2)\\\\&=${texNombre(4 * pA * pBsipA + 1 - (1 - pA) * pBsiNonpA - pA * pBsipA)}\\end{aligned}$ <br>
           puis <br>$\\begin{aligned}\\mathrm V (X) &= \\mathrm E (X^2) - \\mathrm E (X)^2\\\\
