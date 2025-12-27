@@ -57,7 +57,7 @@ export default function figureApigeom({
   // Pour revoir la copie de l'élève dans Capytale
   // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
   function idApigeomFunct(event: Event): void {
-    if (!figure.container || !figure.container.id) {
+    if (!figure.options) {
       // figure effacée, donc on annule la mise à jour...
       destroy()
       return
@@ -75,7 +75,7 @@ export default function figureApigeom({
 
   let oldZoom = 1
   function updateZoom(event: Event): void {
-    if (!figure.container || !figure.container.id) {
+    if (!figure.options) {
       // figure effacée, donc on annule la mise à jour...
       destroy()
       return
@@ -98,7 +98,7 @@ export default function figureApigeom({
   document.addEventListener('zoomChanged', updateZoom)
 
   function updateAffichage(): void {
-    if (!figure.container || !figure.container.id) {
+    if (!figure.options) {
       // figure effacée, donc on annule la mise à jour...
       destroy()
       return
@@ -166,7 +166,7 @@ export default function figureApigeom({
   figure.destroy = () => {
     destroy()
     // Appeler Apigeom original pour purger ce qu’il doit purger
-    if (figure.svg && originalDestroy) {
+    if (figure.options && originalDestroy) {
       originalDestroy()
     }
   }
