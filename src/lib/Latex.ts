@@ -236,29 +236,12 @@ class Latex {
             '\\anote{',
             '\n\\resetcustomnotes',
           )
-          if (Number(exercice.nbColsCorr) > 1) {
-            contentCorr += `\\begin{multicols}{${exercice.nbColsCorr}}\n`
-          }
-          if (Number(exercice.nbQuestions) > 1) {
-            if (Number(exercice.spacingCorr) > 0) {
-              contentCorr += `\n\\begin{enumerate}[itemsep=${exercice.spacingCorr}em]`
-            } else {
-              contentCorr += '\n\\begin{enumerate}'
-            }
-          }
-          for (const correction of exercice.listeCorrections) {
-            if (Number(exercice.nbColsCorr) > 1) {
-              contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
-            } else {
-              contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} ${format(correction)}`
-            }
-          }
-          if (Number(exercice.nbQuestions) > 1) {
-            contentCorr += '\n\\end{enumerate}\n'
-          }
-          if (Number(exercice.nbColsCorr) > 1) {
-            contentCorr += '\\end{multicols}\n'
-          }
+          contentCorr += buildContent(
+            exercice.listeCorrections,
+            exercice.spacingCorr,
+            Boolean(exercice.listeAvecNumerotation),
+            Number(exercice.nbColsCorr),
+          )
           contentCorr += testIfLoaded(
             exercice.listeCorrections,
             '\\anote{',
@@ -268,13 +251,10 @@ class Latex {
           content += `\n% @see : ${getUrlFromExercice(exercice)}`
           content += `\n\\begin{EXO}{${testIfLoaded([exercice.introduction, exercice.consigne, ...exercice.listeQuestions], '\\anote{', '\n\\resetcustomnotes ')}${format(exercice.consigne, false)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
-          content += writeInCols(
-            writeQuestions(
-              exercice.listeQuestions,
-              exercice.spacing,
-              Boolean(exercice.listeAvecNumerotation),
-              Number(exercice.nbCols),
-            ),
+          content += buildContent(
+            exercice.listeQuestions,
+            exercice.spacing,
+            Boolean(exercice.listeAvecNumerotation),
             Number(exercice.nbCols),
           )
           content += testIfLoaded(
@@ -407,15 +387,12 @@ class Latex {
         }
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
-        content += writeInCols(
-          writeQuestions(
-            exercice.listeQuestions,
-            exercice.spacing,
-            Boolean(exercice.listeAvecNumerotation),
-            Number(exercice.nbCols),
-            confExo,
-          ),
+        content += buildContent(
+          exercice.listeQuestions,
+          exercice.spacing,
+          Boolean(exercice.listeAvecNumerotation),
           confExo.cols ? confExo.cols : Number(exercice.nbCols),
+          confExo,
         )
         content += testIfLoaded(
           [
@@ -433,13 +410,10 @@ class Latex {
           '\\anote{',
           '\n\\resetcustomnotes',
         )
-        content += writeInCols(
-          writeQuestions(
-            exercice.listeCorrections,
-            exercice.spacingCorr,
-            Boolean(exercice.listeAvecNumerotation),
-            Number(exercice.nbCols),
-          ),
+        content += buildContent(
+          exercice.listeCorrections,
+          exercice.spacingCorr,
+          Boolean(exercice.listeAvecNumerotation),
           confExo.cols_corr ? confExo.cols_corr : Number(exercice.nbColsCorr),
         )
         content += testIfLoaded(
@@ -759,7 +733,7 @@ function writeIntroduction(introduction = ''): string {
   return content
 }
 
-function writeQuestions(
+function buildContent(
   questions: string[],
   spacing = 1,
   numbersNeeded: boolean,
@@ -805,12 +779,10 @@ function writeQuestions(
       content += `\n ${format(questions[0])}${blocrep}`
     }
   }
-  return content
-}
-
-function writeInCols(text: string, nb: number): string {
-  if (nb < 2) return text
-  return `\\begin{multicols}{${nb}}${text}\n\\end{multicols}`
+  if (nbCols < 2) {
+    return content
+  }
+  return `\\begin{multicols}{${nbCols}}${content}\n\\end{multicols}`
 }
 
 /**
