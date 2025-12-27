@@ -28,6 +28,7 @@ const KEYBOARD_CATEGORIES = [
   'grecTrigo',
   'longueur',
   'lycee',
+  'lyceeClassique',
   'masse',
   'clavierFonctionsTerminales',
   'nombresEtDegre',
@@ -92,6 +93,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['clavierFonctionsTerminales']
     case KeyboardType.lycee:
       return ['numbers', 'fullOperations', 'variables', 'advanced']
+    case KeyboardType.lyceeClassique:
+      return ['numbers', 'fullOperations', 'variables']
     case KeyboardType.college6eme:
       return ['numbersOperations']
     case KeyboardType.clavierDeBaseAvecFraction:

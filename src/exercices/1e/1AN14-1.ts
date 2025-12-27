@@ -1,4 +1,5 @@
 import { abs } from 'mathjs'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -17,7 +18,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd8a'
 export const refs = {
-  'fr-fr': ['1AN14-1'], //remplace 1AN14-1a
+  'fr-fr': ['1AN14-1'], // remplace 1AN14-1a
   'fr-ch': ['3mA2-5'],
 }
 export const dateDePublication = '13/12/2025'
@@ -158,26 +159,25 @@ class DerivationFonctionsUsuellesEtendue extends Exercice {
           break
 
         case 'inverse':
-          {
-            // Fonction inverse avec coefficient
-            df = 'pour tout $x\\in\\R^*$'
+          // Fonction inverse avec coefficient
+          df = 'pour tout $x\\in\\R^*$'
 
-            if (choice([true, false])) {
-              // Forme simple: a/x
-              const a = randint(-10, 10, [-1, 0, 1])
-              laFonction = `\\dfrac{${a}}{x}`
-              laDerivee = `${a < 0 ? '' : '-'}\\dfrac{${Math.abs(a)}}{x^2}`
-              correctionDetaillee = `La dérivée d'une fonction d'expression $f(x)=\\dfrac{a}{x}$ avec $a\\in\\mathbb{R}$ est $f'(x)=-\\dfrac{a}{x^2}$.<br>`
-            } else {
-              // Forme fractionnaire: (a/b)/x
-              const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
-              const num = frac.num
-              const den = frac.den
-              laFonction = `\\dfrac{${num}}{${den}x}`
-              laDerivee = `${num < 0 ? '' : '-'}\\dfrac{${Math.abs(num)}}{${den}x^2}`
-              correctionDetaillee = `La dérivée d'une fonction d'expression $f(x)=\\dfrac{a}{x}$ avec $a\\in\\mathbb{R}$ est $f'(x)=-\\dfrac{a}{x^2}$.<br>`
-            }
+          if (choice([true, false])) {
+            // Forme simple: a/x
+            const a = randint(-10, 10, [-1, 0, 1])
+            laFonction = `\\dfrac{${a}}{x}`
+            laDerivee = `${a < 0 ? '' : '-'}\\dfrac{${Math.abs(a)}}{x^2}`
+            correctionDetaillee = `La dérivée d'une fonction d'expression $f(x)=\\dfrac{a}{x}$ avec $a\\in\\mathbb{R}$ est $f'(x)=-\\dfrac{a}{x^2}$.<br>`
+          } else {
+            // Forme fractionnaire: (a/b)/x
+            const frac = choice(listFrac).multiplieEntier(choice([-1, 1]))
+            const num = frac.num
+            const den = frac.den
+            laFonction = `\\dfrac{${num}}{${den}x}`
+            laDerivee = `${num < 0 ? '' : '-'}\\dfrac{${Math.abs(num)}}{${den}x^2}`
+            correctionDetaillee = `La dérivée d'une fonction d'expression $f(x)=\\dfrac{a}{x}$ avec $a\\in\\mathbb{R}$ est $f'(x)=-\\dfrac{a}{x^2}$.<br>`
           }
+
           break
 
         case 'racine':
@@ -210,18 +210,20 @@ class DerivationFonctionsUsuellesEtendue extends Exercice {
           break
       }
 
-      const passageDeLigneCorr =
-        laDerivee.includes('frac') || laFonction.includes('frac')
-          ? '<br><br>'
-          : '<br>'
-      let texte =
-        `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` +
-        ajouteChampTexteMathLive(this, i, '')
+      /* const passageDeLigneCorr =
+        laDerivee.includes('frac') || laFonction.includes('frac') ? '<br>' : ''
+      */
+      let texte = `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.`
+      if (this.interactif)
+        texte +=
+          `<br>$${nameF}'(x)=$` +
+          ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
       const reponse = laDerivee
       let texteCorr = ''
-      if (this.correctionDetaillee)
-        texteCorr += correctionDetaillee.replace('<br>', passageDeLigneCorr)
-      texteCorr += `Donc $${miseEnEvidence(`${nameF}'(x)=${reponse}`)}$.`
+      if (this.correctionDetaillee) texteCorr += correctionDetaillee + 'Donc '
+      // texteCorr += correctionDetaillee.replace('<br>', passageDeLigneCorr)
+      texteCorr += `$${nameF}'(x)=${miseEnEvidence(reponse)}$`
+      if (this.correctionDetaillee) texteCorr += '.'
       if (this.questionJamaisPosee(i, laFonction)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
