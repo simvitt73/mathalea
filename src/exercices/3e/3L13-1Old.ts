@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -73,7 +74,6 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
     for (
       let i = 0, a, b, c, d, k, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(-9, 9, 0)
@@ -133,7 +133,13 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
         texteCorr = texte
         if (this.interactif) {
           texte +=
-            '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
+            '$x = $' +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            ) +
+            '<br><br>'
           handleAnswers(this, i, {
             reponse: {
               value: new FractionEtendue(d - k * b, a * k - c),
@@ -182,7 +188,13 @@ export default class ExerciceEquation1Tiret2 extends Exercice {
         texteCorr = texte
         if (this.interactif) {
           texte +=
-            '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
+            '$x = $' +
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecFraction,
+            ) +
+            '<br><br>'
           handleAnswers(this, i, {
             reponse: {
               value: new FractionEtendue(k - b - d, a + c),
