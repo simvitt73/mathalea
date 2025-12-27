@@ -64,6 +64,12 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
   }
 
   nouvelleVersion() {
+    this.introduction =
+      this.sup3 === 1 || this.sup3 === 3
+        ? 'Vous pourrez vous aider de ce tableau :<br><br>' +
+          buildTab(0, '', 0, '', Math.min(8, this.nbQuestions), true)
+        : ''
+
     if (!(context.vue === 'diap'))
       this.besoinFormulaire4Numerique = [
         'Exercice interactif',
@@ -114,7 +120,6 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
     for (
       let i = 0, n, uniteFinale, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (this.sup2) {
         switch (listeDeN[i]) {
@@ -378,12 +383,12 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
         setReponse(this, i, resultat)
       }
 
-      if ((this.sup3 === 1 || this.sup3 === 3) && i === this.nbQuestions - 1) {
+      /* if ((this.sup3 === 1 || this.sup3 === 3) && i === this.nbQuestions - 1) {
         texte +=
           '<br><br>' +
           buildTab(0, '', 0, '', Math.min(8, this.nbQuestions), true)
       }
-
+      */
       if (this.questionJamaisPosee(i, uniteFinale ?? 'm', resultat)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
