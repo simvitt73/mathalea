@@ -70,6 +70,7 @@ export default class PrioritesEtRelatifs extends Exercice {
     this.spacing = 2
     this.nbQuestions = 6
     this.nbCols = 2
+    this.nbColsCorr = 2
     this.sup = 3
     this.sup2 = false
     this.besoinFormulaireNumerique = [
