@@ -15,6 +15,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine from '../../lib/interactif/comparisonFunctions'
 import {
   developpe,
@@ -265,7 +266,11 @@ export default class DevelopperReduireExprComplexe extends Exercice {
         handleAnswers(this, i, { reponse: { value: reponse } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-            ajouteChampTexteMathLive(this, i, ' ')
+            ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierDeBaseAvecVariable,
+            )
           : ''
       } else {
         this.autoCorrection[i] = {

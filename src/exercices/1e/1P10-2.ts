@@ -1,3 +1,4 @@
+import { bleuMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -78,7 +79,6 @@ export default class CalculerProbaCond extends Exercice {
         listeFractions,
         f;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       cours = `Pour tout événement $A$ (avec $P(A)\\neq 0$) et $B$ d'un univers $\\Omega$, on a  : <br>
           $P_{A}(B)=\\dfrac{P(A\\cap B)}{P(A)}$ ou encore  $P(A\\cap B)=P(A)\\times P_{A}(B)$.<br>
@@ -104,9 +104,7 @@ export default class CalculerProbaCond extends Exercice {
       ]
       f = choice(listeFractions)
 
-      switch (
-        listeTypeDeQuestions[i] // listeTypeDeQuestions[i]
-      ) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: //
           pA = randint(1, 9) / 10
           pBsachantA = randint(1, 49) / 100
@@ -135,7 +133,11 @@ export default class CalculerProbaCond extends Exercice {
             texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
           $P(${ev[0]})=${texNombre(pA, 1)}$ et $P(${ev[0]}\\cap ${ev[1]})=${texNombre(pAinterB, 3)}$.<br>
          ${this.interactif ? `$P_{${ev[0]}}(${ev[1]})=$` : `Calculer $P_{${ev[0]}}(${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             texteCorr = cours
             texteCorr += `
           $\\begin{aligned}
@@ -254,7 +256,7 @@ En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité
                   KeyboardType.clavierDeBase,
                   { texteAvant: 'Valeur de la probabilité :' },
                 )
-              texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P(${ev[0]}\\cap ${ev[1]})`)}$.<br>
+              texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P(${ev[0]}\\cap ${ev[1]})`, bleuMathalea)}$.<br>
               $\\begin{aligned}
               P(${ev[0]}\\cap ${ev[1]})&=P(${ev[0]}) \\times P_{${ev[0]}}(${ev[1]})\\\\
               &=${texNombre(pA, 4)}\\times ${texNombre(pBsachantA, 4)}\\\\
@@ -318,7 +320,7 @@ En utilisant les événements  $${ev[0]}$ et $${ev[1]}$, écrire la probabilité
                   KeyboardType.clavierDeBase,
                   { texteAvant: 'Valeur de la probabilité :' },
                 )
-              texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P_{${ev[0]}}(${ev[1]})`)}$.<br>
+              texteCorr = `La probabilité $P$ est donnée par  $${miseEnEvidence(`P_{${ev[0]}}(${ev[1]})`, bleuMathalea)}$.<br>
           $\\begin{aligned}
          P_{${ev[0]}}(${ev[1]})&=\\dfrac{P(${ev[0]}\\cap ${ev[1]})}{P(${ev[0]})}\\\\
           &=\\dfrac{${texNombre(pAinterB, 4)}}{${texNombre(pA, 4)}}\\\\
