@@ -13,7 +13,7 @@ import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre =
-  'Dériver une fonction du type $\\lambda u$ (version étendue)'
+  'Dériver une fonction du type $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd8a'
