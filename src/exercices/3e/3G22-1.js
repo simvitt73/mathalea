@@ -1,6 +1,8 @@
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Grandeur from '../../modules/Grandeur'
 import {
@@ -34,7 +36,7 @@ export default class Agrandissement extends Exercice {
     super()
 
     this.sup = '9'
-
+    this.nbQuestions = 8
     this.besoinFormulaireTexte = [
       'Choix des types de problèmes',
       `Nombres séparés par des tirets
@@ -62,7 +64,6 @@ export default class Agrandissement extends Exercice {
     for (
       let i = 0, V1, V2, A1, A2, l1, l2, k, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       k = new Decimal(randint(1, 20, 10)).div(10)
@@ -87,11 +88,7 @@ export default class Agrandissement extends Exercice {
           texteCorr += k.gt(1) ? ' agrandie, ' : ' réduite, '
           texteCorr += `on a l'égalité :  $A=${texNombre(k, 1)}^2\\times${A1}.$`
           texteCorr += `<br>D'où :  $A=${texNombre(A2, 2)}\\text{ cm}^2$`
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            ' unites[Longueurs,Aires,Volumes]',
-          )
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire)
           setReponse(this, i, new Grandeur(A2, 'cm^2'), {
             formatInteractif: 'unites',
           })
@@ -111,11 +108,7 @@ export default class Agrandissement extends Exercice {
           setReponse(this, i, new Grandeur(V2, 'cm^3'), {
             formatInteractif: 'unites',
           })
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            ' unites[Longueurs,Aires,Volumes]',
-          )
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.volume)
           break
         case 3: // Calcul de A1 connaissant k et A2
           texte = 'Une figure a été '
@@ -128,11 +121,7 @@ export default class Agrandissement extends Exercice {
             "<br>Dans notre exercice, en appelant $A$ l'aire de la figure initiale, "
           texteCorr += `on a l'égalité :  $${texNombre(A2, 2)}=${texNombre(k, 1)}^2\\times A.$`
           texteCorr += `<br>D'où :  $A=\\dfrac{${texNombre(A2, 2)}}{${texNombre(k, 1)}^2}=${A1}\\text{ cm}^2$`
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            ' unites[Longueurs,Aires,Volumes]',
-          )
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire)
           setReponse(this, i, new Grandeur(A1, 'cm^2'), {
             formatInteractif: 'unites',
           })
@@ -152,11 +141,7 @@ export default class Agrandissement extends Exercice {
           setReponse(this, i, new Grandeur(V1, 'cm^3'), {
             formatInteractif: 'unites',
           })
-          texte += ajouteChampTexteMathLive(
-            this,
-            i,
-            ' unites[Longueurs,Aires,Volumes]',
-          )
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.volume)
           break
         case 5: // calcul de k connaissant l1 et l2
           texte = `Sur une figure, on relève une longueur de $${l1}\\text{ cm}$. <br>`
@@ -171,8 +156,12 @@ export default class Agrandissement extends Exercice {
           texteCorr += k.gt(1) ? ' >' : ' <'
           texteCorr += "1$, on en déduit qu'il s'agit d'un"
           texteCorr += k.gt(1) ? ' agrandissement' : 'e réduction'
-          texteCorr += ` à l'échelle $${texNombre(k, 1)}$.`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texteCorr += ` à l'échelle $${miseEnEvidence(texNombre(k, 1))}$.`
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
           setReponse(this, i, k)
 
           break
@@ -193,7 +182,11 @@ export default class Agrandissement extends Exercice {
           texteCorr += '<br>Le coefficient'
           texteCorr += k.gt(1) ? " d'agrandissement" : ' de réduction'
           texteCorr += ` est donc $k=${texNombre(k, 1)}$.`
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
 
           setReponse(this, i, k)
           break
@@ -213,12 +206,16 @@ export default class Agrandissement extends Exercice {
           texteCorr += "<br>L'échelle "
           texteCorr += k.gt(1) ? " d'agrandissement" : ' de réduction'
           texteCorr += ` est donc $k=${texNombre(k, 1)}$ `
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+          )
 
           setReponse(this, i, k)
           break
 
-        case 8: // conservation de angles
+        case 8: // conservation des angles
           texte = `Sur une figure, on relève la mesure d'un angle : $\\widehat{ABC}=${V1} °$. <br>`
           texte += k.gt(1) ? ' On agrandit ' : ' On réduit '
           texte += `cette figure à l'échelle $k=${texNombre(k, 1)}$.`
@@ -230,7 +227,11 @@ export default class Agrandissement extends Exercice {
           texteCorr +=
             "les longueurs sont toutes multipliées par $k$.<br> Par contre, les mesures d'angles ne sont pas modifiées.<br>"
           texteCorr += `<br>On en déduit : $\\widehat{A'B'C'}=\\widehat{ABC}=${V1} °$.`
-          texte += ajouteChampTexteMathLive(this, i, ' collège')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.nombresEtDegre,
+          )
           setReponse(this, i, k)
           setReponse(this, i, new Grandeur(V1, '°'), {
             formatInteractif: 'unites',
@@ -243,6 +244,21 @@ export default class Agrandissement extends Exercice {
       if (this.questionJamaisPosee(i, k, l1, A1, V1)) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions[i] = texte
+
+        if (listeTypeQuestions[i] !== 5) {
+          // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+          const textCorrSplit = texteCorr.split('=')
+          let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+          aRemplacer = aRemplacer.replaceAll('$', '')
+          aRemplacer = aRemplacer.replaceAll('.', '')
+
+          texteCorr = ''
+          for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+            texteCorr += textCorrSplit[ee] + '='
+          }
+          texteCorr += ` ${miseEnEvidence(aRemplacer)}$` + '.'
+          // Fin de cette uniformisation
+        }
         this.listeCorrections[i] = texteCorr
         i++
       }
