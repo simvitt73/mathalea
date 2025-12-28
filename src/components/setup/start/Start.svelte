@@ -595,6 +595,10 @@
       width: 100vw;
     }
   }
+  :root {
+    scrollbar-color: #aaaaaa transparent;
+  }
+  /* Webkit scrollbar styling for Chrome/Safari */
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;

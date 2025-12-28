@@ -88,7 +88,7 @@
     "brace": "^0.11.1",
     "copy-image-clipboard": "^2.1.2",
     "crypto-js": "^4.2.0",
-    "daisyui": "^4.12.24",
+    "daisyui": "^5.5.14",
     "decimal.js": "^10.6.0",
     "earcut": "^3.0.2",
     "file-saver": "^2.0.5",

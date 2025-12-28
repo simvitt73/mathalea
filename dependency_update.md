@@ -36,7 +36,7 @@ This document tracks the status of updating each dependency to its latest versio
 | brace | ^0.11.1 | ➖ | Already up to date |
 | copy-image-clipboard | ^2.1.2 | ➖ | Already up to date |
 | crypto-js | ^4.2.0 | ➖ | Already up to date |
-| daisyui | ^4.12.24 | ❌ | Breaking changes for slideshow steps |
+| daisyui | ^4.12.24 | ✅ | Updated successfully |
 | decimal.js | ^10.6.0 | ➖ | Already up to date |
 | earcut | ^3.0.2 | ➖ | Already up to date |
 | file-saver | ^2.0.5 | ➖ | Already up to date |
