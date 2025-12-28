@@ -94,7 +94,7 @@
 {#if carouselContent.slides && carouselContent.slides.length !== 0}
   <div class="h-[90%]">
     <div
-      class="carousel w-full h-full cursor-pause-circle"
+      class="carousel w-full h-full cursor-pause-circle flex flex-row flex-nowrap overflow-x-hidden snap-x snap-mandatory"
       on:mouseenter={handleMouseEnter}
       on:mouseleave={handleMouseLeave}
       role="region"
@@ -103,7 +103,7 @@
       {#each carouselContent.slides as slide, i}
         <div
           id="carousel-item{i}"
-          class="carousel-item w-full h-full flex justify-center items-center"
+          class="carousel-item w-full h-full flex justify-center items-center shrink-0 snap-start"
           style="transition: opacity {TRANSITION_DURATION}ms ease-in-out;"
         >
           <div
@@ -212,7 +212,7 @@
     <div class="flex w-full justify-center gap-2 py-2">
       {#each carouselContent.slides as slide, i}
         <button
-          class="btn btn-xs border-0
+          class="btn btn-xs border-0 px-2 py-1 rounded-lg text-xs
             {i === currentSlideIndex
             ? 'bg-coopmaths-light text-coopmaths-canvas dark:bg-coopmathsdark-action dark:text-coopmathsdark-canvas-dark'
             : 'bg-coopmaths-canvas-darkest text-coopmaths dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-action'} font-light transition-all duration-200"

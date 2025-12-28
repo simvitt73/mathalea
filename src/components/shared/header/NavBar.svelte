@@ -119,21 +119,18 @@
           </button>
         </div>
       {/if}
-      <label
-        class="swap swap-rotate
-          text-coopmaths-action dark:text-coopmathsdark-action
+      <button
+        type="button"
+        class="text-coopmaths-action dark:text-coopmathsdark-action
           hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+        on:click={() => ($darkMode.isActive = !$darkMode.isActive)}
       >
-        <!-- this hidden checkbox controls the state -->
-        <input
-          id="hidden-checkbox-for-darkmode"
-          type="checkbox"
-          class="invisible"
-          bind:checked={$darkMode.isActive}
-        />
-        <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
-        <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
-      </label>
+        {#if $darkMode.isActive}
+          <i class="bx bx-sm bx-sun"></i>
+        {:else}
+          <i class="bx bx-sm bx-moon"></i>
+        {/if}
+      </button>
       <ButtonIcon
         icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"
