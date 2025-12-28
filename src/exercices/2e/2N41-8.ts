@@ -1,3 +1,6 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebriqueSauf1,
@@ -5,13 +8,12 @@ import {
   reduirePolynomeDegre3,
   rienSi1,
 } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const dateDePublication = '23/04/2023'
 export const interactifReady = true
@@ -69,7 +71,6 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
         consigneI1,
         consigneI2;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       consigne1 =
@@ -102,7 +103,7 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
               texte = consigneI1
               texte +=
                 ` $${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -128,7 +129,7 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
               texte = consigneI1
               texte +=
                 ` $${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -176,7 +177,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
               texte = consigneI1
               texte +=
                 `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -224,7 +225,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
               texte = consigneI2
               texte +=
                 `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -265,7 +266,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
               texte = consigneI2
               texte +=
                 `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -309,7 +310,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
               texte = consigneI2
               texte +=
                 `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -365,7 +366,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
               texte = consigneI2
               texte +=
                 `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` +
-                ajouteChampTexteMathLive(this, i, '')
+                ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
             }
           }
           break
@@ -374,6 +375,19 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replaceAll('\\end{aligned}$', '')
+        // aRemplacer = aRemplacer.replaceAll('.', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += ` ${miseEnEvidence(aRemplacer)}\\end{aligned}$`
+        // Fin de cette uniformisation
+
         this.listeCorrections[i] = texteCorr
         i++
       }
