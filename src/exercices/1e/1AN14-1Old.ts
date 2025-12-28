@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -252,7 +253,7 @@ class DerivationFonctionsUsuelles extends Exercice {
           : '<br>'
       let texte =
         `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` +
-        ajouteChampTexteMathLive(this, i, '')
+        ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
       const reponse = laDerivee
       let texteCorr = ''
       if (this.correctionDetaillee)
