@@ -27,7 +27,7 @@ export function coureur5(decimal = true): Probleme {
   probleme.schema.lignes[1].barres[1].content = `$${texNombre(nb2, 3)}\\text{  ${unite}}$`
   probleme.schema.lignes[0].barres[0].content = `$${miseEnEvidence(texNombre(nb1 + nb2, 3))}\\text{  ${unite}}$`
 
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb2 + nb1, 3)}${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.optionsComparaison = { unite: true }

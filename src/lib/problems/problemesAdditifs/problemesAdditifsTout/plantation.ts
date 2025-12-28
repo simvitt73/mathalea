@@ -27,7 +27,7 @@ Donc, au total, ${personnage.pronom} a planté $${texNombre(nb1, 0)}+${texNombre
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = 'arbres plantés en tout'
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb1 + nb2, 0)}`
   return probleme
 }

@@ -75,6 +75,8 @@ export const convertKeyboardTypeToBlocks = (
   switch (type) {
     case KeyboardType.clavierDeBase:
       return ['numbersOperations']
+    case KeyboardType.college6eme: // A supprimer
+      return ['numbersOperations']
     case KeyboardType.clavierLimites:
       return ['limites']
     case KeyboardType.vFON:
@@ -95,8 +97,6 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'fullOperations', 'variables', 'advanced']
     case KeyboardType.lyceeClassique:
       return ['numbers', 'fullOperations', 'variables']
-    case KeyboardType.college6eme:
-      return ['numbersOperations']
     case KeyboardType.clavierDeBaseAvecFraction:
       return ['numbers', 'basicOperations']
     case KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets:

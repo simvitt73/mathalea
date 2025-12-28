@@ -40,7 +40,7 @@ Combien y avait-il dans la caisse avant cet achat ?`
   probleme.schema.topBraces[0].text = `$${texNombre(solde, 2)}\\text{ €}$`
   probleme.schema.lignes[0].barres[0].content = `$${miseEnEvidence(texNombre(solde - prix1, 2))}\\text{ €}$`
   probleme.schema.lignes[0].barres[1].content = `$${texNombre(prix1, 2)}\\text{ €}$`
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(solde - prix1, 2)}`
   return probleme

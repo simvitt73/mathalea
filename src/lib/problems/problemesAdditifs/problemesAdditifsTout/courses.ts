@@ -33,7 +33,7 @@ Donc, au total, ${personnage.pronom} a dépensé $${texNombre(prix1, 2)}\\text{ 
   probleme.schema.lignes[1].barres[1].content = `$${texNombre(prix2, 2)}\\text{ €}$`
   probleme.schema.lignes[0].barres[0].content = `$${miseEnEvidence(texNombre(prix1 + prix2, 2))}\\text{ €}$`
   probleme.schema.topBraces = [{ text: 'dépense totale', start: 1, end: 11 }]
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(prix1 + prix2, 2)}`
   return probleme

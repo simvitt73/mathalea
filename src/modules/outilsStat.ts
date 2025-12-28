@@ -483,7 +483,7 @@ function texteCorrMedianeNotes(
   }
 
   texteCorr += `D'où la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} $${miseEnEvidence(texNombre(medianeCorr))}$${noteStr[1]}.<br>`
-  if (notes.length % 2 === 0) {
+  /* if (notes.length % 2 === 0) {
     texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${notes.length / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr, 1)}$ et $${notes.length / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr, 1)}$.`,
@@ -495,7 +495,7 @@ function texteCorrMedianeNotes(
       texte: `Il y a bien $${(notes.length - 1) / 2}$ ${noteStr[0]}s inférieures ou égales à  $${texNombre(medianeCorr, 1)}$ et $${(notes.length - 1) / 2}$ ${noteStr[0]}s supérieures ou égales à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres',
     })
-  }
+  } */
   return texteCorr
 }
 
@@ -552,11 +552,11 @@ function texteCorrMedianeTirages2DSalaires(
               ${desTabEffCumul(salaires, true, categories, salairesStr[5] as string[])}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où ${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$${salairesStr[3]}.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${nombreTirages / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${nombreTirages / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
       couleur: 'nombres',
-    })
+    }) */
   } else {
     // Le nombre de tirages est impair
     texteCorr += `Ce nombre est impair, les ${salairesStr[0]}s sont rangé${salairesStr[0] === 'M' ? '' : 'e'}s dans l'ordre croissant.<br>
@@ -566,11 +566,11 @@ function texteCorrMedianeTirages2DSalaires(
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
                   ${desTabEffCumul(salaires, true, categories, salairesStr[5] as string[])}<br><br>`
     texteCorr += `D'où ${salairesStr[2]} est $${miseEnEvidence(texNombre(medianeCorr))}$ ${salairesStr[3]}.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
       couleur: 'nombres',
-    })
+    }) */
   }
   return texteCorr
 }
@@ -591,11 +591,11 @@ function texteCorrMedianeTirages2D(
               ${desTabEffCumul(tirages, true)}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
     texteCorr += `D'où le score médian est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${nombreTirages / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${nombreTirages / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres',
-    })
+    }) */
   } else {
     // Le nombre de lancers est impair ici
     texteCorr += `Le nombre de lancers est impair, les scores sont rangés dans l'ordre croissant.<br>
@@ -605,11 +605,11 @@ function texteCorrMedianeTirages2D(
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
                   ${desTabEffCumul(tirages, true)}<br><br>`
     texteCorr += `D'où le score médian est $${miseEnEvidence(texNombre(medianeCorr))}$.<br>`
-    texteCorr += lampeMessage({
+    /* texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
       couleur: 'nombres',
-    })
+    }) */
   }
   return texteCorr
 }

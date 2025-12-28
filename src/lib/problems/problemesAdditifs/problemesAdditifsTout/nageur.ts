@@ -31,7 +31,7 @@ Donc, au total, ${personnage.pronom} a nagé : $${texNombre(nb1, 1)}\\text{ ${un
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = 'distance totale'
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb1 + nb2, 1)}${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.optionsComparaison = { unite: true }

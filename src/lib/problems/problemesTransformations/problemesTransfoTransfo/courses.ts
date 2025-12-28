@@ -40,7 +40,7 @@ Quel est le montant de l'augmentation ?`
   probleme.schema.topBraces[0].text = `$${texNombre(prix1 + augmentation, 2, true)}\\text{ €}$`
   probleme.schema.lignes[0].barres[0].content = `$${texNombre(prix1, 2, true)}\\text{ €}$`
   probleme.schema.lignes[0].barres[1].content = `$${miseEnEvidence(texNombre(augmentation, 2, true))}\\text{ €}$`
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.optionsChampTexteMathlive = { texteApres: ' €' }
   probleme.reponse = `${texNombre(augmentation, 2)}`
   return probleme

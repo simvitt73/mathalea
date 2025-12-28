@@ -29,7 +29,7 @@ export function coureur3(decimal = true): Probleme {
     probleme.schema.topBraces = []
   }
   probleme.schema.topBraces[0].text = 'distance totale'
-  probleme.styleChampTexteMathlive = KeyboardType.college6eme
+  probleme.styleChampTexteMathlive = KeyboardType.clavierDeBase
   probleme.reponse = `${texNombre(nb2, 3)}${unite}`
   probleme.styleChampTexteMathlive = KeyboardType.longueur
   probleme.optionsComparaison = { unite: true }
