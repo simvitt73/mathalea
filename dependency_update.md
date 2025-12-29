@@ -1,15 +1,6 @@
 # Dependency Update Checklist
 
-Ce qu'il reste à mettre à jour
-
-## Notable failures requiring future attention
-
-- tailwindcss 3 → 4: Major breaking changes
-- vite 5 → 7: Major breaking changes
-- vitest 1 → 4: Major breaking changes (needs to stay in sync with vite)
-- @sveltejs/vite-plugin-svelte 4 → 6: Compatibility issues
-
----
+Ce qu'il reste à mettre à jour.
 
 ## Dependencies
 
@@ -22,7 +13,5 @@ Ce qu'il reste à mettre à jour
 
 | Package | Current Version | Status | Notes |
 |---------|-----------------|--------|-------|
-| @sveltejs/vite-plugin-svelte | ^4.0.0 → ^4.0.4 | ❌ | Dev server failed, small upgrade for peer compatibility |
 | tailwindcss | ^3.4.17 | ❌ | Tests failed, reverted (major v4 update) |
-| vite | ^5.4.21 | ❌ | Tests failed, reverted (major v7 update) |
 | vitest | ^1.6.1 | ❌ | Tests failed, reverted (major v4 update) |
