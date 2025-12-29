@@ -37,13 +37,13 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       3,
-      '1 : Niveau 1\n 2 : Niveau 2\n 3 : Mélange',
+      '1 : Expressions simples\n 2 : Expressions  complexes\n 3 : Mélange',
     ]
 
     this.nbQuestions = 2
     this.sup = 3
-    this.comment = `Les expressions du niveau 1 sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
-  Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
+    this.comment = `Les expressions simples sont des expressions du type $a+\\dfrac{b}{x}$ ou $ax+\\dfrac{b}{x}$ ou $a+\\dfrac{b}{cx+d}$.<br>
+  Les expressions complexes sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
   }
 
   nouvelleVersion() {
@@ -71,6 +71,7 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
         consigneI1,
         consigneI2;
       i < this.nbQuestions && cpt < 50;
+
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       consigne1 =
@@ -87,9 +88,12 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
             const choix = choice([true, false])
             texte = consigne1
             texte += `$${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${a}}{x}$, puisque la division par $0$ n'existe pas.<br>
-          $0$ est donc une valeur interdite. <br>
-            Pour $x\\in \\mathbb{R}^*$,<br>
+            texteCorr = this.interactif
+              ? ''
+              : `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${a}}{x}$, puisque la division par $0$ n'existe pas.<br>
+          $0$ est donc une valeur interdite. <br>`
+
+            texteCorr += `Pour $x\\in \\mathbb{R}^*$,<br>
             $\\begin{aligned}
             ${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}&=\\dfrac{${rienSi1(b)}x^2}{x}${choix ? '-' : '+'}\\dfrac{${a}}{x}\\\\
            &= \\dfrac{${rienSi1(b)}x^2${choix ? '-' : '+'}${a}}{x}
@@ -114,9 +118,12 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
             const choix = choice([true, false])
             texte = consigne1
             texte += `$${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}$.`
-            texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${a}}{x}$, puisque la division par $0$ n'existe pas.<br>
-            $0$ est donc une valeur interdite. <br>
-            Pour $x\\in \\mathbb{R}^*$, <br>
+            texteCorr = this.interactif
+              ? ''
+              : `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${a}}{x}$, puisque la division par $0$ n'existe pas.<br>
+            $0$ est donc une valeur interdite. <br>`
+
+            texteCorr += `Pour $x\\in \\mathbb{R}^*$, <br>
             $\\begin{aligned}
             ${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}&=\\dfrac{${rienSi1(b)}x}{x}${choix ? '+' : '-'}\\dfrac{${a}}{x}\\\\
             &=\\dfrac{${rienSi1(b)}x${choix ? '+' : '-'}${a}}{x}
@@ -152,12 +159,16 @@ export default class MettreAuMemeDenominateurLit extends Exercice {
             if (context.isDiaporama) {
               texteCorr = ''
             } else {
-              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à  déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$,
+              texteCorr = this.interactif
+                ? ''
+                : ` Déterminer les valeurs interdites de cette expression, revient à  déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$,
             puisque la division par $0$ n'existe pas.<br>`
             }
-            texteCorr += `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
-            $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
-            Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
+            texteCorr += this.interactif
+              ? ''
+              : `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>`
+            texteCorr += `Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
 ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${reduireAxPlusB(c, d)})}{${reduireAxPlusB(c, d)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}\\\\
             &=\\dfrac{${reduireAxPlusB(a * c, a * d)}${choix ? '+' : '-'}${b}}{${reduireAxPlusB(c, d)}}\\\\
@@ -195,22 +206,6 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
               b = b + 1
             }
             const f = new FractionEtendue(-d, c).simplifie()
-            texte = consigne2
-            texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.`
-            if (context.isDiaporama) {
-              texteCorr = ''
-            } else {
-              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$,
-            puisque la division par $0$ n'existe pas.<br>`
-            }
-            texteCorr += ` L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
-             $0$ et $${f.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
-            Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < 0 ? `${f.texFraction}\\,;\\,0` : `0\\,;\\,${f.texFraction}`}\\right\\}$,<br>
-            $\\begin{aligned}
-            \\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${reduireAxPlusB(c, d)})}{x(${reduireAxPlusB(c, d)})}${choix ? '+' : '-'}\\dfrac{${rienSi1(b)}x}{x(${reduireAxPlusB(c, d)})}\\\\
-           & =\\dfrac{${reduireAxPlusB(a * c, a * d)}${choix ? '+' : '-'}${rienSi1(b)}x}{x(${reduireAxPlusB(c, d)})}\\\\
-           &=\\dfrac{${choix ? `${reduireAxPlusB(a * c + b, a * d)}` : `${reduireAxPlusB(a * c - b, a * d)}`}}{x(${reduireAxPlusB(c, d)})}
-           \\end{aligned}$`
             const reponse = choix
               ? [
                   `\\dfrac{${a * c + b}x+${a * d}}{x(${c}x+${d})}`,
@@ -220,6 +215,28 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
                   `\\dfrac{${a * c - b}x+${a * d}}{x(${c}x+${d})}`,
                   `\\dfrac{${-a * c + b}x+${-a * d}}{x(${-c}x+${-d})}`,
                 ]
+            texte = consigne2
+            texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$. et la réponse $${reponse}$`
+            if (context.isDiaporama) {
+              texteCorr = ''
+            } else {
+              texteCorr = this.interactif
+                ? ''
+                : `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$,
+            puisque la division par $0$ n'existe pas.<br>`
+            }
+            texteCorr += this.interactif
+              ? ''
+              : ` L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+             $0$ et $${f.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>`
+
+            texteCorr += `Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < 0 ? `${f.texFraction}\\,;\\,0` : `0\\,;\\,${f.texFraction}`}\\right\\}$,<br>
+            $\\begin{aligned}
+            \\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${reduireAxPlusB(c, d)})}{x(${reduireAxPlusB(c, d)})}${choix ? '+' : '-'}\\dfrac{${rienSi1(b)}x}{x(${reduireAxPlusB(c, d)})}\\\\
+           & =\\dfrac{${reduireAxPlusB(a * c, a * d)}${choix ? '+' : '-'}${rienSi1(b)}x}{x(${reduireAxPlusB(c, d)})}\\\\
+           &=\\dfrac{${choix ? `${reduireAxPlusB(a * c + b, a * d)}` : `${reduireAxPlusB(a * c - b, a * d)}`}}{x(${reduireAxPlusB(c, d)})}
+           \\end{aligned}$`
+
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
@@ -248,17 +265,21 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             if (context.isDiaporama) {
               texteCorr = ''
             } else {
-              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à
+              texteCorr = this.interactif
+                ? ''
+                : `Déterminer les valeurs interdites de cette expression, revient à
             déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$,
             puisque la division par $0$ n'existe pas.<br>`
             }
-            texteCorr += `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
-            $${f.texFraction}$ est une valeur interdite pour le quotient $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.<br>
-            Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
+            texteCorr += this.interactif
+              ? ''
+              : `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+            $${f.texFraction}$ est une valeur interdite pour le quotient $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$.<br>`
+
+            texteCorr += `Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
-            ${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}x(${reduireAxPlusB(c, d)})}{${reduireAxPlusB(c, d)}}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}\\\\
-            &=\\dfrac{${a * c}x^2${ecritureAlgebriqueSauf1(a * d)}x+${b}}{${reduireAxPlusB(c, d)}}\\\\
-            &=\\dfrac{${reduirePolynomeDegre3(0, a * c, a * d, b)}}{${reduireAxPlusB(c, d)}}
+            ${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${rienSi1(a)}x(${reduireAxPlusB(c, d)})}{${reduireAxPlusB(c, d)}}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}\\\\
+            &=\\dfrac{${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x+${b}}{${reduireAxPlusB(c, d)}}
             \\end{aligned}$`
             const reponse = [`\\dfrac{${a * c}x^2+${a * d}x+${b}}{${c}x+${d}}`]
             setReponse(this, i, reponse)
@@ -289,12 +310,18 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             if (context.isDiaporama) {
               texteCorr = ''
             } else {
-              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à
+              texteCorr = this.interactif
+                ? ''
+                : `Déterminer les valeurs interdites de cette expression, revient à
             déterminer les valeurs qui annulent le dénominateur de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$,
             puisque la division par $0$ n'existe pas.<br>`
             }
-            texteCorr += `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
-              $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>
+            texteCorr += this.interactif
+              ? ''
+              : `L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f.texFraction}$. <br>
+              $${f.texFraction}$ est donc une valeur interdite pour l'expression. <br>`
+
+            texteCorr += `
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${f.texFraction}\\right\\}$, <br>
             $\\begin{aligned}
             ${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}
@@ -337,12 +364,17 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             if (context.isDiaporama) {
               texteCorr = ''
             } else {
-              texteCorr = `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{${reduireAxPlusB(e, f)}}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
+              texteCorr = this.interactif
+                ? ''
+                : `Déterminer les valeurs interdites de cette expression, revient à déterminer les valeurs qui annulent les dénominateurs de $\\dfrac{${a}}{${reduireAxPlusB(e, f)}}$ et de $\\dfrac{${b}}{${reduireAxPlusB(c, d)}}$, puisque la division par $0$ n'existe pas.<br>
               `
             }
-            texteCorr += `L'équation $${reduireAxPlusB(e, f)}=0$ a pour solution $${f2.texFraction}$. <br>
-            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f1.texFraction}$. <br>
-            $${f2.texFraction}$ et $${f1.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
+            texteCorr += this.interactif
+              ? ''
+              : `L'équation $${reduireAxPlusB(e, f)}=0$ a pour solution $${f2.texFraction}$. <br>
+            L'équation $${reduireAxPlusB(c, d)}=0$ a pour solution $${f1.texFraction}$. <br>`
+
+            texteCorr += `$${f2.texFraction}$ et $${f1.texFraction}$ sont donc des valeurs interdites pour l'expression. <br>
             Pour $x\\in \\mathbb{R}\\smallsetminus\\left\\{${-d / c < -f / e ? `${f1.texFraction}\\,;\\,${f2.texFraction}` : `${f2.texFraction}\\,;\\,${f1.texFraction}`}\\right\\}$, <br>
             $\\begin{aligned}
             \\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}
