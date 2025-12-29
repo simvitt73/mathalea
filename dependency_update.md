@@ -25,7 +25,6 @@ Ce qu'il reste à mettre à jour
 | @sveltejs/vite-plugin-svelte | ^4.0.0 → ^4.0.4 | ❌ | Dev server failed, small upgrade for peer compatibility |
 | svelte | ^5.0.0 → ^5.46.0 | ❌ | Tests failed, small upgrade for peer compatibility |
 | svelte-check | ^4.0.0 → ^4.3.0 | ❌ | Tests failed, small upgrade for peer compatibility |
-| svelte-modals | ^1.3.0 | ❌ | Tests failed, reverted |
 | tailwindcss | ^3.4.17 | ❌ | Tests failed, reverted (major v4 update) |
 | vite | ^5.4.21 | ❌ | Tests failed, reverted (major v7 update) |
 | vite-plugin-generate-file | 0.2.0 | ❌ | Tests failed, reverted |

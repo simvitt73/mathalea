@@ -44,7 +44,6 @@ export default {
 | Package | Current | Action |
 |---------|---------|--------|
 | `svelte-gestures` | 4.0.0 | Update to ^5.0.0 |
-| `svelte-modals` | 1.3.0 | Check Svelte 5 compatibility |
 | `simple-svelte-autocomplete` | 2.5.2 | Check Svelte 5 compatibility |
 
 ### 1.4 Validation
@@ -410,7 +409,6 @@ Update API for Svelte 5 if needed.
 
 Test and update as needed:
 
-- `svelte-modals`
 - `simple-svelte-autocomplete`
 
 ---
