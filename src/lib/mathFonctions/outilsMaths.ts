@@ -188,7 +188,7 @@ export function resolutionSystemeLineaire3x3(
 const miseEnForme = (str, color, isColored) =>
   isColored ? miseEnEvidence(str, color) : str
 function neg(expr) {
-  if (expr.head !== 'Add') return engine.function('Multiply', [expr, '-1'])
+  if (expr.operator !== 'Add') return engine.function('Multiply', [expr, '-1'])
   return engine.function('Add', expr.ops.map(neg), { canonical: false })
 }
 
@@ -198,12 +198,12 @@ function neg(expr) {
  * @return {*|BoxedExpression}
  */
 function flattenAdd(expr) {
-  if (expr.head === 'Negate') {
+  if (expr.operator === 'Negate') {
     const oppose = neg(expr.op1)
     const newExpr = engine.function('Add', [oppose], { canonical: false })
     return newExpr
   }
-  if (expr.head === 'Subtract') {
+  if (expr.operator === 'Subtract') {
     const oppose = neg(expr.op2)
     const newExpr = engine.function('Add', [expr.op1, oppose], {
       canonical: false,
@@ -211,12 +211,12 @@ function flattenAdd(expr) {
     return flattenAdd(newExpr)
   }
 
-  if (expr.head !== 'Add') return expr
+  if (expr.operator !== 'Add') return expr
 
   const ops = []
   for (let op of expr.ops) {
     op = flattenAdd(op)
-    if (op.head === 'Add' || op.head === 'Delimiter')
+    if (op.operator === 'Add' || op.operator === 'Delimiter')
       ops.push(...op.ops.map(flattenAdd))
     else ops.push(op)
   }
@@ -262,9 +262,9 @@ export function suppressionParentheses(exp, options) {
     if (hereIsPower != null) {
       deg = hereIsPower.op2.value
     } else {
-      if (parts[index].head === 'Square') {
+      if (parts[index].operator === 'Square') {
         deg = 2
-      } else if (parts[index].head === 'Negate') {
+      } else if (parts[index].operator === 'Negate') {
         if (parts[index].op1.isConstant) {
           deg = 0
         } else {
@@ -318,9 +318,9 @@ export function regroupeTermesMemeDegre(exp, options) {
     const terme = parts[index]
     if (terme.getSubexpressions('Power')[0] != null) {
       deg = terme.getSubexpressions('Power')[0].op2.numericValue
-    } else if (terme.head === 'Square') {
+    } else if (terme.operator === 'Square') {
       deg = 2
-    } else if (terme.head === 'Negate') {
+    } else if (terme.operator === 'Negate') {
       if (terme.op1.isConstant) {
         deg = 0
       } else {
@@ -383,16 +383,16 @@ export function developpe(
   ]
   expr = clean(expr)
   const arbre = engine.parse(expr)
-  if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) {
+  if (!['Square', 'Multiply', 'Power'].includes(arbre.operator)) {
     // On ne développe que les produits où les carrés ici
     return expr.replaceAll('\\frac', '\\dfrac')
   }
-  if (arbre.head === 'Square' || arbre.head === 'Power') {
+  if (arbre.operator === 'Square' || arbre.operator === 'Power') {
     // on est sans doute en présence d'une égalité remarquable ?
     if (arbre.op2.numericValue !== 2)
       return expr.replaceAll('\\frac', '\\dfrac')
     const interior = arbre.op1
-    const somme = interior.head === 'Add'
+    const somme = interior.operator === 'Add'
     const terme1 = interior.op1
     const terme2 = interior.op2
     const carre1 = terme1.isAlgebraic
@@ -438,10 +438,10 @@ export function developpe(
     const facteur2 = arbre.op2
     const terme1 = facteur1.op1
     const terme2 = facteur1.op2
-    const somme1 = facteur1.head === 'Add'
+    const somme1 = facteur1.operator === 'Add'
     const terme3 = facteur2.op1
     const terme4 = facteur2.op2
-    const somme2 = facteur2.head === 'Add'
+    const somme2 = facteur2.operator === 'Add'
     const t1 = terme1.latex.startsWith('-')
       ? `\\left( ${terme1.latex}\\right) `
       : terme1.latex
