@@ -14,4 +14,3 @@ Ce qu'il reste à mettre à jour.
 | Package | Current Version | Status | Notes |
 |---------|-----------------|--------|-------|
 | tailwindcss | ^3.4.17 | ❌ | Tests failed, reverted (major v4 update) |
-| vitest | ^1.6.1 | ❌ | Tests failed, reverted (major v4 update) |
