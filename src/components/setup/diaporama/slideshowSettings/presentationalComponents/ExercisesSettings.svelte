@@ -184,6 +184,7 @@
               class="mx-2 tooltip tooltip-left tooltip-neutral"
               data-tip="Supprimer l'exercice"
               type="button"
+              aria-label="Supprimer l'exercice"
               on:click={() => remove(i)}
             >
               <i

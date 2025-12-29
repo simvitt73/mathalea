@@ -46,6 +46,7 @@
         <div class="absolute top-2 right-3">
           <button
             type="button"
+            aria-label="Fermer la configuration"
             on:click={() => {
               dialogConfigToDisplayToggle()
             }}

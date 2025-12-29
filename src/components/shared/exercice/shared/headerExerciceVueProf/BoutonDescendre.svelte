@@ -17,6 +17,7 @@
 
 <button
   on:click={descendre}
+  aria-label="Descendre l'exercice"
   class={indice === indiceLastExercice ? 'hidden md:invisible' : ''}
 >
   <i

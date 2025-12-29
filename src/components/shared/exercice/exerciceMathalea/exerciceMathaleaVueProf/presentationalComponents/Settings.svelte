@@ -160,6 +160,7 @@
   <div class="absolute top-2 right-3">
     <button
       type="button"
+      aria-label="Fermer les paramètres"
       on:click={() => {
         isVisible = !isVisible
         dispatch('clickSettings', { isVisible })

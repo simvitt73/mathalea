@@ -17,6 +17,7 @@
     type="button"
     aria-controls="sidenav"
     aria-haspopup="true"
+    aria-label={isSidenavOpened ? 'Fermer le menu' : 'Ouvrir le menu'}
     on:click={() => {
       toggleSidenav(false)
     }}

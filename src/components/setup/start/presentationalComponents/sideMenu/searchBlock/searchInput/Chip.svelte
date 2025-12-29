@@ -53,6 +53,7 @@
   {text}
   <button
     class="ml-1 bg-transparent hover focus:outline-none cursor-pointer"
+    aria-label="Retirer le filtre"
     on:click={triggerAction}
   >
     <i

@@ -23,6 +23,7 @@
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+    aria-label="Retour aux paramètres"
     on:click={backToSettings}
   >
     <i class="bx bx-sm bx-arrow-back"></i>
@@ -32,6 +33,7 @@
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+    aria-label="Nouvel énoncé pour tous les exercices"
     on:click={newDataForAll}
   >
     <i class="bx bx-sm bx-refresh"></i>
@@ -46,6 +48,9 @@
   </span>
   <button
     type="button"
+    aria-label={isQuestionsVisible
+      ? 'Masquer les questions'
+      : 'Afficher les questions'}
     on:click={() => setQuestionsVisible(!isQuestionsVisible)}
   >
     <i
@@ -64,6 +69,9 @@
   </span>
   <button
     type="button"
+    aria-label={isCorrectionVisible
+      ? 'Masquer les réponses'
+      : 'Afficher les réponses'}
     on:click={() => setCorrectionVisible(!isCorrectionVisible)}
   >
     <i
@@ -86,12 +94,14 @@
   >
     <button
       type="button"
+      aria-label="Étape précédente"
       on:click={() => handleCorrectionsStepsClick('backward')}
     >
       <i class="bx bxs-left-arrow mr-2 cursor-pointer"></i>
     </button>
     <button
       type="button"
+      aria-label="Étape suivante"
       on:click={() => handleCorrectionsStepsClick('forward')}
     >
       <i class="bx bxs-right-arrow cursor-pointer"></i>

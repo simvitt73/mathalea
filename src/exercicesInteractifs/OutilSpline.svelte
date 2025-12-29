@@ -144,14 +144,14 @@
           on:change="{refreshCourb}"
         />
       {/each}
-      <button on:click="{removeNoeud}"
+      <button on:click="{removeNoeud}" aria-label="Supprimer un noeud"
         ><i class="bx bx-lg bx-minus-circle"></i></button
       >
-      <button on:click="{addNoeud}"
+      <button on:click="{addNoeud}" aria-label="Ajouter un noeud"
         ><i class="bx bx-lg bx-plus-circle"></i></button
       >
-      <button on:click="{copy}"><i class="bx bx-lg bx-clipboard"></i></button>
-      <button on:click="{paste}"><i class="bx bx-lg bx-download"></i></button>
+      <button on:click="{copy}" aria-label="Copier"><i class="bx bx-lg bx-clipboard"></i></button>
+      <button on:click="{paste}" aria-label="Coller"><i class="bx bx-lg bx-download"></i></button>
     </div>
   </div>
 </section>

@@ -83,6 +83,7 @@
           ? 'visible'
           : 'invisible'}
         type="button"
+        aria-label="Réduire le nombre de colonnes"
         on:click={() => columnsCountUpdate('-')}
       >
         <i
@@ -90,7 +91,7 @@
         ></i>
       </button>
       <i class="bx ml-1 bx-xs bx-columns"></i>
-      <button type="button" on:click={() => columnsCountUpdate('+')}>
+      <button type="button" aria-label="Augmenter le nombre de colonnes" on:click={() => columnsCountUpdate('+')}>
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus"
         ></i>

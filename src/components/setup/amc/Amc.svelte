@@ -256,6 +256,7 @@
               data-tip="Nouvel énoncé"
               id="amc-export-new-enonce-button"
               type="button"
+              aria-label="Nouvel énoncé"
               on:click={() => {
                 exercice.seed = mathaleaGenerateSeed()
                 seedrandom(exercice.seed, { global: true })

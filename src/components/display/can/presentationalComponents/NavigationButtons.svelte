@@ -82,6 +82,7 @@
     <button
       class="md:hidden flex justify-center items-center"
       type="button"
+      aria-label="Reculer de 10 questions"
       on:click={() => {
         if (current >= 10) {
           current -= 10
@@ -97,6 +98,7 @@
     </button>
     <button
       type="button"
+      aria-label="Question précédente"
       on:click={() => {
         if (current > 0) {
           current -= 1
@@ -113,6 +115,7 @@
     <ShortPagination {current} {state} {resultsByQuestion} />
     <button
       type="button"
+      aria-label="Question suivante"
       on:click={() => {
         if (current < numberOfQuestions - 1) {
           current += 1
@@ -129,6 +132,7 @@
     <button
       class="md:hidden flex justify-center items-center"
       type="button"
+      aria-label="Avancer de 10 questions"
       on:click={() => {
         if (current + 10 <= numberOfQuestions - 1) {
           current += 10

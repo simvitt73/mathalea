@@ -38,6 +38,7 @@
   </div>
   <button
     class="ml-2 w-2/12 bg-transparent hover focus:outline-none cursor-pointer"
+    aria-label="Retirer l'exercice"
     on:click={remove}
   >
     <i

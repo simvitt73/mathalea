@@ -46,6 +46,7 @@
     class="flex justify-center items-center"
     on:click={toggle}
     disabled={isDisabled}
+    aria-label={value ? titles[0] : titles[1]}
   >
     <i
       class="bx bx-{buttonSize} translate-y-[0.15rem] {value
