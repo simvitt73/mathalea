@@ -38,7 +38,7 @@ pnpm test:src      # Tests in src/
 ./tasks/run-e2e-test.sh interactivity # interactivity test
 
 # Run a single test file
-pnpm vitest <path-to-test-file> --run
+pnpm vitest <path-to-test-file> --run # needs to have a running dev server for e2e tests
 
 # Generate exercise reference JSON (auto-runs with dev/build)
 pnpm run makeJson
