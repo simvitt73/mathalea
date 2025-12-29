@@ -73,7 +73,7 @@ echo ""
 perl -e "
   alarm $TIMEOUT_SECONDS;
   exec @ARGV;
-" pnpm vitest tests/e2e/tests/$TEST_CONFIG/$TEST_CONFIG.test.ts --config tests/e2e/vitest.config.$TEST_CONFIG.js --run 2>&1 | tee "$TEST_LOG"
+" pnpm vitest --config tests/e2e/vitest.config.$TEST_CONFIG.js --run 2>&1 | tee "$TEST_LOG"
 
 EXIT_CODE=${PIPESTATUS[0]}
 
