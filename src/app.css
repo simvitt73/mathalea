@@ -408,6 +408,10 @@ input[type='radio']:disabled {
   @apply opacity-30;
 }
 
+input[type='radio']:focus {
+  @apply ring-transparent outline-none;
+}
+
 /*
 8888888888                   888                      
 888                          888                      
