@@ -69,33 +69,26 @@
     width: 100%;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem;
     overflow-x: auto;
     overflow-y: hidden;
   }
 
   .step-item {
-    display: inline-flex;
-    flex-shrink: 0;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
     position: relative;
     cursor: pointer;
     background: transparent;
     border: none;
-    margin-left: 2rem;
-  }
-
-  .step-item:first-child {
-    margin-left: 1rem;
-  }
-
-  .step-item:last-child {
-    margin-right: 1rem;
+    min-width: 4rem;
   }
 
   .step-item::before {
     content: '';
     position: absolute;
-    width: 4rem;
+    width: 100%;
     height: 8px;
     top: 50%;
     right: 50%;
