@@ -136,7 +136,8 @@
           <div
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
-            <span class="font-bold">{ending.id} - </span>{@html endingTitre}
+            <span class="font-bold">{ending.id} - </span>
+            {@html endingTitre}
             {#if isLessThan1Month(ending.datePublication)}
               &nbsp;
               <span
