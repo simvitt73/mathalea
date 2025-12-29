@@ -17,7 +17,7 @@
     tick,
   } from 'svelte'
   import { get } from 'svelte/store'
-  import { Collapse, Ripple, Sidenav, initTE } from 'tw-elements'
+  import { Collapse, Ripple, initTWE } from 'tw-elements'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { buildEsParams } from '../../../lib/components/urls'
@@ -53,6 +53,7 @@
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
+  import Sidenav from '../../shared/sidenav/Sidenav.svelte'
   import ButtonBackToTop from './presentationalComponents/ButtonBackToTop.svelte'
   import Exercices from './presentationalComponents/Exercices.svelte'
   import Header from './presentationalComponents/header/Header.svelte'
@@ -95,7 +96,7 @@
 
   onMount(async () => {
     log('Start.svelte onMount')
-    initTE({ Sidenav, Collapse, Ripple })
+    initTWE({ Collapse, Ripple })
     await tick() // globalOptions n'est pas encore initialisé si on n'attend pas
     if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
@@ -366,17 +367,9 @@
   }
 
   function toggleSidenav(forceOpening: boolean): void {
-    const sideMenuWrapper = document.getElementById('choiceSideMenuWrapper')
-    if (!sideMenuWrapper) return
-    const sidenav = Sidenav.getOrCreateInstance(sideMenuWrapper)
-    if (!sidenav) return
     if (forceOpening) {
-      if (!isSidenavOpened) {
-        sidenav.toggle()
-        isSidenavOpened = !isSidenavOpened
-      }
+      isSidenavOpened = true
     } else {
-      sidenav.toggle()
       isSidenavOpened = !isSidenavOpened
     }
   }
@@ -457,29 +450,26 @@
               {toggleSidenav}
             />
           {/if}
-          <nav
-            id="choiceSideMenuWrapper"
-            class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-            data-te-sidenav-init
-            data-te-sidenav-width="400"
-            data-te-sidenav-hidden="false"
-            data-te-sidenav-content="#exercisesPart"
-            data-te-sidenav-position="absolute"
-            data-te-sidenav-mode="side"
-          >
+          <Sidenav isOpen={isSidenavOpened} width={400}>
             <div
-              data-te-sidenav-menu-ref
               class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
             >
               <SideMenu {addExercise} />
             </div>
-          </nav>
+          </Sidenav>
           <!-- Affichage exercices -->
           <main
             id="exercisesPart"
             class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-auto overflow-y-auto
-            {$globalOptions.recorder ? '!pl-[425px]' : '!pl-[400px]'}
+            transition-[padding-left] duration-300
             bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+            style="padding-left: {$globalOptions.recorder
+              ? isSidenavOpened
+                ? '425px'
+                : '25px'
+              : isSidenavOpened
+                ? '400px'
+                : '0px'}"
           >
             <!-- MGu si la vue n'est pas START, le composant va être detruit et ici ca empeche de charger des exos inutilement-->
             {#if $exercicesParams.length !== 0 && ($globalOptions.v === '' || $globalOptions.v === undefined || $globalOptions.v === 'l')}
@@ -504,8 +494,6 @@
               <button
                 type="button"
                 class="group w-full flex flex-row justify-between items-center p-4"
-                data-te-collapse-init
-                data-te-target="#choiceMenuWrapper"
                 aria-expanded="true"
                 aria-controls="choiceMenuWrapper"
               >
@@ -515,14 +503,12 @@
                   Choix des exercices
                 </div>
                 <i
-                  class="bx bxs-up-arrow rotate-0 group-[[data-te-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+                  class="bx bxs-up-arrow rotate-0 group-[[data-twe-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
                 ></i>
               </button>
               <div
                 id="choiceMenuWrapper"
                 class="!visible w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-                data-te-collapse-item
-                data-te-collapse-show
               >
                 <SideMenu {addExercise} />
               </div>
@@ -595,6 +581,10 @@
       width: 100vw;
     }
   }
+  :root {
+    scrollbar-color: #aaaaaa transparent;
+  }
+  /* Webkit scrollbar styling for Chrome/Safari */
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;

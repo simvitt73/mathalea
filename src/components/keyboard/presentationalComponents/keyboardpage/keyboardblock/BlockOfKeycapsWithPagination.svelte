@@ -40,7 +40,7 @@
       style="--blockgapsize:{blockgapsize}"
       id="keysblocknav-{getUniqueStringBasedOnTimeStamp()}"
       role="tablist"
-      data-te-nav-ref
+      data-twe-nav-ref
     >
       {#each blocksList as block}
         <li role="presentation">
@@ -74,7 +74,7 @@
         <div
           class="{currentBlock === toRegularCharacters(block.title)
             ? 'flex opacity-100'
-            : 'hidden opacity-0'} transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+            : 'hidden opacity-0'} transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
           id="tabs-{toRegularCharacters(block.title)}"
           role="tabpanel"
           aria-labelledby="tabs-{toRegularCharacters(block.title)}-tab"

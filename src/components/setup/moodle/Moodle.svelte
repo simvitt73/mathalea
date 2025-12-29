@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Tab, initTE } from 'tw-elements'
+  import { Tab, initTWE } from 'tw-elements'
   import type TypeExercice from '../../../exercices/Exercice'
   import {
     mathaleaGetExercicesFromParams,
@@ -17,7 +17,7 @@
   import JSZip from 'jszip'
 
   onMount(() => {
-    initTE({ Tab })
+    initTWE({ Tab })
   })
 
   const copyCode = async () => {
@@ -303,21 +303,21 @@
       <ul
         class="flex list-none flex-row flex-wrap border-b-0 pl-0 pt-0 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas"
         role="tablist"
-        data-te-nav-ref
+        data-twe-nav-ref
       >
         {#if !justBookmarklet}
           <li role="presentation" class="flex-grow basis-0 text-center">
             <a
               id="tabs-gift-btn"
               href="#tabs-gift"
-              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {tab === 'gift' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
-              data-te-toggle="pill"
-              data-te-target="#tabs-gift"
+              data-twe-toggle="pill"
+              data-twe-target="#tabs-gift"
               role="tab"
               aria-controls="tabs-gift"
               aria-selected="true"
-              data-te-nav-active=""
+              data-twe-nav-active=""
               on:click={() => {
                 tab = 'gift'
               }}
@@ -329,10 +329,10 @@
             <a
               id="tabs-scorm-btn"
               href="#tabs-scorm"
-              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {tab === 'scorm' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
-              data-te-toggle="pill"
-              data-te-target="#tabs-scorm"
+              data-twe-toggle="pill"
+              data-twe-target="#tabs-scorm"
               role="tab"
               aria-controls="tabs-scorm"
               aria-selected="false"
@@ -348,12 +348,12 @@
           <a
             id="tabs-bookmarklet-btn"
             href="#tabs-bookmarklet"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {tab === 'bookmarklet'
               ? ' hover:bg-opacity-0'
               : ' hover:bg-opacity-10'}"
-            data-te-toggle="pill"
-            data-te-target="#tabs-bookmarklet"
+            data-twe-toggle="pill"
+            data-twe-target="#tabs-bookmarklet"
             role="tab"
             aria-controls="tabs-bookmarklet"
             aria-selected="false"
@@ -368,11 +368,11 @@
       <!-- Pages des réglages -->
       <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
           id="tabs-gift"
           role="tabpanel"
           aria-labelledby="tabs-gift"
-          data-te-tab-active=""
+          data-twe-tab-active=""
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -476,7 +476,7 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
           id="tabs-scorm"
           role="tabpanel"
           aria-labelledby="tabs-scorm"
@@ -546,7 +546,7 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
           id="tabs-bookmarklet"
           role="tabpanel"
           aria-labelledby="tabs-bookmarklet"

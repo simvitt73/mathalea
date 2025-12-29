@@ -15,12 +15,12 @@
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   // pour les tabs
-  import { Tab, initTE } from 'tw-elements'
+  import { Tab, initTWE } from 'tw-elements'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
 
   onMount(() => {
-    initTE({ Tab })
+    initTWE({ Tab })
     // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     handleSeed()
     const btnElementId = $canOptions.isChoosen
@@ -31,8 +31,8 @@
       : 'tabs-pres-classic'
     const btnElement = document.getElementById(btnElementId)
     const tabElement = document.getElementById(tabElementId)
-    btnElement?.setAttribute('data-te-nav-active', '')
-    tabElement?.setAttribute('data-te-tab-active', '')
+    btnElement?.setAttribute('data-twe-nav-active', '')
+    tabElement?.setAttribute('data-twe-tab-active', '')
   })
 
   const availableLinkFormats = {
@@ -129,18 +129,18 @@
       <ul
         class="flex list-none flex-row flex-wrap border-b-0 pl-0 pt-0 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas"
         role="tablist"
-        data-te-nav-ref
+        data-twe-nav-ref
       >
         <li role="presentation" class="flex-grow basis-0 text-center">
           <a
             id="tabs-pres-classic-btn"
             href="#tabs-pres-classic"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {$canOptions.isChoosen
               ? ' hover:bg-opacity-10'
               : ' hover:bg-opacity-0'}"
-            data-te-toggle="pill"
-            data-te-target="#tabs-pres-classic"
+            data-twe-toggle="pill"
+            data-twe-target="#tabs-pres-classic"
             role="tab"
             aria-controls="tabs-pres-classic"
             aria-selected="true"
@@ -155,12 +155,12 @@
           <a
             id="tabs-pres-can-btn"
             href="#tabs-pres-can"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {$canOptions.isChoosen
               ? ' hover:bg-opacity-0'
               : ' hover:bg-opacity-10'}"
-            data-te-toggle="pill"
-            data-te-target="#tabs-pres-can"
+            data-twe-toggle="pill"
+            data-twe-target="#tabs-pres-can"
             role="tab"
             aria-controls="tabs-pres-can"
             aria-selected="false"
@@ -176,7 +176,7 @@
       <!-- Pages des réglages -->
       <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
           id="tabs-pres-classic"
           role="tabpanel"
           aria-labelledby="tabs-pres-classic"
@@ -315,7 +315,7 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
           id="tabs-pres-can"
           role="tabpanel"
           aria-labelledby="tabs-pres-can"

@@ -15,9 +15,7 @@
 >
   <button
     type="button"
-    data-te-sidenav-toggle-ref
-    data-te-target="#choiceSideMenuWrapper"
-    aria-controls="#choiceSideMenuWrapper"
+    aria-controls="sidenav"
     aria-haspopup="true"
     on:click={() => {
       toggleSidenav(false)

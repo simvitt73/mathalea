@@ -28,16 +28,14 @@ pnpm lintSvelte    # Svelte components
 # Formatting
 pnpm format        # src, test and tasks folders
 
-# Tests
-pnpm test:unit     # Unit tests
+# Unit tests
+pnpm test:unit     # Tests in tests/unit/
 pnpm test:src      # Tests in src/
-pnpm test:e2e      # All e2e tests (views, interactivity, consistency + console errors)
-pnpm test:e2e:views        # Views tests only
-pnpm test:e2e:interactivity # Interactivity tests only
-pnpm test:e2e:consistency   # Consistency tests only
 
-# Run a single test file
-pnpm vitest <path-to-test-file> --run
+# e2e test with dev server (starts server, runs test, stops server)
+./tasks/run-e2e-test.sh consistency   # consistency test
+./tasks/run-e2e-test.sh views         # views test
+./tasks/run-e2e-test.sh interactivity # interactivity test
 
 # Generate exercise reference JSON (auto-runs with dev/build)
 pnpm run makeJson
