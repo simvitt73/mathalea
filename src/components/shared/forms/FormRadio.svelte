@@ -62,14 +62,15 @@
     <div class="form-check flex flex-row ml-4 items-center">
       <input
         class="form-check-input rounded-full h-4 w-4 mt-1 mr-2 border
-          transition duration-200 focus:outline-0 focus:ring-0 focus:border
+          transition duration-200 focus:outline-0 focus:ring-0
           text-coopmaths-action dark:text-coopmathsdark-action
           bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark
           border-coopmaths-action dark:border-coopmathsdark-action
           checked:border-coopmaths-action dark:checked:border-coopmathsdark-action
           active:border-coopmaths-action dark:active:border-coopmathsdark-action
           focus:border-coopmaths-action dark:focus:border-coopmathsdark-action
-          checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action"
+          checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
+          {isDisabled || labelValue.isDisabled ? '' : 'cursor-pointer'}"
         type="radio"
         {name}
         id={name + i.toString()}
