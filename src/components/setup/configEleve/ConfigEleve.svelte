@@ -330,7 +330,7 @@
                   </div>
                   <input
                     type="text"
-                    id="config-eleve-can-duration-input"
+                    id="config-eleve-can-subtitle-input"
                     class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
                     bind:value={$canOptions.subTitle}
                     disabled={!$canOptions.isChoosen}
