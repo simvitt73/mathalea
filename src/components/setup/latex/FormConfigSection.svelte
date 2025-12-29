@@ -23,7 +23,6 @@
 </h6>
 <FormRadio
   title="Style"
-  bgColor="bg-coopmaths-canvas-dark"
   orientation={'col'}
   bind:valueSelected={latexFileInfos.style}
   labelsValues={[
@@ -45,7 +44,6 @@
   </h6>
   <FormRadio
     title="fontOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.fontOption}
     labelsValues={[
@@ -92,7 +90,6 @@
   </h6>
   <FormRadio
     title="durationCanOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.correctionOption}
     labelsValues={[
@@ -107,7 +104,6 @@
   </h6>
   <FormRadio
     title="fontOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.fontOption}
     labelsValues={[
@@ -166,7 +162,6 @@
   </h6>
   <FormRadio
     title="correctionOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.correctionOption}
     labelsValues={[
@@ -181,7 +176,6 @@
   </h6>
   <FormRadio
     title="typeFiche"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.typeFiche}
     labelsValues={[
@@ -213,7 +207,6 @@
   </h6>
   <FormRadio
     title="titlenOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.titleOption}
     labelsValues={[
@@ -228,7 +221,6 @@
   </h6>
   <FormRadio
     title="fontOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.fontOption}
     labelsValues={[
@@ -273,7 +265,6 @@
   </h6>
   <FormRadio
     title="qrcodeOption"
-    bgColor="bg-coopmaths-canvas-dark"
     orientation={'col'}
     bind:valueSelected={latexFileInfos.qrcodeOption}
     labelsValues={[

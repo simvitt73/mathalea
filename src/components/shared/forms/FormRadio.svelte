@@ -11,7 +11,6 @@
   }[] = []
   export let isDisabled: boolean = false
   export let orientation: FlexOrientation = 'col'
-  export let bgColor: string = 'bg-coopmaths-canvas'
 
   const name =
     title !== undefined
@@ -54,26 +53,23 @@
   ```
  -->
 
-<div class="flex justify-start items-start mt-1" class:flex-col={orientation === 'col'} class:flex-row={orientation === 'row'}>
+<div
+  class="flex justify-start items-start mt-1"
+  class:flex-col={orientation === 'col'}
+  class:flex-row={orientation === 'row'}
+>
   {#each labelsValues as labelValue, i}
     <div class="form-check flex flex-row ml-4 items-center">
       <input
-        class="form-check-input rounded-full h-4 w-4 mt-1 mr-2
-          transition duration-200
+        class="form-check-input rounded-full h-4 w-4 mt-1 mr-2 border
+          transition duration-200 focus:outline-0 focus:ring-0 focus:border
           text-coopmaths-action dark:text-coopmathsdark-action
-          {bgColor} dark:bg-coopmathsdark-canvas-dark
-          border
+          bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark
           border-coopmaths-action dark:border-coopmathsdark-action
           checked:border-coopmaths-action dark:checked:border-coopmathsdark-action
           active:border-coopmaths-action dark:active:border-coopmathsdark-action
-          focus:outline-0 focus:ring-0 focus:border-1
           focus:border-coopmaths-action dark:focus:border-coopmathsdark-action
-          {isDisabled || labelValue.isDisabled
-          ? `checked:bg-coopmaths-action/10 dark:checked:bg-coopmathsdark-action/10
-              checked:disabled:border-coopmaths-action/10 dark:checked:disabled:border-coopmathsdark-action/10
-              border-coopmaths-action/10 dark:border-coopmathsdark-action/10
-              ${bgColor}/10 dark:bg-coopmathsdark-canvas-dark/10`
-          : `checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action cursor-pointer`}"
+          checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action"
         type="radio"
         {name}
         id={name + i.toString()}
