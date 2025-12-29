@@ -114,11 +114,11 @@
             <div
               class="relative w-full h-full
             {slide.message && slide.message.length !== 0
-                ? 'bg-opacity-80'
-                : 'bg-opacity-0'}
-            {slide.background && slide.background.length !== 0
+                ? (slide.background && slide.background.length !== 0 ? 'bg-coopmaths-canvas/80 dark:bg-coopmathsdark-canvas/80' : 'bg-coopmaths-struct/80 dark:bg-coopmathsdark-struct/80')
+                : ''}
+            {slide.message && slide.message.length === 0 && slide.background && slide.background.length !== 0
                 ? 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'
-                : 'bg-coopmaths-struct dark:bg-coopmathsdark-struct'}"
+                : (slide.message && slide.message.length === 0 ? 'bg-coopmaths-struct dark:bg-coopmathsdark-struct' : '')}"
             >
               <div
                 class="w-full h-full xl:p-20 lg:p-10 md:p-6 sm:p-4 p-3 flex flex-col justify-between items-start"
@@ -140,7 +140,7 @@
                       <div
                         class="w-full lg:w-1/2 h-full flex justify-start items-center
                         overflow-hidden text-ellipsis
-                 px-4 sm:px-6 md:px-8 lg:px-10 text-opacity-100 font-light
+                 px-4 sm:px-6 md:px-8 lg:px-10 font-light
                  text-lg sm:text-xl md:text-2xl lg:text-xl xl:text-2xl 2xl:text-4xl
                  {slide.background && slide.background.length !== 0
                           ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
@@ -174,7 +174,7 @@
                     <div
                       class="w-full h-[80%] flex justify-start items-center
                       overflow-hidden text-ellipsis
-               px-4 sm:px-6 md:px-8 lg:px-10 text-opacity-100 font-light
+               px-4 sm:px-6 md:px-8 lg:px-10 font-light
                text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
                {slide.background && slide.background.length !== 0
                         ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'

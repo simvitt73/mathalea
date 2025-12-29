@@ -310,8 +310,8 @@
             <a
               id="tabs-gift-btn"
               href="#tabs-gift"
-              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {tab === 'gift' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
+              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action/20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
+            {tab === 'gift' ? '' : 'hover:bg-coopmaths-action/10'}"
               data-twe-toggle="pill"
               data-twe-target="#tabs-gift"
               role="tab"
@@ -329,8 +329,8 @@
             <a
               id="tabs-scorm-btn"
               href="#tabs-scorm"
-              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {tab === 'scorm' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
+              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action/20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
+            {tab === 'scorm' ? '' : 'hover:bg-coopmaths-action/10'}"
               data-twe-toggle="pill"
               data-twe-target="#tabs-scorm"
               role="tab"
@@ -348,10 +348,10 @@
           <a
             id="tabs-bookmarklet-btn"
             href="#tabs-bookmarklet"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action/20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {tab === 'bookmarklet'
-              ? ' hover:bg-opacity-0'
-              : ' hover:bg-opacity-10'}"
+              ? ''
+              : 'hover:bg-coopmaths-action/10'}"
             data-twe-toggle="pill"
             data-twe-target="#tabs-bookmarklet"
             role="tab"

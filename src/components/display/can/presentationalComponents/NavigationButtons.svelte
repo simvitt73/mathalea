@@ -85,10 +85,10 @@
       }}
     >
       <i
-        class="bx bxs-chevrons-left text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+        class="bx bxs-chevrons-left text-3xl md:text-7xl
             {current < 10
-          ? 'text-opacity-10'
-          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-coopmaths-action/10 dark:text-coopmathsdark-action/10'
+          : 'text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
     <button
@@ -100,10 +100,10 @@
       }}
     >
       <i
-        class="bx bxs-chevron-left md:bxs-left-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+        class="bx bxs-chevron-left md:bxs-left-arrow text-3xl md:text-7xl
             {current === 0
-          ? 'text-opacity-10'
-          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-coopmaths-action/10 dark:text-coopmathsdark-action/10'
+          : 'text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
     <ShortPagination {current} {state} {resultsByQuestion} />
@@ -116,10 +116,10 @@
       }}
     >
       <i
-        class="bx bxs-chevron-right md:bxs-right-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+        class="bx bxs-chevron-right md:bxs-right-arrow text-3xl md:text-7xl
             {current === numberOfQuestions - 1
-          ? 'text-opacity-10'
-          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-coopmaths-action/10 dark:text-coopmathsdark-action/10'
+          : 'text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
     <button
@@ -132,10 +132,10 @@
       }}
     >
       <i
-        class="bx bxs-chevrons-right text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+        class="bx bxs-chevrons-right text-3xl md:text-7xl
             {current > numberOfQuestions - 11
-          ? 'text-opacity-10'
-          : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+          ? 'text-coopmaths-action/10 dark:text-coopmathsdark-action/10'
+          : 'text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
   </div>
@@ -144,7 +144,7 @@
       <button
         id="race-ended-by-user-btn"
         type="button"
-        class="inline-block p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out bg-coopmaths-action hover:bg-coopmaths-action-lightest focus:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none focus:ring-0 active:bg-coopmaths-action-light dark:active:bg-coopmathsdark-action-light disabled:bg-opacity-10"
+        class="inline-block p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out bg-coopmaths-action hover:bg-coopmaths-action-lightest focus:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none focus:ring-0 active:bg-coopmaths-action-light dark:active:bg-coopmathsdark-action-light disabled:bg-coopmaths-action/10"
         data-twe-toggle="modal"
         data-twe-target="#staticBackdrop"
         disabled
@@ -227,7 +227,7 @@
 
       <!--Modal footer-->
       <div
-        class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50"
+        class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 p-4 dark:border-neutral-100/50"
       >
         <button
           type="button"
