@@ -68,13 +68,12 @@
           active:border-coopmaths-action dark:active:border-coopmathsdark-action
           focus:outline-0 focus:ring-0 focus:border-1
           focus:border-coopmaths-action dark:focus:border-coopmathsdark-action
-          checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
-          checked:disabled:bg-opacity-10 checked:disabled:border-opacity-10
           {isDisabled || labelValue.isDisabled
-          ? `border-opacity-10 dark:border-opacity-10
-              bg-opacity-10 dark:bg-opacity-10
-              checked:disabled:opacity-10 dark:checked:disabled:opacity-10`
-          : 'cursor-pointer'}"
+          ? `checked:bg-coopmaths-action/10 dark:checked:bg-coopmathsdark-action/10
+              checked:disabled:border-coopmaths-action/10 dark:checked:disabled:border-coopmathsdark-action/10
+              border-coopmaths-action/10 dark:border-coopmathsdark-action/10
+              ${bgColor}/10 dark:bg-coopmathsdark-canvas-dark/10`
+          : `checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action cursor-pointer`}"
         type="radio"
         {name}
         id={name + i.toString()}
@@ -85,11 +84,10 @@
       />
       <label
         class="form-check-label inline-block text-sm
-          text-coopmaths-corpus dark:text-coopmathsdark-corpus
           {valueSelected === labelValue.value ? 'font-semibold' : 'font-light'}
           {isDisabled || labelValue.isDisabled
-          ? 'text-opacity-10'
-          : 'text-opacity-70 cursor-pointer'}"
+          ? 'text-coopmaths-corpus/10 dark:text-coopmathsdark-corpus/10'
+          : 'text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70 cursor-pointer'}"
         for={name + i.toString()}
       >
         {labelValue.label}

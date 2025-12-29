@@ -56,8 +56,7 @@
           <div
             id="correction{i}"
             class="flex items-center my-10
-              bg-opacity-30 dark:bg-opacity-30
-              bg-coopmaths-warn-light dark:bg-coopmathsdark-warn-light"
+              bg-coopmaths-warn-light/30 dark:bg-coopmathsdark-warn-light/30"
           >
             {#if isImagesOnSides}
               <CorrectionWithImagesOnSides slideView={currentSlide.vues[i]} />

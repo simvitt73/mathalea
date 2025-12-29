@@ -135,10 +135,10 @@
           <a
             id="tabs-pres-classic-btn"
             href="#tabs-pres-classic"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action/20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {$canOptions.isChoosen
-              ? ' hover:bg-opacity-10'
-              : ' hover:bg-opacity-0'}"
+              ? 'hover:bg-coopmaths-action/10'
+              : ''}"
             data-twe-toggle="pill"
             data-twe-target="#tabs-pres-classic"
             role="tab"
@@ -155,10 +155,10 @@
           <a
             id="tabs-pres-can-btn"
             href="#tabs-pres-can"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action/20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
             {$canOptions.isChoosen
-              ? ' hover:bg-opacity-0'
-              : ' hover:bg-opacity-10'}"
+              ? ''
+              : 'hover:bg-coopmaths-action/10'}"
             data-twe-toggle="pill"
             data-twe-target="#tabs-pres-can"
             role="tab"
@@ -198,14 +198,14 @@
                 class="pl-4 pb-4 w-full flex flex-row justify-start items-center space-x-2"
               >
                 <div
-                  class="text-sm font-light w-1/4 text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-70 dark:text-opacity-70"
+                  class="text-sm font-light w-1/4 text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70"
                 >
                   Titre :
                 </div>
                 <input
                   type="text"
                   id="config-eleve-titre-input"
-                  class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border disabled:border-opacity-10 dark:disabled:border-opacity-10 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
+                  class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border disabled:border-coopmaths-action/10 dark:disabled:border-coopmathsdark-action/10 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
                   bind:value={$globalOptions.title}
                 />
                 <div
@@ -339,23 +339,23 @@
               >
                 <div class="flex justify-start flex-row items-center space-x-2">
                   <div
-                    class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
-                      ? 'text-opacity-100 dark:text-opacity-100'
-                      : 'text-opacity-10 dark:text-opacity-10'}"
+                    class="text-sm font-light {$canOptions.isChoosen
+                      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+                      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
                     Durée :
                   </div>
                   <input
                     type="number"
                     id="config-eleve-can-duration-input"
-                    class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
+                    class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
                     bind:value={$canOptions.durationInMinutes}
                     disabled={!$canOptions.isChoosen}
                   />
                   <div
-                    class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
-                      ? 'text-opacity-100 dark:text-opacity-100'
-                      : 'text-opacity-10 dark:text-opacity-10'}"
+                    class="text-sm font-light {$canOptions.isChoosen
+                      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+                      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
                     minute{$canOptions.durationInMinutes !== undefined &&
                     $canOptions.durationInMinutes > 1
@@ -365,16 +365,16 @@
                 </div>
                 <div class="flex justify-start flex-row items-center space-x-2">
                   <div
-                    class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
-                      ? 'text-opacity-100 dark:text-opacity-100'
-                      : 'text-opacity-10 dark:text-opacity-10'}"
+                    class="text-sm font-light {$canOptions.isChoosen
+                      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+                      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
                     Sous-titre :
                   </div>
                   <input
                     type="text"
                     id="config-eleve-can-duration-input"
-                    class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
+                    class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
                     bind:value={$canOptions.subTitle}
                     disabled={!$canOptions.isChoosen}
                   />

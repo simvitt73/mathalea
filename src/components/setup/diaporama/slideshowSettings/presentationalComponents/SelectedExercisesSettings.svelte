@@ -16,8 +16,7 @@
 <div class="pb-6">
   <div
     class="flex text-lg font-bold mb-1
-      text-coopmaths-struct dark:text-coopmathsdark-struct
-      {exercises.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
+      {exercises.length === 1 ? 'text-coopmaths-struct/20 dark:text-coopmathsdark-struct/20' : 'text-coopmaths-struct dark:text-coopmathsdark-struct'}"
   >
     Sélection aléatoire d'exercices
   </div>
@@ -45,10 +44,9 @@
     />
     <span
       class="ml-2 my-auto
-        text-coopmaths-corpus dark:text-coopmathsdark-corpus
         {selectedExercisesCount
-        ? 'text-opacity-100 dark:text-opacity-100'
-        : 'text-opacity-10 dark:text-opacity-10'}"
+        ? 'text-coopmaths-corpus dark:text-coopmathsdark-corpus'
+        : 'text-coopmaths-corpus/10 dark:text-coopmathsdark-corpus/10'}"
     >
       parmi {exercises.length}
     </span>

@@ -25,7 +25,7 @@
           class="rounded-full px-3 py-1.5 text-sm md:text-base font-black transition-all duration-300
         {i === current
             ? 'text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-struct dark:bg-coopmathsdark-struct'
-            : 'bg-transparent text-coopmaths-action hover:bg-coopmaths-action-lightest hover:bg-opacity-20  dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest dark:hover:bg-opacity-20'}"
+            : 'bg-transparent text-coopmaths-action hover:bg-coopmaths-action-lightest/20 dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest/20'}"
           on:click={() => {
             current = i
           }}
