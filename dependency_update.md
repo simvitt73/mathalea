@@ -65,7 +65,7 @@ This document tracks the status of updating each dependency to its latest versio
 | three | ^0.179.1 → ^0.182.0 | ✅ | Updated successfully |
 | troika-three-text | ^0.52.4 | ➖ | Already up to date |
 | ts-import | 5.0.0-beta.0 → 5.0.0-beta.1 | ✅ | Updated successfully |
-| tw-elements | ^1.1.0 | ❌ | Tests failed, reverted |
+| tw-elements | ^1.1.0 → 2.0.0 | ✅ | Updated successfully |
 | ua-parser-js | ^2.0.7 | ➖ | Already up to date |
 | xstate | ^4.38.3 → ^5.25.0 | ✅ | Updated successfully (major) |
 

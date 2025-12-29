@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { Modal, initTE } from 'tw-elements'
+  import { Modal, initTWE } from 'tw-elements'
   import type { CanState } from '../../../../lib/types/can'
   import ShortPagination from './ShortPagination.svelte'
 
@@ -59,7 +59,7 @@
   }
 
   onMount(() => {
-    initTE({ Modal })
+    initTWE({ Modal })
     setTimeout(() => {
       const endButtonDiv = document.getElementById('race-ended-by-user-btn')
       if (endButtonDiv) {
@@ -145,8 +145,8 @@
         id="race-ended-by-user-btn"
         type="button"
         class="inline-block p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out bg-coopmaths-action hover:bg-coopmaths-action-lightest focus:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none focus:ring-0 active:bg-coopmaths-action-light dark:active:bg-coopmathsdark-action-light disabled:bg-opacity-10"
-        data-te-toggle="modal"
-        data-te-target="#staticBackdrop"
+        data-twe-toggle="modal"
+        data-twe-target="#staticBackdrop"
         disabled
       >
         Rendre la copie
@@ -156,17 +156,17 @@
 </div>
 <!-- Modal -->
 <div
-  data-te-modal-init
+  data-twe-modal-init
   class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
   id="staticBackdrop"
-  data-te-backdrop="static"
-  data-te-keyboard="false"
+  data-twe-backdrop="static"
+  data-twe-keyboard="false"
   tabindex="-1"
   aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
   <div
-    data-te-modal-dialog-ref
+    data-twe-modal-dialog-ref
     class="pointer-events-none relative w-auto translate-y-[-50px] opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:max-w-[500px]"
   >
     <div
@@ -186,7 +186,7 @@
         <button
           type="button"
           class="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none text-coopmaths-canvas dark:text-coopmathsdark-canvas-darkest"
-          data-te-modal-dismiss
+          data-twe-modal-dismiss
           aria-label="Close"
         >
           <svg
@@ -207,7 +207,7 @@
       </div>
 
       <!--Modal body-->
-      <div data-te-modal-body-ref class="relative p-4">
+      <div data-twe-modal-body-ref class="relative p-4">
         <div
           class="flex flex-col space-y-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
         >
@@ -232,7 +232,7 @@
         <button
           type="button"
           class="inline-block rounded bg-coopmaths-action-200 dark:bg-coopmathsdark-action-lightest px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-coopmaths-action dark:text-coopmathsdark-action-dark transition duration-150 ease-in-out hover:bg-coopmaths-action-400 focus:bg-coopmaths-action-400 dark:hover:bg-coopmathsdark-action-light dark:focus:bg-coopmathsdark-action-light focus:outline-none focus:ring-0 active:bg-coopmaths-action-500 dark:active:bg-coopmathsdark-action-light"
-          data-te-modal-dismiss
+          data-twe-modal-dismiss
         >
           Annuler
         </button>
@@ -242,7 +242,7 @@
           on:click={() => {
             handleEndOfRace()
           }}
-          data-te-modal-dismiss
+          data-twe-modal-dismiss
         >
           Terminer
         </button>

@@ -17,7 +17,7 @@
     tick,
   } from 'svelte'
   import { get } from 'svelte/store'
-  import { Collapse, Ripple, initTE } from 'tw-elements'
+  import { Collapse, Ripple, initTWE } from 'tw-elements'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { buildEsParams } from '../../../lib/components/urls'
@@ -96,7 +96,7 @@
 
   onMount(async () => {
     log('Start.svelte onMount')
-    initTE({ Sidenav, Collapse, Ripple })
+    initTWE({ Collapse, Ripple })
     await tick() // globalOptions n'est pas encore initialisé si on n'attend pas
     if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
@@ -494,8 +494,6 @@
               <button
                 type="button"
                 class="group w-full flex flex-row justify-between items-center p-4"
-                data-te-collapse-init
-                data-te-target="#choiceMenuWrapper"
                 aria-expanded="true"
                 aria-controls="choiceMenuWrapper"
               >
@@ -505,14 +503,12 @@
                   Choix des exercices
                 </div>
                 <i
-                  class="bx bxs-up-arrow rotate-0 group-[[data-te-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+                  class="bx bxs-up-arrow rotate-0 group-[[data-twe-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
                 ></i>
               </button>
               <div
                 id="choiceMenuWrapper"
                 class="!visible w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-                data-te-collapse-item
-                data-te-collapse-show
               >
                 <SideMenu {addExercise} />
               </div>

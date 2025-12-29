@@ -1,7 +1,7 @@
 <script lang="ts">
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import { Carousel, initTE } from 'tw-elements'
+  import { Carousel, initTWE } from 'tw-elements'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import Latex, {
     doesLatexNeedsPics,
@@ -208,7 +208,7 @@
   }
 
   onMount(async () => {
-    initTE({ Carousel })
+    initTWE({ Carousel })
     // console.log('onMount')
     promise = initExercices()
       .then(() => updateLatexWithAbortController())
@@ -304,8 +304,8 @@
           <div
             id="carouselExampleSlidesOnly"
             class="relative w-2/3 md:w-full"
-            data-te-carousel-init
-            data-te-ride="carousel"
+            data-twe-carousel-init
+            data-twe-ride="carousel"
           >
             <div
               class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
@@ -313,8 +313,8 @@
               <!-- first item -->
               <div
                 class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item
-                data-te-carousel-active
+                data-twe-carousel-item
+                data-twe-carousel-active
               >
                 <img
                   src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
@@ -325,7 +325,7 @@
               <!-- second item -->
               <div
                 class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-te-carousel-item
+                data-twe-carousel-item
               >
                 <img
                   src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"

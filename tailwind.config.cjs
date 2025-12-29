@@ -20,7 +20,7 @@ const config = {
   darkMode: 'class',
   content: [
     './src/**/*.{html,js,svelte,ts}',
-    './node_modules/tw-elements/dist/js/**/*.js',
+    './node_modules/tw-elements/js/**/*.js',
     './node_modules/glisse-nombre/src/**/*.{html,js,svelte,ts}',
   ],
   safelist: [
@@ -274,7 +274,7 @@ const config = {
     ],
   },
   plugins: [
-    require('tw-elements/dist/plugin.cjs'),
+    require('tw-elements/plugin.cjs'),
     require('daisyui'),
     // Pour les tooltips
     require('@tailwindcss/forms'),
