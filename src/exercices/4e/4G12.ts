@@ -37,7 +37,7 @@ import {
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 import { transfoPoly } from './4G12-1'
-import { CHEMINS_PREDEFINIS } from './4G12-paths'
+import { CHEMINS_PREDEFINIS } from './_4G12-paths'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true

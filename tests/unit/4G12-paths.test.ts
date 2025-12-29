@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CHEMINS_PREDEFINIS } from '../../src/exercices/4e/4G12-paths'
+import { CHEMINS_PREDEFINIS } from '../../src/exercices/4e/_4G12-paths'
 
 const mouvementsValides = new Set([1, -1, 6, -6])
 
