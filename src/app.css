@@ -332,6 +332,7 @@ input[type='range']:focus::-moz-range-track {
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   input[type='range'] {
     -webkit-appearance: none;
+    appearance: none;
   }
 
   /* piste */
@@ -938,9 +939,9 @@ table.tableauMathlive {
       }
     }
     th {
-      @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus bg-coopmaths-struct/40 dark:bg-coopmathsdark-struct/40 text-coopmaths-corpus dark:text-coopmathsdark-corpus p-2 text-center min-w-[75px] m-[3px];
+      @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus bg-coopmaths-struct/40 dark:bg-coopmathsdark-struct/40 text-coopmaths-corpus dark:text-coopmathsdark-corpus p-2 text-center min-w-18.75 m-0.75;
     }
-    @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 m-[3px] text-center;
+    @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 m-0.75 text-center;
   }
   @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus;
 }
