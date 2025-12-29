@@ -39,6 +39,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
       4,
       '1 : Déterminer le résultat après une variation en pourcentage\n2 : Exprimer une variation en pourcentage\n3 : Calculer la valeur initiale en connaissant la variation et la situation finale\n4 : Mélange',
     ]
+    this.besoinFormulaire2CaseACocher = ['calculs faisables mentalement', false]
+    this.sup2 = false
 
     this.nbQuestions = 4
 
@@ -75,11 +77,13 @@ export default class EvolutionsEnPourcentage extends Exercice {
       let texteCorr = ''
       switch (typesDeSituations[i]) {
         case 'prix':
-          depart = choice([
-            randint(11, 99) / 10,
-            randint(11, 99),
-            randint(11, 99) * 10,
-          ])
+          depart = this.sup2
+            ? randint(2, 8) * choice([100, 1000])
+            : choice([
+                randint(11, 99) / 10,
+                randint(11, 99),
+                randint(11, 99) * 10,
+              ])
           taux = choice([10, 20, 30, 40, 60])
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
@@ -136,21 +140,27 @@ export default class EvolutionsEnPourcentage extends Exercice {
           // Multiple de 50 et multiple de 2%
           // Multiple de 20 et multiple de 5%
           // Multiple de 100 et n%
-          switch (randint(1, 3)) {
-            case 1:
-              depart = 50 * randint(7, 24)
-              taux = 2 * randint(1, 5)
-              break
-            case 2:
-              depart = 20 * randint(17, 60)
-              taux = 5 * randint(1, 3)
-              break
-            case 3:
-            default:
-              depart = 100 * randint(4, 12)
-              taux = randint(1, 11)
-              break
+          if (this.sup2) {
+            depart = 100 * randint(4, 12)
+            taux = 2 * randint(1, 5)
+          } else {
+            switch (randint(1, 3)) {
+              case 1:
+                depart = 50 * randint(7, 24)
+                taux = 2 * randint(1, 5)
+                break
+              case 2:
+                depart = 20 * randint(17, 60)
+                taux = 5 * randint(1, 3)
+                break
+              case 3:
+              default:
+                depart = 100 * randint(4, 12)
+                taux = randint(1, 11)
+                break
+            }
           }
+
           arrive = depart * (1 + taux / 100)
           coeff = texNombre(1 + taux / 100)
           date = new Date()
@@ -205,8 +215,8 @@ export default class EvolutionsEnPourcentage extends Exercice {
           }
           break
         case 'facture':
-          depart = randint(700, 1400)
-          taux = randint(1, 12)
+          depart = this.sup2 ? randint(7, 14) * 100 : randint(700, 1400)
+          taux = this.sup2 ? randint(1, 2) * 10 : randint(1, 12)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
           arrive = depart * (1 + taux / 100)
@@ -267,8 +277,10 @@ export default class EvolutionsEnPourcentage extends Exercice {
           break
         case 'population':
         default:
-          depart = choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
-          taux = randint(5, 35)
+          depart = this.sup2
+            ? randint(10, 90) * 1000
+            : choice([randint(11, 99) * 1000, randint(11, 99) * 10000])
+          taux = this.sup2 ? randint(1, 3) * 10 : randint(5, 35)
           taux *= choice([-1, 1])
           coeff = texNombre(1 + taux / 100)
           arrive = depart * (1 + taux / 100)
