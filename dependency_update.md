@@ -26,5 +26,4 @@ Ce qu'il reste à mettre à jour
 | svelte | ^5.0.0 → ^5.46.0 | ❌ | Tests failed, small upgrade for peer compatibility |
 | tailwindcss | ^3.4.17 | ❌ | Tests failed, reverted (major v4 update) |
 | vite | ^5.4.21 | ❌ | Tests failed, reverted (major v7 update) |
-| vite-plugin-generate-file | 0.2.0 | ❌ | Tests failed, reverted |
 | vitest | ^1.6.1 | ❌ | Tests failed, reverted (major v4 update) |

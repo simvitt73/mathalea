@@ -167,7 +167,7 @@
     "util": "^0.12.5",
     "vite": "^5.4.21",
     "vite-plugin-dynamic-import": "^1.6.0",
-    "vite-plugin-generate-file": "0.2.0",
+    "vite-plugin-generate-file": "0.3.1",
     "vitest": "^1.6.1"
   },
   "git-precommit-checks": {
