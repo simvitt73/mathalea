@@ -4,7 +4,7 @@
   import type { IExercice } from '../../../lib/types'
 
   import Latex from '../../../lib/Latex'
-  import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
+  import { mathaleaGetExercicesFromParams } from '../../../lib/mathalea'
   import { exercicesParams } from '../../../lib/stores/generalStore'
   import { context } from '../../../modules/context'
   import PdfResult from './PdfResult.svelte'
@@ -45,8 +45,10 @@
 
   onMount(async () => {
     const exoParam = $exercicesParams[indiceExercice]
-    exercice = await mathaleaLoadExerciceFromUuid(exoParam.uuid)
-    if (!exercice) return
+    if (!exoParam) return
+    const exercices = await mathaleaGetExercicesFromParams([exoParam])
+    if (!exercices || exercices.length === 0) return
+    exercice = exercices[0]
     exercice.seed = exoParam.alea
     latex.addExercices([exercice])
     ready = true
