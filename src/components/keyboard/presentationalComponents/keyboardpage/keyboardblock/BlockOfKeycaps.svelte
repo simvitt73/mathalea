@@ -22,10 +22,11 @@
   >
     {#if isInLine}
       <div
-        class="grid grid-cols-{block.keycaps.inline.length} customgap h-full"
-        style="--gapsize:{gapsize};"
+        class="grid customgap h-full"
+        style="grid-template-columns: repeat({block.keycaps.inline
+          .length}, minmax(0, 1fr)); --gapsize:{gapsize};"
       >
-        {#each block.keycaps.inline as key (key)}
+        {#each block.keycaps.inline as key, index (key + '_' + index)}
           <Key
             keyName={key}
             key={keys[key]}
@@ -38,10 +39,10 @@
       </div>
     {:else}
       <div
-        class="grid grid-cols-{block.cols} customgap h-full"
-        style="--gapsize:{gapsize};"
+        class="grid customgap h-full"
+        style="grid-template-columns: repeat({block.cols}, minmax(0, 1fr)); --gapsize:{gapsize};"
       >
-        {#each block.keycaps.block as key (key)}
+        {#each block.keycaps.block as key, index (key + '_' + index)}
           <Key
             keyName={key}
             key={keys[key]}

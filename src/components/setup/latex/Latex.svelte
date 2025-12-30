@@ -1,7 +1,6 @@
 <script lang="ts">
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import { Carousel, initTWE } from 'tw-elements'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import Latex, {
     doesLatexNeedsPics,
@@ -32,6 +31,7 @@
   import NavBar from '../../shared/header/NavBar.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
+  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
 
@@ -69,6 +69,12 @@
     ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
     Can: 'images/exports/export-can',
   }
+
+  $: carouselImages = [
+    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`, alt: `${latexFileInfos.style} image-1` },
+    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`, alt: `${latexFileInfos.style} image-2` }
+  ]
+
   let dialogLua: HTMLDialogElement
   let exercices: IExercice[]
   let latexFile: latexFileType = {
@@ -208,7 +214,6 @@
   }
 
   onMount(async () => {
-    initTWE({ Carousel })
     // console.log('onMount')
     promise = initExercices()
       .then(() => updateLatexWithAbortController())
@@ -301,39 +306,8 @@
         </div>
         <!-- Carousel de vignette pour les aperçus -->
         <div class="flex justify-center w-full md:w-1/3">
-          <div
-            id="carouselExampleSlidesOnly"
-            class="relative w-2/3 md:w-full"
-            data-twe-carousel-init
-            data-twe-ride="carousel"
-          >
-            <div
-              class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
-            >
-              <!-- first item -->
-              <div
-                class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-twe-carousel-item
-                data-twe-carousel-active
-              >
-                <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}"
-                  alt="{latexFileInfos.style} image-1"
-                  class="block h-auto w-full rounded-r-lg"
-                />
-              </div>
-              <!-- second item -->
-              <div
-                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                data-twe-carousel-item
-              >
-                <img
-                  src="{`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}"
-                  alt="{latexFileInfos.style} image-2"
-                  class="block h-auto w-full rounded-r-lg"
-                />
-              </div>
-            </div>
+          <div class="relative w-2/3 md:w-full">
+            <ImageCarousel images={carouselImages} interval={3000} />
           </div>
         </div>
       </div>

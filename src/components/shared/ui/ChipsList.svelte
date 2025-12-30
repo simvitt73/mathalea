@@ -67,6 +67,7 @@
     <button
       class="absolute -right-3 -top-3"
       type="button"
+      aria-label="Fermer la liste"
       on:click={() => {
         chipsListDisplayed = false
       }}

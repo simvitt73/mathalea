@@ -1,7 +1,6 @@
 <script lang="ts">
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
-  import { Carousel, initTWE } from 'tw-elements'
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import { mathaleaGetExercicesFromParams } from '../../../lib/mathalea.js'
@@ -16,6 +15,7 @@
   import FormConfigIndividual from '../../shared/forms/FormConfigIndividual.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
+  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
   import PdfResult from './PdfResult.svelte'
@@ -60,6 +60,12 @@
     ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
     Can: 'images/exports/export-can',
   }
+
+  $: carouselImages = [
+    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`, alt: `${latexFileInfos.style} image-1` },
+    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`, alt: `${latexFileInfos.style} image-2` }
+  ]
+
   let exercices: IExercice[]
   let isExerciceStaticInTheList = false
   let promise: Promise<void>
@@ -191,7 +197,6 @@
   }
 
   onMount(async () => {
-    initTWE({ Carousel })
     await initExercices()
     promise = updateLatexWithAbortController().catch((err) => {
       if (err.name === 'AbortError') {
@@ -316,42 +321,10 @@
                 </div>
                 <!-- Carousel de vignette pour les aperçus -->
                 <div class="flex justify-center w-full md:w-1/3">
-                  <div
-                    id="carouselExampleSlidesOnly"
-                    class="relative w-2/3 md:w-full"
-                    data-twe-carousel-init
-                    data-twe-ride="carousel"
-                  >
-                    <div
-                      class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
-                    >
-                      <!-- first item -->
-                      <div
-                        class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                        data-twe-carousel-item
-                        data-twe-carousel-active
-                      >
-                        <img
-                          src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}
-                          alt="{latexFileInfos.style} image-1"
-                          class="block h-auto w-full rounded-r-lg max-w-[200px]"
-                        />
-                      </div>
-                      <!-- second item -->
-                      <div
-                        class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
-                        data-twe-carousel-item
-                      >
-                        <img
-                          src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}
-                          alt="{latexFileInfos.style} image-2"
-                          class="block h-auto w-full rounded-r-lg"
-                        />
-                      </div>
-                    </div>
+                  <div class="relative w-2/3 md:w-full max-w-[200px]">
+                    <ImageCarousel images={carouselImages} interval={3000} />
                   </div>
                 </div>
-                <!-- fin carousel -->
               </div>
 
               <SimpleCard icon={''} title={'Éléments de titres'} class="mb-4">

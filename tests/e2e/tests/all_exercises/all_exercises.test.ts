@@ -75,9 +75,8 @@ vi.mock('apigeom', async (original) => {
   return real
 })
 
-const { mathaleaLoadExerciceFromUuid } = await import(
-  '../../../../src/lib/mathalea'
-)
+const { mathaleaLoadExerciceFromUuid } =
+  await import('../../../../src/lib/mathalea')
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
@@ -547,7 +546,7 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   }
 } else {
   // testRunAllLots('2e/2F22-1')
-  testRunAllLots('6e/6N3H-1')
+  testRunAllLots('1e/1AN14-3')
   // testRunAllLots('4e/4G52')
 
   // testRunAllLots('techno1')

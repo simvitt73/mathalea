@@ -18,14 +18,13 @@ text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
 <div class="flex flex-row justify-start items-center px-4">
   <div
     class="flex flex-col items-start justify-start space-y-2 text-sm font-light
-    text-coopmaths-corpus-light dark:text-coopmathsdark-corpus
     {canOptions.isChoosen
-      ? 'text-opacity-100 dark:text-opacity-100'
-      : 'text-opacity-10 dark:text-opacity-10'}"
+      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
   >
     <ButtonToggleAlt
       title={'Format CAN'}
-      class="text-opacity-100 dark:text-opacity-100"
+      class=""
       id={'config-eleve-format-can-toggle'}
       bind:value={canOptions.isChoosen}
       on:toggle={toggleCan}

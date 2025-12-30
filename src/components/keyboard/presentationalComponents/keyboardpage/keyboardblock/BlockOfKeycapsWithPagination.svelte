@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { getUniqueStringBasedOnTimeStamp } from '../../../../../lib/components/time'
-  import BlockOfKeycaps from './BlockOfKeycaps.svelte'
-  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../../lib/sizes'
-  import type { KeyCap } from '../../../types/keycap'
   import { keyboardBlocks } from '../../../layouts/keysBlocks'
+  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../../lib/sizes'
+  import type { KeyboardBlock } from '../../../types/keyboardContent'
+  import type { KeyCap } from '../../../types/keycap'
+  import BlockOfKeycaps from './BlockOfKeycaps.svelte'
   export let blocksList: KeyboardBlock[] = [
     keyboardBlocks.lengths,
     keyboardBlocks.areas,
@@ -40,7 +40,6 @@
       style="--blockgapsize:{blockgapsize}"
       id="keysblocknav-{getUniqueStringBasedOnTimeStamp()}"
       role="tablist"
-      data-twe-nav-ref
     >
       {#each blocksList as block}
         <li role="presentation">
@@ -74,7 +73,7 @@
         <div
           class="{currentBlock === toRegularCharacters(block.title)
             ? 'flex opacity-100'
-            : 'hidden opacity-0'} transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+            : 'hidden opacity-0'} transition-opacity duration-150 ease-linear"
           id="tabs-{toRegularCharacters(block.title)}"
           role="tabpanel"
           aria-labelledby="tabs-{toRegularCharacters(block.title)}-tab"

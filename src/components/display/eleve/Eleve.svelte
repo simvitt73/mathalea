@@ -484,10 +484,7 @@
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode ===
-        'un_exo_par_page'
-          ? $exercicesParams.length
-          : questions.length}
+        class="grid justify-items-center w-full mt-4 mb-8
           {($globalOptions.presMode === 'un_exo_par_page' &&
           !$isMenuNeededForExercises) ||
         ($globalOptions.presMode === 'une_question_par_page' &&
@@ -495,6 +492,10 @@
           ? 'border-b-2 border-coopmaths-struct'
           : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
+        style="grid-template-columns: repeat({$globalOptions.presMode ===
+        'un_exo_par_page'
+          ? $exercicesParams.length
+          : questions.length}, minmax(0, 1fr));"
       >
         {#if $globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises}
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}

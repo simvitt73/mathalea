@@ -27,7 +27,7 @@
       isDisplayed = false
       dispatch('close')
     }}
-    class="rounded-xl
+    class="m-auto rounded-xl
       w-full md:w-2/3 xl:w-1/2
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >

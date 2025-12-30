@@ -144,7 +144,6 @@ class LireImageParApiGeom extends Exercice {
       index++
     }
     for (let i = 0; i < this.nbImages; i++) {
-      //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, '', { texteApres: '  ' }) + '<br>'
       const image = spline.fonction(this.X[i])
       this.Y[i] = Math.round(10 * Number(image)) / 10
     }

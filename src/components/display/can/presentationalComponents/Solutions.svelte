@@ -195,6 +195,7 @@
               {#if resultsByQuestion[i]}
                 <button
                   type="button"
+                  aria-label="Afficher la correction"
                   on:click={() => {
                     solutionDisplayed[i] = !solutionDisplayed[i]
                   }}

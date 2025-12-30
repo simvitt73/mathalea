@@ -14,7 +14,7 @@
   }
 </script>
 
-<button on:click={monter} class={indice === 0 ? 'hidden md:invisible' : ''}>
+<button on:click={monter} aria-label="Monter l'exercice" class={indice === 0 ? 'hidden md:invisible' : ''}>
   <i
     class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-up-arrow-circle"
   ></i>

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import tailwindcss from '@tailwindcss/vite'
 import generateFile from 'vite-plugin-generate-file'
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -51,6 +52,7 @@ export default defineConfig({
     __REACT_DEVTOOLS_GLOBAL_HOOK__: JSON.stringify({ isDisabled: true })
   },
   plugins: [
+    tailwindcss(),
     svelte({
       compilerOptions: {
         dev: process.env.NODE_ENV !== 'production'

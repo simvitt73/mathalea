@@ -17,7 +17,6 @@
     tick,
   } from 'svelte'
   import { get } from 'svelte/store'
-  import { Collapse, Ripple, initTWE } from 'tw-elements'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import { qcmCamExportAll } from '../../../lib/amc/qcmCam'
   import { buildEsParams } from '../../../lib/components/urls'
@@ -72,6 +71,7 @@
   let isMd: boolean
   let localeValue: Language = get(referentielLocale)
   let isSidenavOpened: boolean = true
+  let isMobileMenuOpen: boolean = true
 
   const unsubscribeToReferentielLocale = referentielLocale.subscribe(
     (value) => {
@@ -96,7 +96,6 @@
 
   onMount(async () => {
     log('Start.svelte onMount')
-    initTWE({ Collapse, Ripple })
     await tick() // globalOptions n'est pas encore initialisé si on n'attend pas
     if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
@@ -494,8 +493,9 @@
               <button
                 type="button"
                 class="group w-full flex flex-row justify-between items-center p-4"
-                aria-expanded="true"
+                aria-expanded={isMobileMenuOpen}
                 aria-controls="choiceMenuWrapper"
+                on:click={() => isMobileMenuOpen = !isMobileMenuOpen}
               >
                 <div
                   class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
@@ -503,15 +503,17 @@
                   Choix des exercices
                 </div>
                 <i
-                  class="bx bxs-up-arrow rotate-0 group-[[data-twe-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+                  class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isMobileMenuOpen ? 'rotate-0' : 'rotate-180'}"
                 ></i>
               </button>
-              <div
-                id="choiceMenuWrapper"
-                class="!visible w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-              >
-                <SideMenu {addExercise} />
-              </div>
+              {#if isMobileMenuOpen}
+                <div
+                  id="choiceMenuWrapper"
+                  class="w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+                >
+                  <SideMenu {addExercise} />
+                </div>
+              {/if}
             </div>
             <!-- Barre de boutons en mode smartphone -->
             <!--<div

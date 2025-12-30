@@ -34,6 +34,7 @@
   import { context } from '../../../modules/context'
   import { statsCanTracker } from '../../../modules/stats'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import ButtonToggleDarkMode from '../../shared/forms/ButtonToggleDarkMode.svelte'
   import CountDown from './presentationalComponents/CountDown.svelte'
   import End from './presentationalComponents/End.svelte'
   import KickOff from './presentationalComponents/KickOff.svelte'
@@ -525,20 +526,6 @@
     />
   {/if}
   <div class="fixed flex bottom-2 right-2">
-    <label
-      class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-    >
-      <!-- this hidden checkbox controls the state -->
-      <input
-        id="hidden-checkbox-for-darkmode"
-        type="checkbox"
-        class="invisible"
-        bind:checked={$darkMode.isActive}
-      />
-      <!-- sun icon -->
-      <div class="swap-on"><i class="bx bx-sm bx-sun"></i></div>
-      <!-- moon icon -->
-      <div class="swap-off"><i class="bx bx-sm bx-moon"></i></div>
-    </label>
+    <ButtonToggleDarkMode />
   </div>
 </div>

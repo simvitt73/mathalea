@@ -14,25 +14,28 @@
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  // pour les tabs
-  import { Tab, initTWE } from 'tw-elements'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import Tabs from '../../shared/ui/Tabs.svelte'
+
+  $: activeTab = $canOptions.isChoosen ? 'can' : 'classic'
+
+  const tabs = [
+    { id: 'classic', label: 'Présentation classique', ariaControls: 'tabs-pres-classic' },
+    { id: 'can', label: 'Course aux nombres', ariaControls: 'tabs-pres-can' },
+  ]
+
+  function handleTabChange(e: CustomEvent<string>) {
+    if (e.detail === 'classic') {
+      $canOptions.isChoosen = false
+    } else {
+      $canOptions.isChoosen = true
+      toggleCan()
+    }
+  }
 
   onMount(() => {
-    initTWE({ Tab })
-    // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     handleSeed()
-    const btnElementId = $canOptions.isChoosen
-      ? 'tabs-pres-can-btn'
-      : 'tabs-pres-classic-btn'
-    const tabElementId = $canOptions.isChoosen
-      ? 'tabs-pres-can'
-      : 'tabs-pres-classic'
-    const btnElement = document.getElementById(btnElementId)
-    const tabElement = document.getElementById(tabElementId)
-    btnElement?.setAttribute('data-twe-nav-active', '')
-    tabElement?.setAttribute('data-twe-tab-active', '')
   })
 
   const availableLinkFormats = {
@@ -126,60 +129,14 @@
         </h3>
       </div>
       <!-- Tabulations pour la présentation -->
-      <ul
-        class="flex list-none flex-row flex-wrap border-b-0 pl-0 pt-0 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas"
-        role="tablist"
-        data-twe-nav-ref
-      >
-        <li role="presentation" class="flex-grow basis-0 text-center">
-          <a
-            id="tabs-pres-classic-btn"
-            href="#tabs-pres-classic"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {$canOptions.isChoosen
-              ? ' hover:bg-opacity-10'
-              : ' hover:bg-opacity-0'}"
-            data-twe-toggle="pill"
-            data-twe-target="#tabs-pres-classic"
-            role="tab"
-            aria-controls="tabs-pres-classic"
-            aria-selected="true"
-            on:click={() => {
-              $canOptions.isChoosen = false
-            }}
-          >
-            Présentation classique
-          </a>
-        </li>
-        <li role="presentation" class="flex-grow basis-0 text-center">
-          <a
-            id="tabs-pres-can-btn"
-            href="#tabs-pres-can"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {$canOptions.isChoosen
-              ? ' hover:bg-opacity-0'
-              : ' hover:bg-opacity-10'}"
-            data-twe-toggle="pill"
-            data-twe-target="#tabs-pres-can"
-            role="tab"
-            aria-controls="tabs-pres-can"
-            aria-selected="false"
-            on:click={() => {
-              $canOptions.isChoosen = true
-              toggleCan()
-            }}
-          >
-            Course aux nombres
-          </a>
-        </li>
-      </ul>
+      <Tabs {tabs} {activeTab} on:change={handleTabChange} />
       <!-- Pages des réglages -->
       <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {activeTab === 'classic' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-pres-classic"
           role="tabpanel"
-          aria-labelledby="tabs-pres-classic"
+          aria-labelledby="tabs-pres-classic-btn"
         >
           <!-- Présentation classique -->
           <div
@@ -198,14 +155,14 @@
                 class="pl-4 pb-4 w-full flex flex-row justify-start items-center space-x-2"
               >
                 <div
-                  class="text-sm font-light w-1/4 text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-70 dark:text-opacity-70"
+                  class="text-sm font-light w-1/4 text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70"
                 >
                   Titre :
                 </div>
                 <input
                   type="text"
                   id="config-eleve-titre-input"
-                  class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border disabled:border-opacity-10 dark:disabled:border-opacity-10 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
+                  class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border disabled:border-coopmaths-action/10 dark:disabled:border-coopmathsdark-action/10 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
                   bind:value={$globalOptions.title}
                 />
                 <div
@@ -315,10 +272,10 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {activeTab === 'can' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-pres-can"
           role="tabpanel"
-          aria-labelledby="tabs-pres-can"
+          aria-labelledby="tabs-pres-can-btn"
         >
           <!-- Can -->
           <div
@@ -339,23 +296,23 @@
               >
                 <div class="flex justify-start flex-row items-center space-x-2">
                   <div
-                    class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
-                      ? 'text-opacity-100 dark:text-opacity-100'
-                      : 'text-opacity-10 dark:text-opacity-10'}"
+                    class="text-sm font-light {$canOptions.isChoosen
+                      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+                      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
                     Durée :
                   </div>
                   <input
                     type="number"
                     id="config-eleve-can-duration-input"
-                    class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
+                    class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
                     bind:value={$canOptions.durationInMinutes}
                     disabled={!$canOptions.isChoosen}
                   />
                   <div
-                    class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
-                      ? 'text-opacity-100 dark:text-opacity-100'
-                      : 'text-opacity-10 dark:text-opacity-10'}"
+                    class="text-sm font-light {$canOptions.isChoosen
+                      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+                      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
                     minute{$canOptions.durationInMinutes !== undefined &&
                     $canOptions.durationInMinutes > 1
@@ -365,16 +322,16 @@
                 </div>
                 <div class="flex justify-start flex-row items-center space-x-2">
                   <div
-                    class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
-                      ? 'text-opacity-100 dark:text-opacity-100'
-                      : 'text-opacity-10 dark:text-opacity-10'}"
+                    class="text-sm font-light {$canOptions.isChoosen
+                      ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
+                      : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
                     Sous-titre :
                   </div>
                   <input
                     type="text"
-                    id="config-eleve-can-duration-input"
-                    class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
+                    id="config-eleve-can-subtitle-input"
+                    class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
                     bind:value={$canOptions.subTitle}
                     disabled={!$canOptions.isChoosen}
                   />

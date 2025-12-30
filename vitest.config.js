@@ -10,5 +10,10 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     testTimeout: 300000,
+    server: {
+      deps: {
+        inline: ['@cortex-js/compute-engine'],
+      },
+    },
   },
 })

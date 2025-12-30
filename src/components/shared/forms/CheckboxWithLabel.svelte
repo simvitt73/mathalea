@@ -16,10 +16,9 @@
     class="w-4 h-4 rounded
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
       {isDisabled
-      ? 'border-opacity-20 dark:border-opacity-20'
-      : 'cursor-pointer'}
-      border-coopmaths-action dark:border-coopmathsdark-action
-      text-coopmaths-action dark:text-coopmathsdark-action
+      ? 'border-coopmaths-action/20 dark:border-coopmathsdark-action/20'
+      : 'border-coopmaths-action dark:border-coopmathsdark-action cursor-pointer'}
+      checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
       focus:ring-3
       focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action"
     bind:checked={isChecked}
@@ -29,10 +28,9 @@
   <label
     for={id}
     class="ml-3 text-sm
-      text-coopmaths-corpus dark:text-coopmathsdark-corpus
       {isDisabled
-      ? 'text-opacity-20 dark:text-opacity-20'
-      : 'text-opacity-70 dark:text-opacity-70 cursor-pointer'}
+      ? 'text-coopmaths-corpus/20 dark:text-coopmathsdark-corpus/20'
+      : 'text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70 cursor-pointer'}
       {isChecked ? 'font-semibold' : 'font-light'}"
   >
     {label}

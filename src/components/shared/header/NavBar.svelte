@@ -1,12 +1,12 @@
 <script lang="ts">
   import { mathaleaGoToView } from '../../../lib/mathaleaUtils'
-  import { darkMode } from '../../../lib/stores/generalStore'
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import {
     VUES_WITH_LANG_STATUS_ONLY,
     type Language,
   } from '../../../lib/types/languages'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
+  import ButtonToggleDarkMode from '../forms/ButtonToggleDarkMode.svelte'
   import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
@@ -119,18 +119,7 @@
           </button>
         </div>
       {/if}
-      <button
-        type="button"
-        class="text-coopmaths-action dark:text-coopmathsdark-action
-          hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-        on:click={() => ($darkMode.isActive = !$darkMode.isActive)}
-      >
-        {#if $darkMode.isActive}
-          <i class="bx bx-sm bx-sun"></i>
-        {:else}
-          <i class="bx bx-sm bx-moon"></i>
-        {/if}
-      </button>
+      <ButtonToggleDarkMode />
       <ButtonIcon
         icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"

@@ -42,9 +42,8 @@
     class="font-light text-xs pr-4
       {showTitle ? 'block' : 'hidden'}
       {isDisabled
-      ? 'text-opacity-10 dark:text-opacity-10'
-      : 'text-opacity-100 dark:text-opacity-100'}
-      text-coopmaths-struct dark:text-coopmathsdark-struct"
+      ? 'text-coopmaths-struct/10 dark:text-coopmathsdark-struct/10'
+      : 'text-coopmaths-struct dark:text-coopmathsdark-struct'}"
     for={inputID}
   >
     {title}

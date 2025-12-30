@@ -1,12 +1,12 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+  import { getUniqueStringBasedOnTimeStamp } from '../../../../../../../lib/components/time'
   import {
     FILTER_SECTIONS_TITLES,
     type FilterType,
   } from '../../../../../../../lib/types'
   import type { Level } from '../../../../../../../lib/types/referentiels'
   import { allFilters, filtersHaveChanged } from '../../filtersStore'
-  import { getUniqueStringBasedOnTimeStamp } from '../../../../../../../lib/components/time'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()
   const dispatch = createEventDispatcher()
@@ -73,7 +73,10 @@
             id="checkbox-{key}-{i}-{timeTag}"
             aria-describedby="checkbox-{key}-{i}-{timeTag}"
             type="checkbox"
-            class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-0 rounded"
+            class="w-3 h-3 rounded cursor-pointer
+              border-coopmaths-action dark:border-coopmathsdark-action
+              checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
+              focus:outline-none focus:ring-0 focus:ring-offset-0"
             value={key}
             bind:checked={filter.isSelected}
             on:change={() => {
@@ -83,7 +86,9 @@
           />
           <label
             for="checkbox-{key}-{i}-{timeTag}"
-            class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+            class="ml-2 text-xs cursor-pointer
+              text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70
+              {filter.isSelected ? 'font-semibold' : 'font-light'}"
           >
             {filter.title}
           </label>

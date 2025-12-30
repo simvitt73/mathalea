@@ -34,8 +34,11 @@ pnpm test:src      # Tests in src/
 
 # e2e test with dev server (starts server, runs test, stops server)
 ./tasks/run-e2e-test.sh consistency   # consistency test
-./tasks/run-e2e-test.sh views         # views test
+./tasks/run-e2e-test.sh view          # views test
 ./tasks/run-e2e-test.sh interactivity # interactivity test
+
+# Run a single test file (with a dev server already running)
+pnpm vitest <path-to-test-file> --run
 
 # Generate exercise reference JSON (auto-runs with dev/build)
 pnpm run makeJson

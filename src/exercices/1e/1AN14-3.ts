@@ -1,4 +1,5 @@
 import type { BoxedExpression } from '@cortex-js/compute-engine'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine, {
   functionCompare,
 } from '../../lib/interactif/comparisonFunctions'
@@ -255,7 +256,7 @@ export default class DeriveePoly extends Exercice {
       if (this.interactif) {
         texte +=
           `<br>${useFraction ? '<br>' : ''}` +
-          ajouteChampTexteMathLive(this, i, '', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
             texteAvant: `$${nameF}'(x)=$`,
           }) +
           '<br>'

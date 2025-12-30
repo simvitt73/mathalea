@@ -925,26 +925,29 @@ function customCanonical(
   }
   // Fonctionnement par défaut : Tout est accepté si l'expression est un nombre
   // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
-  if (typeof expression.value === 'number') {
+  // Note: depuis compute-engine v0.30, .value ne retourne plus un number directement.
+  // On utilise .canonical.N().numericValue pour vérifier si l'expression est numérique.
+  const numericVal = expression.canonical.N().numericValue
+  if (numericVal !== null) {
     // L'expression est une expression numérique, les expressions littérales ne sont pas traitées ici
     if (fractionIrreductible) {
       if (
         (expression.operator === 'Divide' ||
           expression.operator === 'Rational') && // L'expression contient une division ou une fraction fractionIrreductible
         (expression.engine.box(['GCD', expression.op1, expression.op2])
-          .value !== 1 ||
-          expression.op2.value === 1)
+          .evaluate().numericValue !== 1 ||
+          expression.op2.numericValue === 1)
       )
         return expression
 
       if (expression.operator === 'Number') {
         // Ce cas est si un élève note 1.4 pour une fraction de 7/5 par exemple.
-        return engine.parse(`\\frac{${expression.value}}{1}`, {
+        return engine.parse(`\\frac{${Number(numericVal)}}{1}`, {
           canonical: false,
         })
       }
     }
-    return expression.engine.number(expression.value)
+    return expression.engine.number(Number(numericVal))
   }
   /* Supprimé depuis la création de expressionNumerique
   if (expressionsForcementReduites) {
@@ -970,7 +973,7 @@ function customCanonical(
   */
   if (expression.operator === 'Divide' || expression.operator === 'Rational') {
     // Pour enlever les divisions éventuelles par 1
-    if (expression.op2.value === 1) expression = expression.op1
+    if (expression.op2.numericValue === 1) expression = expression.op1
   }
 
   // Ne pas prendre en compte les indices comme c_{n} // Sans doute plus du tout utile depuis l'introduction de l'option calculFormel
@@ -1039,10 +1042,14 @@ function comparaisonFraction(
     // if (!(reponseNativeParsed.operator === 'Number' || (reponseNativeParsed.operator === 'Negate' && reponseNativeParsed.ops !== null && reponseNativeParsed.ops.length === 1))) return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
   }
 
+  // Note: depuis compute-engine v0.30, .value retourne undefined pour les fractions.
+  // On utilise .canonical.N().numericValue pour obtenir la valeur numérique.
   const reponseParsed = reponseNativeParsed.engine.number(
-    Number(reponseNativeParsed.value),
+    Number(reponseNativeParsed.canonical.N().numericValue),
   ) // Ici, c'est la valeur numérique (même approchée) de cleanGoodAnswer.
-  if (saisieNativeParsed.isEqual(reponseNativeParsed)) {
+  // Note: depuis compute-engine v0.30, isEqual sur des expressions non-canoniques
+  // compare la structure et non la valeur. On utilise .canonical pour comparer les valeurs.
+  if (saisieNativeParsed.canonical.isEqual(reponseNativeParsed.canonical)) {
     if (fractionIdentique) {
       if (saisieNativeParsed.isSame(reponseNativeParsed))
         return { isOk: true, feedback: '' }
@@ -1111,11 +1118,13 @@ function comparaisonFraction(
       if (
         ((saisieNativeParsed.operator === 'Divide' ||
           saisieNativeParsed.operator === 'Rational') &&
+          // Note: depuis compute-engine v0.30, .value retourne undefined pour les expressions.
+          // On utilise .evaluate().numericValue pour obtenir la valeur du GCD.
           saisieNativeParsed.engine.box([
             'GCD',
             saisieNativeParsed.op1,
             saisieNativeParsed.op2,
-          ]).value === 1) ||
+          ]).evaluate().numericValue === 1) ||
         saisieNativeParsed.canonical.isInteger
       ) {
         return { isOk: true }
@@ -2879,7 +2888,7 @@ export function checkLeCompteEstBon( // Ne fonctionne que si numbers est un tabl
     canonical: false,
   }) as BoxedExpression
   const value = answer.value
-  if (value !== target) {
+  if (value === undefined || Number(value) !== target) {
     return {
       isOk: false,
       feedback: `L'expression vaut ${value} et non ${target}.`,

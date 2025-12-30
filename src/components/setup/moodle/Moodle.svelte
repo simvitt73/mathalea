@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
-  import { Tab, initTWE } from 'tw-elements'
   import type TypeExercice from '../../../exercices/Exercice'
   import {
     mathaleaGetExercicesFromParams,
@@ -12,13 +10,9 @@
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  // pour les tabs
+  import Tabs from '../../shared/ui/Tabs.svelte'
   import { saveAs } from 'file-saver'
   import JSZip from 'jszip'
-
-  onMount(() => {
-    initTWE({ Tab })
-  })
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
@@ -144,7 +138,6 @@
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     if (exercices.length === 0) {
       tab = 'bookmarklet'
-      document.getElementById('tabs-bookmarklet-btn')?.click()
       justBookmarklet = true
     }
     let i = 0
@@ -269,6 +262,18 @@
   }
 
   let tab = 'gift'
+
+  $: moodleTabs = justBookmarklet
+    ? [{ id: 'bookmarklet', label: 'Marque-page magique', ariaControls: 'tabs-bookmarklet' }]
+    : [
+        { id: 'gift', label: 'Export Gift (Quiz)', ariaControls: 'tabs-gift' },
+        { id: 'scorm', label: 'Export SCORM', ariaControls: 'tabs-scorm' },
+        { id: 'bookmarklet', label: 'Marque-page magique', ariaControls: 'tabs-bookmarklet' },
+      ]
+
+  function handleTabChange(e: CustomEvent<string>) {
+    tab = e.detail
+  }
 </script>
 
 <main
@@ -300,79 +305,14 @@
       </div>
       -->
       <!-- Tabulations pour la présentation -->
-      <ul
-        class="flex list-none flex-row flex-wrap border-b-0 pl-0 pt-0 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas"
-        role="tablist"
-        data-twe-nav-ref
-      >
-        {#if !justBookmarklet}
-          <li role="presentation" class="flex-grow basis-0 text-center">
-            <a
-              id="tabs-gift-btn"
-              href="#tabs-gift"
-              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {tab === 'gift' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
-              data-twe-toggle="pill"
-              data-twe-target="#tabs-gift"
-              role="tab"
-              aria-controls="tabs-gift"
-              aria-selected="true"
-              data-twe-nav-active=""
-              on:click={() => {
-                tab = 'gift'
-              }}
-            >
-              Export Gift (Quiz)
-            </a>
-          </li>
-          <li role="presentation" class="flex-grow basis-0 text-center">
-            <a
-              id="tabs-scorm-btn"
-              href="#tabs-scorm"
-              class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {tab === 'scorm' ? ' hover:bg-opacity-0' : ' hover:bg-opacity-10'}"
-              data-twe-toggle="pill"
-              data-twe-target="#tabs-scorm"
-              role="tab"
-              aria-controls="tabs-scorm"
-              aria-selected="false"
-              on:click={() => {
-                tab = 'scorm'
-              }}
-            >
-              Export SCORM
-            </a>
-          </li>
-        {/if}
-        <li role="presentation" class="flex-grow basis-0 text-center">
-          <a
-            id="tabs-bookmarklet-btn"
-            href="#tabs-bookmarklet"
-            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[twe-nav-active]:bg-coopmaths-canvas data-[twe-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[twe-nav-active]:bg-coopmathsdark-canvas dark:data-[twe-nav-active]:text-coopmathsdark-struct
-            {tab === 'bookmarklet'
-              ? ' hover:bg-opacity-0'
-              : ' hover:bg-opacity-10'}"
-            data-twe-toggle="pill"
-            data-twe-target="#tabs-bookmarklet"
-            role="tab"
-            aria-controls="tabs-bookmarklet"
-            aria-selected="false"
-            on:click={() => {
-              tab = 'bookmarklet'
-            }}
-          >
-            Marque-page magique
-          </a>
-        </li>
-      </ul>
+      <Tabs tabs={moodleTabs} activeTab={tab} on:change={handleTabChange} />
       <!-- Pages des réglages -->
       <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {tab === 'gift' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-gift"
           role="tabpanel"
-          aria-labelledby="tabs-gift"
-          data-twe-tab-active=""
+          aria-labelledby="tabs-gift-btn"
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -476,10 +416,10 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {tab === 'scorm' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-scorm"
           role="tabpanel"
-          aria-labelledby="tabs-scorm"
+          aria-labelledby="tabs-scorm-btn"
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -546,10 +486,10 @@
           </div>
         </div>
         <div
-          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[twe-tab-active]:block"
+          class="transition-opacity duration-150 ease-linear {tab === 'bookmarklet' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-bookmarklet"
           role="tabpanel"
-          aria-labelledby="tabs-bookmarklet"
+          aria-labelledby="tabs-bookmarklet-btn"
         >
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
