@@ -17,7 +17,7 @@ export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '10/06/2025'
-export const dateDeModifImportante = '22/11/2025'
+export const dateDeModifImportante = '30/12/2025' // Ajout de patterns affines et linéaires
 const patternsFor6N4B = listePattern3d.filter(
   (p) => p.type === 'affine' || p.type === 'linéaire',
 ) // On enlève les patterns quadratiques pour cet exercice
