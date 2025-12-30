@@ -1,7 +1,7 @@
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { toutPourUnPoint } from '../../lib/interactif/mathlive'
+import { toutPourUnPoint } from '../../lib/interactif/mathLive'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -13,7 +13,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import {
   listeQuestionsToContenuSansNumero,
-  randint
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre = 'Table de double distributivité'
@@ -72,7 +72,6 @@ export default class TableDoubleDistributivite extends Exercice {
     for (
       let i = 0, cpt = 0, a, b, c, d, typesDeQuestions;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       let texte = ''
@@ -102,24 +101,24 @@ export default class TableDoubleDistributivite extends Exercice {
       this.autoCorrection[3 * i + 2] = {}
       switch (typesDeQuestions) {
         case 1: // (x+b)(x+d)
-          a=1
+          a = 1
           b = randint(2, 10)
-          c=1
+          c = 1
           d = randint(2, 12)
           break
-         case 3: // (ax-b)(cx+d)
-        b=-b
+        case 3: // (ax-b)(cx+d)
+          b = -b
           break
         case 4: // (ax-b)(cx-d)
-        b=-b
-        d=-d
+          b = -b
+          d = -d
           break
         default:
           break
       }
       // reduireAxPlusB(c, 0)
-      texte = `$${lettreDepuisChiffre(i + 1)} = (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$`// (${a}x+${b})(${c}x-${d})$`
-      texteCorr = texte+'<br>'
+      texte = `$${lettreDepuisChiffre(i + 1)} = (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$` // (${a}x+${b})(${c}x-${d})$`
+      texteCorr = texte + '<br>'
       developpements = faitDeveloppement(a * c, a * d, b * c, b * d)
       tableau = faitTableau(a, b, c, d)
       texte += context.isHtml ? '<br>' : '\\par\\medskip'
@@ -135,7 +134,7 @@ export default class TableDoubleDistributivite extends Exercice {
           this.numeroExercice ?? 0,
           3 * i,
           tableauVide,
-          `tableauMathlive`,// ` ${KeyboardType.clavierDeBaseAvecVariable}`,
+          `tableauMathlive`, // ` ${KeyboardType.clavierDeBaseAvecVariable}`,
           true,
           { L0C0: 'red' },
         )
@@ -161,7 +160,7 @@ export default class TableDoubleDistributivite extends Exercice {
         ? '<br> Développement réduit : '
         : '\\par\\medskip Développement réduit: '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2, '')
-    // aucune gestion de la largeur de colonne ici
+      // aucune gestion de la largeur de colonne ici
       texteCorr += tableauColonneLigne(
         tableau.entetesCol,
         tableau.entetesLgn,
@@ -245,7 +244,11 @@ function faitDeveloppement(
 function faitTableau(a: number, b: number, c: number, d: number): TableauData {
   // ici (ax+b)(cx+d)
   const tableau: TableauData = {
-    entetesCol: ['\\phantom{A.}\\times\\phantom{B.}',reduireAxPlusB(c, 0), `${d}`],
+    entetesCol: [
+      '\\phantom{A.}\\times\\phantom{B.}',
+      reduireAxPlusB(c, 0),
+      `${d}`,
+    ],
     entetesLgn: [reduireAxPlusB(a, 0), `${b}`],
     contenu: [
       `\\phantom{ABxCD}`,
@@ -260,4 +263,3 @@ function faitTableau(a: number, b: number, c: number, d: number): TableauData {
   }
   return tableau
 }
-
