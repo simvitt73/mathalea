@@ -1,4 +1,5 @@
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
@@ -374,10 +375,9 @@ export default class UnitesDeVolumesEtDeCapacite extends Exercice {
           uniteFinale === 'L'
             ? sp() + '$\\text{L}$'
             : sp() + `$ \\text{${uniteFinale.split('3')[0]}}^3$`
-        // texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, '', {
         texte =
           texte.split('\\dotfill')[0] +
-          `$${ajouteChampTexteMathLive(this, i, '', {
+          `$${ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
             texteApres: uniteFinale,
           })}`
         setReponse(this, i, resultat)
