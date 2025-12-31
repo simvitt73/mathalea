@@ -21,6 +21,7 @@ import Exercice from '../Exercice'
 import { RedactionPythagore } from './_pythagore'
 
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -230,7 +231,6 @@ export default class Pythagore2D extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       texte = ''
@@ -333,7 +333,7 @@ export default class Pythagore2D extends Exercice {
         texteCorr = redaction[0] ?? ''
         texte += this.interactif
           ? `$${nomCote} ${redaction[1]}$` +
-            ajouteChampTexteMathLive(this, i, '  unites[longueurs]', {
+            ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
               texteApres:
                 '<em class="ml-2">(Une unité de longueur est attendue.)</em>',
             })
