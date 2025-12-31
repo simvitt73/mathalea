@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -43,7 +44,6 @@ export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, c, u1, u2, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       u1 = randint(1, 9)
       u2 = 10 - u1
@@ -64,7 +64,7 @@ export default class SommeDeDeuxNombresMariesEtUnEntier extends Exercice {
       }
       setReponse(this, i, a + b + c)
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       } else {
         texte += `$\\dots$`
       }

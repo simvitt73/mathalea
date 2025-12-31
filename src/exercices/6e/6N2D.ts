@@ -1,3 +1,6 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   combinaisonListesSansChangerOrdre,
   shuffle,
@@ -10,8 +13,6 @@ import {
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
 export const amcReady = true
@@ -58,7 +59,6 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // pour les situations, autant de situations que de cas dans le switch !
       this.autoCorrection[i] = {}
@@ -144,7 +144,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
           break
       }
       if (context.isHtml && this.interactif)
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte

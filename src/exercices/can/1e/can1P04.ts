@@ -7,7 +7,9 @@ import Exercice from '../../Exercice'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 
 export const titre = 'Calculer des probabilités à partir d’un arbre'
@@ -44,7 +46,6 @@ export default class CalculProbaArbre2e extends Exercice {
     for (
       let i = 0, cpt = 0, pA, pB, pAC, pBC, omega, texte, texteCorr, objets, pC;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       objets = []
       // On choisit les probas de l'arbre
@@ -113,13 +114,13 @@ export default class CalculProbaArbre2e extends Exercice {
       )
       texte += `<br>
       
-      $x=$ ${this.interactif || !context.isHtml ? ajouteChampTexteMathLive(this, i, '') : '\\ldots'}`
+      $x=$ ${this.interactif || !context.isHtml ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) : '\\ldots'}`
       texteCorr =
         "Comme $A$ et $\\bar A$ forment une partition de l'univers, d'après la loi des probabilités totales :<br>"
       texteCorr += '$P(C)=P(A \\cap C)+P(\\bar{A} \\cap C)$.<br>'
       texteCorr += `Or $P(\\bar{A} \\cap C)=P(\\bar{A}) \\times P_{\\bar{A}}(C)=${texProba(pB, false)}x$.<br>`
       texteCorr += `Donc $${texProba(pB, false)}x=P(C)-P(A \\cap C)=${texProba(pC, false)}-${texProba(pA, false)}\\times ${texProba(pAC, false)}=${texProba(pC, false)}-${texProba(pA * pAC, false)}=${texProba(pC - pA * pAC, false)}$.<br>`
-      texteCorr += `Donc $x=\\dfrac{${texProba(pC - pA * pAC, false)}}{${texProba(pB, false)}}=${texProba(pBC)}$`
+      texteCorr += `Donc $x=\\dfrac{${texProba(pC - pA * pAC, false)}}{${texProba(pB, false)}}=${miseEnEvidence(texProba(pBC))}$.`
       setReponse(this, i, pBC)
       this.canEnonce = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br>
       

@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -35,13 +36,13 @@ export default class Ajouter11 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(0, 9) * 10 + randint(1, 9)
       texte = `$${a}+11 = $`
       texteCorr = `$${a}+11=${a + 11}$`
       setReponse(this, i, a + 11)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      if (this.interactif)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

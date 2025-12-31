@@ -28,6 +28,7 @@ import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { mediatrice, type Mediatrice } from '../../lib/2d/Mediatrice'
 import type { Polygone } from '../../lib/2d/polygones'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre =
@@ -357,7 +358,7 @@ export default class PavageEtReflexion2d extends Exercice {
       texte +=
         numAlpha(i) +
         `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` +
-        ajouteChampTexteMathLive(this, i, '') +
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
         '<br>'
       texteCorr +=
         numAlpha(i) +
