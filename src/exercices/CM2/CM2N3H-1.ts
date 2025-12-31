@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -38,14 +39,14 @@ export default class DiviserPar101001000 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = choice([randint(1, 9), randint(11, 99), randint(101, 999)])
       b = choice([10, 100, 1000])
       texte = `$${texNombre(a)}\\div${texNombre(b)}=$`
       texteCorr = `$${texNombre(a)}\\div${texNombre(b)}=${texNombre(a / b)}$`
       setReponse(this, i, arrondi(a / b))
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+      if (this.interactif)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

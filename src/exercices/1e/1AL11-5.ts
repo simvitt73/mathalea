@@ -1,17 +1,18 @@
-import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Exercice from '../Exercice'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { texNombre } from '../../lib/outils/texNombre'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre =
   "Calculer la raison d'une suite arithmétique ou géométrique"
 export const interactifReady = true
@@ -209,11 +210,15 @@ export default class SuitesRaison extends Exercice {
       if (listeTypeDeQuestions[i] === 1 || listeTypeDeQuestions[i] === 2) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$r=$' })
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+            texteAvant: '$r=$',
+          })
       } else {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$q=$' })
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+            texteAvant: '$q=$',
+          })
       }
       if (this.questionJamaisPosee(i, texte)) {
         // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

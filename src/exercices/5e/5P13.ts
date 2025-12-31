@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { tableau } from '../../lib/2d/tableau'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -160,7 +161,11 @@ export default class EchellesProblemes extends Exercice {
           reponse = new FractionEtendue(nb1, nb2)
           texte += `Sur le plan ${echelleQ.lieu} de  ${quidam[1]} ${quidam[0]}, ${quidam2} constate que $${texNombre(nb1Unite1)}$ ${unite1} sur le plan correspond à $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.<br>`
           texte += " Quelle est l'échelle du plan ? "
-          texte += ajouteChampTexteMathLive(this, i, '')
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierDeBaseAvecFraction,
+          )
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
           if (this.sup2) {

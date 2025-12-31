@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -48,7 +49,6 @@ export default class QuatreOperations extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // addition
@@ -64,7 +64,12 @@ export default class QuatreOperations extends Exercice {
           }
           texte = `$${a}+${b} = $`
           texteCorr = `$${a}+${b}=${a + b}$`
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           setReponse(this, i, a + b)
           break
         case 2: // soustraction
@@ -81,7 +86,12 @@ export default class QuatreOperations extends Exercice {
           texte = `$${a}-${b}=$`
           texteCorr = `$${a}-${b}=${a - b}$`
           setReponse(this, i, a - b)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 3: // multiplication
           if (this.sup === 1) {
@@ -97,7 +107,12 @@ export default class QuatreOperations extends Exercice {
           texte = `$${a}\\times${b}=$`
           texteCorr = `$${a}\\times${b}=${a * b}$`
           setReponse(this, i, a * b)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 4: // division
         default:
@@ -114,7 +129,12 @@ export default class QuatreOperations extends Exercice {
           texte = `$${a * b}\\div${a}=$`
           texteCorr = `$${a * b}\\div${a}=${b}$`
           setReponse(this, i, b)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
       }
 

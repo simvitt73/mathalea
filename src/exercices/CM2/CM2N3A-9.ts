@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -91,7 +92,8 @@ export default class TablesDeDivisions extends Exercice {
         texte = '$ ' + a * b + ' \\div ' + a + ' =$'
         if (this.interactif && context.isHtml)
           texte =
-            `$ ${a * b} \\div ${a} = $` + ajouteChampTexteMathLive(this, i, '')
+            `$ ${a * b} \\div ${a} = $` +
+            ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         setReponse(this, i, b)
       } else {
         // a trous
@@ -100,14 +102,15 @@ export default class TablesDeDivisions extends Exercice {
           if (this.interactif && context.isHtml)
             texte =
               `$ ${a * b} \\div $` +
-              ajouteChampTexteMathLive(this, i, '') +
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
               `$ = ${b} $`
           setReponse(this, i, a)
         } else {
           texte = `$ \\ldots\\ldots \\div ${a}  = ${b}$`
           if (this.interactif && context.isHtml)
             texte =
-              ajouteChampTexteMathLive(this, i, '') + `$ \\div ${b} = ${a} $`
+              ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) +
+              `$ \\div ${b} = ${a} $`
           setReponse(this, i, a * b)
         }
       }

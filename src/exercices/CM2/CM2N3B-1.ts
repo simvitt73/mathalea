@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -45,7 +46,6 @@ export default class Moitie extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Table de 2
@@ -53,7 +53,12 @@ export default class Moitie extends Exercice {
           texte = `$\\text{La moitié de }${a * 2}$`
           texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${miseEnEvidence(texNombre(a))}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 2: // Impair inférieur à 20
           a = randint(2, 9)
@@ -62,7 +67,12 @@ export default class Moitie extends Exercice {
             a * 2 + 1
           } \\text{ est } ${miseEnEvidence(texNombre(a + 5 / 10))}$`
           setReponse(this, i, arrondi(a + 5 / 10))
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 3: // Table de 200
           a = randint(2, 9)
@@ -71,7 +81,12 @@ export default class Moitie extends Exercice {
             a * 2 * 100,
           )} \\text{ est } ${miseEnEvidence(texNombre(a * 100))}$`
           setReponse(this, i, a * 100)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 4: // a00 avec a impair
           a = randint(2, 9)
@@ -80,7 +95,12 @@ export default class Moitie extends Exercice {
             (a * 2 + 1) * 100,
           )} \\text{ est } ${miseEnEvidence(texNombre(a * 100 + 50))}$`
           setReponse(this, i, a * 100 + 50)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 5: // a,b avec a et b pairs
           a = randint(2, 9)
@@ -90,7 +110,12 @@ export default class Moitie extends Exercice {
             a * 2 + (b * 2) / 100,
           )} \\text{ est } ${miseEnEvidence(texNombre(a + b / 100))}$`
           setReponse(this, i, arrondi(a + b / 100))
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
         case 6: // 1xx avec xx un nombre pair
         default:
@@ -100,7 +125,12 @@ export default class Moitie extends Exercice {
             texNombre(50 + a),
           )}$`
           setReponse(this, i, 50 + a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
+          if (this.interactif)
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
           break
       }
 
