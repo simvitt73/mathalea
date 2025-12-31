@@ -180,7 +180,7 @@
             ? 'Masquer la correction'
             : 'Montrer la correction'}
           type="button"
-          title="Afficher / Masquer la correction"
+          aria-label="Afficher / Masquer la correction"
           on:click={() => {
             isCorrectionVisible = !isCorrectionVisible
             dispatch('clickCorrection', {
@@ -212,7 +212,7 @@
           class="mx-2 tooltip tooltip-left"
           data-tip="Nouvel énoncé"
           type="button"
-          title="Nouvel énoncé"
+          aria-label="Nouvel énoncé"
           on:click={newData}
         >
           <i
@@ -230,7 +230,7 @@
             }}
             class="mx-2 tooltip tooltip-left"
             data-tip=" {isVisible ? 'Masquer' : 'Montrer'} l'exercice"
-            title="Masquer / Montrer l'exercice"
+            aria-label="Masquer / Montrer l'exercice"
           >
             <i
               class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isVisible
@@ -243,7 +243,7 @@
           class="mx-2 tooltip tooltip-left tooltip-neutral"
           data-tip="Dupliquer l'exercice"
           type="button"
-          title="Dupliquer l'exercice"
+          aria-label="Dupliquer l'exercice"
           on:click={duplicate}
         >
           <i
@@ -255,7 +255,7 @@
             class="mx-2 tooltip tooltip-left tooltip-neutral"
             data-tip="Supprimer l'exercice"
             type="button"
-            title="Supprimer"
+            aria-label="Supprimer"
             on:click={remove}
           >
             <i
@@ -268,7 +268,7 @@
             ? ''
             : 'hidden'} "
           data-tip="Changer les paramètres de l'exercice"
-          title="Paramètres de l'exercice"
+          aria-label="Paramètres de l'exercice"
           type="button"
           on:click={() => {
             isSettingsVisible = !isSettingsVisible
@@ -282,7 +282,7 @@
         <button
           class="mx-2 tooltip tooltip-left tooltip-neutral"
           data-tip="Fichier PDF"
-          title="pdf"
+          aria-label="pdf"
           type="button"
           on:click={() => (showPdfDialog = true)}
         >

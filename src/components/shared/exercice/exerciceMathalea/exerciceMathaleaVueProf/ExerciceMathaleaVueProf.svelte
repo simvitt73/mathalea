@@ -676,7 +676,7 @@
           ).toString()}rem; line-height: calc({$globalOptions.z || 1});"
         >
           <div class="mt-6 mb-4">
-            {#key exercise.key}
+            {#key exercise.key + '-' + exerciseIndex}
               {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
                 <div>
                   <p
@@ -709,7 +709,7 @@
                 ? 'list-none'
                 : 'numbered-list'} w-full list-inside mb-2 mx-0 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each exercise.listeQuestions as item, i (exercise.key + '-' + i)}
+              {#each exercise.listeQuestions as item, i (exercise.key + '-' + exerciseIndex + '-' + i)}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"

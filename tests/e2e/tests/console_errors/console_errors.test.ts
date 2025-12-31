@@ -68,7 +68,7 @@ async function waitForExercicesAffiches(page: Page, buttonZoom: Locator) {
 async function action(page: Page, description: string) {
   logDebug(`Test avec les paramètres ${description}`)
   // clic sur nouvel énoncé 3 fois
-  const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé ' })
+  const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé' })
   logDebug('Actualier (nouvel énoncé)')
   await buttonNewData.click({ force: true })
   logDebug('fin Actualier (nouvel énoncé)')

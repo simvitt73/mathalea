@@ -239,7 +239,6 @@
         on:click={removeFromList}
         on:keydown={removeFromList}
         aria-label="Retirer de la sélection"
-        title="Retirer de la sélection"
       >
         <div class="relative">
           <i
