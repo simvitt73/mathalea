@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { grille, seyes } from '../../lib/2d/Grille'
 import { vide2d } from '../../lib/2d/Vide2d'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -84,7 +85,6 @@ export default class MultiplierDecimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, c;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -133,7 +133,9 @@ export default class MultiplierDecimaux extends Exercice {
         type: 'multiplication',
         style: 'display: inline',
       })
-      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: '$~=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteAvant: '$~=$',
+      })
       if (context.isAmc) setReponse(this, i, reponse)
       else handleAnswers(this, i, { reponse: { value: reponse } })
       this.autoCorrection[i].options = {
