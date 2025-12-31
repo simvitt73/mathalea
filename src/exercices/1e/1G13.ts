@@ -1,19 +1,21 @@
+import type { MathfieldElement } from 'mathlive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import engine from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusByPlusC,
 } from '../../lib/outils/ecritures'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import Exercice from '../Exercice'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import engine from '../../lib/interactif/comparisonFunctions'
-import type { MathfieldElement } from 'mathlive'
-import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { getLang } from '../../lib/stores/languagesStore'
+import type { IExercice } from '../../lib/types'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   'Déterminer une équation cartésienne avec un point et un vecteur normal'
 export const dateDePublication = '04/07/2024'
@@ -206,14 +208,14 @@ class EqCartDroite extends Exercice {
       }
       const reponse = `${reduireAxPlusByPlusC(xn, yn, constante)}=0`
 
-      const callback = (exercice: Exercice, question: number) => {
+      const callback = (Exercice: IExercice, question: number) => {
         const spanReponseLigne = document.querySelector(
-          `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
+          `#resultatCheckEx${Exercice.numeroExercice}Q${question}`,
         )
         let resultat
         const feedback: string = ''
         const mfe = document.querySelector(
-          `#champTexteEx${exercice.numeroExercice}Q${question}`,
+          `#champTexteEx${Exercice.numeroExercice}Q${question}`,
         ) as MathfieldElement
         const equation = mfe.value.split('=')
         if (equation.length !== 2) {
@@ -286,7 +288,7 @@ class EqCartDroite extends Exercice {
           spanReponseLigne.innerHTML = resultat.isOk ? '😎' : '☹️'
         }
         const spanFeedback = document.querySelector(
-          `#feedbackEx${exercice.numeroExercice}Q${question}`,
+          `#feedbackEx${Exercice.numeroExercice}Q${question}`,
         )
         // on met le feedback
         if (feedback != null && spanFeedback != null && feedback.length > 0) {
@@ -316,7 +318,7 @@ class EqCartDroite extends Exercice {
         texteCorr += `$${miseEnEvidence(reponse)}$.`
       }
 
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique, {
         texteAvant:
           this.nbQuestions > 1
             ? ` Équation cartésienne de la droite ${this.version === 2 ? '$(AB)$' : '$(d)$'} : `

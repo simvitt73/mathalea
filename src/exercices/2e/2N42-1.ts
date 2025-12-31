@@ -1,14 +1,15 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
   choice,
   combinaisonListes,
   shuffle,
 } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -67,7 +68,6 @@ export default class ExprimerEnFonctionDesAutres extends Exercice {
         choix,
         varAExprimer;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
@@ -569,11 +569,11 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
       if (GilllesDAccord)
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, ' alphanumeric  ', {
+          ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, {
             texteAvant: sp(10) + `$${varAExprimer} =$`,
           })
       else
-        texte += ajouteChampTexteMathLive(this, i, ' alphanumeric  ', {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.alphanumeric, {
           texteAvant: sp(10),
         })
       // setReponse(this, i, reponse)

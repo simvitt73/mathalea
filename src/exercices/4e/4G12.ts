@@ -12,6 +12,7 @@ import { vecteur, type Vecteur } from '../../lib/2d/Vecteur'
 import { vide2d, type Vide2d } from '../../lib/2d/Vide2d'
 import { centrage, deuxColonnes } from '../../lib/format/miseEnPage'
 import { texcolors } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -853,7 +854,7 @@ export default class SerieDeTransformations extends Exercice {
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
         texteCorr = deuxColonnes(
           texteCorr,

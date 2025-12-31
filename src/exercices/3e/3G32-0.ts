@@ -33,6 +33,7 @@ import {
   vecteur3d,
 } from '../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { sphere3d } from '../../lib/3d/3dProjectionMathalea2d/Sphere3dPerspectiveCavaliere'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import {
   handleAnswers,
   setReponse,
@@ -193,7 +194,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
         j,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -333,9 +333,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Exprimer $${lB}${lC}$ en fonction de $${lA}${lB}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-                texteAvant: `$${sp(20)}${lB}${lC}=$`,
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i + ii,
+                KeyboardType.grecTrigo,
+                {
+                  texteAvant: `$${sp(20)}${lB}${lC}=$`,
+                },
+              )
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: `${AB}\\times\\tan(${alfaInteractif})`,
@@ -362,9 +367,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Exprimer $${lB}${lS}$ en fonction de $${lA}${lB}$ et de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-                texteAvant: `$${sp(20)}${lB}${lS}=$`,
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i + ii,
+                KeyboardType.grecTrigo,
+                {
+                  texteAvant: `$${sp(20)}${lB}${lS}=$`,
+                },
+              )
               handleAnswers(this, i + ii, {
                 reponse: {
                   value: `${AB}\\times\\tan(${baitaInteractif})`,
@@ -391,9 +401,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lS}$ en fonction de $${lA}${lB}$, de $${alfa}$ et de $${baita}$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-              texteAvant: `$${sp(20)}${lC}${lS}=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i + ii,
+              KeyboardType.grecTrigo,
+              {
+                texteAvant: `$${sp(20)}${lC}${lS}=$`,
+              },
+            )
             handleAnswers(this, i + ii, {
               reponse: {
                 value: [
@@ -987,7 +1002,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             if (this.interactif) {
               texte +=
                 '<br>' +
-                ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+                ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                   texteAvant: `$${sp(20)}h=$`,
                 })
               AB = lS + lC
@@ -1000,7 +1015,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
               ii++
               texte +=
                 '<br>' +
-                ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+                ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                   texteAvant: `$${sp(20)}h=$`,
                 })
               AB = lB + lC
@@ -1031,7 +1046,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             if (this.interactif) {
               texte +=
                 '<br>' +
-                ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+                ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                   texteAvant: `$${sp(20)}${lS}${lC}=$`,
                 })
               AB = lS + lB
@@ -1066,7 +1081,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             if (this.interactif) {
               texte +=
                 '<br>' +
-                ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+                ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                   texteAvant: `$${sp(20)}${lC}${lA}=$`,
                 })
               handleAnswers(this, i + ii, {
@@ -1346,9 +1361,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lC}${lA}${lS}}$ en fonction de $${baita}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-                texteAvant: `$${sp(20)}\\widehat{CAS}=$`,
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i + ii,
+                KeyboardType.grecTrigo,
+                {
+                  texteAvant: `$${sp(20)}\\widehat{CAS}=$`,
+                },
+              )
               setReponse(
                 this,
                 i + ii,
@@ -1376,9 +1396,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lB}${lA}${lS}}$ en fonction de $${alfa}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-                texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$`,
-              })
+              texte += ajouteChampTexteMathLive(
+                this,
+                i + ii,
+                KeyboardType.grecTrigo,
+                {
+                  texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$`,
+                },
+              )
               setReponse(
                 this,
                 i + ii,
@@ -1431,9 +1456,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-              texteAvant: `$${sp(20)}CA=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i + ii,
+              KeyboardType.grecTrigo,
+              {
+                texteAvant: `$${sp(20)}CA=$`,
+              },
+            )
             handleAnswers(this, i + ii, {
               reponse: {
                 value: `\\frac{CH}{\\sin(${baitaInteractif}-${alfaInteractif})}`,
@@ -1463,9 +1493,14 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
-              texteAvant: `$${sp(20)}${lC}${lH}=$`,
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i + ii,
+              KeyboardType.grecTrigo,
+              {
+                texteAvant: `$${sp(20)}${lC}${lH}=$`,
+              },
+            )
             handleAnswers(this, i + ii, {
               reponse: {
                 value: `${lB}${lC}\\times\\sin(${alfaInteractif})`,
@@ -1498,7 +1533,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           if (this.interactif) {
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+              ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                 texteAvant: `$${sp(20)}h=$`,
               })
             handleAnswers(this, i + ii, {
@@ -1510,7 +1545,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             ii++
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+              ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                 texteAvant: `$${sp(20)}h=$`,
               })
             handleAnswers(this, i + ii, {
@@ -1525,7 +1560,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             ii++
             texte +=
               '<br>' +
-              ajouteChampTexteMathLive(this, i + ii, '  grecTrigo', {
+              ajouteChampTexteMathLive(this, i + ii, KeyboardType.grecTrigo, {
                 texteAvant: `$${sp(20)}h=$`,
               })
             handleAnswers(this, i + ii, {

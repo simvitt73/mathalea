@@ -77,7 +77,6 @@ export default class CalculerProbaCond extends Exercice {
         listeFractions,
         f;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       cours = `Pour tout événement $A$ (avec $P(A)\\neq 0$) et $B$ d'un univers $\\Omega$, on a  : <br>
           $P_{A}(B)=\\dfrac{P(A\\cap B)}{P(A)}$ ou encore  $P(A\\cap B)=P(A)\\times P_{A}(B)$.<br>
@@ -116,7 +115,11 @@ export default class CalculerProbaCond extends Exercice {
             texte = `On considère deux événements $${ev[0]}$ et  $${ev[1]}$ tels que : <br>
           $P(${ev[0]})=${texNombre(pA, 1)}$ et $P_{${ev[0]}}(${ev[1]})=${texNombre(pBsachantA, 2)}$.<br>
          ${this.interactif ? `$P(${ev[0]}\\cap ${ev[1]})=$` : `Calculer $P(${ev[0]}\\cap ${ev[1]})$.`}`
-            texte += ajouteChampTexteMathLive(this, i, ' ')
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+            )
             texteCorr = cours
             texteCorr += `
           $\\begin{aligned}
