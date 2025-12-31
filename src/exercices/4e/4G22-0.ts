@@ -182,7 +182,7 @@ export default class TriangleEquilateral extends Exercice {
   niveau: number = 4
   constructor() {
     super()
-    this.sup = '5'
+    this.sup = '1-2'
     this.niveau = 4
     this.spacingCorr = 2
     this.comment =
@@ -191,12 +191,7 @@ export default class TriangleEquilateral extends Exercice {
       'Type de questions',
       "Nombres séparés par des tirets\n1 : Calcul de la hauteur\n2 : Calcul de l'aire",
     ]
-    // La version ci-dessous est pour un clone en 2e incluant le calcul du côté
-    /*  this.besoinFormulaireTexte = [
-      'Type de questions',
-      "Nombres séparés par des tirets\n1 : Calcul de la hauteur\n2 : Calcul de l'aire\n3 : Calcul du côté (hors programme !)",
-    ]
-      */
+
     this.besoinFormulaire2Numerique = [
       'Type de réponse attendue',
       3,
