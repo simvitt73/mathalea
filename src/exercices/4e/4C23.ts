@@ -1,4 +1,5 @@
 import { orangeMathalea } from '../../lib/colors'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import {
@@ -136,7 +137,6 @@ export default class SommeOuProduitFractions extends Exercice {
         den,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
@@ -367,15 +367,24 @@ export default class SommeOuProduitFractions extends Exercice {
 
         // Fin de cette uniformisation
       } else {
-        if (this.sup2){
-        texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`}
+        if (this.sup2) {
+          texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den, { couleur1: 'blue', couleur2: orangeMathalea })}$`
+        }
       }
       texteCorr += '<br>'
-      texte += ajouteChampTexteMathLive(this, i, ' ', {
-        texteAvant: `<br>$${lettre}=$`,
-      })
+      texte += ajouteChampTexteMathLive(
+        this,
+        i,
+        KeyboardType.clavierDeBaseAvecFraction,
+        {
+          texteAvant: `<br>$${lettre}=$`,
+        },
+      )
       handleAnswers(this, i, {
-        reponse: { value: new FractionEtendue(num, den).texFraction },
+        reponse: {
+          value: new FractionEtendue(num, den).texFraction,
+          options: { fractionEgale: true },
+        },
       })
 
       // Si la question n'a jamais été posée, on l'enregistre
