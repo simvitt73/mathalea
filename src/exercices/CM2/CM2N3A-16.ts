@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -37,7 +38,6 @@ export default class SommeDeDeuxNombresMaries extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, u1, u2, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       u1 = randint(1, 9)
       u2 = 10 - u1
@@ -47,7 +47,11 @@ export default class SommeDeDeuxNombresMaries extends Exercice {
       texte = `$${a}+${b}=$`
       texteCorr = `$${a}+${b}=${miseEnEvidence(texNombre(a + b))}$`
       setReponse(this, i, a + b)
-      if (this.interactif) {texte += ajouteChampTexteMathLive(this, i, '')} else {texte +=`$\\dots$`}
+      if (this.interactif) {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+      } else {
+        texte += `$\\dots$`
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -1,4 +1,5 @@
 import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -412,10 +413,15 @@ export default class ProblemeCourse extends Exercice {
         this.autoCorrection[i].reponse.param.decimals = 2
       }
       if (this.interactif) {
-        texte += `<br> ${ajouteChampTexteMathLive(this, i, '', {
-          texteApres: ' €',
-          texteAvant: 'Le prix total à payer sera de ',
-        })}`
+        texte += `<br> ${ajouteChampTexteMathLive(
+          this,
+          i,
+          KeyboardType.clavierNumbers,
+          {
+            texteApres: ' €',
+            texteAvant: 'Le prix total à payer sera de ',
+          },
+        )}`
       }
       if (this.questionJamaisPosee(i, reponse)) {
         this.listeQuestions[i] = texte

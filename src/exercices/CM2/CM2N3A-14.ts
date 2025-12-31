@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -44,21 +45,27 @@ export default class ComplementA100 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(11, 89)
-      this.sup === 1 ? (texte = `$100 - ${texNombre(a)} = $`) : (texte = `$ ${texNombre(a)} + $`)
+      this.sup === 1
+        ? (texte = `$100 - ${texNombre(a)} = $`)
+        : (texte = `$ ${texNombre(a)} + $`)
 
-      if (this.interactif && this.sup === 1) {texte += ajouteChampTexteMathLive(this, i, '')} else if (this.sup === 1) {texte += `$ ...... $`}
-      if (this.interactif && this.sup === 2) {texte += ajouteChampTexteMathLive(this, i, '')
+      if (this.interactif && this.sup === 1) {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+      } else if (this.sup === 1) {
+        texte += `$ ...... $`
+      }
+      if (this.interactif && this.sup === 2) {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         texte += `$ = 100$`
-       } 
-       else if (this.sup === 2)
-        {texte += `$ ...... = 100$`}
-       this.sup === 1
-       ? (texteCorr = `$ 100 - ${a}=${miseEnEvidence(texNombre(100 - a))}$`)
-       : (texteCorr = `$ ${texNombre(a)} + ${miseEnEvidence(texNombre(100 - a))} = 100$`)
-     setReponse(this, i, 100 - a)
+      } else if (this.sup === 2) {
+        texte += `$ ...... = 100$`
+      }
+      this.sup === 1
+        ? (texteCorr = `$ 100 - ${a}=${miseEnEvidence(texNombre(100 - a))}$`)
+        : (texteCorr = `$ ${texNombre(a)} + ${miseEnEvidence(texNombre(100 - a))} = 100$`)
+      setReponse(this, i, 100 - a)
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -40,7 +41,6 @@ export default class ComplementAUneDizaine extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, b, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(2, 9) * 10
       b = randint(2, a - 11)
@@ -48,12 +48,12 @@ export default class ComplementAUneDizaine extends Exercice {
         ? (texte = `$${texNombre(a)} - ${texNombre(b)}=$`)
         : (texte = `$${texNombre(b)} + $`)
       if (this.sup === 1 && this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       } else if (this.sup === 1) {
         texte += `$ \\ldots\\ldots $`
       }
       if (this.sup === 2 && this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
         texte += `$ = ${a} $`
       } else if (this.sup === 2) {
         texte += `$ \\ldots\\ldots = ${a} $`

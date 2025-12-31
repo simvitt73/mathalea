@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -37,14 +38,13 @@ export default class Ajouter9 extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(0, 9) * 10 + randint(1, 9)
       texte = `$${a}+9 = $`
       texteCorr = `$${a}+9=${miseEnEvidence(texNombre(a + 9))}$`
       setReponse(this, i, a + 9)
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, '')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       } else {
         texte += `$\\dots$`
       }

@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -85,9 +86,14 @@ export default class TablesAdditionsSoustractions extends Exercice {
         case 'addition':
           texte = `$${a} + ${b} =$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${a} + ${b} = $`,
-            })
+            texte = ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$${a} + ${b} = $`,
+              },
+            )
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
@@ -95,10 +101,15 @@ export default class TablesAdditionsSoustractions extends Exercice {
         case 'addition_a_trou':
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${a}~+ $`,
-              texteApres: `$= ${a + b}$`,
-            })
+            texte = ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$${a}~+ $`,
+                texteApres: `$= ${a + b}$`,
+              },
+            )
           }
           texteCorr = `$${a} + ${miseEnEvidence(b)} = ${a + b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
@@ -112,9 +123,14 @@ export default class TablesAdditionsSoustractions extends Exercice {
           }
           texte = `$${a} - ${b} =$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${a} - ${b} = $`,
-            })
+            texte = ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$${a} - ${b} = $`,
+              },
+            )
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
           setReponse(this, i, a - b, { formatInteractif: 'calcul' })
@@ -129,10 +145,15 @@ export default class TablesAdditionsSoustractions extends Exercice {
           }
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
           if (this.interactif && context.isHtml) {
-            texte = ajouteChampTexteMathLive(this, i, '', {
-              texteAvant: `$${a}~- $`,
-              texteApres: `$= ${a - b}$`,
-            })
+            texte = ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteAvant: `$${a}~- $`,
+                texteApres: `$= ${a - b}$`,
+              },
+            )
           }
           texteCorr = `$${a} - ${miseEnEvidence(b)} = ${a - b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
