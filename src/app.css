@@ -239,7 +239,9 @@ math-field.fillInTheBlanks {
   margin-top: '1px';
   padding: '2px';
 }
-
+math-field.fillInTheBlanks::part(prompt) {
+  height: 1.1em;
+}
 math-field.schemaEnBoite {
   margin: 0;
   display: inline-block;
