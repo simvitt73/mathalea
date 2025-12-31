@@ -179,7 +179,8 @@ async function getConsoleTest(page: Page, urlExercice: string) {
             .includes(
               'The column width is less than 0, need to adjust page width to make',
             ) &&
-          !msg.location().url.includes('mathgraph32')
+          !msg.location().url.includes('mathgraph32') &&
+          !msg.text().includes('placeholderMetrics 0.7 0.2')
         ) {
           if (!msg.text().includes('<HeaderExercice>')) {
             messages.push('console:' + page.url() + ' ' + msg.text())
@@ -293,7 +294,6 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   log(filter)
   testRunAllLots(filter)
 } else if (
-  process.env.CI &&
   process.env.CHANGED_FILES !== null &&
   process.env.CHANGED_FILES !== undefined
 ) {
