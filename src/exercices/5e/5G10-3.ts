@@ -573,6 +573,6 @@ export default class SymetrieAxialeProprietes extends Exercice {
       cpt++
     }
 
-    listeQuestionsToContenu(this)
+    listeQuestionsToContenu(this) //
   }
 }
