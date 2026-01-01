@@ -37,6 +37,7 @@ export default class CalculEffectifQCM extends ExerciceQcmA {
     })
 
     const n = maSerie.serie.length
+    const listeTableau = maSerie.serieTableau
 
     const distracteur1 =
       Math.round(maSerie.serie.length / 4) * 4 !== n
@@ -44,24 +45,10 @@ export default class CalculEffectifQCM extends ExerciceQcmA {
         : Math.round(maSerie.serie.length / 5) * 5 !== n
           ? Math.round(maSerie.serie.length / 5) * 5
           : n - 1
-    const distracteur2 = choice(
-      [n - 1, n + 1, n + 2, distracteur1 - 1, distracteur1 + 1],
-      n,
-    )
-    const distracteur3 = choice(
-      [
-        n - 1,
-        n + 1,
-        n + 2,
-        distracteur1 - 1,
-        distracteur1 + 1,
-        n - 2,
-        n + 2,
-        distracteur2 - 1,
-        distracteur2 + 1,
-      ],
-      [n, distracteur1, distracteur2],
-    )
+    const distracteur2 = listeTableau.length
+    const distracteur3 = listeTableau
+      .map(([note, effectif]) => Number(note))
+      .reduce((a, b) => a + b)
 
     this.reponses = [
       `${texNombre(n, 0)}`,

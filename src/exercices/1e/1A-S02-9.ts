@@ -42,7 +42,7 @@ export default class LireEcartTypeBoiteMoustachesQCM extends ExerciceQcmA {
       texNombre(maSerie.max() - maSerie.quartiles().q1, 0),
       texNombre(maSerie.mediane() - maSerie.quartiles().q1, 0),
     ].map((r) => `$${r}$`)
-    this.enonce = `Une série statistique est résumée par le diagramme en boite ci-dessous, utilisez-le pour donner la valueur de l'écart interquartile de cette série.<br>
+    this.enonce = `Une série statistique est résumée par le diagramme en boite ci-dessous, utilisez-le pour donner la valeur de l'écart interquartile de cette série.<br>
       ${moustache}`
 
     // Correction : explication simple, claire
