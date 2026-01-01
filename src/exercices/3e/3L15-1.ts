@@ -132,11 +132,7 @@ export default class ResoudreEquatioeX2EgalA extends Exercice {
           ])
           break
       }
-      texte += ajouteChampTexteMathLive(
-        this,
-        i,
-        KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
-      )
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.lyceeClassique)
       if (this.questionJamaisPosee(i, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions[i] = texte
