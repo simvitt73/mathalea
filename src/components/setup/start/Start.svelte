@@ -71,7 +71,6 @@
   let isMd: boolean
   let localeValue: Language = get(referentielLocale)
   let isSidenavOpened: boolean = true
-  let isMobileMenuOpen: boolean = true
 
   const unsubscribeToReferentielLocale = referentielLocale.subscribe(
     (value) => {
@@ -433,6 +432,7 @@
         {isSidenavOpened}
         {toggleSidenav}
         {exportQcmCam}
+        {isMd}
       />
       {#if isMd}
         <!-- ====================================================================================
@@ -447,6 +447,7 @@
               isRecorder={$globalOptions.recorder === 'capytale'}
               {isSidenavOpened}
               {toggleSidenav}
+              {isMd}
             />
           {/if}
           <Sidenav isOpen={isSidenavOpened} width={400}>
@@ -493,9 +494,9 @@
               <button
                 type="button"
                 class="group w-full flex flex-row justify-between items-center p-4"
-                aria-expanded={isMobileMenuOpen}
+                aria-expanded={isSidenavOpened}
                 aria-controls="choiceMenuWrapper"
-                on:click={() => (isMobileMenuOpen = !isMobileMenuOpen)}
+                on:click={() => (isSidenavOpened = !isSidenavOpened)}
               >
                 <div
                   class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
@@ -503,12 +504,12 @@
                   Choix des exercices
                 </div>
                 <i
-                  class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isMobileMenuOpen
+                  class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isSidenavOpened
                     ? 'rotate-0'
                     : 'rotate-180'}"
                 ></i>
               </button>
-              {#if isMobileMenuOpen}
+              {#if isSidenavOpened}
                 <div
                   id="choiceMenuWrapper"
                   class="w-full overflow-y-visible overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
