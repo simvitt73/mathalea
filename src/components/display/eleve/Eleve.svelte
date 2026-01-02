@@ -518,7 +518,7 @@
                       style="--nbPoints:{$resultsByExercice[i]
                         .bestScore}; --nbQuestions:{$resultsByExercice[i]
                         .numberOfQuestions};"
-                      class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold progressbar dark:progressbardark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+                      class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold progressbar text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
                       {$resultsByExercice[i].bestScore +
                         '/' +
@@ -851,7 +851,7 @@
       #d43d0e 100%
     );
   }
-  .progressbardark {
+  :global(.dark) .progressbar {
     background: linear-gradient(
       90deg,
       #ff94d1 0%,
