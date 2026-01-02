@@ -305,7 +305,6 @@ if (process.env.NIV !== null && process.env.NIV !== undefined) {
   log(filter)
   testRunAllLots(filter)
 } else if (
-  process.env.CI &&
   process.env.CHANGED_FILES !== null &&
   process.env.CHANGED_FILES !== undefined
 ) {
