@@ -214,12 +214,17 @@ text.sb3-comment-label {
   fill: #000 !important;
 }
 /* Cache le menu toggle de MathLive */
+math-field {
+  @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+  text-coopmaths-corpus dark:text-coopmathsdark-corpus;
+}
 math-field::part(menu-toggle) {
   display: none;
 }
 math-field::part(virtual-keyboard-toggle) {
   display: none;
 }
+
 math-field:not(.fillInTheBlanks) {
   font-size: '1em';
   margin-left: 5px;
@@ -228,7 +233,6 @@ math-field:not(.fillInTheBlanks) {
   padding-left: 5px;
   padding-right: 5px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
   min-width: 80px;
 }
 math-field.fillInTheBlanks {
