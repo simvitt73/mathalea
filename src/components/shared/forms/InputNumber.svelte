@@ -53,24 +53,6 @@
 </script>
 
 <span class="inline-flex items-center w-fit">
-  <button
-    type="button"
-    class="w-8 h-8 flex items-center justify-center
-      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
-      border border-r-0
-      border-coopmaths-action dark:border-coopmathsdark-action
-      text-coopmaths-action dark:text-coopmathsdark-action
-      hover:bg-coopmaths-action hover:text-coopmaths-canvas
-      dark:hover:bg-coopmathsdark-action dark:hover:text-coopmathsdark-canvas
-      disabled:opacity-30 disabled:cursor-not-allowed
-      rounded-l"
-    disabled={isDisabled ||
-      (value !== undefined && value !== null && value <= min)}
-    on:click={decrement}
-    aria-label="Diminuer"
-  >
-    <i class="bx bx-minus"></i>
-  </button>
   <input
     type="number"
     {id}
@@ -82,31 +64,52 @@
     class="{$$props.class} w-14 h-8 text-center
     text-coopmaths-corpus dark:text-coopmathsdark-corpus
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
-      border-y
+      border border-r-0
       border-coopmaths-action dark:border-coopmathsdark-action
-      focus:border-y focus:outline-0 focus:ring-0
+      focus:outline-0 focus:ring-0
       focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest
-      disabled:opacity-30"
+      disabled:opacity-30
+      rounded-l"
     disabled={isDisabled}
   />
-  <button
-    type="button"
-    class="w-8 h-8 flex items-center justify-center
-      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
-      border border-l-0
-      border-coopmaths-action dark:border-coopmathsdark-action
-      text-coopmaths-action dark:text-coopmathsdark-action
-      hover:bg-coopmaths-action hover:text-coopmaths-canvas
-      dark:hover:bg-coopmathsdark-action dark:hover:text-coopmathsdark-canvas
-      disabled:opacity-30 disabled:cursor-not-allowed
-      rounded-r"
-    disabled={isDisabled ||
-      (value !== undefined && value !== null && value >= max)}
-    on:click={increment}
-    aria-label="Augmenter"
-  >
-    <i class="bx bx-plus"></i>
-  </button>
+  <span class="inline-flex flex-col">
+    <button
+      type="button"
+      class="w-6 h-4 flex items-center justify-center
+        bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+        border border-b-0
+        border-coopmaths-action dark:border-coopmathsdark-action
+        text-coopmaths-action dark:text-coopmathsdark-action
+        hover:bg-coopmaths-action hover:text-coopmaths-canvas
+        dark:hover:bg-coopmathsdark-action dark:hover:text-coopmathsdark-canvas
+        disabled:opacity-30 disabled:cursor-not-allowed
+        rounded-tr text-xs"
+      disabled={isDisabled ||
+        (value !== undefined && value !== null && value >= max)}
+      on:click={increment}
+      aria-label="Augmenter"
+    >
+      <i class="bx bx-chevron-up"></i>
+    </button>
+    <button
+      type="button"
+      class="w-6 h-4 flex items-center justify-center
+        bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+        border
+        border-coopmaths-action dark:border-coopmathsdark-action
+        text-coopmaths-action dark:text-coopmathsdark-action
+        hover:bg-coopmaths-action hover:text-coopmaths-canvas
+        dark:hover:bg-coopmathsdark-action dark:hover:text-coopmathsdark-canvas
+        disabled:opacity-30 disabled:cursor-not-allowed
+        rounded-br text-xs"
+      disabled={isDisabled ||
+        (value !== undefined && value !== null && value <= min)}
+      on:click={decrement}
+      aria-label="Diminuer"
+    >
+      <i class="bx bx-chevron-down"></i>
+    </button>
+  </span>
 </span>
 
 <style>
