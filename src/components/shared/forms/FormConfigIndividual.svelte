@@ -2,9 +2,19 @@
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import InputNumber from './InputNumber.svelte'
+  import Select from './Select.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
+
+  const labelsOptions = [
+    { label: '(aucune)', value: '' },
+    { label: '\\alph* : a, b, c, ...', value: '\\alph*)' },
+    { label: '\\Alph* : A, B, C, ...', value: '\\Alph*)' },
+    { label: '\\roman* : i, ii, iii, ...', value: '\\roman*)' },
+    { label: '\\Roman* : I, II, III, ...', value: '\\Roman*)' },
+    { label: '\\arabic* : 1, 2, 3, ...', value: '\\arabic*)' },
+  ]
 </script>
 
 <section class="mb-6 border rounded-lg p-4 bg-gray-50 mx-auto">
@@ -30,26 +40,18 @@
       </div>
       <label class="flex flex-col text-left">
         Numération des questions
-        <select
-          class="w-40"
-          value={latexFileInfos.exos?.[exo.index]?.labels}
+        <Select
+          id="individual-config-labels-{exo.index}"
+          value={latexFileInfos.exos?.[exo.index]?.labels ?? ''}
+          options={labelsOptions}
+          classAddenda="w-40"
           on:change={(e) => {
-            // Crée l'objet exo si inexistant
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
-            // @ts-ignore
-            const select = e.target.value
-            latexFileInfos.exos[exo.index].labels = select || undefined
+            latexFileInfos.exos[exo.index].labels = e.detail || undefined
           }}
-        >
-          <option value="">(aucune)</option>
-          <option value="\alph*)">\alph* : a, b, c, ...</option>
-          <option value="\Alph*)">\Alph* : A, B, C, ...</option>
-          <option value="\roman*)">\roman* : i, ii, iii, ...</option>
-          <option value="\Roman*)">\Roman* : I, II, III, ...</option>
-          <option value="\arabic*)">\arabic* : 1, 2, 3, ...</option>
-        </select>
+        />
       </label>
       <div class="flex flex-col text-left">
         <label for="individual-config-itemsep-{exo.index}">Espace entre les questions</label>

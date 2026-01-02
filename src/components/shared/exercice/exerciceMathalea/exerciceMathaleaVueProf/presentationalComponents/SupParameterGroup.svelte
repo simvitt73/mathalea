@@ -19,6 +19,10 @@
     exercice[`besoinFormulaire${suffix}CaseACocher` as keyof IExercice]
   $: texte = exercice[`besoinFormulaire${suffix}Texte` as keyof IExercice]
 
+  $: formNumOptions = Array.isArray(formNum?.champs)
+    ? formNum.champs.map((entree, i) => ({ label: entree, value: i + 1 }))
+    : []
+
   function handleChange() {
     dispatch('change')
   }
