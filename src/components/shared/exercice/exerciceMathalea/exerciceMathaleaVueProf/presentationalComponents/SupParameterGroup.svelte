@@ -1,6 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
   import type { IExercice } from '../../../../../../lib/types'
+  import CheckboxWithLabel from '../../../../forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../../../forms/InputNumber.svelte'
 
   export let supIndex: 1 | 2 | 3 | 4 | 5
@@ -24,28 +25,13 @@
 </script>
 
 {#if caseACocher}
-  <div class="container">
-    <label
-      class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-      for="settings-check{supIndex}-{exerciceIndex}"
-    >
-      {#if typeof caseACocher !== 'boolean'}
-        {caseACocher[0]} :
-      {/if}
-    </label>
-    <input
-      name="settings-check{supIndex}"
-      type="checkbox"
-      id="settings-check{supIndex}-{exerciceIndex}"
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-      class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer checked:bg-coopmaths-action"
-      bind:checked={supValue}
-      on:change={handleChange}
-    />
-  </div>
+  <CheckboxWithLabel
+    id="settings-check{supIndex}-{exerciceIndex}"
+    bind:isChecked={supValue}
+    label={typeof caseACocher !== 'boolean' ? caseACocher[0] : ''}
+    on:change={handleChange}
+    darkBackground={true}
+  />
 {/if}
 
 {#if formNum}
@@ -91,6 +77,7 @@
         max={formNum.champs}
         bind:value={supValue}
         on:change={handleChange}
+        darkBackground={true}
       />
     </div>
   {/if}

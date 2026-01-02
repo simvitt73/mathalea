@@ -6,6 +6,7 @@
     type FilterType,
   } from '../../../../../../../lib/types'
   import type { Level } from '../../../../../../../lib/types/referentiels'
+  import CheckboxWithLabel from '../../../../../../shared/forms/CheckboxWithLabel.svelte'
   import { allFilters, filtersHaveChanged } from '../../filtersStore'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()
@@ -67,31 +68,19 @@
     <ul class="w-full columns-[175px] gap-4 mt-2">
       {#each Object.entries($allFilters[filterType]) as [key, filter], i}
         <li
-          class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none"
+          class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none
+          text-coopmaths-corpus dark:text-coopmathsdark-corpus"
         >
-          <input
+          <CheckboxWithLabel
             id="checkbox-{key}-{i}-{timeTag}"
-            aria-describedby="checkbox-{key}-{i}-{timeTag}"
-            type="checkbox"
-            class="w-3 h-3 rounded cursor-pointer
-              border-coopmaths-action dark:border-coopmathsdark-action
-              checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
-              focus:outline-none focus:ring-0 focus:ring-offset-0"
-            value={key}
-            bind:checked={filter.isSelected}
+            bind:isChecked={filter.isSelected}
+            label={filter.title}
+            size="sm"
             on:change={() => {
               handleFiltersChanges(key)
               dispatch('filters-change')
             }}
           />
-          <label
-            for="checkbox-{key}-{i}-{timeTag}"
-            class="ml-2 text-xs cursor-pointer
-              text-coopmaths-corpus/70 dark:text-coopmathsdark-corpus/70
-              {filter.isSelected ? 'font-semibold' : 'font-light'}"
-          >
-            {filter.title}
-          </label>
         </li>
       {/each}
     </ul>

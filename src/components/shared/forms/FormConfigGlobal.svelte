@@ -1,6 +1,7 @@
 <script lang="ts">
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
+  import CheckboxWithLabel from './CheckboxWithLabel.svelte'
   import InputNumber from './InputNumber.svelte'
 
   export let latexFileInfos: LatexFileInfos
@@ -91,10 +92,9 @@
     <div class="flex flex-col w-full text-left">
       Espace entre les questions
       <div class="flex flex-row items-center gap-2">
-        <input
-          type="checkbox"
-          bind:checked={globalConfig.itemsep.enabled}
-          class="h-4 w-4"
+        <CheckboxWithLabel
+          id="global-config-itemsep-enabled"
+          bind:isChecked={globalConfig.itemsep.enabled}
         />
         <InputNumber
           id="global-config-itemsep"
@@ -110,10 +110,9 @@
     <div class="flex flex-col w-full text-left">
       Nombre de colonnes pour l'exercice
       <div class="flex flex-row items-center gap-2">
-        <input
-          type="checkbox"
-          bind:checked={globalConfig.cols.enabled}
-          class="h-4 w-4"
+        <CheckboxWithLabel
+          id="global-config-cols-enabled"
+          bind:isChecked={globalConfig.cols.enabled}
         />
         <InputNumber
           id="global-config-cols"
@@ -128,10 +127,9 @@
     <div class="flex flex-col w-full text-left">
       Nombre de colonnes pour la correction
       <div class="flex flex-row items-center gap-2">
-        <input
-          type="checkbox"
-          bind:checked={globalConfig.cols_corr.enabled}
-          class="h-4 w-4"
+        <CheckboxWithLabel
+          id="global-config-cols-corr-enabled"
+          bind:isChecked={globalConfig.cols_corr.enabled}
         />
         <InputNumber
           id="global-config-cols-corr"
@@ -146,14 +144,11 @@
     <!-- Bloc réponse -->
     <fieldset class="flex flex-col gap-4 w-full">
       <legend class="text-left font-medium">Bloc réponse</legend>
-      <label class="flex flex-row items-center gap-2">
-        <input
-          type="checkbox"
-          bind:checked={globalConfig.blocrep.enabled}
-          class="h-4 w-4"
-        />
-        <span>Activer le bloc réponse</span>
-      </label>
+      <CheckboxWithLabel
+        id="global-config-blocrep-enabled"
+        bind:isChecked={globalConfig.blocrep.enabled}
+        label="Activer le bloc réponse"
+      />
 
       <div>
         <div class="flex flex-row items-center gap-2 w-full">
