@@ -4,7 +4,8 @@
   import { afterUpdate } from 'svelte'
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import CheckboxWithLabel from '../components/shared/forms/CheckboxWithLabel.svelte'
-  import Select from '../components/shared/forms/Select.svelte'
+  import SelectMultiple from '../components/shared/forms/SelectMultiple.svelte'
+  import SelectUnique from '../components/shared/forms/SelectUnique.svelte'
   import Exercice from '../exercices/Exercice'
   import { loadMathLive } from '../modules/loaders'
   import { resoudre } from '../modules/outilsMathjs'
@@ -124,7 +125,7 @@
   <!-- Liste déroulante d'exemples -->
   <label>
     Exemple :
-    <Select
+    <SelectUnique
       id="equation-solve-exemple"
       value=""
       options={exemples}
@@ -154,7 +155,7 @@
 
     <label>
       formatSolution :
-      <Select
+      <SelectUnique
         id="equation-solve-formatSolution"
         bind:value={options.formatSolution}
         options={formatSolutionOptions}
@@ -181,9 +182,8 @@
 
     <label>
       changeType (sélection multiple) :
-      <Select
+      <SelectMultiple
         id="equation-solve-changeType"
-        multiple
         size={4}
         value={options.changeType}
         options={typesOptions}

@@ -3,7 +3,8 @@
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import CheckboxWithLabel from './CheckboxWithLabel.svelte'
   import InputNumber from './InputNumber.svelte'
-  import Select from './Select.svelte'
+  import SelectMultiple from './SelectMultiple.svelte'
+  import SelectUnique from './SelectUnique.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
@@ -90,7 +91,7 @@
     <!-- Labels -->
     <div class="flex flex-col w-full text-left">
       Numérotation des questions
-      <Select
+      <SelectUnique
         id="global-config-labels"
         bind:value={globalConfig.labels}
         options={labelsOptions}
@@ -188,9 +189,8 @@
     <!-- Exercices ciblés -->
     <label class="flex flex-col w-full">
       Appliquer aux exercices :
-      <Select
+      <SelectMultiple
         id="global-config-selectedExos"
-        multiple
         bind:value={selectedExos}
         options={exercicesOptions}
         classAddenda="mt-1 h-24"

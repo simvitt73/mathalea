@@ -2,7 +2,7 @@
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import InputNumber from './InputNumber.svelte'
-  import Select from './Select.svelte'
+  import SelectUnique from './SelectUnique.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
@@ -40,7 +40,7 @@
       </div>
       <label class="flex flex-col text-left">
         Numération des questions
-        <Select
+        <SelectUnique
           id="individual-config-labels-{exo.index}"
           value={latexFileInfos.exos?.[exo.index]?.labels ?? ''}
           options={labelsOptions}
