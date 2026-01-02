@@ -27,7 +27,8 @@ export default class Stat {
   isQualitative: boolean = false
   constructor(
     serie: Array<number | string | [number | string, number]>,
-    isQualitative?: boolean,
+    isQualitative = false,
+    shuffled = true,
   ) {
     if (!Array.isArray(serie) || serie.length === 0) {
       throw new Error('La série doit être un array non vide')
@@ -77,7 +78,11 @@ export default class Stat {
       typeof isQualitative === 'boolean' ? isQualitative : inferredQualitative
 
     // stocker la série (mélangée pour éviter biais d'ordre)
-    this.serie = shuffle(processed)
+    if (shuffled) {
+      this.serie = shuffle(processed)
+    } else {
+      this.serie = processed
+    }
 
     // construire this.serieTableau : tableau [valeur, effectif]
     const counts = new Map<number | string, number>()
