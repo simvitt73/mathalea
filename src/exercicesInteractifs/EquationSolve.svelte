@@ -4,6 +4,7 @@
   import { afterUpdate } from 'svelte'
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import CheckboxWithLabel from '../components/shared/forms/CheckboxWithLabel.svelte'
+  import Select from '../components/shared/forms/Select.svelte'
   import Exercice from '../exercices/Exercice'
   import { loadMathLive } from '../modules/loaders'
   import { resoudre } from '../modules/outilsMathjs'
@@ -61,12 +62,17 @@
   ]
 
   let types = Object.values(ChangeTypes).sort((a, b) => a.localeCompare(b))
+  const typesOptions = types.map((t) => ({ label: t, value: t }))
 
-  function selectTypes(event) {
-    const selected = Array.from(event.target.selectedOptions).map(
-      (opt) => opt.value,
-    )
-    options.changeType = selected // ⬅️ ça remplace la variable
+  const formatSolutionOptions = [
+    { label: 'decimal', value: 'decimal' },
+    { label: 'fraction', value: 'fraction' },
+    { label: '2 (base n°)', value: '2' },
+    { label: '5 (base n°)', value: '5' },
+  ]
+
+  function handleTypesChange(event) {
+    options.changeType = event.detail
   }
 
   let saisie = ''
@@ -74,7 +80,7 @@
   let resultat2 = ''
 
   function choisirExemple(event) {
-    const value = event.target.value
+    const value = event.detail
     if (value) {
       saisie = value // ⬅️ ça remplace la variable
     }
@@ -115,14 +121,15 @@
     />
     <button type="submit" disabled={!saisie.trim()}> Valider </button>
   </form>
-  <!-- Liste déroulante d’exemples -->
+  <!-- Liste déroulante d'exemples -->
   <label>
     Exemple :
-    <select on:change={choisirExemple}>
-      {#each exemples as ex}
-        <option value={ex.value}>{ex.label}</option>
-      {/each}
-    </select>
+    <Select
+      id="equation-solve-exemple"
+      value=""
+      options={exemples}
+      on:change={choisirExemple}
+    />
   </label>
   <!-- Options -->
   <h3>Options de résolution</h3>
@@ -147,12 +154,11 @@
 
     <label>
       formatSolution :
-      <select bind:value={options.formatSolution}>
-        <option value="decimal">decimal</option>
-        <option value="fraction">fraction</option>
-        <option value="2">2 (base n°)</option>
-        <option value="5">5 (base n°)</option>
-      </select>
+      <Select
+        id="equation-solve-formatSolution"
+        bind:value={options.formatSolution}
+        options={formatSolutionOptions}
+      />
     </label>
 
     <CheckboxWithLabel
@@ -175,11 +181,14 @@
 
     <label>
       changeType (sélection multiple) :
-      <select multiple size="4" on:change={selectTypes}>
-        {#each types as type}
-          <option value={type}>{type}</option>
-        {/each}
-      </select>
+      <Select
+        id="equation-solve-changeType"
+        multiple
+        size={4}
+        value={options.changeType}
+        options={typesOptions}
+        on:change={handleTypesChange}
+      />
     </label>
 
     <CheckboxWithLabel

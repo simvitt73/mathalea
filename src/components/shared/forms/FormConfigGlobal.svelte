@@ -3,9 +3,24 @@
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
   import CheckboxWithLabel from './CheckboxWithLabel.svelte'
   import InputNumber from './InputNumber.svelte'
+  import Select from './Select.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
+
+  const labelsOptions = [
+    { label: '(aucune)', value: '' },
+    { label: 'a, b, c, ...', value: '\\alph*)' },
+    { label: 'A, B, C, ...', value: '\\Alph*)' },
+    { label: 'i, ii, iii, ...', value: '\\roman*)' },
+    { label: 'I, II, III, ...', value: '\\Roman*)' },
+    { label: '1, 2, 3, ...', value: '\\arabic*)' },
+  ]
+
+  $: exercicesOptions = latex.getExercices().map((exo) => ({
+    label: `${exo.index + 1} - ${exo.titre}`,
+    value: exo.index,
+  }))
 
   let selectedExos: number[] = Array.from(
     { length: latex.exercices.length },
@@ -75,17 +90,12 @@
     <!-- Labels -->
     <div class="flex flex-col w-full text-left">
       Numérotation des questions
-      <select
+      <Select
+        id="global-config-labels"
         bind:value={globalConfig.labels}
-        class="mt-1 border rounded px-2 py-1 w-40"
-      >
-        <option value="">(aucune)</option>
-        <option value="\alph*)">a, b, c, ...</option>
-        <option value="\Alph*)">A, B, C, ...</option>
-        <option value="\roman*)">i, ii, iii, ...</option>
-        <option value="\Roman*)">I, II, III, ...</option>
-        <option value="\arabic*)">1, 2, 3, ...</option>
-      </select>
+        options={labelsOptions}
+        classAddenda="mt-1 w-40"
+      />
     </div>
 
     <!-- Itemsep -->
@@ -178,15 +188,13 @@
     <!-- Exercices ciblés -->
     <label class="flex flex-col w-full">
       Appliquer aux exercices :
-      <select
+      <Select
+        id="global-config-selectedExos"
         multiple
         bind:value={selectedExos}
-        class="mt-1 border rounded px-2 py-1 h-24 w-full"
-      >
-        {#each latex.getExercices() as exo}
-          <option value={exo.index}>{exo.index + 1} - {exo.titre}</option>
-        {/each}
-      </select>
+        options={exercicesOptions}
+        classAddenda="mt-1 h-24"
+      />
     </label>
   </div>
 

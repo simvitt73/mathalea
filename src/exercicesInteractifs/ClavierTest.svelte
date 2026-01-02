@@ -1,6 +1,7 @@
 <script>
   import Exercice from '../exercices/Exercice'
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import Select from '../components/shared/forms/Select.svelte'
   import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive'
   import { loadMathLive } from '../modules/loaders'
   import { afterUpdate } from 'svelte'
@@ -31,6 +32,7 @@
   exercice.numeroExercice = indiceExercice
   exercice.interactif = true
   const claviers = Object.values(KeyboardType)
+  const claviersOptions = claviers.map((c) => ({ label: c, value: c }))
   let clavierSelected = KeyboardType.clavierFullOperations
 
   afterUpdate(() => {
@@ -47,13 +49,11 @@
 
 <br />
 Les types de clavier:
-<select bind:value="{clavierSelected}">
-  {#each claviers as clavier}
-    <option value="{clavier}">
-      {clavier}
-    </option>
-  {/each}
-</select>
+<Select
+  id="clavier-type"
+  bind:value={clavierSelected}
+  options={claviersOptions}
+/>
 
 <br />Nombre de blocs de touches : {convertKeyboardTypeToBlocks(
   convertToKeyboardCategory(clavierSelected),
