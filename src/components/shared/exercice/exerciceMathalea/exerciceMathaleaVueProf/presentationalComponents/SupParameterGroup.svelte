@@ -3,6 +3,7 @@
   import type { IExercice } from '../../../../../../lib/types'
   import CheckboxWithLabel from '../../../../forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../../../forms/InputNumber.svelte'
+  import SelectUnique from '../../../../forms/SelectUnique.svelte'
 
   export let supIndex: 1 | 2 | 3 | 4 | 5
   export let exercice: IExercice
@@ -51,21 +52,15 @@
           for="settings-formNum{supIndex}-{exerciceIndex}"
           >{formNum.titre} :</label
         >
-        <select
-          class="flex flex-auto w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-          name="formNum{supIndex}"
+        <SelectUnique
           id="settings-formNum{supIndex}-{exerciceIndex}"
+          name="formNum{supIndex}"
           bind:value={supValue}
+          options={formNumOptions}
           on:change={handleChange}
-        >
-          {#each formNum.champs as entree, i}
-            <option
-              value={i + 1}
-              class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-              >{entree}</option
-            >
-          {/each}
-        </select>
+          darkBackground={true}
+          classAddenda="flex flex-auto border-1 focus:border-1"
+        />
       </form>
     </div>
   {:else}
