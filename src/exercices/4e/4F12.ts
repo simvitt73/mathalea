@@ -95,7 +95,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           f = (x: number) =>
             Math.max(-5 * x ** 2 + (V0 * Math.sqrt(2) * x) / 2, 0)
           repeRe = repere({
-            yLegende: 'Hauteur (en $\\text{m})',
+            yLegende: 'Hauteur (en m)',
             xLegende: 'Temps (en s)',
             xUnite: 1 * xscale,
             yUnite: 0.1 * xscale,
@@ -113,7 +113,7 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           graphique = courbe(f, { repere: repeRe, xMax: t1 + 1, step: 0.2 })
           zero = texteParPosition('0', -0.5, 0, 0, 'black', 1, 'milieu', true)
           this.introduction =
-            "On a représenté ci-dessous l'évolution de la hauteur d'un projectile lancé depuis le sol (en $\\text{m}) en fonction du temps (en secondes)."
+            "On a représenté ci-dessous l'évolution de la hauteur d'un projectile lancé depuis le sol (en m) en fonction du temps (en secondes)."
 
           this.introduction +=
             '<br><br>' +
