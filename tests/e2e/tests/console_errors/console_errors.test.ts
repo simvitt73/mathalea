@@ -242,8 +242,15 @@ async function testRunAllLots(filter: string) {
     filter.includes('dnb') || filter.includes('bac') || filter.includes('e3c')
       ? await findStatic(filter)
       : await findUuid(filter)
-  log(uuids)
-  if (uuids.length === 0) {
+
+  // Exclure les exercices contenant "test" ou "beta" dans leur nom
+  const filteredUuids = uuids.filter(([uuid, name]) => {
+    const nameLower = name.toLowerCase()
+    return !nameLower.includes('test') && !nameLower.includes('beta')
+  })
+
+  log(filteredUuids)
+  if (filteredUuids.length === 0) {
     log(`Aucun uuid trouvé pour le filtre '${filter}'`)
     describe('no-parameter-warning', () => {
       test.skip(`Aucun uuid trouvé pour le filtre '${filter}'`, () => {
@@ -251,10 +258,10 @@ async function testRunAllLots(filter: string) {
       })
     })
   }
-  for (let i = 0; i < uuids.length && i < prefs.nbExosParLot; i += 20) {
+  for (let i = 0; i < filteredUuids.length && i < prefs.nbExosParLot; i += 20) {
     const ff: ((page: Page) => Promise<boolean>)[] = []
-    for (let k = i; k < i + 20 && k < uuids.length; k++) {
-      const myName = uuids[k][1]
+    for (let k = i; k < i + 20 && k < filteredUuids.length; k++) {
+      const myName = filteredUuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs
         page.on('console', (msg) => {
@@ -264,12 +271,16 @@ async function testRunAllLots(filter: string) {
         const hostname = local
           ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/`
           : 'https://coopmaths.fr/alea/'
-        log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
+        log(
+          `uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]} i=${k} / ${filteredUuids.length}`,
+        )
         const resultReq = await getConsoleTest(
           page,
-          `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&testCI`,
+          `${hostname}?uuid=${filteredUuids[k][0]}&id=${filteredUuids[k][1].substring(0, filteredUuids[k][1].lastIndexOf('.')) || filteredUuids[k][1]}&alea=${alea}&testCI`,
         )
-        log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)
+        log(
+          `Resu: ${resultReq} uuid=${filteredUuids[k][0]} exo=${filteredUuids[k][1]}`,
+        )
         return resultReq === 'OK'
       }
       Object.defineProperty(f, 'name', { value: myName, writable: false })
