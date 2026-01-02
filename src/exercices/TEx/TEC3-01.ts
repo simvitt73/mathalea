@@ -368,7 +368,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions[i] =
           texte +
-          ajouteChampTexteMathLive(this, i, `  ${KeyboardType.complexes}`, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.complexes, {
             texteAvant: '<br>$z=$',
           })
 

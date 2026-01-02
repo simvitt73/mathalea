@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive' // fonctions de mise en place des éléments interactifs
 import { choice } from '../../lib/outils/arrayOutils'
@@ -159,12 +160,9 @@ export default class nomExercice extends Exercice {
         resultat = evalueArbre(tree.root)
         tree = undefined
       }
-      texte += ajouteChampTexteMathLive(
-        this,
-        i,
-        'inline largeur01 college6eme',
-        { texteAvant: `<br>$${lettre} = $` },
-      )
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        texteAvant: `<br>$${lettre} = $`,
+      })
       handleAnswers(this, i, {
         reponse: {
           value: resultat,

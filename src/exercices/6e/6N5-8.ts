@@ -1,3 +1,10 @@
+import { texPrix } from '../../lib/format/style'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import {
+  handleAnswers,
+  setReponse,
+} from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
   miseEnEvidence,
@@ -6,15 +13,9 @@ import {
 } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString'
 import { prenomF } from '../../lib/outils/Personne'
-import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import { context } from '../../modules/context'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import {
-  handleAnswers,
-  setReponse,
-} from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre =
   'Résoudre des problèmes de type : ... de plus ou ... de moins'
@@ -85,7 +86,6 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       prenom1 = prenomF()
@@ -105,9 +105,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte += "Combien d'argent,  en tout, possèdent les deux filles ?"
             texte += '<br>Les deux filles possèdent,  en tout, '
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -131,9 +136,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte +=
               "Combien d'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :"
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -157,9 +167,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte +=
               "Combien d'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :"
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"
@@ -182,9 +197,14 @@ export default class ProblemesDePlusEtDeMoins extends Exercice {
           if (this.interactif && !context.isAmc) {
             texte +=
               "Combien d'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :"
-            texte += ajouteChampTexteMathLive(this, i, ' ', {
-              texteApres: ' €',
-            })
+            texte += ajouteChampTexteMathLive(
+              this,
+              i,
+              KeyboardType.clavierNumbers,
+              {
+                texteApres: ' €',
+              },
+            )
           } else {
             texte +=
               "Combien d'argent en euros possèdent,  en tout, les deux filles ?"

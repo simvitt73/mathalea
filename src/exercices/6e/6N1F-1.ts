@@ -141,9 +141,14 @@ export default class ExerciceEcritureDecimaleOuFractionDecimale extends Exercice
                   `${texNombre(n, precision, this.sup3)} = \\dfrac{%{champ1}}{${texNombre(b)}}`,
                   KeyboardType.clavierNumbers,
                 )
-              : ajouteChampTexteMathLive(this, i, ' ', {
-                  texteAvant: `$${texNombre(n, precision, this.sup3)} = $`,
-                })
+              : ajouteChampTexteMathLive(
+                  this,
+                  i,
+                  KeyboardType.clavierDeBaseAvecFraction,
+                  {
+                    texteAvant: `$${texNombre(n, precision, this.sup3)} = $`,
+                  },
+                )
 
             if (!this.sup2) {
               handleAnswers(this, i, {

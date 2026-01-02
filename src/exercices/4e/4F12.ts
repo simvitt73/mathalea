@@ -152,7 +152,14 @@ export default class ExploiterRepresentationGraphique extends Exercice {
           )
           this.listeQuestions.push(
             'Quelle est la hauteur maximale atteinte par le projectile ?' +
-              ajouteChampTexteMathLive(this, indiceQuestion, ' longueur'),
+              ajouteChampTexteMathLive(
+                this,
+                indiceQuestion,
+                KeyboardType.longueur,
+                {
+                  texteApres: ` (Préciser l'unité.)`,
+                },
+              ),
           )
           handleAnswers(this, indiceQuestion, {
             reponse: {
@@ -263,7 +270,14 @@ export default class ExploiterRepresentationGraphique extends Exercice {
 
           this.listeQuestions.push(
             'À quelle distance le projectile est-il retombé au sol ?' +
-              ajouteChampTexteMathLive(this, indiceQuestion, ' longueur'),
+              ajouteChampTexteMathLive(
+                this,
+                indiceQuestion,
+                KeyboardType.longueur,
+                {
+                  texteApres: ` (Préciser l'unité.)`,
+                },
+              ),
           )
           handleAnswers(this, indiceQuestion, {
             reponse: {
@@ -281,7 +295,14 @@ export default class ExploiterRepresentationGraphique extends Exercice {
 
           this.listeQuestions.push(
             'Quelle est la hauteur maximale atteinte par le projectile ?' +
-              ajouteChampTexteMathLive(this, indiceQuestion, ' longueur'),
+              ajouteChampTexteMathLive(
+                this,
+                indiceQuestion,
+                KeyboardType.longueur,
+                {
+                  texteApres: ` (Préciser l'unité.)`,
+                },
+              ),
           )
           handleAnswers(this, indiceQuestion, {
             reponse: {

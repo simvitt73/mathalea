@@ -439,7 +439,7 @@ export default class Pythagore2D extends Exercice {
         texte += ajouteChampTexteMathLive(
           this,
           i,
-          ' clavierDeBase alphanumeric',
+          `${KeyboardType.clavierDeBase} ${KeyboardType.alphanumeric}`,
         )
       }
       if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {

@@ -78,7 +78,6 @@ export default class desTestsPourInteractivité extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = randint(1, 12)
       b = randint(2, 12)
@@ -95,11 +94,11 @@ export default class desTestsPourInteractivité extends Exercice {
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
-      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
+      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
       texte =
         `$${enonce}$` +
         ajouteChampTexteMathLive(this, i, KeyboardType.clavierSuite)
-      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
+      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1,  KeyboardType.clavierDeBaseAvecFraction)
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })

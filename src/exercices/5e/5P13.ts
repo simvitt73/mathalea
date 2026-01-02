@@ -166,7 +166,12 @@ export default class EchellesProblemes extends Exercice {
             i,
             KeyboardType.clavierDeBaseAvecFraction,
           )
-          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          if (context.isAmc)
+            setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+          else
+            handleAnswers(this, i, {
+              reponse: { value: reponse, options: { fractionEgale: true } },
+            })
 
           if (this.sup2) {
             texteCorr =
@@ -347,7 +352,7 @@ export default class EchellesProblemes extends Exercice {
           texte += context.isAmc ? ' (en ' + unite2 + ')' : ''
           texte += ', ce segment correspond-il ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]', {
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
               texteAvant: ' (Il faut penser à indiquer une unité.)',
             })
             handleAnswers(this, i, {
@@ -516,7 +521,7 @@ export default class EchellesProblemes extends Exercice {
           texte += context.isAmc ? ' (en ' + unite1 + ')' : ''
           texte += ` du segment tracé sur le plan par ${quidam2} ?`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]', {
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.longueur, {
               texteAvant: ' (Il faut penser à indiquer une unité.)',
             })
             handleAnswers(this, i, {

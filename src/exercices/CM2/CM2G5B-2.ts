@@ -148,7 +148,6 @@ export default class LireFacePaveDroit extends Exercice {
         resultatsPossibles,
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -190,7 +189,6 @@ export default class LireFacePaveDroit extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: enonceFigure,
-          // @ts-expect-error
           enonceCentre: false,
           options: {
             ordered: false,
@@ -269,15 +267,16 @@ export default class LireFacePaveDroit extends Exercice {
             formatInteractif: 'texte',
           })
           texte +=
-            ajouteChampTexteMathLive(this, indiceQuestion, ' ') +
-            KeyboardType.alphanumeric +
-            '<br>'
+            ajouteChampTexteMathLive(
+              this,
+              indiceQuestion,
+              KeyboardType.alphanumeric,
+            ) + '<br>'
         }
         if (context.isAmc) {
           // @ts-expect-error
           this.autoCorrection[i].propositions.push({
             type: 'qcmMono',
-            // @ts-expect-error
             enonce: enonceAMC,
             propositions: [
               {
@@ -293,9 +292,8 @@ export default class LireFacePaveDroit extends Exercice {
           ) {
             const props = this.autoCorrection[i].propositions
             if (props) {
-              // @ts-expect-error
               const props2 = props[ee].propositions
-              props2.push({
+              props2!.push({
                 texte: `${resultatsImpossibles[j]}`,
                 statut: false,
               })

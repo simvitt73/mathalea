@@ -82,7 +82,7 @@ class CalculsFractionsSimples extends Exercice {
         texte += ajouteChampTexteMathLive(
           this,
           i,
-          `  ${KeyboardType.clavierDeBaseAvecFraction}`,
+          KeyboardType.clavierDeBaseAvecFraction,
         )
         if (this.interactif)
           handleAnswers(this, i, {

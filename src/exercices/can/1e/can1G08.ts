@@ -1,14 +1,15 @@
+import { texteCentre } from '../../../lib/format/miseEnPage'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   rienSi1,
 } from '../../../lib/outils/ecritures'
-import { texteCentre } from '../../../lib/format/miseEnPage'
 import { sp } from '../../../lib/outils/outilString'
-import Exercice from '../../Exercice'
 import { egal, listeQuestionsToContenu, randint } from '../../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import Exercice from '../../Exercice'
 
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre =
@@ -49,9 +50,16 @@ export default class VecteurNormEqCart extends Exercice {
  Donner les coordonnées d'un vecteur normal $\\vec{u}$ de la droite $d$.<br>`
 
       if (this.interactif) {
-        texte += '$\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, '')
+        texte +=
+          '$\\Bigg($' +
+          ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierDeBase)
         texte += ` ${sp(1)} ;  `
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '') + '$\\Bigg)$'
+        texte +=
+          ajouteChampTexteMathLive(
+            this,
+            2 * i + 1,
+            KeyboardType.clavierDeBase,
+          ) + '$\\Bigg)$'
 
         setReponse(this, 2 * i, a)
         setReponse(this, 2 * i + 1, b)

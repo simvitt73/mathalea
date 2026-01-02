@@ -3,6 +3,7 @@
  */
 
 import Decimal from 'decimal.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { propositionsQcm } from '../../lib/interactif/qcm'
@@ -142,7 +143,6 @@ export default class CalculDeVolumes extends Exercice {
         volume,
         cpt = 0;
       i < this.nbQuestions && cpt < 100;
-
     ) {
       this.autoCorrection[i] = {}
       texte = 'Calculer le volume'
@@ -587,7 +587,7 @@ export default class CalculDeVolumes extends Exercice {
           },
           { formatInteractif: 'mathlive' },
         )
-        texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', {
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.volume, {
           texteAvant:
             '<br>' +
             sp(12) +

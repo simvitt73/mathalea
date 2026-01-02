@@ -118,7 +118,6 @@ export default class RecomposerEntierC3 extends Exercice {
     for (
       let i = 0, cpt = 0, texte, texteCorr, indexChamp = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       texte = ''
       texteCorr = ''
@@ -211,7 +210,7 @@ export default class RecomposerEntierC3 extends Exercice {
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.interactif) {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, ' ' + `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}$)+`
+                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase)}$)+`
 
                 setReponse(
                   this,
@@ -279,7 +278,7 @@ export default class RecomposerEntierC3 extends Exercice {
             texte += '= \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre)
-            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, ' ' + `${enLettre ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}`
+            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, enLettre ? KeyboardType.numeration : KeyboardType.clavierDeBase)}`
             indexChamp++
           }
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
@@ -337,7 +336,7 @@ export default class RecomposerEntierC3 extends Exercice {
             texte += ' = \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre)
-            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, ' ' + `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}`
+            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase)}`
             indexChamp++
           }
           texteCorr += `=${texNombre(nombre, 0)}$`

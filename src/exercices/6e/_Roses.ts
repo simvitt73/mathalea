@@ -114,7 +114,6 @@ export default class ExoRose extends Exercice {
     for (
       let i = 0, objets, objetsCorr, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       this.indexInconnue[i] = randint(0, this.nombreDeValeurs - 1)
       if (this.operation === 'multiplication') {
@@ -173,7 +172,7 @@ export default class ExoRose extends Exercice {
       )
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, '   ' + this.clavier, {
+          texte += ajouteChampTexteMathLive(this, i, this.clavier, {
             texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`,
           })
         } else {
@@ -318,11 +317,11 @@ export default class ExoRose extends Exercice {
 
         resultatOK = Boolean(
           resultatOK &&
-            (saisieParsed == null
-              ? false
-              : saisieParsed.isEqual(
-                  engine.parse(stringResultat) ?? engine.parse('NaN'),
-                )),
+          (saisieParsed == null
+            ? false
+            : saisieParsed.isEqual(
+                engine.parse(stringResultat) ?? engine.parse('NaN'),
+              )),
         )
       }
       return resultatOK
