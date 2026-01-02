@@ -21,6 +21,7 @@
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
   const isSettingsVisible: boolean[] = []
@@ -313,11 +314,11 @@
         >
           Nombre d'exemplaires distincts
         </div>
-        <input
+        <InputNumber
+          id="amc-nb-exemplaires"
+          min={1}
+          max={100}
           bind:value={nbExemplaires}
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          min="1"
-          type="number"
         />
       </div>
     </div>
