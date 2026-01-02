@@ -4,6 +4,7 @@
   import ButtonConfig from '../../shared/forms/ButtonConfig.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
@@ -131,12 +132,12 @@
   >
     Durée
   </h6>
-  <input
-    type="text"
-    id="export-latex-duree-input"
-    class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+  <InputText
+    inputID="export-latex-duree-input"
     placeholder="9 min"
     bind:value={latexFileInfos.durationCanOption}
+    showTitle={false}
+    classAddenda="w-full placeholder:opacity-40"
   />
 {/if}
 {#if latexFileInfos.style === 'ProfMaquette'}

@@ -1,27 +1,28 @@
 <script lang="ts">
+  import seedrandom from 'seedrandom'
+  import { onMount } from 'svelte'
+  import type TypeExercice from '../../../exercices/Exercice'
   import { creerDocumentAmc } from '../../../lib/amc/creerDocumentAmc.js'
-  import { context } from '../../../modules/context.js'
   import {
+    mathaleaGenerateSeed,
     mathaleaGetExercicesFromParams,
     mathaleaHandleExerciceSimple,
     mathaleaUpdateExercicesParamsFromUrl,
-    mathaleaGenerateSeed,
     mathaleaUpdateUrlFromExercicesParams,
   } from '../../../lib/mathalea.js'
-  import Footer from '../../Footer.svelte'
   import {
     darkMode,
     exercicesParams,
   } from '../../../lib/stores/generalStore.js'
-  import type TypeExercice from '../../../exercices/Exercice'
-  import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import seedrandom from 'seedrandom'
-  import { onMount } from 'svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
-  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import { context } from '../../../modules/context.js'
+  import Footer from '../../Footer.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import FormRadio from '../../shared/forms/FormRadio.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
   const isSettingsVisible: boolean[] = []
@@ -166,16 +167,14 @@
     locale={$referentielLocale}
   />
 
-  <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+  <section
+    class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-lightest"
+  >
     <div
       class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
     >
       <div>
-        <div
-          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-        >
-          Type d'entête
-        </div>
+        <div class="pb-2 font-bold">Type d'entête</div>
         <FormRadio
           bind:valueSelected={entete}
           labelsValues={[
@@ -211,11 +210,11 @@
         >
           Matière
         </div>
-        <input
+        <InputText
+          inputID="amc-export-matiere-input"
           bind:value={matiere}
-          id="amc-export-matiere-input"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          type="text"
+          showTitle={false}
+          classAddenda="ml-4 md:ml-0"
         />
       </div>
       <div>
@@ -224,11 +223,11 @@
         >
           Titre
         </div>
-        <input
+        <InputText
+          inputID="amc-export-titre-input"
           bind:value={titre}
-          id="amc-export-titre-input"
-          class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          type="text"
+          showTitle={false}
+          classAddenda="ml-4 md:ml-0"
         />
       </div>
       <div>
@@ -244,12 +243,12 @@
               : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3
               ? `-S3:${exercice.sup3}`
               : ''}
-            <input
-              type="text"
-              id="amc-export-nb-questions-gr{i}-input"
-              class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            <InputText
+              inputID="amc-export-nb-questions-gr{i}-input"
               placeholder={exercice.nbQuestions.toString()}
               bind:value={nbQuestionsModif[i]}
+              showTitle={false}
+              classAddenda="ml-4 md:ml-0"
             />
             <span>{exercice.amcType ? exercice.amcType : 'not amcReady'}</span>
             <button

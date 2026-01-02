@@ -10,19 +10,24 @@
   import { globalOptions } from '../../../lib/stores/globalOptions'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import Footer from '../../Footer.svelte'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonQRCode from '../../shared/forms/ButtonQRCode.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
-  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
   import Tabs from '../../shared/ui/Tabs.svelte'
 
   $: activeTab = $canOptions.isChoosen ? 'can' : 'classic'
 
   const tabs = [
-    { id: 'classic', label: 'Présentation classique', ariaControls: 'tabs-pres-classic' },
+    {
+      id: 'classic',
+      label: 'Présentation classique',
+      ariaControls: 'tabs-pres-classic',
+    },
     { id: 'can', label: 'Course aux nombres', ariaControls: 'tabs-pres-can' },
   ]
 
@@ -134,7 +139,10 @@
       <!-- Pages des réglages -->
       <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
         <div
-          class="transition-opacity duration-150 ease-linear {activeTab === 'classic' ? 'block opacity-100' : 'hidden opacity-0'}"
+          class="transition-opacity duration-150 ease-linear {activeTab ===
+          'classic'
+            ? 'block opacity-100'
+            : 'hidden opacity-0'}"
           id="tabs-pres-classic"
           role="tabpanel"
           aria-labelledby="tabs-pres-classic-btn"
@@ -160,11 +168,11 @@
                 >
                   Titre :
                 </div>
-                <input
-                  type="text"
-                  id="config-eleve-titre-input"
-                  class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border disabled:border-coopmaths-action/10 dark:disabled:border-coopmathsdark-action/10 border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
+                <InputText
+                  inputID="config-eleve-titre-input"
                   bind:value={$globalOptions.title}
+                  showTitle={false}
+                  classAddenda="w-1/2 font-light"
                 />
                 <div
                   class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title &&
@@ -273,7 +281,8 @@
           </div>
         </div>
         <div
-          class="transition-opacity duration-150 ease-linear {activeTab === 'can' ? 'block opacity-100' : 'hidden opacity-0'}"
+          class="transition-opacity duration-150 ease-linear
+          {activeTab === 'can' ? 'block opacity-100' : 'hidden opacity-0'}"
           id="tabs-pres-can"
           role="tabpanel"
           aria-labelledby="tabs-pres-can-btn"
@@ -329,12 +338,12 @@
                   >
                     Sous-titre :
                   </div>
-                  <input
-                    type="text"
-                    id="config-eleve-can-subtitle-input"
-                    class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
+                  <InputText
+                    inputID="config-eleve-can-subtitle-input"
                     bind:value={$canOptions.subTitle}
-                    disabled={!$canOptions.isChoosen}
+                    isDisabled={!$canOptions.isChoosen}
+                    showTitle={false}
+                    classAddenda="w-1/2 font-light"
                   />
                 </div>
               </div>

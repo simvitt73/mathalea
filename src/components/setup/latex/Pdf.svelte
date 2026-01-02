@@ -18,6 +18,7 @@
   import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
   import PdfResult from './PdfResult.svelte'
 
@@ -329,20 +330,23 @@
               </div>
 
               <SimpleCard icon={''} title={'Éléments de titres'} class="mb-4">
-                <input
-                  type="text"
+                <InputText
+                  inputID="pdf-titre-input"
                   placeholder="Titre"
                   bind:value={latexFileInfos.title}
+                  showTitle={false}
                 />
-                <input
-                  type="text"
+                <InputText
+                  inputID="pdf-reference-input"
                   placeholder="Référence"
                   bind:value={latexFileInfos.reference}
+                  showTitle={false}
                 />
-                <input
-                  type="text"
+                <InputText
+                  inputID="pdf-subtitle-input"
                   placeholder="Sous-titre"
                   bind:value={latexFileInfos.subtitle}
+                  showTitle={false}
                 />
               </SimpleCard>
 

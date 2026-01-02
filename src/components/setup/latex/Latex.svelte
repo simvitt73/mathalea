@@ -34,6 +34,7 @@
   import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
+  import InputText from '../../shared/forms/InputText.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
 
   const url = new URL(window.location.href)
@@ -315,38 +316,38 @@
 
       <SimpleCard icon="{''}" title="{'Éléments de titres'}">
         <div class="flex flex-col w-full justify-start items-start space-y-2">
-          <input
-            type="text"
-            id="export-latex-titre-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+          <InputText
+            inputID="export-latex-titre-input"
             placeholder="{latexFileInfos.style === 'Can'
               ? 'Course aux nombres'
               : 'Titre'}"
             bind:value="{latexFileInfos.title}"
+            showTitle={false}
+            classAddenda="w-full placeholder:opacity-40"
           />
-          <input
-            type="text"
-            id="export-latex-reference-input"
-            class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+          <InputText
+            inputID="export-latex-reference-input"
             placeholder="{latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Référence'
               : 'Haut de page gauche'}"
             bind:value="{latexFileInfos.reference}"
-            disabled="{latexFileInfos.style === 'Can'}"
+            isDisabled="{latexFileInfos.style === 'Can'}"
+            showTitle={false}
+            classAddenda="w-full placeholder:opacity-40"
           />
-          <input
-            type="text"
-            id="export-latex-soustitre-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+          <InputText
+            inputID="export-latex-soustitre-input"
             placeholder="{latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
               : 'Pied de page droit'}"
             bind:value="{latexFileInfos.subtitle}"
-            disabled="{latexFileInfos.style === 'Can'}"
+            isDisabled="{latexFileInfos.style === 'Can'}"
+            showTitle={false}
+            classAddenda="w-full placeholder:opacity-40"
           />
         </div>
       </SimpleCard>

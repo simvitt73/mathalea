@@ -3,6 +3,7 @@
   import type { IExercice } from '../../../../../../lib/types'
   import CheckboxWithLabel from '../../../../forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../../../forms/InputNumber.svelte'
+  import InputText from '../../../../forms/InputText.svelte'
   import SelectUnique from '../../../../forms/SelectUnique.svelte'
 
   export let supIndex: 1 | 2 | 3 | 4 | 5
@@ -90,9 +91,8 @@
     on:submit|preventDefault={handleChange}
   >
     {#if typeof texte !== 'boolean'}
-      <label
+      <div
         class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-        for="settings-formText{supIndex}-{exerciceIndex}"
       >
         <div>{texte[0]} :</div>
         <div
@@ -100,17 +100,13 @@
         >
           {texte[1]}
         </div>
-      </label>
-      <input
-        class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-        name="settings-formText{supIndex}"
-        id="settings-formText{supIndex}-{exerciceIndex}"
-        type="text"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="off"
-        spellcheck="false"
+      </div>
+      <InputText
+        inputID="settings-formText{supIndex}-{exerciceIndex}"
         bind:value={supValue}
+        showTitle={false}
+        darkBackground={true}
+        classAddenda="w-full"
         on:input={handleChange}
       />
     {/if}

@@ -1,13 +1,35 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte'
   import { mathaleaGenerateSeed } from '../../../lib/mathalea'
 
   export let title: string = ''
   export let placeholder: string = ''
   export let showTitle: boolean = true
-  export let value: string = ''
+  export let value: string | number = ''
   export let isDisabled: boolean = false
   export let inputID: string = mathaleaGenerateSeed()
   export let classAddenda: string = ''
+  export let darkBackground: boolean = false
+  export let autocomplete: 'on' | 'off' = 'off'
+  export let autocorrect: 'on' | 'off' = 'off'
+  export let autocapitalize:
+    | 'none'
+    | 'off'
+    | 'on'
+    | 'characters'
+    | 'sentences'
+    | 'words' = 'off'
+  export let spellcheck: boolean = false
+
+  const dispatch = createEventDispatcher()
+
+  function handleInput(event: Event) {
+    dispatch('input', event)
+  }
+
+  function handleChange(event: Event) {
+    dispatch('change', event)
+  }
 </script>
 
 <!--
@@ -55,12 +77,20 @@
     disabled={isDisabled}
     bind:value
     {placeholder}
-    class="block h-5 text-sm border-1
+    {autocomplete}
+    {autocorrect}
+    {autocapitalize}
+    spellcheck={spellcheck ? 'true' : 'false'}
+    on:input={handleInput}
+    on:change={handleChange}
+    class="block w-full text-sm border
       border-coopmaths-action dark:border-coopmathsdark-action
       focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest
-      focus:outline-0 focus:ring-0 focus:border-1
-      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+      focus:outline-0 focus:ring-0 focus:border
+      {darkBackground
+      ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark'
+      : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light'}
       disabled:opacity-20
-      text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light {classAddenda}"
+      {classAddenda}"
   />
 </div>

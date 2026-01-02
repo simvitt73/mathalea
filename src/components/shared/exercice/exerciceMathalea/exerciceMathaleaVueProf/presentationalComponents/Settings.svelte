@@ -4,6 +4,7 @@
   import type { IExercice } from '../../../../../../lib/types'
   import CheckboxWithLabel from '../../../../forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../../../forms/InputNumber.svelte'
+  import InputText from '../../../../forms/InputText.svelte'
   import SupParameterGroup from './SupParameterGroup.svelte'
 
   export let exercice: IExercice
@@ -205,22 +206,12 @@
         autocomplete="off"
         on:submit|preventDefault={dispatchNewSettings}
       >
-        <label
-          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-          for="settings-formAlea-{exerciceIndex}"
-        >
-          Série :
-        </label>
-        <input
-          class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-          name="settings-formAlea"
-          id="settings-formAlea-{exerciceIndex}"
-          type="text"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
+        <InputText
+          inputID="settings-formAlea-{exerciceIndex}"
+          title="Série :"
           bind:value={alea}
+          darkBackground={true}
+          classAddenda="w-full"
           on:input={dispatchNewSettings}
         />
       </form>

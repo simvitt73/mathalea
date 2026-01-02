@@ -4,6 +4,7 @@
   import { afterUpdate } from 'svelte'
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import CheckboxWithLabel from '../components/shared/forms/CheckboxWithLabel.svelte'
+  import InputText from '../components/shared/forms/InputText.svelte'
   import SelectMultiple from '../components/shared/forms/SelectMultiple.svelte'
   import SelectUnique from '../components/shared/forms/SelectUnique.svelte'
   import Exercice from '../exercices/Exercice'
@@ -114,11 +115,11 @@
     on:submit|preventDefault={valider}
     style="display:flex; gap:0.5rem; align-items:center;"
   >
-    <input
-      type="text"
+    <InputText
+      inputID="equation-solve-saisie"
       bind:value={saisie}
       placeholder="Tape quelque chose…"
-      aria-label="Champ de saisie"
+      showTitle={false}
     />
     <button type="submit" disabled={!saisie.trim()}> Valider </button>
   </form>
@@ -170,10 +171,11 @@
 
     <label>
       changeType (séparés par ,) :
-      <input
-        type="text"
+      <InputText
+        inputID="equation-solve-changeType-text"
+        showTitle={false}
         on:input={(e) =>
-          (options.changeType = e.currentTarget.value
+          (options.changeType = e.detail.currentTarget.value
             .split(',')
             .map((x) => x.trim())
             .filter(Boolean))}
