@@ -2,6 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte'
   import ExerciceSimple from '../../../../../../exercices/ExerciceSimple'
   import type { IExercice } from '../../../../../../lib/types'
+  import InputNumber from '../../../../forms/InputNumber.svelte'
 
   export let exercice: IExercice
   export let exerciceIndex: number
@@ -185,18 +186,12 @@
           >
             Nombre de questions :
           </span>
-          <input
-            type="number"
+          <InputNumber
             id="settings-nb-questions-{exerciceIndex}"
-            min="1"
-            max="100"
+            min={1}
+            max={100}
             bind:value={nbQuestions}
             on:change={dispatchNewSettings}
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           />
         </div>
       {/if}
@@ -288,16 +283,9 @@
             for="settings-formNum1-{exerciceIndex}"
             >{formNum1.titre} :
           </label>
-          <input
-            name="formNum1"
+          <InputNumber
             id="settings-formNum1-{exerciceIndex}"
-            type="number"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-            min="1"
+            min={1}
             max={formNum1.champs}
             bind:value={sup}
             on:change={dispatchNewSettings}
@@ -403,16 +391,9 @@
             for="settings-formNum2-{exerciceIndex}"
             >{formNum2.titre} :
           </label>
-          <input
-            name="settings-formNum2"
-            type="number"
+          <InputNumber
             id="settings-formNum2-{exerciceIndex}"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-            min="1"
+            min={1}
             max={formNum2.champs}
             bind:value={sup2}
             on:change={dispatchNewSettings}
@@ -518,16 +499,9 @@
             for="settings-formNum3-{exerciceIndex}"
             >{formNum3.titre} :
           </label>
-          <input
-            name="settings-formNum3"
+          <InputNumber
             id="settings-formNum3-{exerciceIndex}"
-            type="number"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-            min="1"
+            min={1}
             max={formNum3.champs}
             bind:value={sup3}
             on:change={dispatchNewSettings}
@@ -633,16 +607,9 @@
             for="settings-formNum4-{exerciceIndex}"
             >{formNum4.titre} :
           </label>
-          <input
-            name="settings-formNum4"
+          <InputNumber
             id="settings-formNum4-{exerciceIndex}"
-            type="number"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-            min="1"
+            min={1}
             max={formNum4.champs}
             bind:value={sup4}
             on:change={dispatchNewSettings}
@@ -749,16 +716,9 @@
             for="settings-formNum5-{exerciceIndex}"
             >{formNum5.titre} :
           </label>
-          <input
-            name="settings-formNum5"
+          <InputNumber
             id="settings-formNum5-{exerciceIndex}"
-            type="number"
-            autocomplete="off"
-            autocorrect="off"
-            autocapitalize="off"
-            spellcheck="false"
-            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-            min="1"
+            min={1}
             max={formNum5.champs}
             bind:value={sup5}
             on:change={dispatchNewSettings}

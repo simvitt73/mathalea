@@ -17,6 +17,7 @@
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
   import PdfResult from './PdfResult.svelte'
 
@@ -350,10 +351,10 @@
                 title={'Nombre de versions des exercices'}
                 class="mb-4"
               >
-                <input
-                  type="number"
-                  min="1"
-                  max="20"
+                <InputNumber
+                  id="pdf-nb-versions"
+                  min={1}
+                  max={20}
                   bind:value={latexFileInfos.nbVersions}
                 />
               </SimpleCard>

@@ -16,6 +16,7 @@
   import NavBar from '../../shared/header/NavBar.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
   import Tabs from '../../shared/ui/Tabs.svelte'
 
   $: activeTab = $canOptions.isChoosen ? 'can' : 'classic'
@@ -302,12 +303,12 @@
                   >
                     Durée :
                   </div>
-                  <input
-                    type="number"
+                  <InputNumber
                     id="config-eleve-can-duration-input"
-                    class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-coopmaths-action/10 disabled:text-coopmaths-corpus/10 dark:disabled:border-coopmathsdark-action/10 dark:disabled:text-coopmathsdark-corpus/10"
+                    min={1}
+                    max={60}
                     bind:value={$canOptions.durationInMinutes}
-                    disabled={!$canOptions.isChoosen}
+                    isDisabled={!$canOptions.isChoosen}
                   />
                   <div
                     class="text-sm font-light {$canOptions.isChoosen

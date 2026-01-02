@@ -33,6 +33,7 @@
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
   import FormConfigSection from './FormConfigSection.svelte'
+  import InputNumber from '../../shared/forms/InputNumber.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
 
   const url = new URL(window.location.href)
@@ -350,15 +351,11 @@
         </div>
       </SimpleCard>
       <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}">
-        <input
-          type="number"
+        <InputNumber
           id="export-latex-nb-versions-input"
-          class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          name="numberOfVersions"
-          maxlength="2"
-          min="1"
-          max="20"
-          bind:value="{latexFileInfos.nbVersions}"
+          min={1}
+          max={20}
+          bind:value={latexFileInfos.nbVersions}
         />
       </SimpleCard>
     </div>

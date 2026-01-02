@@ -1,6 +1,7 @@
 <script lang="ts">
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
+  import InputNumber from './InputNumber.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
@@ -50,156 +51,113 @@
           <option value="\arabic*)">\arabic* : 1, 2, 3, ...</option>
         </select>
       </label>
-      <label class="flex flex-col text-left">
-        Espace entre les questions
-        <input
-          type="number"
-          class="mt-1 border rounded px-2 py-1 w-24"
-          min="0"
-          max="50"
-          on:input={(e) => {
+      <div class="flex flex-col text-left">
+        <label for="individual-config-itemsep-{exo.index}">Espace entre les questions</label>
+        <InputNumber
+          id="individual-config-itemsep-{exo.index}"
+          min={0}
+          max={50}
+          value={latexFileInfos.exos?.[exo.index]?.itemsep ?? undefined}
+          on:change={(e) => {
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
-            // Récupère la valeur tapée
-            // @ts-ignore
-            let val = e.target.value
-            if (val === '') {
+            if (e.detail === undefined) {
               delete latexFileInfos.exos[exo.index].itemsep
             } else {
-              // Force les bornes
-              val = Number(val)
-              if (val < 0) val = 0
-              if (val > 50) val = 50
-              if (latexFileInfos.exos[exo.index] !== undefined) {
-                latexFileInfos.exos[exo.index].itemsep = val
-              }
+              latexFileInfos.exos[exo.index].itemsep = e.detail
             }
           }}
-          value={latexFileInfos.exos?.[exo.index]?.itemsep ?? ''}
         />
-      </label>
-      <label class="flex flex-col text-left">
-        Nombre de colonnes pour l'exercice
-        <input
-          type="number"
-          class="mt-1 border rounded px-2 py-1 w-24"
-          min="1"
-          max="5"
-          on:input={(e) => {
+      </div>
+      <div class="flex flex-col text-left">
+        <label for="individual-config-cols-{exo.index}">Nombre de colonnes pour l'exercice</label>
+        <InputNumber
+          id="individual-config-cols-{exo.index}"
+          min={1}
+          max={5}
+          value={latexFileInfos.exos?.[exo.index]?.cols}
+          on:change={(e) => {
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
-            // Récupère la valeur tapée
-            // @ts-ignore
-            let val = e.target.value
-            if (val === '') {
+            if (e.detail === undefined) {
               delete latexFileInfos.exos[exo.index].cols
             } else {
-              // Force les bornes
-              val = Number(val)
-              if (val < 1) val = 1
-              if (val > 5) val = 5
-              if (latexFileInfos.exos[exo.index] !== undefined) {
-                latexFileInfos.exos[exo.index].cols = val
-              }
+              latexFileInfos.exos[exo.index].cols = e.detail
             }
           }}
-          value={latexFileInfos.exos?.[exo.index]?.cols ?? ''}
         />
-      </label>
-      <label class="flex flex-col text-left">
-        Nombre de colonnes pour la correction
-        <input
-          type="number"
-          class="mt-1 border rounded px-2 py-1 w-24"
-          min="1"
-          max="5"
-          on:input={(e) => {
+      </div>
+      <div class="flex flex-col text-left">
+        <label for="individual-config-cols-corr-{exo.index}">Nombre de colonnes pour la correction</label>
+        <InputNumber
+          id="individual-config-cols-corr-{exo.index}"
+          min={1}
+          max={5}
+          value={latexFileInfos.exos?.[exo.index]?.cols_corr}
+          on:change={(e) => {
             latexFileInfos.exos = latexFileInfos.exos || {}
             latexFileInfos.exos[exo.index] =
               latexFileInfos.exos[exo.index] || {}
-            // Récupère la valeur tapée
-            // @ts-ignore
-            let val = e.target.value
-            if (val === '') {
+            if (e.detail === undefined) {
               delete latexFileInfos.exos[exo.index].cols_corr
             } else {
-              val = Number(val)
-              // Force les bornes
-              if (val < 1) val = 1
-              if (val > 5) val = 5
-              if (latexFileInfos.exos[exo.index] !== undefined) {
-                latexFileInfos.exos[exo.index].cols_corr = val
-              }
+              latexFileInfos.exos[exo.index].cols_corr = e.detail
             }
           }}
-          value={latexFileInfos.exos?.[exo.index]?.cols_corr ?? ''}
         />
-      </label>
+      </div>
       <fieldset>
         <legend class="flex flex-col text-left">Bloc réponse</legend>
-        <label class="flex flex-col text-left">
-          Nombre de lignes
-          <input
-            type="number"
-            class="mt-1 border rounded px-2 py-1 w-24"
-            on:input={(e) => {
+        <div class="flex flex-col text-left">
+          <label for="individual-config-blocrep-nbligs-{exo.index}">Nombre de lignes</label>
+          <InputNumber
+            id="individual-config-blocrep-nbligs-{exo.index}"
+            min={1}
+            max={20}
+            value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbligs}
+            on:change={(e) => {
               latexFileInfos.exos = latexFileInfos.exos || {}
               latexFileInfos.exos[exo.index] =
                 latexFileInfos.exos[exo.index] || {}
-              latexFileInfos.exos[exo.index].blocrep = latexFileInfos.exos[
-                exo.index
-              ].blocrep || { nbligs: 1, nbcols: 1 }
-
-              // @ts-ignore
-              let val = e.target.value
-              if (val === '') {
+              if (e.detail === undefined) {
                 delete latexFileInfos.exos[exo.index].blocrep
               } else {
-                // Force les bornes
-                val = Number(val)
-                if (val < 1) val = 1
-                if (val > 20) val = 20
-                if (latexFileInfos.exos[exo.index].blocrep !== undefined) {
-                  // @ts-ignore
-                  latexFileInfos.exos[exo.index].blocrep.nbligs = val
+                const blocrep = latexFileInfos.exos[exo.index].blocrep || {
+                  nbligs: 1,
+                  nbcols: 1,
                 }
+                blocrep.nbligs = e.detail
+                latexFileInfos.exos[exo.index].blocrep = blocrep
               }
             }}
-            value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbligs ?? ''}
           />
-        </label>
-        <label class="flex flex-col text-left">
-          Nombre de colonnes
-          <input
-            type="number"
-            class="mt-1 border rounded px-2 py-1 w-24"
-            on:input={(e) => {
+        </div>
+        <div class="flex flex-col text-left">
+          <label for="individual-config-blocrep-nbcols-{exo.index}">Nombre de colonnes</label>
+          <InputNumber
+            id="individual-config-blocrep-nbcols-{exo.index}"
+            min={1}
+            max={20}
+            value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbcols}
+            on:change={(e) => {
               latexFileInfos.exos = latexFileInfos.exos || {}
               latexFileInfos.exos[exo.index] =
                 latexFileInfos.exos[exo.index] || {}
-              latexFileInfos.exos[exo.index].blocrep = latexFileInfos.exos[
-                exo.index
-              ].blocrep || { nbligs: 1, nbcols: 1 }
-              // @ts-ignore
-              let val = e.target.value
-              if (val === '') {
+              if (e.detail === undefined) {
                 delete latexFileInfos.exos[exo.index].blocrep
               } else {
-                // Force les bornes
-                val = Number(val)
-                if (val < 1) val = 1
-                if (val > 20) val = 20
-                if (latexFileInfos.exos[exo.index].blocrep !== undefined) {
-                  // @ts-ignore
-                  latexFileInfos.exos[exo.index].blocrep.nbcols = val
+                const blocrep = latexFileInfos.exos[exo.index].blocrep || {
+                  nbligs: 1,
+                  nbcols: 1,
                 }
+                blocrep.nbcols = e.detail
+                latexFileInfos.exos[exo.index].blocrep = blocrep
               }
             }}
-            value={latexFileInfos.exos?.[exo.index]?.blocrep?.nbcols ?? ''}
           />
-        </label>
+        </div>
       </fieldset>
     </fieldset>
   {/each}

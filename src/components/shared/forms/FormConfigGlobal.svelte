@@ -1,6 +1,7 @@
 <script lang="ts">
   import Latex from '../../../lib/Latex'
   import { type LatexFileInfos } from '../../../lib/LatexTypes'
+  import InputNumber from './InputNumber.svelte'
 
   export let latexFileInfos: LatexFileInfos
   export let latex: Latex
@@ -95,14 +96,11 @@
           bind:checked={globalConfig.itemsep.enabled}
           class="h-4 w-4"
         />
-        <input
-          type="number"
-          class="mt-1 border rounded px-2 py-1 w-24"
-          min="1"
-          max="50"
-          class:opacity-50={!globalConfig.itemsep.enabled}
-          class:cursor-not-allowed={!globalConfig.itemsep.enabled}
-          class:pointer-events-none={!globalConfig.itemsep.enabled}
+        <InputNumber
+          id="global-config-itemsep"
+          min={1}
+          max={50}
+          isDisabled={!globalConfig.itemsep.enabled}
           bind:value={globalConfig.itemsep.value}
         />
       </div>
@@ -117,14 +115,11 @@
           bind:checked={globalConfig.cols.enabled}
           class="h-4 w-4"
         />
-        <input
-          type="number"
-          min="1"
-          max="5"
-          class="mt-1 border rounded px-2 py-1 w-24"
-          class:opacity-50={!globalConfig.cols.enabled}
-          class:cursor-not-allowed={!globalConfig.cols.enabled}
-          class:pointer-events-none={!globalConfig.cols.enabled}
+        <InputNumber
+          id="global-config-cols"
+          min={1}
+          max={5}
+          isDisabled={!globalConfig.cols.enabled}
           bind:value={globalConfig.cols.value}
         />
       </div>
@@ -138,14 +133,11 @@
           bind:checked={globalConfig.cols_corr.enabled}
           class="h-4 w-4"
         />
-        <input
-          type="number"
-          min="1"
-          max="5"
-          class="mt-1 border rounded px-2 py-1 w-24"
-          class:opacity-50={!globalConfig.cols_corr.enabled}
-          class:cursor-not-allowed={!globalConfig.cols_corr.enabled}
-          class:pointer-events-none={!globalConfig.cols_corr.enabled}
+        <InputNumber
+          id="global-config-cols-corr"
+          min={1}
+          max={5}
+          isDisabled={!globalConfig.cols_corr.enabled}
           bind:value={globalConfig.cols_corr.value}
         />
       </div>
@@ -163,30 +155,28 @@
         <span>Activer le bloc réponse</span>
       </label>
 
-      <div
-        class:opacity-50={!globalConfig.blocrep.enabled}
-        class:cursor-not-allowed={!globalConfig.blocrep.enabled}
-        class:pointer-events-none={!globalConfig.blocrep.enabled}
-      >
-        <label class="flex flex-row items-center gap-2 w-full">
-          <span class="w-32 text-left">Nombre de lignes</span>
-          <input
-            type="number"
-            min="1"
+      <div>
+        <div class="flex flex-row items-center gap-2 w-full">
+          <label for="global-config-blocrep-nbligs" class="w-32 text-left">Nombre de lignes</label>
+          <InputNumber
+            id="global-config-blocrep-nbligs"
+            min={1}
+            max={20}
+            isDisabled={!globalConfig.blocrep.enabled}
             bind:value={globalConfig.blocrep.nbligs}
-            class="border rounded px-2 py-1 w-20"
           />
-        </label>
+        </div>
 
-        <label class="flex flex-row items-center gap-2 w-full mt-2">
-          <span class="w-32 text-left">Nombre de colonnes</span>
-          <input
-            type="number"
-            min="1"
+        <div class="flex flex-row items-center gap-2 w-full mt-2">
+          <label for="global-config-blocrep-nbcols" class="w-32 text-left">Nombre de colonnes</label>
+          <InputNumber
+            id="global-config-blocrep-nbcols"
+            min={1}
+            max={20}
+            isDisabled={!globalConfig.blocrep.enabled}
             bind:value={globalConfig.blocrep.nbcols}
-            class="border rounded px-2 py-1 w-20"
           />
-        </label>
+        </div>
       </div>
     </fieldset>
 
