@@ -1,6 +1,7 @@
 <script>
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import CheckboxWithLabel from '../components/shared/forms/CheckboxWithLabel.svelte'
+  import InputNumber from '../components/shared/forms/InputNumber.svelte'
   import { fixeBordures } from '../lib/2d/fixeBordures'
   import { repere } from '../lib/2d/reperes'
   import { spline, trieNoeuds } from '../lib/mathFonctions/Spline'
@@ -108,32 +109,32 @@
         <div>Dérivée à droite</div>
         <div class="text-left">Visible ?</div>
         {#each noeuds as { x, y, deriveeGauche, deriveeDroit, isVisible }, i}
-          <input
-            type="number"
+          <InputNumber
+            id="spline-x-{i}"
             bind:value={x}
             min={-10}
             max={10}
             step={0.1}
             on:change={refreshCourb}
           />
-          <input
-            type="number"
+          <InputNumber
+            id="spline-y-{i}"
             bind:value={y}
             min={-10}
             max={10}
             step={0.1}
             on:change={refreshCourb}
           />
-          <input
-            type="number"
+          <InputNumber
+            id="spline-deriveeGauche-{i}"
             bind:value={deriveeGauche}
             min={-10}
             max={10}
             step={0.1}
             on:change={refreshCourb}
           />
-          <input
-            type="number"
+          <InputNumber
+            id="spline-deriveeDroit-{i}"
             bind:value={deriveeDroit}
             min={-10}
             max={10}
