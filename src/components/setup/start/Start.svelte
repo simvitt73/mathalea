@@ -495,7 +495,7 @@
                 class="group w-full flex flex-row justify-between items-center p-4"
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="choiceMenuWrapper"
-                on:click={() => isMobileMenuOpen = !isMobileMenuOpen}
+                on:click={() => (isMobileMenuOpen = !isMobileMenuOpen)}
               >
                 <div
                   class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
@@ -503,7 +503,9 @@
                   Choix des exercices
                 </div>
                 <i
-                  class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isMobileMenuOpen ? 'rotate-0' : 'rotate-180'}"
+                  class="bx bxs-up-arrow text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest transition-transform duration-300 {isMobileMenuOpen
+                    ? 'rotate-0'
+                    : 'rotate-180'}"
                 ></i>
               </button>
               {#if isMobileMenuOpen}
@@ -515,23 +517,6 @@
                 </div>
               {/if}
             </div>
-            <!-- Barre de boutons en mode smartphone -->
-            <!--<div
-            class={$exercicesParams.length === 0
-              ? 'hidden'
-              : 'w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
-            id="barre-boutons"
-          >
-            <HeaderButtons
-              {zoomUpdate}
-              {setAllInteractive}
-              {newDataForAll}
-              {trash}
-              {setFullScreen}
-              {handleExport}
-              {exportQcmCam}
-            />
-          </div>-->
             <!-- Affichage exercices en mode smartphone -->
             <main
               id="exercisesPart"
@@ -567,22 +552,6 @@
 {/if}
 
 <style>
-  @media (min-width: 768px) {
-    #barre-boutons {
-      width: calc(
-        100% -
-          (
-            var(--isMenuOpen) * var(--sidebarWidth) * 1px +
-              (var(--isMenuOpen)) * 16px
-          )
-      );
-    }
-  }
-  @media (max-width: 768px) {
-    #barre-boutons {
-      width: 100vw;
-    }
-  }
   :root {
     scrollbar-color: #aaaaaa transparent;
   }
