@@ -3,6 +3,7 @@
   import { ChangeTypes } from 'mathsteps'
   import { afterUpdate } from 'svelte'
   import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import CheckboxWithLabel from '../components/shared/forms/CheckboxWithLabel.svelte'
   import Exercice from '../exercices/Exercice'
   import { loadMathLive } from '../modules/loaders'
   import { resoudre } from '../modules/outilsMathjs'
@@ -93,111 +94,119 @@
   })
 </script>
 
-<HeaderExerciceVueProf
-  {indiceExercice}
-  {indiceLastExercice}
-  id="EquationSolve"
-  {...headerExerciceProps}
-/>
-
-<br />
-<form
-  on:submit|preventDefault="{valider}"
-  style="display:flex; gap:0.5rem; align-items:center;"
->
-  <input
-    type="text"
-    bind:value="{saisie}"
-    placeholder="Tape quelque chose…"
-    aria-label="Champ de saisie"
+<div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+  <HeaderExerciceVueProf
+    {indiceExercice}
+    {indiceLastExercice}
+    id="EquationSolve"
+    {...headerExerciceProps}
   />
-  <button type="submit" disabled="{!saisie.trim()}"> Valider </button>
-</form>
-<!-- Liste déroulante d’exemples -->
-<label>
-  Exemple :
-  <select on:change="{choisirExemple}">
-    {#each exemples as ex}
-      <option value="{ex.value}">{ex.label}</option>
-    {/each}
-  </select>
-</label>
-<!-- Options -->
-<h3>Options de résolution</h3>
-<div
-  style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem; max-width:600px;"
->
-  <label>
-    <input type="checkbox" bind:checked="{options.comment}" />
-    comment
-  </label>
 
-  <label>
-    Couleur : <input type="color" bind:value="{options.color}" />
-  </label>
-
-  <label>
-    <input type="checkbox" bind:checked="{options.reduceSteps}" />
-    reduceSteps
-  </label>
-
-  <label>
-    formatSolution :
-    <select bind:value="{options.formatSolution}">
-      <option value="decimal">decimal</option>
-      <option value="fraction">fraction</option>
-      <option value="2">2 (base n°)</option>
-      <option value="5">5 (base n°)</option>
-    </select>
-  </label>
-
-  <label>
-    <input type="checkbox" bind:checked="{options.substeps}" />
-    substeps
-  </label>
-
-  <label>
-    changeType (séparés par ,) :
+  <br />
+  <form
+    on:submit|preventDefault={valider}
+    style="display:flex; gap:0.5rem; align-items:center;"
+  >
     <input
       type="text"
-      on:input="{(e) =>
-        (options.changeType = e.currentTarget.value
-          .split(',')
-          .map((x) => x.trim())
-          .filter(Boolean))}"
+      bind:value={saisie}
+      placeholder="Tape quelque chose…"
+      aria-label="Champ de saisie"
     />
-  </label>
-
+    <button type="submit" disabled={!saisie.trim()}> Valider </button>
+  </form>
+  <!-- Liste déroulante d’exemples -->
   <label>
-    changeType (sélection multiple) :
-    <select multiple size="4" on:change="{selectTypes}">
-      {#each types as type}
-        <option value="{type}">{type}</option>
+    Exemple :
+    <select on:change={choisirExemple}>
+      {#each exemples as ex}
+        <option value={ex.value}>{ex.label}</option>
       {/each}
     </select>
   </label>
-  <label>
-    <input type="checkbox" bind:checked="{options.produitsencroix}" />
-    produitsencroix
-  </label>
+  <!-- Options -->
+  <h3>Options de résolution</h3>
+  <div
+    style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem; max-width:600px;"
+  >
+    <CheckboxWithLabel
+      id="equation-solve-comment"
+      bind:isChecked={options.comment}
+      label="comment"
+    />
 
-  <label>
-    <input type="checkbox" bind:checked="{options.verifications}" />
-    verifications
-  </label>
+    <label>
+      Couleur : <input type="color" bind:value={options.color} />
+    </label>
+
+    <CheckboxWithLabel
+      id="equation-solve-reduceSteps"
+      bind:isChecked={options.reduceSteps}
+      label="reduceSteps"
+    />
+
+    <label>
+      formatSolution :
+      <select bind:value={options.formatSolution}>
+        <option value="decimal">decimal</option>
+        <option value="fraction">fraction</option>
+        <option value="2">2 (base n°)</option>
+        <option value="5">5 (base n°)</option>
+      </select>
+    </label>
+
+    <CheckboxWithLabel
+      id="equation-solve-substeps"
+      bind:isChecked={options.substeps}
+      label="substeps"
+    />
+
+    <label>
+      changeType (séparés par ,) :
+      <input
+        type="text"
+        on:input={(e) =>
+          (options.changeType = e.currentTarget.value
+            .split(',')
+            .map((x) => x.trim())
+            .filter(Boolean))}
+      />
+    </label>
+
+    <label>
+      changeType (sélection multiple) :
+      <select multiple size="4" on:change={selectTypes}>
+        {#each types as type}
+          <option value={type}>{type}</option>
+        {/each}
+      </select>
+    </label>
+
+    <CheckboxWithLabel
+      id="equation-solve-produitsencroix"
+      bind:isChecked={options.produitsencroix}
+      label="produitsencroix"
+    />
+
+    <CheckboxWithLabel
+      id="equation-solve-verifications"
+      bind:isChecked={options.verifications}
+      label="verifications"
+    />
+  </div>
+
+  <!-- Affichage du résultat -->
+  <section style="margin-top:1rem;">
+    <h3 style="margin:0 0 .25rem 0;">Equation :</h3>
+    <div style="padding:.5rem; border:1px solid #ddd; border-radius:.5rem;">
+      {@html resultat1}
+    </div>
+
+    <!-- Si tu veux interpréter la saisie comme du HTML, utilise {@html} -->
+    <!-- ⚠️ Attention : n'utilise pas {@html} avec du contenu non fiable (XSS). -->
+    <h3 style="margin:.75rem 0 .25rem 0;">Résolution :</h3>
+    <div style="padding:.5rem; border:1px solid #ddd; border-radius:.5rem;">
+      {@html resultat2}
+    </div>
+  </section>
 </div>
-
-<!-- Affichage du résultat -->
-<section style="margin-top:1rem;">
-  <h3 style="margin:0 0 .25rem 0;">Equation :</h3>
-  <div style="padding:.5rem; border:1px solid #ddd; border-radius:.5rem;">
-    {@html resultat1}
-  </div>
-
-  <!-- Si tu veux interpréter la saisie comme du HTML, utilise {@html} -->
-  <!-- ⚠️ Attention : n'utilise pas {@html} avec du contenu non fiable (XSS). -->
-  <h3 style="margin:.75rem 0 .25rem 0;">Résolution :</h3>
-  <div style="padding:.5rem; border:1px solid #ddd; border-radius:.5rem;">
-    {@html resultat2}
-  </div>
-</section>

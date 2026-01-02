@@ -2,6 +2,7 @@
   import { createEventDispatcher, onMount } from 'svelte'
   import ExerciceSimple from '../../../../../../exercices/ExerciceSimple'
   import type { IExercice } from '../../../../../../lib/types'
+  import CheckboxWithLabel from '../../../../forms/CheckboxWithLabel.svelte'
   import InputNumber from '../../../../forms/InputNumber.svelte'
   import SupParameterGroup from './SupParameterGroup.svelte'
 
@@ -155,7 +156,7 @@
 
 <div
   id="settings{exerciceIndex}"
-  class="relative bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark z-20 {isVisible
+  class="relative text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark z-20 {isVisible
     ? 'visible lg:w-1/4'
     : 'hidden lg:w-0'} flex flex-col duration-500"
 >
@@ -193,6 +194,7 @@
             max={100}
             bind:value={nbQuestions}
             on:change={dispatchNewSettings}
+            darkBackground={true}
           />
         </div>
       {/if}
@@ -269,49 +271,21 @@
     />
 
     {#if exercice.correctionDetailleeDisponible}
-      <div class="container">
-        <label for="settings-correction-detaillee-{exerciceIndex}">
-          <span
-            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-          >
-            Correction détaillée :
-          </span>
-        </label>
-        <input
-          type="checkbox"
-          id="settings-correction-detaillee-{exerciceIndex}"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
-          class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer checked:bg-coopmaths-action"
-          bind:checked={correctionDetaillee}
-          on:change={dispatchNewSettings}
-        />
-      </div>
+      <CheckboxWithLabel
+        id="settings-correction-detaillee-{exerciceIndex}"
+        bind:isChecked={correctionDetaillee}
+        label="Correction détaillée"
+        on:change={dispatchNewSettings}
+      />
     {/if}
 
     {#if exercice instanceof ExerciceSimple && exercice.versionQcmDisponible}
-      <div class="container">
-        <label for="settings-version-qcm-{exerciceIndex}">
-          <span
-            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-          >
-            Version QCM :
-          </span>
-        </label>
-        <input
-          type="checkbox"
-          id="settings-version-qcm-{exerciceIndex}"
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
-          class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer checked:bg-coopmaths-action"
-          bind:checked={versionQcm}
-          on:change={dispatchNewSettings}
-        />
-      </div>
+      <CheckboxWithLabel
+        id="settings-version-qcm-{exerciceIndex}"
+        bind:isChecked={versionQcm}
+        label="Version QCM"
+        on:change={dispatchNewSettings}
+      />
     {/if}
 
     {#if exercice.comment !== undefined}
