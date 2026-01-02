@@ -533,7 +533,7 @@ async function getForms(page: Page) {
   for (let i = 0; i < 5; i++) {
     const formCheck = settingsLocator.locator(`#settings-check${i + 1}-0`)
     if (await formCheck.isVisible()) {
-      const label = formCheck.locator('xpath=preceding-sibling::label')
+      const label = formCheck.locator('xpath=following-sibling::label')
       formChecks.push({
         description: sanitizeFilename(await label.innerHTML()),
         locator: formCheck,
