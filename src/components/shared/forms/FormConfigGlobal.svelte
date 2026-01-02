@@ -89,20 +89,20 @@
   </h3>
   <div class="flex flex-col gap-3 items-start">
     <!-- Labels -->
-    <div class="flex flex-col w-full text-left">
+    <div class="flex flex-col w-50 text-left">
       Numérotation des questions
       <SelectUnique
         id="global-config-labels"
         bind:value={globalConfig.labels}
         options={labelsOptions}
-        classAddenda="mt-1 w-40"
+        classAddenda="mt-1"
       />
     </div>
 
     <!-- Itemsep -->
     <div class="flex flex-col w-full text-left">
       Espace entre les questions
-      <div class="flex flex-row items-center gap-2">
+      <div class="flex flex-row items-center gap-2 w-30">
         <CheckboxWithLabel
           id="global-config-itemsep-enabled"
           bind:isChecked={globalConfig.itemsep.enabled}
@@ -120,7 +120,7 @@
     <!-- Colonnes -->
     <div class="flex flex-col w-full text-left">
       Nombre de colonnes pour l'exercice
-      <div class="flex flex-row items-center gap-2">
+      <div class="flex flex-row items-center gap-2 w-30">
         <CheckboxWithLabel
           id="global-config-cols-enabled"
           bind:isChecked={globalConfig.cols.enabled}
@@ -137,7 +137,7 @@
 
     <div class="flex flex-col w-full text-left">
       Nombre de colonnes pour la correction
-      <div class="flex flex-row items-center gap-2">
+      <div class="flex flex-row items-center gap-2 w-30">
         <CheckboxWithLabel
           id="global-config-cols-corr-enabled"
           bind:isChecked={globalConfig.cols_corr.enabled}
@@ -162,8 +162,10 @@
       />
 
       <div>
-        <div class="flex flex-row items-center gap-2 w-full">
-          <label for="global-config-blocrep-nbligs" class="w-32 text-left">Nombre de lignes</label>
+        <div class="flex flex-row items-center gap-2 w-60">
+          <label for="global-config-blocrep-nbligs" class="w-32 text-left"
+            >Nombre de lignes</label
+          >
           <InputNumber
             id="global-config-blocrep-nbligs"
             min={1}
@@ -173,8 +175,10 @@
           />
         </div>
 
-        <div class="flex flex-row items-center gap-2 w-full mt-2">
-          <label for="global-config-blocrep-nbcols" class="w-32 text-left">Nombre de colonnes</label>
+        <div class="flex flex-row items-center gap-2 w-60 mt-2">
+          <label for="global-config-blocrep-nbcols" class="w-32 text-left"
+            >Nombre de colonnes</label
+          >
           <InputNumber
             id="global-config-blocrep-nbcols"
             min={1}

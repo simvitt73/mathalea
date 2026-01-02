@@ -182,12 +182,12 @@
       Paramètres
     </h3>
     <div class="w-full flex flex-row items-end gap-x-4">
-      {#if exercice.nbQuestionsModifiable}
-        <div>
+      <div class="w-1/2">
+        {#if exercice.nbQuestionsModifiable}
           <span
             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           >
-            Nombre de questions :
+            Nombre de questions&nbsp;:
           </span>
           <InputNumber
             id="settings-nb-questions-{exerciceIndex}"
@@ -197,13 +197,14 @@
             on:change={dispatchNewSettings}
             darkBackground={true}
           />
-        </div>
-      {/if}
+        {/if}
+      </div>
 
       <form
         id="settings-form-formAlea-{exerciceIndex}"
         name="settings-form-formAlea"
         autocomplete="off"
+        class="w-1/2"
         on:submit|preventDefault={dispatchNewSettings}
       >
         <InputText

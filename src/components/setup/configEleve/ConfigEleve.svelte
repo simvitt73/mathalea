@@ -310,7 +310,7 @@
                       ? 'text-coopmaths-corpus-light dark:text-coopmathsdark-corpus'
                       : 'text-coopmaths-corpus-light/10 dark:text-coopmathsdark-corpus/10'}"
                   >
-                    Durée :
+                    Durée&nbsp;:
                   </div>
                   <InputNumber
                     id="config-eleve-can-duration-input"

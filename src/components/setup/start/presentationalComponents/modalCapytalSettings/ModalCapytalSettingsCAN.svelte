@@ -34,7 +34,7 @@ text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
       ]}
     />
     <div class="flex justify-start flex-row items-center space-x-2">
-      <div>Durée :</div>
+      <div>Durée&nbsp;:</div>
       <InputNumber
         id="config-eleve-can-nb-questions-input"
         bind:value={canOptions.durationInMinutes}

@@ -54,7 +54,7 @@
     ]}
   />
   {#if latexFileInfos.fontOption === 'StandardFont'}
-    <span class="flex items-center gap-2">
+    <span class="flex items-center gap-2 w-30">
       Taille:
       <InputNumber
         id="export-latex-taille-input"
@@ -65,7 +65,7 @@
     </span>
   {/if}
   {#if latexFileInfos.fontOption === 'DysFont'}
-    <span class="flex items-center gap-2">
+    <span class="flex items-center gap-2 w-30">
       Taille:
       <InputNumber
         id="export-latex-dys-taille-input"
@@ -106,7 +106,7 @@
     ]}
   />
   {#if latexFileInfos.fontOption === 'StandardFont'}
-    <span class="flex items-center gap-2">
+    <span class="flex items-center gap-2 w-30">
       Taille:
       <InputNumber
         id="export-latex-can-taille-input"
@@ -117,8 +117,8 @@
     </span>
   {/if}
   {#if latexFileInfos.fontOption === 'DysFont'}
-    <span class="flex items-center gap-2">
-      Taille:
+    <span class="flex items-center gap-2 w-30">
+      Taille :
       <InputNumber
         id="export-latex-can-dys-taille-input"
         min={8}
@@ -130,15 +130,17 @@
   <h6
     class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
   >
-    Durée
+    Durée :
   </h6>
-  <InputText
-    inputID="export-latex-duree-input"
-    placeholder="9 min"
-    bind:value={latexFileInfos.durationCanOption}
-    showTitle={false}
-    classAddenda="w-full placeholder:opacity-40"
-  />
+  <span class="w-30">
+    <InputText
+      inputID="export-latex-duree-input"
+      placeholder="9 min"
+      bind:value={latexFileInfos.durationCanOption}
+      showTitle={false}
+      classAddenda="placeholder:opacity-40"
+    />
+  </span>
 {/if}
 {#if latexFileInfos.style === 'ProfMaquette'}
   <h6
@@ -215,7 +217,7 @@
     ]}
   />
   {#if latexFileInfos.fontOption === 'StandardFont'}
-    <span class="flex items-center gap-2">
+    <span class="flex items-center gap-2 w-30">
       Taille:
       <InputNumber
         id="export-latex-prof-taille-input"
@@ -226,7 +228,7 @@
     </span>
   {/if}
   {#if latexFileInfos.fontOption === 'DysFont'}
-    <span class="flex items-center gap-2">
+    <span class="flex items-center gap-2 w-30">
       Taille:
       <InputNumber
         id="export-latex-prof-dys-taille-input"

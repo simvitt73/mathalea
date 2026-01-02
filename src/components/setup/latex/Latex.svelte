@@ -28,13 +28,13 @@
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
-  import SimpleCard from '../../shared/ui/SimpleCard.svelte'
-  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
-  import FormConfigSection from './FormConfigSection.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
   import InputText from '../../shared/forms/InputText.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
+  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
+  import SimpleCard from '../../shared/ui/SimpleCard.svelte'
+  import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
 
   const url = new URL(window.location.href)
@@ -73,8 +73,14 @@
   }
 
   $: carouselImages = [
-    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`, alt: `${latexFileInfos.style} image-1` },
-    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`, alt: `${latexFileInfos.style} image-2` }
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`,
+      alt: `${latexFileInfos.style} image-1`,
+    },
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`,
+      alt: `${latexFileInfos.style} image-2`,
+    },
   ]
 
   let dialogLua: HTMLDialogElement
@@ -285,8 +291,8 @@
   <NavBar
     subtitle="LaTeX"
     subtitleType="export"
-    handleLanguage="{() => {}}"
-    locale="{$referentielLocale}"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
   />
 
   <section
@@ -303,7 +309,9 @@
       <div
         class="flex flex-col w-full md:flex-row justify-between rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
       >
-        <div class="flex flex-col py-4 pl-16 w-2/3">
+        <div
+          class="flex flex-col py-4 pl-16 w-2/3 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+        >
           <FormConfigSection {latex} bind:latexFileInfos {promise} />
         </div>
         <!-- Carousel de vignette pour les aperçus -->
@@ -314,54 +322,56 @@
         </div>
       </div>
 
-      <SimpleCard icon="{''}" title="{'Éléments de titres'}">
+      <SimpleCard icon={''} title={'Éléments de titres'}>
         <div class="flex flex-col w-full justify-start items-start space-y-2">
           <InputText
             inputID="export-latex-titre-input"
-            placeholder="{latexFileInfos.style === 'Can'
+            placeholder={latexFileInfos.style === 'Can'
               ? 'Course aux nombres'
-              : 'Titre'}"
-            bind:value="{latexFileInfos.title}"
+              : 'Titre'}
+            bind:value={latexFileInfos.title}
             showTitle={false}
-            classAddenda="w-full placeholder:opacity-40"
+            classAddenda="placeholder:opacity-40"
           />
           <InputText
             inputID="export-latex-reference-input"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+            placeholder={latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Référence'
-              : 'Haut de page gauche'}"
-            bind:value="{latexFileInfos.reference}"
-            isDisabled="{latexFileInfos.style === 'Can'}"
+              : 'Haut de page gauche'}
+            bind:value={latexFileInfos.reference}
+            isDisabled={latexFileInfos.style === 'Can'}
             showTitle={false}
-            classAddenda="w-full placeholder:opacity-40"
+            classAddenda="placeholder:opacity-40"
           />
           <InputText
             inputID="export-latex-soustitre-input"
-            placeholder="{latexFileInfos.style === 'Coopmaths' ||
+            placeholder={latexFileInfos.style === 'Coopmaths' ||
             latexFileInfos.style === 'ProfMaquetteQrcode' ||
             latexFileInfos.style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
-              : 'Pied de page droit'}"
-            bind:value="{latexFileInfos.subtitle}"
-            isDisabled="{latexFileInfos.style === 'Can'}"
+              : 'Pied de page droit'}
+            bind:value={latexFileInfos.subtitle}
+            isDisabled={latexFileInfos.style === 'Can'}
             showTitle={false}
-            classAddenda="w-full placeholder:opacity-40"
+            classAddenda="placeholder:opacity-40"
           />
         </div>
       </SimpleCard>
-      <SimpleCard icon="{''}" title="{'Nombre de versions des exercices'}">
-        <InputNumber
-          id="export-latex-nb-versions-input"
-          min={1}
-          max={20}
-          bind:value={latexFileInfos.nbVersions}
-        />
+      <SimpleCard icon={''} title={'Nombre de versions des exercices'}>
+        <span class="w-30">
+          <InputNumber
+            id="export-latex-nb-versions-input"
+            min={1}
+            max={20}
+            bind:value={latexFileInfos.nbVersions}
+          />
+        </span>
       </SimpleCard>
     </div>
 
-    <div bind:this="{divText}">
+    <div bind:this={divText}>
       <h1
         class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
       >
@@ -376,7 +386,7 @@
         <div
           class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
-          <SimpleCard title="{'Compiler le code pour avoir un fichier PDF'}">
+          <SimpleCard title={'Compiler le code pour avoir un fichier PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$.
               J'essaie le nouveau compilateur en ligne (serveur TexLive.net) qui
@@ -397,7 +407,7 @@
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Obtenir un PDF'}">
+          <SimpleCard title={'Obtenir un PDF'}>
             <div>
               Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
               vais être redirigé(e) vers le site OverLeaf (qui nécessite d'avoir
@@ -412,13 +422,13 @@
                     class="flex w-full flex-col justify-center"
                     {latexFile}
                     {exercices}
-                    disabled="{false}"
+                    disabled={false}
                   />
                 </div>
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Copier le code'}" icon="{'bx-copy-alt'}">
+          <SimpleCard title={'Copier le code'} icon={'bx-copy-alt'}>
             <div>
               Je souhaite copier le code $\LaTeX$ pour le coller dans un autre
               logiciel.
@@ -430,9 +440,9 @@
                 <div>
                   <ButtonActionInfo
                     action="copy"
-                    textToCopy="{latexFile.latexWithoutPreamble}"
+                    textToCopy={latexFile.latexWithoutPreamble}
                     text="Code seul"
-                    successMessage="{messageForCopyPasteModal}"
+                    successMessage={messageForCopyPasteModal}
                     errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
                     class="px-2 py-1 rounded-md"
                   />
@@ -446,9 +456,9 @@
                 <div>
                   <ButtonActionInfo
                     action="copy"
-                    textToCopy="{latexFile.latexWithPreamble}"
+                    textToCopy={latexFile.latexWithPreamble}
                     text="Code + préambule"
-                    successMessage="{messageForCopyPasteModal}"
+                    successMessage={messageForCopyPasteModal}
                     errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
                     class="px-2 py-1 rounded-md"
                   />
@@ -456,16 +466,16 @@
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard title="{'Télécharger le code'}" icon="{'bx-download'}">
+          <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="downloadFullArchive"
-                on:click="{async () => {
+                on:click={async () => {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
-                }}"
+                }}
                 text="Archive complète"
               />
             </div>
@@ -477,33 +487,30 @@
                   <ButtonTextAction
                     class="inline-block px-2 py-1 rounded-md"
                     id="downloadPicsButton"
-                    on:click="{handleDownloadPicsModalDisplay}"
+                    on:click={handleDownloadPicsModalDisplay}
                     text="Uniquement les figures"
-                    disabled="{!picsWanted}"
+                    disabled={!picsWanted}
                   />
                 </div>
               {/await}
             </div>
           </SimpleCard>
-          <SimpleCard
-            title="{'Basculer vers la vue PDF'}"
-            icon="{'bx-download'}"
-          >
+          <SimpleCard title={'Basculer vers la vue PDF'} icon={'bx-download'}>
             <div>Je souhaite basculer vers la vue PDF.</div>
             <div slot="button1">
               <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="vuePDF"
-                on:click="{() => {
+                on:click={() => {
                   mathaleaGoToView('pdf')
-                }}"
+                }}
                 text="Basculer sur la vue PDF"
               />
             </div>
           </SimpleCard>
         </div>
         <BasicClassicModal
-          bind:isDisplayed="{isDownloadPicsModalDisplayed}"
+          bind:isDisplayed={isDownloadPicsModalDisplayed}
           icon="bx-code"
         >
           <span slot="header"></span>
@@ -534,7 +541,7 @@
           <div slot="footer">
             <ButtonTextAction
               text="Télécharger les figures"
-              on:click="{handleActionFromDownloadPicsModal}"
+              on:click={handleActionFromDownloadPicsModal}
             />
           </div>
         </BasicClassicModal>
@@ -542,7 +549,7 @@
     </div>
 
     <dialog
-      bind:this="{dialogLua}"
+      bind:this={dialogLua}
       class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6"
     >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->

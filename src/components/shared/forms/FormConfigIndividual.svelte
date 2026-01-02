@@ -38,7 +38,7 @@
           {exo.uuid}
         </div>
       </div>
-      <label class="flex flex-col text-left">
+      <label class="flex flex-col text-left w-60 my-4">
         Numération des questions
         <SelectUnique
           id="individual-config-labels-{exo.index}"
@@ -53,8 +53,10 @@
           }}
         />
       </label>
-      <div class="flex flex-col text-left">
-        <label for="individual-config-itemsep-{exo.index}">Espace entre les questions</label>
+      <div class="flex flex-col text-left w-60 my-4">
+        <label for="individual-config-itemsep-{exo.index}"
+          >Espace entre les questions</label
+        >
         <InputNumber
           id="individual-config-itemsep-{exo.index}"
           min={0}
@@ -72,8 +74,10 @@
           }}
         />
       </div>
-      <div class="flex flex-col text-left">
-        <label for="individual-config-cols-{exo.index}">Nombre de colonnes pour l'exercice</label>
+      <div class="flex flex-col text-left w-60 my-4">
+        <label for="individual-config-cols-{exo.index}"
+          >Nombre de colonnes pour l'exercice</label
+        >
         <InputNumber
           id="individual-config-cols-{exo.index}"
           min={1}
@@ -91,8 +95,10 @@
           }}
         />
       </div>
-      <div class="flex flex-col text-left">
-        <label for="individual-config-cols-corr-{exo.index}">Nombre de colonnes pour la correction</label>
+      <div class="flex flex-col text-left w-60 my-4">
+        <label for="individual-config-cols-corr-{exo.index}"
+          >Nombre de colonnes pour la correction</label
+        >
         <InputNumber
           id="individual-config-cols-corr-{exo.index}"
           min={1}
@@ -111,9 +117,11 @@
         />
       </div>
       <fieldset>
-        <legend class="flex flex-col text-left">Bloc réponse</legend>
-        <div class="flex flex-col text-left">
-          <label for="individual-config-blocrep-nbligs-{exo.index}">Nombre de lignes</label>
+        <legend class="flex flex-col text-left w-60 mt-4">Bloc réponse</legend>
+        <div class="flex flex-col text-left w-60 mb-2">
+          <label for="individual-config-blocrep-nbligs-{exo.index}"
+            >Nombre de lignes</label
+          >
           <InputNumber
             id="individual-config-blocrep-nbligs-{exo.index}"
             min={1}
@@ -136,8 +144,10 @@
             }}
           />
         </div>
-        <div class="flex flex-col text-left">
-          <label for="individual-config-blocrep-nbcols-{exo.index}">Nombre de colonnes</label>
+        <div class="flex flex-col text-left w-60 mb-4">
+          <label for="individual-config-blocrep-nbcols-{exo.index}"
+            >Nombre de colonnes</label
+          >
           <InputNumber
             id="individual-config-blocrep-nbcols-{exo.index}"
             min={1}

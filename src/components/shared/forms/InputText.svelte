@@ -59,9 +59,9 @@
 
  -->
 
-<div>
+<div class="w-full">
   <label
-    class="font-light text-xs pr-4
+    class="font-light text-sm pr-4
       {showTitle ? 'block' : 'hidden'}
       {isDisabled
       ? 'text-coopmaths-struct/10 dark:text-coopmathsdark-struct/10'
@@ -83,7 +83,7 @@
     spellcheck={spellcheck ? 'true' : 'false'}
     on:input={handleInput}
     on:change={handleChange}
-    class="block w-full text-sm border
+    class="block w-full text-sm border h-10 pr-0
       border-coopmaths-action dark:border-coopmathsdark-action
       focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest
       focus:outline-0 focus:ring-0 focus:border

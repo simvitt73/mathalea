@@ -3,7 +3,11 @@
 
   export let id: string
   export let value: string | number = ''
-  export let options: Array<{ label: string; value: string | number; isDisabled?: boolean }> = []
+  export let options: Array<{
+    label: string
+    value: string | number
+    isDisabled?: boolean
+  }> = []
   export let isDisabled: boolean = false
   export let name: string = ''
   export let darkBackground: boolean = false
@@ -39,12 +43,12 @@
   bind:value
   on:change={handleChange}
   disabled={isDisabled}
-  class="w-full px-2 py-1
+  class="w-full px-2 py-1 h-10
     {darkBackground
     ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
     : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
     text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark
-    border rounded
+    border
     border-coopmaths-action dark:border-coopmathsdark-action
     focus:outline-0 focus:ring-0
     focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest
