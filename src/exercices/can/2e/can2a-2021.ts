@@ -575,7 +575,12 @@ export default class SujetCAN2021Seconde extends Exercice {
               texteCorr = `$${listeFacteurs16[0] * listeFacteurs16[0] * listeFacteurs16[1]}=${listeFacteurs16[0]}\\times ${listeFacteurs16[0]}\\times ${listeFacteurs16[1]}=${listeFacteurs16[0]}^2\\times ${listeFacteurs16[1]}$`
             }
 
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+            handleAnswers(this, index, {
+              reponse: {
+                value: reponse,
+                options: { expressionNumerique: true },
+              },
+            })
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(
                 this,
