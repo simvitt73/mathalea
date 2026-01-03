@@ -732,7 +732,7 @@ export function fonctionComparaison(
     fractionEgale, // Documenté
     fractionIdentique, // Documenté
     nombreDecimalSeulement, // Documenté
-    expressionNumerique, // Non Documenté
+    expressionNumerique, // Documenté
     additionSeulementEtNonResultat, // Documenté
     soustractionSeulementEtNonResultat, // Documenté
     multiplicationSeulementEtNonResultat, // Documenté
@@ -934,7 +934,8 @@ function customCanonical(
       if (
         (expression.operator === 'Divide' ||
           expression.operator === 'Rational') && // L'expression contient une division ou une fraction fractionIrreductible
-        (expression.engine.box(['GCD', expression.op1, expression.op2])
+        (expression.engine
+          .box(['GCD', expression.op1, expression.op2])
           .evaluate().numericValue !== 1 ||
           expression.op2.numericValue === 1)
       )
@@ -1120,11 +1121,9 @@ function comparaisonFraction(
           saisieNativeParsed.operator === 'Rational') &&
           // Note: depuis compute-engine v0.30, .value retourne undefined pour les expressions.
           // On utilise .evaluate().numericValue pour obtenir la valeur du GCD.
-          saisieNativeParsed.engine.box([
-            'GCD',
-            saisieNativeParsed.op1,
-            saisieNativeParsed.op2,
-          ]).evaluate().numericValue === 1) ||
+          saisieNativeParsed.engine
+            .box(['GCD', saisieNativeParsed.op1, saisieNativeParsed.op2])
+            .evaluate().numericValue === 1) ||
         saisieNativeParsed.canonical.isInteger
       ) {
         return { isOk: true }
@@ -1860,7 +1859,7 @@ export function expressionNumeriqueCompare(
   const localGoodAnswer = cleaner(goodAnswer)
   const goodAnswerParsed = engine.parse(localGoodAnswer, { canonical: true }) // Important ce canonical à true
   const inputParsed = engine.parse(input, { canonical: true })
-  console.log(input, localGoodAnswer, goodAnswerParsed.json)
+  // console.log(input, localGoodAnswer, goodAnswerParsed.json)
   if (goodAnswerParsed.isSame(inputParsed)) return { isOk: true }
   if (goodAnswerParsed.isEqual(inputParsed))
     if (inputParsed.isNumber) {

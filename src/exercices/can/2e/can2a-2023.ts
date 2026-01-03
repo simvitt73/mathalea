@@ -40,9 +40,7 @@ import type { NestedObjetMathalea2dArray } from '../../../types/2d'
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '03/04/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '9bc44'
 
 export const refs = {
@@ -52,8 +50,7 @@ export const refs = {
 
 /**
  * Aléatoirisation du sujet 2023 de CAN seconde
- * Gilles Mora
-
+ * @author Gilles Mora
  */
 
 function compareNombres(a: number, b: number) {
@@ -155,7 +152,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$`
           handleAnswers(this, index, { reponse: { value: reponse.toFixed(1) } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
           this.canReponseACompleter = ''
@@ -181,7 +180,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse.toFixed(2) } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -235,8 +238,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             this.canEnonce = texte
             this.canReponseACompleter = ''
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
-              //  handleAnswers(this, index, {reponse:{value: reponse}, { formatInteractif: 'calcul' })
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.lyceeClassique,
+              )
             }
             this.listeCanEnonces.push(this.canEnonce)
             this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -285,7 +291,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           texteCorr = `$${a} -${b}\\times ${c}=${a}-${b * c}=${miseEnEvidence(reponse)}$`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBase)
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -343,7 +351,12 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(2) },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '') + '€'
+              texte +=
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) + '€'
             }
             this.canEnonce = texte
             this.canReponseACompleter = '$\\ldots$ €'
@@ -368,7 +381,13 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(2) },
             })
             if (this.interactif) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+              texte +=
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -391,7 +410,13 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(3) },
             })
             if (this.interactif) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+              texte +=
+                ' $=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                )
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -469,7 +494,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -496,7 +525,11 @@ export default class SujetCAN2023Seconde extends Exercice {
           `
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBase,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -513,7 +546,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.canEnonce = `$${a} \\times 0,5$ `
           this.canReponseACompleter = ''
@@ -594,7 +629,11 @@ export default class SujetCAN2023Seconde extends Exercice {
               reponse: { value: reponse.toFixed(1) },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBase,
+              )
             }
             this.canEnonce = texte // 'Compléter'
             this.canReponseACompleter = `Abscisse de $A$ : <br>
@@ -614,7 +653,9 @@ export default class SujetCAN2023Seconde extends Exercice {
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
+            texte +=
+              ' $=$' +
+              ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -640,7 +681,11 @@ export default class SujetCAN2023Seconde extends Exercice {
                 reponse: { value: `${a}^{${b + 1}}` },
               })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                )
               }
               texteCorr = `L${c[d][0]} de $${a}^{${b}}$ se calcule  par
            : <br>
@@ -652,7 +697,11 @@ export default class SujetCAN2023Seconde extends Exercice {
                 reponse: { value: `${a}^{${b - 1}}` },
               })
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, index, '')
+                texte += ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+                )
               }
               texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par
        : <br>
@@ -676,7 +725,14 @@ export default class SujetCAN2023Seconde extends Exercice {
             texteCorr = `Comme $1\\text{ m}^3$= $1000$ L, $${texNombre(a, 1)}\\text{ m}^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'L'
+              texte +=
+                '$=$' +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierNumbers,
+                ) +
+                'L'
             } else {
               texte += ' $=\\ldots$ L'
             }
@@ -744,7 +800,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -773,7 +833,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             },
           })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.lyceeClassique,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -796,7 +860,12 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse.toFixed(0) } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '') + '€'
+            texte +=
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) + '€'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ €'
@@ -934,7 +1003,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>$AE=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce =
               '$(BE)$ et $(DC)$ sont parallèles.<br>' +
@@ -1031,7 +1104,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
               texte += '<br>$CE=$'
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce =
               '$(AB)$ et $(DC)$ sont parallèles.<br>' +
@@ -1091,7 +1168,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, '')
+            texte += ajouteChampTexteMathLive(
+              this,
+              index,
+              KeyboardType.clavierNumbers,
+            )
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -1111,7 +1192,14 @@ export default class SujetCAN2023Seconde extends Exercice {
 
           handleAnswers(this, index, { reponse: { value: reponse } })
           if (this.interactif) {
-            texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'min'
+            texte +=
+              '$=$' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              ) +
+              'min'
           } else {
             texte += '$=\\ldots$ min'
           }
@@ -1363,7 +1451,7 @@ export default class SujetCAN2023Seconde extends Exercice {
                 },
                 objets,
               ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $${miseEnEvidence(reponse.texFraction)}$ u.l. `
           } else {
             const a = grille(-2, -1, 7, 4, 'gray', 1, 1)
             b = choice([3, 4, 6])
@@ -1422,7 +1510,7 @@ export default class SujetCAN2023Seconde extends Exercice {
                 },
                 objets,
               ) + '<br>'
-            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $\\dfrac{${miseEnEvidence(5)}}{${miseEnEvidence(b)}}$ u.l. `
+            texteCorr = `Une unité correspond à $${b}$ carreaux, la ligne brisée mesure $5$ carreaux, soit $${miseEnEvidence(reponse.texFraction)}$ u.l. `
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ u.l.'
@@ -1433,7 +1521,14 @@ export default class SujetCAN2023Seconde extends Exercice {
             },
           })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, '') + 'u.l.'
+            texte +=
+              '<br>' +
+              ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              ) +
+              'u.l.'
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -1527,12 +1622,16 @@ export default class SujetCAN2023Seconde extends Exercice {
             texteCorr = `En partant de l'ordonnée à l'origine de la droite pour aller jusqu'au point $A$, on se décale de $${xA26}$ unités vers la droite et on monte de $${yA26 - yB26}$ unités vers le haut. <br>
             Ainsi, le coefficient directeur de la droite est $\\dfrac{${yA26 - yB26}}{${xA26}}${m.texSimplificationAvecEtapes()}$.`
 
-            reponse = m
+            reponse = m.texFraction
             handleAnswers(this, index, {
               reponse: { value: reponse, options: { fractionEgale: true } },
             })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierDeBaseAvecFraction,
+              )
             }
             this.canEnonce = mathalea2d(
               {
@@ -1682,7 +1781,11 @@ export default class SujetCAN2023Seconde extends Exercice {
               texte += '$B$ est un point de la courbe. Compléter : <br>'
               texte +=
                 `$B(${listeB[0]}\\,;$` +
-                ajouteChampTexteMathLive(this, index, ' ') +
+                ajouteChampTexteMathLive(
+                  this,
+                  index,
+                  KeyboardType.clavierDeBase,
+                ) + // Faudrait mettre un remplisLesBlancs plutôt pour le "en cas d'erreur"
                 '$)$'
             } else {
               texte += `$B$ est un point de la courbe. <br>
@@ -1788,7 +1891,11 @@ export default class SujetCAN2023Seconde extends Exercice {
             }
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, ' ')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce = texte
             this.canReponseACompleter = ''
@@ -1816,7 +1923,11 @@ export default class SujetCAN2023Seconde extends Exercice {
 
             handleAnswers(this, index, { reponse: { value: reponse } })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, '')
+              texte += ajouteChampTexteMathLive(
+                this,
+                index,
+                KeyboardType.clavierNumbers,
+              )
             }
             this.canEnonce = texte
             this.canReponseACompleter = '$n=\\ldots$'
