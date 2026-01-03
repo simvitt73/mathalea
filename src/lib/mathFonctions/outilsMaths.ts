@@ -1,16 +1,17 @@
+import type { BoxedExpression } from '@cortex-js/compute-engine'
 import { randint } from '../../modules/outils'
+import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 import { ecritureAlgebrique } from '../outils/ecritures'
+import { miseEnEvidence } from '../outils/embellissements'
 import { matrice } from './Matrice'
 import { Polynome } from './Polynome'
-import { miseEnEvidence } from '../outils/embellissements'
-import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 
 /**
  * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0
  * delta(false) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c <0
  * @author Jean-Claude Lhote
  */
-export function choisiDelta(positif) {
+export function choisiDelta(positif: boolean) {
   let d, a, b, c
   do {
     a = randint(-5, 5, 0)
@@ -23,12 +24,13 @@ export function choisiDelta(positif) {
 
 /**
  * fonction qui retourne un polynome du second degré correctement écrit.
+ * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
  * @param {number} c
  * @returns {string}
  */
-export function expTrinome(a, b, c) {
+export function expTrinome(a: number, b: number, c: number): string {
   let expr = ''
   if (typeof a === 'number') {
     switch (a) {
@@ -86,6 +88,7 @@ export function expTrinome(a, b, c) {
 
 /**
  * Une fonction qui retourrne le polynome de Lagrange passant par une liste de points
+ * @author Jean-Claude Lhote
  * @param {{x:number,y:number}[]} listePoints
  * @return {Polynome}
  */
@@ -136,7 +139,13 @@ export function interpolationDeLagrange(
  * @return {[[number,number],[number,number]]}
  * @author Jean-Claude Lhote
  */
-export function resolutionSystemeLineaire2x2(x1, x2, fx1, fx2, c) {
+export function resolutionSystemeLineaire2x2(
+  x1: number,
+  x2: number,
+  fx1: number,
+  fx2: number,
+  c: number,
+): [number, number] {
   const maMatrice = matrice([
     [x1 ** 2, x1],
     [x2 ** 2, x2],
@@ -180,12 +189,13 @@ export function resolutionSystemeLineaire3x3(
 
 /**
  * Une fonction utilisée dans les 3 fonctions qui suivent (suppressionParentheses, regroupeTermesMemeDegre et developpe afin de colorier ou pas les termes
+ * @author Jean-Claude Lhote
  * @param str
  * @param color
  * @param isColored
  * @return {string|*}
  */
-const miseEnForme = (str, color, isColored) =>
+const miseEnForme = (str: string, color: string, isColored: boolean) =>
   isColored ? miseEnEvidence(str, color) : str
 function neg(expr) {
   if (expr.operator !== 'Add') return engine.function('Multiply', [expr, '-1'])
@@ -194,10 +204,11 @@ function neg(expr) {
 
 /**
  * Une fonction pour supprimer les parenthèses et aplatir l'expression (un Add avec une série de termes)
+ * @author Jean-Claude Lhote
  * @param expr
  * @return {*|BoxedExpression}
  */
-function flattenAdd(expr) {
+function flattenAdd(expr: BoxedExpression): BoxedExpression {
   if (expr.operator === 'Negate') {
     const oppose = neg(expr.op1)
     const newExpr = engine.function('Add', [oppose], { canonical: false })
@@ -214,10 +225,10 @@ function flattenAdd(expr) {
   if (expr.operator !== 'Add') return expr
 
   const ops = []
-  for (let op of expr.ops) {
+  for (let op of expr.ops ?? []) {
     op = flattenAdd(op)
     if (op.operator === 'Add' || op.operator === 'Delimiter')
-      ops.push(...op.ops.map(flattenAdd))
+      ops.push(...(op.ops ?? []).map(flattenAdd))
     else ops.push(op)
   }
   return engine.function('Add', ops, { canonical: false })
@@ -225,10 +236,14 @@ function flattenAdd(expr) {
 
 /**
  * Supprime les parenthèses dans une somme du type (5x+3)-(2x^2-3x+4)+(4x+7-3x^3)
+ * @author Jean-Claude Lhote
  * @param {string} exp
  * @param {{color: boolean}} options
  */
-export function suppressionParentheses(exp, options) {
+export function suppressionParentheses(
+  exp: string,
+  options: { couleurs?: string[]; isColored?: boolean },
+) {
   const couleurs = options.couleurs ?? [
     'red',
     'blue',
@@ -249,7 +264,7 @@ export function suppressionParentheses(exp, options) {
   exp = clean(exp)
   const arbre = engine.parse(exp, { canonical: false })
   const sp = flattenAdd(flattenAdd(arbre))
-  const parts = sp.ops
+  const parts = sp.ops ?? []
   let expressionFinale = ''
   for (let index = 0; index < parts.length; index++) {
     const latex = parts[index].latex.startsWith('-')
@@ -260,7 +275,7 @@ export function suppressionParentheses(exp, options) {
     const hereIsPower = parts[index].getSubexpressions('Power')[0]
     let deg = 0
     if (hereIsPower != null) {
-      deg = hereIsPower.op2.value
+      deg = Number(hereIsPower.op2.value)
     } else {
       if (parts[index].operator === 'Square') {
         deg = 2
@@ -280,7 +295,7 @@ export function suppressionParentheses(exp, options) {
     expressionFinale += miseEnForme(
       latex,
       couleurs[Math.max(0, 2 - deg)],
-      isColored,
+      isColored ?? false,
     )
   }
   return expressionFinale
@@ -288,9 +303,13 @@ export function suppressionParentheses(exp, options) {
 
 /**
  * une fonction pour trier les termes d'une somme algébrique selon l'exposant de la puissance
+ * @author Jean-Claude Lhote
  * @param {string} exp
  */
-export function regroupeTermesMemeDegre(exp, options) {
+export function regroupeTermesMemeDegre(
+  exp: string,
+  options: { couleurs?: string[]; isColored?: boolean },
+) {
   const couleurs = options.couleurs ?? [
     'red',
     'blue',
@@ -311,13 +330,13 @@ export function regroupeTermesMemeDegre(exp, options) {
   exp = clean(exp)
   if (exp.length === 0) return ''
   const arbre = engine.parse(exp, { canonical: false })
-  const parts = flattenAdd(arbre).ops
-  const allTheTerms = []
+  const parts = flattenAdd(arbre).ops ?? []
+  const allTheTerms: string[][] = []
   for (let index = 0; index < parts.length; index++) {
     let deg = 0
     const terme = parts[index]
     if (terme.getSubexpressions('Power')[0] != null) {
-      deg = terme.getSubexpressions('Power')[0].op2.numericValue
+      deg = Number(terme.getSubexpressions('Power')[0].op2.numericValue)
     } else if (terme.operator === 'Square') {
       deg = 2
     } else if (terme.operator === 'Negate') {
@@ -350,7 +369,7 @@ export function regroupeTermesMemeDegre(exp, options) {
         parcel += term
       }
       expressionFinale.push(
-        `(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored)})`,
+        `(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored ?? false)})`,
       )
     }
   }
@@ -358,20 +377,25 @@ export function regroupeTermesMemeDegre(exp, options) {
 }
 
 /**
- *
+ * @author Jean-Claude Lhote
  * @param expr
  * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
  * @return {string}
  */
 export function developpe(
   expr: string,
-  options: { isColored: boolean; colorOffset?: number; level?: 0 | 1 | 2 },
+  options: {
+    couleurs?: string[]
+    isColored: boolean
+    colorOffset?: number
+    level?: 0 | 1 | 2
+  },
 ): string {
   const isColored = options?.isColored
   const colorOffset = options.colorOffset ?? 0
   const level = options?.level ?? 0
   const clean = generateCleaner(['parentheses', 'fractions'])
-  const couleurs = options.isColored ?? [
+  const couleurs = options.couleurs ?? [
     'red',
     'blue',
     'green',
