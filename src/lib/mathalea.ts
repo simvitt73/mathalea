@@ -845,18 +845,17 @@ export function mathaleaHandleExerciceSimple(
     let i = 0, cptSecours = 0;
     i < exercice.nbQuestions && cptSecours < 50;
   ) {
-    const compare =
-      exercice.compare == null ? fonctionComparaison : exercice.compare
-    // Rémi : On devrait mettre cette comparaison par défaut mais cela ne convient pas aux expressions littérales
-    // const options = exercice.optionsDeComparaison == null ? { nombreDecimalSeulement: true } : exercice.optionsDeComparaison
-    const options =
-      exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (
       exercice.nouvelleVersion &&
       typeof exercice.nouvelleVersion === 'function'
     )
       exercice.nouvelleVersion(numeroExercice)
+    const compare =
+      exercice.compare == null ? fonctionComparaison : exercice.compare
+    const options =
+      exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
+
     if (exercice.questionJamaisPosee(i, String(exercice.correction))) {
       if (exercice.reponse != null) {
         if (compare != null) {
