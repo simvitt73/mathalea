@@ -26,6 +26,7 @@ import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
+import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCHybride'
@@ -398,6 +399,10 @@ export default class Pythagore2D extends Exercice {
           `\\mathrm{${ordreAlphabetique(A.nom + C.nom)}}^2`,
         ]
 
+        if (this.interactif) {
+          handleButtons(this.numeroExercice ?? 0, i, A.nom, B.nom, C.nom)
+        }
+
         redaction = RedactionPythagore(
           A.nom,
           B.nom,
@@ -433,14 +438,17 @@ export default class Pythagore2D extends Exercice {
           texte += this.interactif ? '' : `$${sp(2)}\\ldots$`
         }
 
-        handleAnswers(this, i, {
-          reponse: { value: expr, compare: pythagoreCompare },
-        })
-        texte += ajouteChampTexteMathLive(
-          this,
-          i,
-          `${KeyboardType.clavierDeBase} ${KeyboardType.alphanumeric}`,
-        )
+        if (this.interactif) {
+          handleAnswers(this, i, {
+            reponse: { value: expr, compare: pythagoreCompare },
+          })
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            `${KeyboardType.clavierDeBase} ${KeyboardType.alphanumeric}`,
+          )
+          texte += `<div id="containerForButtonsEx${this.numeroExercice}Q${i}"></div>`
+        }
       }
       if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -452,4 +460,48 @@ export default class Pythagore2D extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
+}
+
+function handleButtons(
+  numeroExercice: number,
+  indiceQuestion: number,
+  label1: string,
+  label2: string,
+  label3: string,
+) {
+  // wait for event 'exercicesAffiches'
+  document.addEventListener('exercicesAffiches', () => {
+    const container = document.getElementById(
+      `containerForButtonsEx${numeroExercice}Q${indiceQuestion}`,
+    )
+    if (!container) return
+    container.innerHTML = ''
+    container.classList.add('my-4')
+    const mathfield = document.querySelector(
+      `#champTexteEx${numeroExercice}Q${indiceQuestion}`,
+    ) as MathfieldElement
+    if (!mathfield) return
+    const addButton = (label: string, insertText: string) => {
+      const button = document.createElement('button')
+      button.textContent = label
+      button.className =
+        'inline-flex mx-4 justify-center items-center text-sm md:text-xl border-b-2 border-r border-r-slate-400 dark:border-r-gray-500 border-b-slate-300 dark:border-b-gray-600 active:border-b-0 active:border-r-0 text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas active:translate-y-[1.5px] dark:active:text-coopmathsdark-canvas active:bg-coopmaths-action active:shadow-none dark:active:bg-coopmathsdark-action dark:active:shadow-none transition-transform ease-in-out shadow-[2px_2px_4px_rgba(180,180,180,0.5)] bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas py-1 px-1 md:py-2 md:px-4 text-center rounded-md font-mono touch-none'
+      button.addEventListener('click', () => {
+        if (insertText === 'remove') {
+          mathfield.executeCommand('deleteBackward')
+        } else {
+          mathfield.insert(insertText)
+        }
+      })
+      container.appendChild(button)
+    }
+    addButton(label1, label1)
+    addButton(label2, label2)
+    addButton(label3, label3)
+    addButton('+', '+')
+    addButton('-', '-')
+    addButton('=', '=')
+    addButton('²', '^2')
+    addButton('⌫', 'remove')
+  })
 }
