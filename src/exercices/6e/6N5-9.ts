@@ -233,7 +233,7 @@ function probleme3(calculFacile: boolean): {
     texteCorr += `<br>${schema.display()}<br>`
   }
 
-  const reponse = texNombre(prixAliment1 + prixTotalAliment2, 2)
+  const reponse = (prixAliment1 + prixTotalAliment2).toFixed(2)
   return { texte, texteCorr, reponse }
 }
 
@@ -285,7 +285,7 @@ function probleme2(calculFacile: boolean): {
     })
     texteCorr += `<br>${schema.display()}<br>`
   }
-  const reponse = texNombre(prixTotal, 2)
+  const reponse = prixTotal.toFixed(2)
   return { texte, texteCorr, reponse }
 }
 
@@ -350,7 +350,7 @@ function probleme1(calculFacile: boolean): {
     })
     texteCorr += `<br>${schema.display()}<br>`
   }
-  const reponse = texNombre(prixTotal, 2)
+  const reponse = prixTotal.toFixed(2)
   return { texte, texteCorr, reponse }
 }
 
