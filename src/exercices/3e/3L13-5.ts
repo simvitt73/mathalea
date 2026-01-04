@@ -127,7 +127,7 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
         ${ajouteChampTexteMathLive(this, 6 * i + 1, ' ', { texteAvant: `Pour le ${texteGras('Programme A')} si $x=${x2}$ on a:`, texteApres: '<br>' })}
         ${ajouteChampTexteMathLive(this, 6 * i + 2, ' ', { texteAvant: `Pour le ${texteGras('Programme B')} si $x=${x1}$ on a:`, texteApres: '<br>' })}
         ${ajouteChampTexteMathLive(this, 6 * i + 3, ' ', { texteAvant: `Pour le ${texteGras('Programme B')} si $x=${x2}$ on a:`, texteApres: '<br>' })}
-        ${texteEnCouleurEtGras('b)')} Prouver que les deux programmes donnent les mêmes résultats quelque soit le nombre choisi.<br><br>
+        ${texteEnCouleurEtGras('b)')} Prouver que les deux programmes donnent les mêmes résultats quel que soit le nombre choisi.<br><br>
         ${ajouteChampTexteMathLive(this, 6 * i + 4, ' ', { texteAvant: `Pour le ${texteGras('Programme A')}, <br> donner l'expression littérale sans la développer :`, texteApres: '<br>' })}
         ${ajouteChampTexteMathLive(this, 6 * i + 5, ' ', { texteAvant: `Pour le ${texteGras('Programme B')}, <br> donner l'expression littérale sans la développer :`, texteApres: '<br>' })}`
 
