@@ -20,13 +20,13 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { RedactionPythagore } from './_pythagore'
 
+import type { MathfieldElement } from 'mathlive'
 import { bleuMathalea, orangeMathalea } from '../../lib/colors'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
-import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
 export const amcType = 'AMCHybride'
@@ -42,8 +42,8 @@ export const interactifType = 'mathLive'
  */
 export function pythagoreCompare(input: string, goodAnswer: string) {
   input = input.replaceAll(/([A-Z]{2})/g, '\\mathrm{$1}')
-  let parsedInput = engine.parse(input)
-  let parsedAnswer = engine.parse(goodAnswer)
+  const parsedInput = engine.parse(input)
+  const parsedAnswer = engine.parse(goodAnswer)
   if (parsedAnswer.operator === 'Equal') {
     if (parsedInput.operator !== 'Equal')
       return {
@@ -115,10 +115,10 @@ export function pythagoreCompare(input: string, goodAnswer: string) {
     // EE : computeEngine 0.47.0
     // L'usage de mathrm rend le parse problématique alphabétiquement avec un negate d'où les 4 nouvelles lignes
     // et la suppression de l'ordre alphabétique qui n'a plus d'intérêt.
-    input = input.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
+    /* input = input.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
     goodAnswer = goodAnswer.replace(/\\mathrm\{([^}]+)\}/g, '{$1}')
     parsedInput = engine.parse(input)
-    parsedAnswer = engine.parse(goodAnswer)
+    parsedAnswer = engine.parse(goodAnswer) */
 
     if (parsedInput.operator !== 'Add')
       return {
@@ -154,12 +154,13 @@ export function pythagoreCompare(input: string, goodAnswer: string) {
       }
     }
 
-    //  const L1 = ordreAlphabetique(inputT1.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    // const L2 = ordreAlphabetique(inputT2.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L1 = inputT1.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
-    const L2 = inputT2.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L1 = ordreAlphabetique(inputT1.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    const L2 = ordreAlphabetique(inputT2.ops![0].toString()).replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    // const L1 = inputT1.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
+    // const L2 = inputT2.ops![0].toString().replaceAll('"', '') // on met la longueur saisie dans l'ordre alphabétique
     const LL1 = answerT1.ops![0].toString().replaceAll('"', '') // Ces longueurs sont déjà dans l'ordre alphabétique
     const LL2 = answerT2.ops![0].toString().replaceAll('"', '')
+
     if ((LL1 === L1 && LL2 === L2) || (LL1 === L2 && LL2 === L1 && !isSub))
       return { isOk: true }
     // else return { isOk: false, feedback: 'Regarde bien la correction.' }
