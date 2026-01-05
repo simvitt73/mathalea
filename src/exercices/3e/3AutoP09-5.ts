@@ -44,8 +44,6 @@ export default class ProblemeDePrix extends ExerciceSimple {
     this.nbQuestions = 1
     this.interactif = true
     this.compare = approximatelyCompare
-    this.optionsDeComparaison = { tolerance: 2 }
-    this.optionsChampTexte = { texteApres: '€' }
   }
 
   nouvelleVersion(): void {
@@ -127,5 +125,7 @@ export default class ProblemeDePrix extends ExerciceSimple {
       (choix
         ? `Le prix à payer pour l'achat de $${texNombre(quantite1, 1)}$ kg ${articleChoisi.det}${articleChoisi.nom} est de $${miseEnEvidence(this.reponse)}$ €.`
         : `Avec $${texNombre(prix2, 2)}$ €, on peut acheter $${miseEnEvidence(this.reponse)}$ kg ${articleChoisi.det}${articleChoisi.nom}.`)
+    this.optionsChampTexte = choix ? { texteApres: '€' } : { texteApres: ' kg' }
+    this.optionsDeComparaison = choix ? { tolerance: 0.2 } : { tolerance: 0.1 }
   }
 }
