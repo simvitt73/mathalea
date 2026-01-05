@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 export const titre =
@@ -32,7 +32,7 @@ export default class NiemeDecimale extends Exercice {
       const texte = `Déterminer la $${n}^{\\mathrm{e}}$ décimale du nombre $\\dfrac{${num}}{${den}}$.`
       const { hasPeriod, periodLength, firstRepeat } = analyzeDecimal(num, den)
       if (!hasPeriod) throw new Error('Pas de période')
-      let texteCorr = Operation({
+      let texteCorr = operation({
         operande1: num,
         operande2: den,
         type: 'division',
@@ -42,7 +42,7 @@ export default class NiemeDecimale extends Exercice {
       texteCorr += '<br><br>'
       texteCorr += `La division posée fait apparaitre un reste déjà obtenu, l'écriture décimale de $\\dfrac{${num}}{${den}}\\approx ${texNombreAvecZeroInutile(toFixedTruncate(num / den, periodLength))}\\ldots$ a une période à ${periodLength} chiffres.`
       texteCorr += '<br><br>'
-      texteCorr += Operation({
+      texteCorr += operation({
         operande1: n,
         operande2: periodLength,
         type: 'divisionE',

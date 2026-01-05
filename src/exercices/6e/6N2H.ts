@@ -9,7 +9,7 @@ import {
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -153,7 +153,7 @@ export default class DivisionDecimale extends Exercice {
       }
       texte = `$${texNombre(a)}\\div${b}`
       if (this.sup === 1) {
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: arrondi(a, 6),
           operande2: b,
           type: 'division',
@@ -162,7 +162,7 @@ export default class DivisionDecimale extends Exercice {
         texteCorr += `<br>$${texNombre(a)}\\div${b}=${texNombre(q)}$`
         texte += this.interactif ? '=$' : '$'
       } else {
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: arrondi(a, 6),
           operande2: b,
           type: 'division',

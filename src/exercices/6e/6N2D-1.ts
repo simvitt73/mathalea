@@ -1,19 +1,19 @@
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { arrondi } from '../../lib/outils/nombres'
+import { numAlpha } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { numAlpha } from '../../lib/outils/outilString'
-import Operation from '../../modules/operations'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDePublication = '06/05/2025'
 export const dateDeModifImportante = '25/05/2025'
@@ -98,7 +98,6 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       let d1 = randint(1, 9)
       const u1 = randint(2, 9)
@@ -164,7 +163,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
         const [op1, op2] = useNb1Decomposed ? [nb1, nb2] : [nb2, nb1]
         texteCorr += numAlpha(0) + `Posons $${op1}\\times ${op2}$.<br>`
         texteCorr += String(
-          Operation({
+          operation({
             operande1: op1,
             operande2: op2,
             type: 'multiplication',

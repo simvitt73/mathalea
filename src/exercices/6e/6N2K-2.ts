@@ -5,7 +5,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -80,7 +80,6 @@ export default class APartirDeDivisionsEuclidiennes extends Exercice {
     for (
       let i = 0, texte = '', texteCorr = '', cpt = 0, a, b, q, r;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // La ligne suivante ne doit pas être mise après les setReponses car sinon elle les efface
       this.autoCorrection[i] = {
@@ -121,7 +120,7 @@ export default class APartirDeDivisionsEuclidiennes extends Exercice {
       }
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
+      texte = `${operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
       if (r === 0) {
         texteCorr = `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}`)}$`
         setReponse(this, i, [

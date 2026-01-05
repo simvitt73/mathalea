@@ -11,7 +11,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -120,14 +120,14 @@ export default class MultiplierDecimaux extends Exercice {
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
       texte += grilletxt
       reponse = new Decimal(a).mul(b)
-      texteCorr = Operation({
+      texteCorr = operation({
         operande1: a.toNumber(),
         operande2: b.toNumber(),
         type: 'multiplication',
         style: 'display: inline',
       })
       texteCorr += context.isHtml ? '' : '\\hspace*{30mm}'
-      texteCorr += Operation({
+      texteCorr += operation({
         operande1: b.toNumber(),
         operande2: a.toNumber(),
         type: 'multiplication',

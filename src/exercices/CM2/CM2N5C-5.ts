@@ -5,7 +5,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -97,7 +97,7 @@ export default class ExerciceProbleme004 extends Exercice {
        La mairie accorde une aide de $${aideMairie}$ euros.`
       // dépense Totale
       const correction1 = `${this.correctionDetaillee ? 'La dépense totale est la somme des cachets des artistes et des frais de déplacement :<br>' : ''}
-${this.sup3 ? `${deuxColonnesResp(Operation({ operande1: payeArtiste, operande2: nbArtistes, type: 'multiplication' }) ?? '', Operation({ operande2: fraisDeplacement, operande1: cachets, type: 'addition' }) ?? '', { eleId: '', largeur1: 50, widthmincol1: '100px', widthmincol2: '100px' })}` : ''}
+${this.sup3 ? `${deuxColonnesResp(operation({ operande1: payeArtiste, operande2: nbArtistes, type: 'multiplication' }) ?? '', operation({ operande2: fraisDeplacement, operande1: cachets, type: 'addition' }) ?? '', { eleId: '', largeur1: 50, widthmincol1: '100px', widthmincol2: '100px' })}` : ''}
  $\\begin{aligned}${nbArtistes}\\times ${payeArtiste}+${fraisDeplacement}&=${cachets}+${fraisDeplacement}\\\\&=${sommeTotale}\\end{aligned}$<br>
  La dépense totale est de $${this.sup !== 3 ? miseEnEvidence(texNombre(sommeTotale, 0)) : texNombre(sommeTotale, 0)}$ euros.<br>`
       // aides
@@ -105,23 +105,23 @@ ${this.sup3 ? `${deuxColonnesResp(Operation({ operande1: payeArtiste, operande2:
         this.sup === 1
           ? ''
           : `${this.correctionDetaillee ? "Le montant total des aides est la somme des aides de la mairie et de l'association de parents d'élèves :<br>" : ''}
-${this.sup3 ? `${Operation({ operande1: aideMairie, operande2: aideParents, type: 'addition' })}` : ''}
+${this.sup3 ? `${operation({ operande1: aideMairie, operande2: aideParents, type: 'addition' })}` : ''}
 $${aideMairie}+${aideParents}=${aides}$<br>
 Le montant total des aides est de $${this.sup !== 3 ? miseEnEvidence(texNombre(aides, 0)) : texNombre(aides, 0)}$ euros.<br>`
       // participation
       const correction3b = `${this.correctionDetaillee ? "La participation par élève est le montant restant à charge pour les familles divisé par le nombre d'élèves :<br>" : ''}
-${this.sup3 ? `${Operation({ operande1: resteAPayer, operande2: nbEleves, type: 'division' })}` : ''}
+${this.sup3 ? `${operation({ operande1: resteAPayer, operande2: nbEleves, type: 'division' })}` : ''}
 $${resteAPayer}\\div ${nbEleves}=${texNombre(participation, 2, true)}$<br>
 La participation par élève se monte à $${miseEnEvidence(texNombre(participation, 2, true))}$ euros.<br>`
       // reste à payer
       const correction2 = `${
         this.sup === 1
           ? `${this.correctionDetaillee ? "Le montant restant à charge pour les familles est la somme totale moins l'aide de la mairie :<br>" : ''}
-${this.sup3 ? `${Operation({ operande1: sommeTotale, operande2: aideMairie, type: 'soustraction' })}` : ''}
+${this.sup3 ? `${operation({ operande1: sommeTotale, operande2: aideMairie, type: 'soustraction' })}` : ''}
 $${sommeTotale}-${aideMairie}=${resteAPayer}$<br>
 Le montant restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`
           : `${this.correctionDetaillee ? "Le montant restant à charge pour les familles est la somme totale moins les aides de la mairie et de l'association de parents d'élèves :<br>" : ''}
-${this.sup3 ? `${Operation({ operande1: sommeTotale, operande2: aides, type: 'soustraction' })}` : ''}
+${this.sup3 ? `${operation({ operande1: sommeTotale, operande2: aides, type: 'soustraction' })}` : ''}
 $${sommeTotale}-${aides}=${resteAPayer}$<br>
 Le montant restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`
       }`
@@ -160,7 +160,7 @@ Le montant restant à payer par les familles est de $${this.sup !== 3 ? miseEnEv
           items: [
             correction1,
             `${this.correctionDetaillee ? "Le montant restant à charge pour les familles est la somme totale moins l'aide de la mairie :<br>" : ''}
-${this.sup3 ? `${Operation({ operande1: sommeTotale, operande2: aideMairie, type: 'soustraction' })}` : ''}
+${this.sup3 ? `${operation({ operande1: sommeTotale, operande2: aideMairie, type: 'soustraction' })}` : ''}
 $${sommeTotale}-${aideMairie}=${resteAPayer}$<br>
 La somme totale restant à payer par les familles est de $${this.sup !== 3 ? miseEnEvidence(texNombre(resteAPayer, 0)) : texNombre(resteAPayer, 0)}$ euros.<br>`,
             correction3b,

@@ -6,7 +6,7 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString'
 import SchemaEnBoite from '../../lib/outils/SchemaEnBoite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -137,7 +137,7 @@ export default class ExerciceProbleme001 extends Exercice {
           })
           correction = `Pour trouver la masse moyenne d'${coquillage.nomSingulier}, on divise la masse totale par le nombre de ${coquillage.nomPluriel}.<br>
    $${texNombre(masseCoquillages)}\\text{ g}\\div ${nbCoquillages}$ ${egalOuApprox(masseCoquillages.div(nbCoquillages), 2)} $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g<br>
-     ${this.sup3 ? `${Operation({ operande1: masseCoquillages.toNumber(), operande2: nbCoquillages, type: 'division', precision: 2 })}` : ''}
+     ${this.sup3 ? `${operation({ operande1: masseCoquillages.toNumber(), operande2: nbCoquillages, type: 'division', precision: 2 })}` : ''}
         ${premiereLettreEnMajuscule(coquillage.nomSingulier)} pèse $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g.<br>`
         } else {
           listePrincipale += ajouteQuestionMathlive({
@@ -153,7 +153,7 @@ export default class ExerciceProbleme001 extends Exercice {
           })
           correction = `Pour trouver la masse moyenne d'${coquillage.nomSingulier}, on divise la masse totale par le nombre de ${coquillage.nomPluriel}.<br>
     $${texNombre(masseCoquillages.round())}\\text{ g}\\div ${nbCoquillages} ${egalOuApprox(masseCoquillages.div(nbCoquillages), 0)} ${texNombre(masseCoquillages.div(nbCoquillages), 0)}$ g<br>
-    ${this.sup3 ? `${Operation({ operande1: masseCoquillages.round().toNumber(), operande2: nbCoquillages, type: 'division', precision: 1 })}` : ''}
+    ${this.sup3 ? `${operation({ operande1: masseCoquillages.round().toNumber(), operande2: nbCoquillages, type: 'division', precision: 1 })}` : ''}
         ${premiereLettreEnMajuscule(coquillage.nomSingulier)} pèse environ $${texNombre(masseCoquillages.div(nbCoquillages), 0)}$ g au gramme près.<br>`
         }
       } else {
@@ -175,11 +175,11 @@ export default class ExerciceProbleme001 extends Exercice {
             `Pour trouver la masse moyenne d'${coquillage.nomSingulier}, on divise la masse totale par le nombre de ${coquillage.nomPluriel}.<br>
     ${SchemaEnBoite.division(masseCoquillages.toNumber(), masseCoquillages.div(nbCoquillages).toNumber(), nbCoquillages, 0).display()}
      $${texNombre(masseCoquillages)}\\text{ g}\\div ${nbCoquillages}$ = $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g<br>
-${this.sup3 ? `${Operation({ operande1: masseCoquillages.toNumber(), operande2: nbCoquillages, type: 'division', precision: 1 })}` : ''}${premiereLettreEnMajuscule(coquillage.nomSingulier)} pèse $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g en moyenne.<br>`,
+${this.sup3 ? `${operation({ operande1: masseCoquillages.toNumber(), operande2: nbCoquillages, type: 'division', precision: 1 })}` : ''}${premiereLettreEnMajuscule(coquillage.nomSingulier)} pèse $${texNombre(masseCoquillages.div(nbCoquillages), 2)}$ g en moyenne.<br>`,
             `Pour trouver la masse de $${nouveauNombre}$ ${coquillage.nomPluriel}, on multiplie la masse moyenne d'${coquillage.nomSingulier} par le nombre de ${coquillage.nomPluriel}.<br>
     ${SchemaEnBoite.division(masseCoquillages.mul(Number(nouveauNombre)).div(nbCoquillages).toNumber(), masseCoquillages.div(nbCoquillages).toNumber(), Number(nouveauNombre), 0).display()}<br><br>
     $${texNombre(masseCoquillages.div(nbCoquillages), 2)}\\text{ g}\\times ${nouveauNombre}$ = $${texNombre(masseCoquillages.mul(Number(nouveauNombre)).div(nbCoquillages), 2)}$ g<br>
-     ${this.sup3 ? `${Operation({ operande1: masseCoquillages.div(nbCoquillages).toNumber(), operande2: nouveauNombre, type: 'multiplication', precision: 1 })}` : ''}$
+     ${this.sup3 ? `${operation({ operande1: masseCoquillages.div(nbCoquillages).toNumber(), operande2: nouveauNombre, type: 'multiplication', precision: 1 })}` : ''}$
      ${nouveauNombre}$ ${coquillage.nomPluriel} pèsent $${texNombre(masseCoquillages.mul(Number(nouveauNombre)).div(nbCoquillages), 2)}$ g.<br>`,
           ],
           style: 'alpha',

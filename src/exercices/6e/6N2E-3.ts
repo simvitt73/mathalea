@@ -1,10 +1,10 @@
+import Decimal from 'decimal.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
+import operation from '../../modules/operations'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
-import { randint, listeQuestionsToContenu } from '../../modules/outils'
-import Operation from '../../modules/operations'
-import Decimal from 'decimal.js'
 export const titre = 'Produit et somme ou différence de décimaux'
 
 export const dateDePublication = '20/12/2022'
@@ -42,7 +42,6 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       const A = new Decimal(
         choice([randint(10, 99), randint(100, 999)]) * 10 + randint(1, 9),
@@ -66,7 +65,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
       texte = 'Calculer.'
       texteCorr =
-        Operation({
+        operation({
           operande1: A.toNumber(),
           operande2: B.toNumber(),
           type: 'multiplication',
@@ -78,7 +77,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
         const addition = this.sup2 ? choice([true, false]) : true
         texte += `<br>${numAlpha(indice)}$${texNombre(couple.A)} ${addition ? '+' : '-'} ${texNombre(couple.B)}$ ${sp()} ${sp()} ${sp()} et ${sp()} ${sp()} ${sp()} $${texNombre(couple.A)} \\times ${texNombre(couple.B)}$.`
         texteCorr += `<br>${numAlpha(indice)}<br>`
-        texteCorr += Operation({
+        texteCorr += operation({
           operande1: couple.A.toNumber(),
           operande2: couple.B.toNumber(),
           type: addition ? 'addition' : 'soustraction',

@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import {
@@ -52,7 +52,7 @@ export default class nomExercice extends Exercice {
     let question3 = `Déterminer sa $${n}^{\\mathrm{e}}$ décimale.`
     question3 += '<br>'
 
-    let correction3 = Operation({
+    let correction3 = operation({
       operande1: num,
       operande2: den,
       type: 'division',
@@ -63,7 +63,7 @@ export default class nomExercice extends Exercice {
     correction3 += `La division posée fait apparaitre un reste déjà obtenu, l'écriture décimale de $\\dfrac{${num}}{${den}}\\approx ${texNombreAvecZeroInutile(toFixedTruncate(num / den, periodLength))}\\ldots$ a une période à ${periodLength} chiffres.`
     correction3 += '<br><br>'
 
-    correction3 += Operation({
+    correction3 += operation({
       operande1: n,
       operande2: periodLength,
       type: 'divisionE',

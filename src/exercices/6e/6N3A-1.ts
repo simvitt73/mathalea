@@ -10,7 +10,7 @@ import {
 } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -149,7 +149,7 @@ export default class DivisionFraction extends Exercice {
       }
       texte = `$${texFraction(texNombre(a), texNombre(b))}`
       if (this.sup === 1) {
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: a,
           operande2: b,
           type: 'division',
@@ -157,7 +157,7 @@ export default class DivisionFraction extends Exercice {
         })
         texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${miseEnEvidence(texNombre(q))}$`
       } else {
-        texteCorr = Operation({
+        texteCorr = operation({
           operande1: a,
           operande2: b,
           type: 'division',

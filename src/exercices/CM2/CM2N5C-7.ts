@@ -7,7 +7,7 @@ import {
 } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import { nombreEnLettres } from '../../modules/nombreEnLettres'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { prenoms } from './CM2N5C-4'
@@ -102,7 +102,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   : ''
               }`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
-          ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : `$${nb1} + ${nb2} = ${nb1 + nb2}$<br>`}
+          ${this.sup3 ? operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : `$${nb1} + ${nb2} = ${nb1 + nb2}$<br>`}
           ${prenom1} a maintenant $${miseEnEvidence(String(nb1 + nb2))}$ billes.`
               break
             case 2:
@@ -125,7 +125,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   : ''
               }`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
-          ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'soustraction' }) : `$${nb1} - ${nb2} = ${nb1 - nb2}$<br>`}
+          ${this.sup3 ? operation({ operande1: nb1, operande2: nb2, type: 'soustraction' }) : `$${nb1} - ${nb2} = ${nb1 - nb2}$<br>`}
           ${prenom1} a maintenant $${miseEnEvidence(String(nb1 - nb2))}$ billes.`
               break
             default:
@@ -149,7 +149,7 @@ export default class ExerciceProbleme006 extends Exercice {
               }`
 
               correction = `${this.correctionDetaillee ? `Nombres de billes qu'avait ${prenom1} avant : ` : ''}
-          ${this.sup3 ? Operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' }) : ` $${nb1 - nb2} + ${nb2} = ${nb1}$<br>`}
+          ${this.sup3 ? operation({ operande1: nb1 - nb2, operande2: nb2, type: 'addition' }) : ` $${nb1 - nb2} + ${nb2} = ${nb1}$<br>`}
          ${prenom1} avait $${miseEnEvidence(String(nb1))}$ billes.`
               break
           }
@@ -177,7 +177,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   : ''
               }`
               correction = `${this.correctionDetaillee ? `On ajoute le nombre de billes de ${prenom1} et de ${prenom2} : ` : ''}
-        ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : ` $${nb1} + ${nb2} = ${nb1 + nb2}$<br>`}
+        ${this.sup3 ? operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : ` $${nb1} + ${nb2} = ${nb1 + nb2}$<br>`}
        Ensemble ${prenom1} et ${prenom2} ont $${miseEnEvidence(String(nb1 + nb2))}$ billes.`
               break
             case 2:
@@ -200,7 +200,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   : ''
               }`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
-        ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'soustraction' }) : `$${nb1} - ${nb2} = ${nb1 - nb2}$<br>`}
+        ${this.sup3 ? operation({ operande1: nb1, operande2: nb2, type: 'soustraction' }) : `$${nb1} - ${nb2} = ${nb1 - nb2}$<br>`}
         ${prenom1} a $${miseEnEvidence(String(nb1 - nb2))}$ billes.`
               break
             default:
@@ -230,7 +230,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   ? ''
                   : `Nombre de billes de ${prenom1} :<br>`) +
                   String(
-                    Operation({
+                    operation({
                       operande1: nb1 - nb2,
                       operande2: nb2,
                       type: 'addition',
@@ -240,7 +240,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   ? ''
                   : 'Nombre de billes total :<br>') +
                   String(
-                    Operation({
+                    operation({
                       operande1: nb1,
                       operande2: nb2,
                       type: 'addition',
@@ -283,7 +283,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   : ''
               }`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom2} : ` : ''}
-        ${this.sup3 ? Operation({ operande1: nb2 - nb1, operande2: nb1, type: 'addition' }) : `$${nb2 - nb1} + ${nb1} = ${nb2}$<br>`}
+        ${this.sup3 ? operation({ operande1: nb2 - nb1, operande2: nb1, type: 'addition' }) : `$${nb2 - nb1} + ${nb1} = ${nb2}$<br>`}
         ${prenom2} a $${miseEnEvidence(String(nb2))}$ billes.`
               break
             case 2:
@@ -306,7 +306,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   : ''
               }`
               correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
-        ${this.sup3 ? Operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : `$${nb1} + ${nb2} = ${nb1}$<br>`}
+        ${this.sup3 ? operation({ operande1: nb1, operande2: nb2, type: 'addition' }) : `$${nb1} + ${nb2} = ${nb1}$<br>`}
         ${prenom1} a $${miseEnEvidence(String(nb1))}$ billes.`
 
               break
@@ -337,7 +337,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   ? ''
                   : `Nombre de billes de ${prenom1} :<br>`) +
                   String(
-                    Operation({
+                    operation({
                       operande1: nb1 - nb2,
                       operande2: nb2,
                       type: 'addition',
@@ -347,7 +347,7 @@ export default class ExerciceProbleme006 extends Exercice {
                   ? ''
                   : 'Nombre de billes total :<br>') +
                   String(
-                    Operation({
+                    operation({
                       operande1: nb1,
                       operande2: nb2,
                       type: 'addition',
@@ -394,7 +394,7 @@ export default class ExerciceProbleme006 extends Exercice {
                     : ''
                 }`
                 correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom2} : ` : ''}
-                      ${this.sup3 ? Operation({ operande1: nb1, operande2: nbFois, type: 'multiplication' }) : `$${nb1}\\times ${nbFois} = ${nb1 * nbFois}$<br>`}
+                      ${this.sup3 ? operation({ operande1: nb1, operande2: nbFois, type: 'multiplication' }) : `$${nb1}\\times ${nbFois} = ${nb1 * nbFois}$<br>`}
       ${prenom2} a $${miseEnEvidence(String(nb1 * nbFois))}$ billes.`
                 break
               case 2:
@@ -417,7 +417,7 @@ export default class ExerciceProbleme006 extends Exercice {
                     : ''
                 }`
                 correction = `${this.correctionDetaillee ? `Nombre de billes de ${prenom1} : ` : ''}
-      ${this.sup3 ? Operation({ operande1: nb2, operande2: nbFois, type: 'division' }) : `$${nb2} \\div ${nbFois} = ${nb1}$<br>`}
+      ${this.sup3 ? operation({ operande1: nb2, operande2: nbFois, type: 'division' }) : `$${nb2} \\div ${nbFois} = ${nb1}$<br>`}
       ${prenom1} a $${miseEnEvidence(String(nb1))}$ billes.`
                 break
               default:
@@ -446,7 +446,7 @@ export default class ExerciceProbleme006 extends Exercice {
           ? deuxColonnesResp(
               (this.correctionDetaillee ? '' : 'Nombre de billes total :<br>') +
                 String(
-                  Operation({
+                  operation({
                     operande1: nb1,
                     operande2: nbFois,
                     type: 'multiplication',
@@ -456,7 +456,7 @@ export default class ExerciceProbleme006 extends Exercice {
                 ? ''
                 : `Nombre de billes de ${prenom2} :<br>`) +
                 String(
-                  Operation({
+                  operation({
                     operande1: nb1 * nbFois,
                     operande2: nb1,
                     type: 'soustraction',

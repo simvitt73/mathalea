@@ -10,7 +10,7 @@ import {
 import { numAlpha } from '../../lib/outils/outilString'
 import { prenomM } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -71,7 +71,6 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       indiceInteractifAvant = indiceInteractif
       let diviseur, quotient, reste, dividende
@@ -97,7 +96,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: dividende,
               operande2: diviseur,
               type: 'divisionE',
@@ -136,7 +135,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: dividende,
               operande2: diviseur,
               type: 'divisionE',
@@ -175,7 +174,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(dividende)}$ par $${diviseur}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: dividende,
               operande2: diviseur,
               type: 'divisionE',
@@ -224,7 +223,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
 
           texteCorr = `Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: dividende,
               operande2: diviseur,
               type: 'divisionE',
@@ -259,7 +258,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
             KeyboardType.clavierNumbers,
           )
           texteCorr = `Effectuons l'addition de ${prixForfait} et ${prixHotel}. <br>`
-          texteCorr += Operation({
+          texteCorr += operation({
             operande1: prixHotelTotal,
             operande2: prixForfaitTotal,
             type: 'addition',
@@ -267,7 +266,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           texteCorr += `<br>Ces ${nbAmis} amis ont dépensé au total $${miseEnEvidence(texNombre(prixHotelTotal + prixForfaitTotal))}$ €.<br>`
           texteCorr += `<br>${numAlpha(1)} Posons la division euclidienne de $${texNombre(prixHotelTotal + prixForfaitTotal)}$ par $${nbAmis}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: prixHotelTotal + prixForfaitTotal,
               operande2: nbAmis,
               type: 'divisionE',
@@ -311,7 +310,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           texteCorr += `Donc, c'est comme si le cinéma contenait $${nbGrandeSalles * nb}$ petites salles + $${nbPetiteSalles}$ petites salles, soit $${nbGrandeSalles * nb + nbPetiteSalles}$ petites salles.<br>`
           texteCorr += `Posons la division euclidienne de $${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}$ par $${nbGrandeSalles * nb + nbPetiteSalles}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1:
                 nbPlacesPetiteSalles * nbPetiteSalles +
                 nbGrandeSalles * nb * nbPlacesPetiteSalles,
@@ -366,7 +365,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPerlesJauneTotal)}$ par $${nbPerlesJaune}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: nbPerlesJauneTotal,
               operande2: nbPerlesJaune,
               type: 'divisionE',
@@ -375,7 +374,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersJaune), 'blue')}$ colliers avec les perles jaunes.`
           texteCorr += `<br>Posons la division euclidienne de $${texNombre(nbPerlesRougeTotal)}$ par $${nbPerlesRouge}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: nbPerlesRougeTotal,
               operande2: nbPerlesRouge,
               type: 'divisionE',
@@ -440,7 +439,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbTimbres)}$ par $${nbTimbresParPage}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: nbTimbres,
               operande2: nbTimbresParPage,
               type: 'divisionE',
@@ -480,7 +479,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(dividende)}$ par $${diviseur}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: dividende,
               operande2: diviseur,
               type: 'divisionE',
@@ -539,7 +538,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           )
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPersonnes)}$ par $${nbPlaces1ParRangée}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: nbPersonnes,
               operande2: nbPlaces1ParRangée,
               type: 'divisionE',
@@ -548,7 +547,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           texteCorr += `<br> Avec ${nbPlaces1ParRangée} places par rangée, il y aura ${nbRangée1} rangées remplies et une dernière avec ${reste1} places occupées et ${texteEnCouleurEtGras(String(nbPlaces1ParRangée - reste1), 'blue')} places libres.`
           texteCorr += `<br> <br> Posons la division euclidienne de $${texNombre(nbPersonnes)}$ par $${nbPlaces2ParRangée}$. <br>`
           texteCorr +=
-            Operation({
+            operation({
               operande1: nbPersonnes,
               operande2: nbPlaces2ParRangée,
               type: 'divisionE',

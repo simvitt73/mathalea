@@ -1,6 +1,6 @@
-import Exercice from '../Exercice'
 import { context } from '../../modules/context'
-import Operation from '../../modules/operations'
+import operation from '../../modules/operations'
+import Exercice from '../Exercice'
 export const titre = 'Opérations posées'
 
 export const refs = {
@@ -52,7 +52,11 @@ export default class OperationsPosees extends Exercice {
 
   nouvelleVersion() {
     const nombres = [1234.5, 789.2]
-    const operandes = String(this.sup2).split('-')
+    let operandes = String(this.sup2).split('-')
+    if (operandes.length !== 2) {
+      operandes = ['1234.5', '789.2']
+    }
+
     nombres[0] = parseFloat(operandes[0])
     nombres[1] = parseFloat(operandes[1])
 
@@ -60,28 +64,28 @@ export default class OperationsPosees extends Exercice {
     const b = nombres[1]
     switch (parseInt(this.sup)) {
       case 1: // addition
-        this.contenu = Operation({
+        this.contenu = operation({
           operande1: a,
           operande2: b,
           type: 'addition',
         })
         break
       case 2: // soustraction
-        this.contenu = Operation({
+        this.contenu = operation({
           operande1: a,
           operande2: b,
           type: 'soustraction',
         })
         break
       case 3: // multiplication
-        this.contenu = Operation({
+        this.contenu = operation({
           operande1: a,
           operande2: b,
           type: 'multiplication',
         })
         break
       case 4: // division euclidienne
-        this.contenu = Operation({
+        this.contenu = operation({
           operande1: a,
           operande2: b,
           type: 'divisionE',
@@ -90,7 +94,7 @@ export default class OperationsPosees extends Exercice {
         break
       case 5: // division
       default:
-        this.contenu = Operation({
+        this.contenu = operation({
           operande1: a,
           operande2: b,
           type: 'division',
