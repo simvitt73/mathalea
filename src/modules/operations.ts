@@ -826,6 +826,174 @@ function additionPosee(
   return code
 }
 
+export function additionMultiplePosee(
+  operandes: (number | Decimal)[],
+  base: number,
+  retenuesOn: boolean,
+  calculer = true,
+  style: string,
+) {
+  let code = ''
+  const operandesDecimal = operandes.map((op) => new Decimal(op))
+  const somme = operandesDecimal.reduce(
+    (acc: Decimal, val) => acc.plus(val),
+    new Decimal(0),
+  )
+  let maxDec = 0
+  const nbDecimals = operandesDecimal.map((op) =>
+    nombreDeChiffresApresLaVirgule(op),
+  )
+  nbDecimals.forEach((dec) => {
+    if (dec > maxDec) maxDec = dec
+  })
+  const objets = []
+  const stringOperandes: string[] = []
+  operandesDecimal.forEach((op, index) => {
+    let sop = ''
+    if (base ? base === 10 : true) {
+      sop = op.mul(10 ** nbDecimals[index]).toString()
+      op = op.mul(10 ** maxDec)
+      for (let j = 0; j < maxDec - nbDecimals[index]; j++) sop += ' ' // On complète par des espaces si besoin
+      for (
+        let j = 0;
+        j <
+        Math.abs(
+          Math.min(
+            0,
+            Math.floor(Math.log10(operandesDecimal[index].toNumber())),
+          ),
+        );
+        j++
+      )
+        sop = '0' + sop // On complète par des zéros si besoin
+    } else {
+      sop = base10VersBaseN(op, base)
+      op = op.mul(new Decimal(base).pow(maxDec))
+    }
+    stringOperandes.push(sop)
+  })
+  const longueurOperandes = Math.max(
+    ...stringOperandes.map((sop) => sop.length),
+  )
+
+  let retenues = ' '
+  stringOperandes.forEach((sop, index) => {
+    const lop = sop.length
+    if (lop < longueurOperandes) {
+      // si l'opérande a moins de chiffres que l'opérande le plus long, on complète avec des espaces.
+      for (let j = 0; j < longueurOperandes - lop; j++) {
+        sop = ' ' + sop
+      }
+      stringOperandes[index] = sop
+    }
+  })
+
+  // les deux opérandes ont le même nombre de chiffres
+  for (let i = longueurOperandes - 1; i > 0; i--) {
+    // on construit la chaine des retenues.
+    const chiffresSum = stringOperandes.reduce((acc, sop) => {
+      const chiffre = isNaN(parseInt(sop[i], base)) ? 0 : parseInt(sop[i], base)
+      return acc + chiffre
+    }, 0)
+    if (
+      chiffresSum + parseInt(Number(retenues[0]) > 0 ? retenues[0] : '0') >
+      base - 1
+    ) {
+      retenues = `${Math.floor((chiffresSum + parseInt(Number(retenues[0]) > 0 ? retenues[0] : '0')) / base)}${retenues}`
+    } else {
+      retenues = ` ${retenues}`
+    }
+  }
+
+  retenues = ' ' + retenues
+  for (let index = 0; index < stringOperandes.length; index++) {
+    if (index < stringOperandes.length - 1)
+      stringOperandes[index] = ` ${stringOperandes[index]}`
+    else stringOperandes[index] = `+${stringOperandes[index]}`
+  }
+
+  const sresultat = somme.toString().replace('.', '')
+  for (let i = 0; i < longueurOperandes + 1; i++) {
+    for (let k = 0; k < stringOperandes.length; k++) {
+      if (stringOperandes[k][i] !== ' ')
+        objets.push(
+          texteParPosition(
+            stringOperandes[k][i],
+            i * espacement,
+            operandesDecimal.length + 1 - k,
+            0,
+            'black',
+            1.2,
+            'milieu',
+            false,
+          ),
+        )
+    }
+    objets.push(segment(0, 1.4, (longueurOperandes + 1) * espacement, 1.4))
+    if (retenues[i] !== ' ' && retenuesOn && calculer)
+      objets.push(
+        texteParPosition(
+          retenues[i],
+          i * espacement,
+          operandesDecimal.length + 1.5,
+          0,
+          'red',
+          0.8,
+          'milieu',
+          false,
+        ),
+      )
+    if (sresultat[i] !== ' ' && calculer)
+      objets.push(
+        texteParPosition(
+          sresultat[i],
+          i * espacement,
+          1,
+          0,
+          'black',
+          1.2,
+          'milieu',
+          false,
+        ),
+      )
+  }
+  if (maxDec !== 0) {
+    for (let i = 0; i < operandesDecimal.length; i++) {
+      objets.push(
+        texteParPosition(
+          ',',
+          0.3 + espacement * (longueurOperandes - maxDec),
+          operandesDecimal.length + 1 - i * 1,
+          0,
+          'black',
+          1.2,
+          'milieu',
+          false,
+        ),
+      )
+    }
+
+    if (calculer)
+      objets.push(
+        texteParPosition(
+          ',',
+          0.3 + espacement * (longueurOperandes - maxDec),
+          1,
+          0,
+          'black',
+          1.2,
+          'milieu',
+          false,
+        ),
+      )
+  }
+  code += mathalea2d(
+    Object.assign({ pixelsParCm: 20, scale: 0.8, style }, fixeBordures(objets)),
+    objets,
+  )
+  return code
+}
+
 function multiplicationPosee(
   operande1: number | Decimal,
   operande2: number | Decimal,
