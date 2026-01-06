@@ -1,5 +1,5 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm'
-import { enleveElement } from '../../../lib/outils/arrayOutils'
+import { enleveElement, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils'
@@ -32,7 +32,7 @@ export default class LaBonneUnite extends Exercice {
   nouvelleVersion() {
     const hauteurs = [
       ['chaise', 75, 115, 'cm'],
-      ['grue de chantier', 30, 90, 'dm'],
+      ['grue de chantier', 20, 60, 'm'],
       ['gratte-ciel', 50, 180, 'm'],
       ['girafe', 40, 50, 'dm'],
       ['colline', 75, 150, 'm'],
@@ -56,14 +56,14 @@ export default class LaBonneUnite extends Exercice {
       let liste: [string, number, number, string][]
       let typeObjet: string
       if (choixType === 0) {
-        liste = hauteurs.splice(0) as [string, number, number, string][]
+        liste = hauteurs.slice(0) as [string, number, number, string][]
         typeObjet = "hauteur d'une"
       } else {
-        liste = longueurs.splice(0) as [string, number, number, string][]
+        liste = longueurs.slice(0) as [string, number, number, string][]
         typeObjet = "longueur d'un"
       }
       const nbChoix = liste.length
-      const unites = ['mm', 'cm', 'dm', 'm', 'km']
+      const unites = shuffle(['mm', 'cm', 'dm', 'm', 'km'])
       const a = randint(0, nbChoix - 1)
       const b = randint(liste[a][1] as number, liste[a][2] as number)
       enleveElement(unites, liste[a][3])
