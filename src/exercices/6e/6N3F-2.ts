@@ -90,6 +90,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
         i: 0,
         figure,
         isDynamic: true,
+        hasFeedback: false
       })
       figure.divButtons.style.display = 'grid'
       if (figure.ui) figure.ui.send({ type: 'FILL' })
