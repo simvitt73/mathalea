@@ -26,6 +26,7 @@ export default function figureApigeom({
   defaultAction,
   idAddendum = '',
   isDynamic,
+  hasFeedback = true
 }: {
   exercice: IExercice
   figure: Figure
@@ -39,6 +40,8 @@ export default function figureApigeom({
   defaultAction?: string
   /** figure chargé en interactif et pourtant on souhaite qu'elle soit statique => isDynamic = false */
   isDynamic?: boolean
+  /** la figure sera-t-elle évaluée ? */
+  hasFeedback?: boolean
 }): string {
   if (!context.isHtml) return ''
   // Styles par défaut
@@ -171,5 +174,8 @@ export default function figureApigeom({
     }
   }
 
-  return `<div class="m-6 leading-none" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+  if (hasFeedback) {
+    return `<div class="m-6 leading-none" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+  }
+  return `<div class="m-6 leading-none" id="${idApigeom}"></div>`
 }
