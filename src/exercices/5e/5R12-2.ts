@@ -137,8 +137,14 @@ export default class ReperagePointDuPlan extends Exercice {
       }
     }
 
-    texte = 'Déterminer les coordonnées des points'
-    texteCorr = 'Les coordonnées des points sont :<br>'
+    texte =
+      nbPoints > 1
+        ? 'Déterminer les coordonnées respectives des points'
+        : 'Déterminer les coordonnées du point'
+    texteCorr =
+      nbPoints > 1
+        ? 'Les coordonnées respectives des points sont :<br>'
+        : 'Les coordonnées du point sont :<br>'
     for (let i = 0; i < nbPoints - 1; i++) {
       texte += ` $${nom[i]}$, `
       texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
@@ -188,10 +194,16 @@ export default class ReperagePointDuPlan extends Exercice {
         )
       }
     }
-    texte = texte.slice(0, texte.length - 1) + ` et $${nom[nbPoints - 1]}$.<br>`
+    texte =
+      nbPoints > 1
+        ? texte.slice(0, texte.length - 1) + ` et $${nom[nbPoints - 1]}$.<br>`
+        : texte + ` $${nom[nbPoints - 1]}$.<br>`
     texteCorr =
-      texteCorr.slice(0, texteCorr.length - 1) +
-      ` et $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
+      nbPoints > 1
+        ? texteCorr.slice(0, texteCorr.length - 1) +
+          ` et $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
+        : texteCorr +
+          ` $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
     if (this.sup2) {
       objets2d.push(
         repere({
