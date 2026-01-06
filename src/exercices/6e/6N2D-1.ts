@@ -179,11 +179,16 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
       if (this.sup3) {
         texte = `Sachant que $${nb1}\\times ${nb2} = ${texNombre(nb1 * nb2)}$,
                 calculer $${texNombre(multipleNb1)}\\times ${texNombre(multipleNb2)}$`
-        texte += this.interactif
-          ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        if (this.interactif)
+          texte += ajouteChampTexteMathLive(
+            this,
+            i,
+            KeyboardType.clavierNumbers,
+            {
               texteAvant: ' : ',
-            })
-          : '.'
+            },
+          )
+        texte += '.'
         handleAnswers(this, i, {
           reponse: {
             value: reponse[1],
@@ -194,12 +199,14 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
         reponse[0] = 0
       } else {
         texte = numAlpha(0) + `Calculer en ligne $${nb1}\\times ${nb2}$`
+
         texte += this.interactif
           ? ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierNumbers, {
               texteAvant: ' puis donner le résultat : ',
-              texteApres: '.<br>',
+              texteApres: '.',
             })
-          : '.<br>'
+          : '.'
+        texte += '<br>'
         handleAnswers(this, 2 * i, {
           reponse: {
             value: reponse[0],
