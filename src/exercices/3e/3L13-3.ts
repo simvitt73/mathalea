@@ -898,7 +898,7 @@ export default class ProblemesEnEquation extends Exercice {
           i,
           uniteOptions[0] === ' unites[Longueurs]'
             ? KeyboardType.longueur
-            : KeyboardType.clavierNumbers,
+            : KeyboardType.clavierDeBase,
           {
             texteApres: sp(2) + uniteOptions[2],
           },
