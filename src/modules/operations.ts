@@ -8,7 +8,7 @@ import {
   nombreDeChiffresDansLaPartieEntiere,
   ordreDeGrandeur,
 } from '../lib/outils/nombres'
-import { texNombre } from '../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../lib/outils/texNombre'
 import { context } from './context'
 import { mathalea2d } from './mathalea2d'
 function nombreDeChiffresApresLaVirgule(x: Decimal) {
@@ -828,13 +828,22 @@ function additionPosee(
 
 export function additionMultiplePosee(
   operandes: (number | Decimal)[],
-  base: number,
-  retenuesOn: boolean,
-  calculer = true,
-  style: string,
+  {
+    base = 10,
+    retenuesOn = false,
+    calculer = false,
+    style = 'display: block',
+  }: {
+    base?: number
+    retenuesOn?: boolean
+    calculer?: boolean
+    style?: string
+  },
 ) {
   let code = ''
-  const operandesDecimal = operandes.map((op) => new Decimal(op))
+  const operandesDecimal = operandes.map(
+    (op) => new Decimal(stringNombre(op, 5).replaceAll(',', '.').trim()),
+  ) // Je limite à 5 chiffres après la virgule pour éviter les problèmes des flottants.
   const somme = operandesDecimal.reduce(
     (acc: Decimal, val) => acc.plus(val),
     new Decimal(0),
@@ -912,7 +921,10 @@ export function additionMultiplePosee(
     else stringOperandes[index] = `+${stringOperandes[index]}`
   }
 
-  const sresultat = somme.toString().replace('.', '')
+  let sresultat = somme.toString().replace('.', '')
+  for (let i = 0; i < longueurOperandes + 1 - sresultat.length; i++) {
+    sresultat = ` ${sresultat}`
+  }
   for (let i = 0; i < longueurOperandes + 1; i++) {
     for (let k = 0; k < stringOperandes.length; k++) {
       if (stringOperandes[k][i] !== ' ')
@@ -943,7 +955,7 @@ export function additionMultiplePosee(
           false,
         ),
       )
-    if (sresultat[i] !== ' ' && calculer)
+    if (sresultat[i] !== ' ' && calculer && i < sresultat.length)
       objets.push(
         texteParPosition(
           sresultat[i],
