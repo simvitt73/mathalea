@@ -105,7 +105,7 @@ export default class ProgrammesDeCalculsEquivalent extends Exercice {
         }
         case 6: {
           // 6 : (x+a)^2-a^2 = x(x + 2a)
-          prog1 = generateProgram('(x+a)^2+b', { a, b })
+          prog1 = generateProgram('(x+a)^2+b', { a, b: -a * a })
           prog2 = generateProgram('x(x+a)', { a: 2 * a, b })
           break
         }
