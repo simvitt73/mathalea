@@ -42,6 +42,7 @@ export function generateProgram(
 
   const sign = ecritureAlgebrique
   const parNeg = ecritureParentheseSiNegatif
+  const signSauf0 = (n: number) => (n === 0 ? '' : sign(n))
 
   switch (model) {
     case 'ax+b': {
@@ -126,7 +127,7 @@ export function generateProgram(
           '- Développer :',
           `$x(x ${sign(a)}) = x \\times x + x \\times ${parNeg(a)}$`,
           '- Réduire :',
-          `$${a}(x ${sign(b)}) = ${miseEnEvidence(`x^{2} ${sign(a)} x`)}$`,
+          `$x(x ${sign(a)}) = ${miseEnEvidence(`x^{2} ${sign(a)} x`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
@@ -295,7 +296,7 @@ export function generateProgram(
         ],
         solutionX: [
           '- Choisir un nombre $ \\rightarrow x$',
-          `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} ${Math.abs(a)} $ \\rightarrow x ${sign(a)}$.`,
+          `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$ $ \\rightarrow x ${sign(a)}$.`,
           `- Élever le résultat au carré $  \\rightarrow (x ${sign(a)})^{2} $.`,
           `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow (x ${sign(a)})^{2} ${sign(b)} $.`,
         ],
@@ -305,14 +306,14 @@ export function generateProgram(
           `$(x ${sign(a)})^{2} ${sign(b)} = x\\times x + x \\times ${parNeg(a)} ${sign(a)} \\times x  ${sign(a)} \\times ${parNeg(a)} ${sign(b)}$`,
           '- Réduire :',
           `$(x ${sign(a)})^{2} ${sign(b)} = x^{2} ${sign(a)} x ${sign(a)} x  ${sign(a * a)} ${sign(b)}$`,
-          `$(x ${sign(a)})^{2} ${sign(b)}= ${miseEnEvidence(`x^{2} ${sign(2 * a)} x ${sign(a * a + b)}`)}$`,
+          `$(x ${sign(a)})^{2} ${sign(b)}= ${miseEnEvidence(`x^{2} ${sign(2 * a)} x ${signSauf0(a * a + b)}`)}$`,
         ],
         solutionV: function (value: number): string[] {
           return [
             `- Choisir un nombre : $${value}$`,
-            `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} ${Math.abs(a)} $ \\rightarrow ${value} ${sign(a)} = ${value + a}$.`,
+            `- ${a >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(a)}$ $ \\rightarrow ${value} ${sign(a)} = ${value + a}$.`,
             `- Élever le résultat au carré $ \\rightarrow ${parNeg(value + a)}^2 = ${(value + a) ** 2} $.`,
-            `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)} \\rightarrow ${(value + a) ** 2} ${sign(b)} = ${miseEnEvidence((value + a) ** 2 + b)} $.`,
+            `- ${b >= 0 ? 'Ajouter' : 'Soustraire'} $${Math.abs(b)}$ $ \\rightarrow ${(value + a) ** 2} ${sign(b)} = ${miseEnEvidence((value + a) ** 2 + b)} $.`,
           ]
         },
         testV: function (value: number): number {
