@@ -190,7 +190,7 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
           remplisLesBlancs(
             this,
             i,
-            '%{champ1}~<~%{champ2}~<~%{champ3}~<~%{champ4}~<~%{champ5}',
+            '%{champ1}~\\lt~%{champ2}~\\lt~%{champ3}~\\lt~%{champ4}~\\lt~%{champ5}',
             ` ${KeyboardType.clavierDeBaseAvecFraction}`,
           )
       }
