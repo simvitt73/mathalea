@@ -102,6 +102,18 @@ async function action(page: Page, description: string) {
     log('new URL (mode interactif): ' + page.url())
     const locators = await page.locator(questionSelector).all()
     log('nbre de questions:' + locators.length)
+
+    // attendre que le contenu des questions soit chargé (en particulier pour "chargement...")
+    await page.waitForFunction(
+      (selector) => {
+        const questions = Array.from(document.querySelectorAll(selector))
+        return questions.length > 0 &&
+          questions.every(
+            q => q.textContent && q.textContent.trim() !== 'chargement...'
+          )
+      },
+      questionSelector,
+    )
     // => TODOS à poursuivre
     // Cliquer sur vérifier les données
     const buttonVerifier = page.locator('#verif0')
