@@ -245,7 +245,7 @@ math-field.fillInTheBlanks {
   padding: '2px';
 }
 math-field.fillInTheBlanks::part(prompt) {
-  height: 1.1em;
+  min-height: 1.1em;
 }
 math-field.schemaEnBoite {
   margin: 0;
