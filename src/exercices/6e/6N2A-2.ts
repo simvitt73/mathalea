@@ -111,7 +111,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
             arrondi(randint(1, 9) / 10 + randint(1, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}+${texNombre(e)}$`
           reponse = arrondi(a + b + c + d + e)
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}+${texNombre(e)}=${miseEnEvidence(texNombre(arrondi(a + b + c + d + e)))}$`
+          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}+${texNombre(e)}=${miseEnEvidence(texNombre(arrondi(a + b + c + d + e)))}$<br>\n`
           texteCorr += additionMultiplePosee([a, b, c, d, e], {
             retenuesOn: true,
             calculer: true,
@@ -130,7 +130,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           d = randint(1, 9)
           texte = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}$`
           reponse = arrondi(a + b + c + d)
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(texNombre(arrondi(a + b + c + d)))}$`
+          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(texNombre(arrondi(a + b + c + d)))}$<br>\n`
           texteCorr += additionMultiplePosee([a, b, c, d], {
             retenuesOn: true,
             calculer: true,
@@ -149,7 +149,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           c = arrondi(randint(5, 9) * 10 + randint(6, 9) + randint(1, 9) / 10)
           texte = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}$`
           reponse = arrondi(a + b + c)
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}=${miseEnEvidence(texNombre(arrondi(a + b + c)))}$`
+          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}=${miseEnEvidence(texNombre(arrondi(a + b + c)))}$<br>\n`
           texteCorr += additionMultiplePosee([a, b, c], {
             retenuesOn: true,
             calculer: true,
@@ -170,7 +170,7 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
           d = arrondi(randint(6, 9) + randint(1, 9) / 10)
           texte = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}$`
           reponse = arrondi(a + b + c + d)
-          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(texNombre(arrondi(a + b + c + d)))}$`
+          texteCorr = `$${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(texNombre(arrondi(a + b + c + d)))}$<br>\n`
           texteCorr += additionMultiplePosee([a, b, c, d], {
             retenuesOn: true,
             calculer: true,

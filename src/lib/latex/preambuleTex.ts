@@ -329,7 +329,7 @@ export function loadPackagesFromContent(contents: contentsType) {
   testIfLoaded(['\\ang', '\\num{'], '\\usepackage{siunitx}', contents)
   testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
   testIfLoaded(
-    ['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv'],
+    ['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv', '\\opmanyadd'],
     '\\usepackage{xlop}',
     contents,
   )
