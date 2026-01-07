@@ -140,7 +140,7 @@ export default class Proportions extends Exercice {
                   break
                 case 2:
                   texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
-                  texteCorr = `${context.isHtml ? '<br>' : ''}On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
+                  texteCorr = `On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.<br>`
                   texteCorr +=
                     'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
