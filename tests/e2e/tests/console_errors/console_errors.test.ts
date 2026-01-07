@@ -102,7 +102,10 @@ async function action(page: Page, description: string) {
     log('new URL (mode interactif): ' + page.url())
     const locators = await page.locator(questionSelector).all()
     log('nbre de questions:' + locators.length)
-
+    locators.forEach(async (locator, index) => {
+      const text = await locator.innerText()
+      log(`Question ${index + 1}: ${text}`)
+    })
     // attendre que le contenu des questions soit chargé (en particulier pour "chargement...")
     await page.waitForFunction(
       (selector) => {
@@ -110,7 +113,6 @@ async function action(page: Page, description: string) {
         return questions.length > 0 &&
           questions.every(
             q => {
-              log(q.textContent)
               return q.textContent && q.textContent.trim() !== 'chargement...'
             }
           )
