@@ -38,7 +38,7 @@ export default class ExprimerEnFonction extends ExerciceSimple {
     const choixQ = choice([true, false])
 
     if (context.isAmc) this.versionQcm = false
-    switch (choice([1, 2, 3, 4, 5, 6])) {
+    switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) {//
       case 1:
         this.question = `Lorsqu’un point mobile suit une trajectoire circulaire de rayon $R$, 
   en mètre ($\\text{m}$), son accélération centripète $a$ (en $\\text{m/s}^2$) 
@@ -178,7 +178,7 @@ Puis en isolant  $F$, on obtient : $${miseEnEvidence('F = \\dfrac{9}{5}C + 32')}
         break
 
       case 4:
-        this.question = `Dans le vide, la distance $h$ (en $\\text{m}) parcourue par un corps en chute libre durant un temps $t$ (en s) est donnée par la formule : <br>`
+        this.question = `Dans le vide, la distance $h$ (en $\\text{m}$) parcourue par un corps en chute libre durant un temps $t$ (en s) est donnée par la formule : <br>`
         this.question += texteCentre('$h=\\dfrac{1}{2}gt^2$')
         if (this.versionQcm) {
           this.question += `L'expression permettant, à partir de cette formule, d'exprimer $t$ est : `
@@ -242,8 +242,8 @@ Donc : $${miseEnEvidence('I = \\dfrac{F}{1 + T}')}$.`
         }
         break
 
-      case 6:
-      default:
+
+        case 6:
         this.question = `Le périmètre $P$ d'un rectangle est donnée en fonction de sa longueur $L$ et sa largeur $\\ell$.<br>`
         this.question += texteCentre('$P=2(L+\\ell)$')
         this.reponse = choixQ ? '$\\dfrac{P}{2}-l$' : '$\\dfrac{P}{2}-L$'
@@ -292,6 +292,117 @@ En développant, on obtient : $P = 2L + 2\\ell$.<br>
 En isolant $2\\ell$, puis en divisant par $2$, on obtient : $2\\ell = P - 2L$, soit $${miseEnEvidence('\\ell = \\dfrac{P}{2} - L')}$. `
         }
         break
+
+      case 7:
+        this.question = `Le volume $V$ d'un cylindre de hauteur $h$ et de rayon $r$ est égal à :<br>`
+        this.question += texteCentre('$V=\\pi r^2h$')
+        if (this.versionQcm) {
+          this.question += choixQ
+            ? `L'expression permettant, à partir de cette formule, d'exprimer la hauteur $h$ est : `
+            : `L'expression permettant, à partir de cette formule, d'exprimer le rayon $r$ est : `
+          this.reponse = choixQ
+            ? '$h=\\dfrac{V}{\\pi r^2}$'
+            : '$r=\\sqrt{\\dfrac{V}{\\pi h}}$'
+        } else {
+          this.question += choixQ
+            ? `Donner l'expression permettant, à partir de cette formule, d'exprimer la hauteur $h$.`
+            : `Donner l'expression permettant, à partir de cette formule, d'exprimer le rayon $r$.`
+          this.reponse = choixQ
+            ? ['$\\dfrac{V}{\\pi\\times r^2}$', '$\\dfrac{V}{\\pi r^2}$', '$\\dfrac{V}{r^2\\pi}$','$\\dfrac{V}{r^2\\times \\pi}$']
+            : ['$\\sqrt{\\dfrac{V}{\\pi\\times h}}$', '$\\sqrt{\\dfrac{V}{\\pi h}}$', '$\\sqrt{\\dfrac{V}{h\\pi}}$', '$\\sqrt{\\dfrac{V}{h\\times \\pi}}$']
+        }
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? [
+                '$h=\\sqrt{\\dfrac{V}{\\pi r^2}}$',
+                '$h=\\dfrac{V}{\\pi r}$',
+                '$h=\\dfrac{r^2}{\\pi V}$',
+              ]
+            : [
+                '$r=\\dfrac{V}{\\pi h}$',
+                '$r=\\dfrac{\\sqrt{V}}{\\pi r}$',
+                '$r=\\dfrac{r^2}{\\pi V}$',
+              ]
+        }
+        choixQ
+          ? (this.optionsChampTexte = {
+              texteAvant: '<br> $h=$',
+              texteApres: ' ',
+            })
+          : (this.optionsChampTexte = {
+              texteAvant: '<br> $r=$',
+              texteApres: ' ',
+            })
+
+        if (choixQ) {
+          this.correction = `On part de la formule : $V = \\pi r^2 h$.<br>
+En isolant $h$, on obtient : $${miseEnEvidence('h = \\dfrac{V}{\\pi r^2}')}$.`
+        } else {
+          this.correction = `On part de la formule : $V = \\pi r^2 h$.<br>
+En isolant $r^2$, on obtient : $r^2 = \\dfrac{V}{\\pi h}$.<br>
+Comme $r \\geqslant 0$, en prenant la racine carrée, on obtient : $${miseEnEvidence('r = \\sqrt{\\dfrac{V}{\\pi h}}')}$.`
+        }
+        break
+
+      case 8:
+        default:
+        this.question = `Le volume $V$ d'un cône de hauteur $h$ et de rayon $r$ est $V=\\dfrac{1}{3}\\pi r^2h$. <br>
+On cherche à isoler $h$. On a :`
+        if (this.versionQcm) {
+          this.question = `Le volume $V$ d'un cône de hauteur $h$ et de rayon $r$ est :`
+          this.question += texteCentre('$V=\\dfrac{1}{3}\\pi r^2h$')
+          this.question += choixQ
+            ? `L'expression permettant, à partir de cette formule, d'exprimer la hauteur $h$ est : `
+            : `L'expression permettant, à partir de cette formule, d'exprimer le rayon $r$ est : `
+          this.reponse = choixQ
+            ? '$h=\\dfrac{3V}{\\pi r^2}$'
+            : '$r=\\sqrt{\\dfrac{3V}{\\pi h}}$'
+        } else {
+          this.question = `Le volume $V$ d'un cône de hauteur $h$ et de rayon $r$ est :`
+          this.question += texteCentre('$V=\\dfrac{1}{3}\\pi r^2h$')
+          this.question += choixQ
+            ? `Donner l'expression permettant, à partir de cette formule, d'exprimer la hauteur $h$.`
+            : `Donner l'expression permettant, à partir de cette formule, d'exprimer le rayon $r$.`
+          this.reponse = choixQ
+            ? ['$\\dfrac{3V}{\\pi r^2}$', '$\\dfrac{3V}{\\pi\\times r^2}$','$\\dfrac{3V}{r^2\\times \\pi}$', '$\\dfrac{3V}{r^2\\pi}$']
+            : ['$\\sqrt{\\dfrac{3V}{\\pi h}}$', '$\\sqrt{\\dfrac{3V}{\\pi\\times h}}$','$\\sqrt{\\dfrac{3V}{h\\pi}}$','$\\sqrt{\\dfrac{3V}{h\\times\\pi}}$']
+        }
+        if (this.versionQcm) {
+          this.distracteurs = choixQ
+            ? [
+                '$h=\\dfrac{V}{3\\pi r^2}$',
+                '$h=\\dfrac{\\pi r^2}{3V}$',
+                '$h=\\sqrt{\\dfrac{3V}{\\pi r}}$',
+              ]
+            : [
+                '$r=\\dfrac{3V}{\\pi h}$',
+                '$r=\\dfrac{\\sqrt{V}}{\\pi r}$',
+                '$r=\\dfrac{\\sqrt{3V}}{\\pi h}$',
+              ]
+        }
+        choixQ
+          ? (this.optionsChampTexte = {
+              texteAvant: '<br> $h=$',
+              texteApres: ' ',
+            })
+          : (this.optionsChampTexte = {
+              texteAvant: '<br> $r=$',
+              texteApres: ' ',
+            })
+
+        if (choixQ) {
+          this.correction = `On part de la formule : $V = \\dfrac{1}{3}\\pi r^2 h$.<br>
+En multipliant les deux membres par $3$, on obtient : $3V = \\pi r^2 h$.<br>
+En isolant $h$, on obtient : $${miseEnEvidence('h = \\dfrac{3V}{\\pi r^2}')}$.`
+        } else {
+          this.correction = `On part de la formule : $V = \\dfrac{1}{3}\\pi r^2 h$.<br>
+En multipliant les deux membres par $3$, on obtient : $3V = \\pi r^2 h$.<br>
+En isolant $r^2$, on obtient : $r^2 = \\dfrac{3V}{\\pi h}$.<br>
+Comme $r \\geqslant 0$, en prenant la racine carrée, on obtient : $${miseEnEvidence('r = \\sqrt{\\dfrac{3V}{\\pi h}}')}$.`
+        }
+        break
+
+      
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
