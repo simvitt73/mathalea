@@ -1,13 +1,13 @@
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { context } from '../../modules/context'
 import Figure from 'apigeom'
-import { texNombre } from '../../lib/outils/texNombre'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre = 'Utiliser une échelle graphique'
 export const interactifReady = true
 export const interactifType = 'mathlive'
@@ -32,9 +32,10 @@ export default class ExerciceEchelleGraphique extends Exercice {
     this.nbQuestions = 2
     this.besoinFormulaireNumerique = [
       'Type de problème',
-      4,
+      3,
       '1: Déterminer les dimensions réelles\n2 : Déterminer les dimensions sur le plan\n3 : Mélange ',
     ]
+    this.sup = 3
     this.comment =
       "L'échelle graphique est de 1 cm pour 2, 4, 5 ou 10 m. Dans une question on demande les dimensions réelles et dans l'autre celles sur le plan avec un point par réponse soit 4 points au total."
   }
@@ -45,7 +46,7 @@ export default class ExerciceEchelleGraphique extends Exercice {
       xMin: -1,
       yMin: -0.3,
       width: 90,
-      height: 80,
+      height: 50,
       isDynamic: false,
     })
     const m = figure.create('Point', { x: 0, y: 0, isVisible: false })
@@ -58,11 +59,19 @@ export default class ExerciceEchelleGraphique extends Exercice {
     })
     if (context.isHtml) {
       this.introduction = `Pour tout l'exercice, l'échelle graphique est de 1 cm pour ${nombreDeMetresPour1Cm} m.`
+      this.introduction += figure.getStaticHtml({ center: true })
     } else {
       this.introduction =
-        "Pour tout l'exercice, l'échelle graphique est la suivante : "
+        "Pour tout l'exercice, l'échelle graphique est la suivante : <br>"
+      this.introduction += figure.latex(
+        { includePreambule: false,
+          xMax : figure.xMax,
+          xMin : figure.xMin,
+          yMax : figure.yMax,
+          yMin : figure.yMin
+      })
     }
-    this.introduction += figure.getStaticHtml({ center: true })
+    
     const rectangles = [
       { name: 'terrain de football', genre: 'm', width: 68, height: 105 },
       { name: 'terrain de rugby', genre: 'm', width: 68, height: 100 },
@@ -86,7 +95,7 @@ export default class ExerciceEchelleGraphique extends Exercice {
       typesDeQuestionsDisponibles.push('réelle')
     } else if (this.sup === 2) {
       typesDeQuestionsDisponibles.push('carte')
-    } else if (this.sup === 3) {
+    } else {
       typesDeQuestionsDisponibles.push('réelle', 'carte')
     }
     const listeTypeDeQuestions = combinaisonListes(

@@ -109,7 +109,7 @@
         />
         <InputNumber
           id="global-config-itemsep"
-          min={1}
+          min={0}
           max={50}
           isDisabled={!globalConfig.itemsep.enabled}
           bind:value={globalConfig.itemsep.value}
