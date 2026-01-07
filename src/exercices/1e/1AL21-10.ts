@@ -5,6 +5,7 @@ import type {
 import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { choice } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -65,17 +66,16 @@ function polynomeInterpolation(
   )
   let f = engine.parse(`a(x - ${r1})(x - ${r2})`, { canonical: false }) // on définit f sous forme factorisée
   let details = ''
-  details += `Comme $${fname}\\left(${r1}\\right) = 0$ et $${fname}\\left(${r2}\\right) = 0$, $${r1}$ et $${r2}$ sont des racines de $${fname}$. `
+  details += `Comme $${fname}\\left(${r1}\\right) = 0$ et $${fname}\\left(${r2}\\right) = 0$, $${r1}$ et $${r2}$ sont des racines de $${fname}$.<br>`
   details += `On peut donc écrire $${fname}$ sous forme factorisée.`
   details += `\\[${fname}(x) = ${f.latex}\\]`
   details += `On sait de plus que $${fname}(${x}) = ${fdex.latex}$. Donc : `
   const replacex = f.subs({ x }, { canonical: false }) // On utilise l'information f(x) = fdex
   details += `\\[${fdex.latex} = ${fname}(${x}) = ${replacex.latex} \\]`
-  details += `On trouve alors : $a = ${a.latex} = ${a.evaluate().latex}$. La forme factorisée de $${fname}$ est donc :`
+  details += `On trouve alors : $a = ${a.latex} = ${a.evaluate().latex}$.<br>La forme factorisée de $${fname}$ est donc :`
   f = f.subs({ a: a.evaluate() })
   details += `\\[${fname}(x) = ${f.latex}\\]`
   details += `On développe et on trouve $${fname}(x) = ${f.evaluate().latex}$`
-
   return {
     details,
     reponse: f,
@@ -134,10 +134,10 @@ function questionInterpolation() {
 
   let texteCorr = `${numAlpha(0)} On a : \\[h(${ax}) = f(${ax}) - g(${ax}) = ${ay} - \\left(${gax.latex}\\right) = ${hax.simplify()}\\]`
   texteCorr += `De même on a $h(${cx}) = ${hcx.simplify().latex}$. `
-  texteCorr += `Enfin, on a : \\[h(${bx}) = f(${bx}) - g(${bx}) = ${by} - \\left(${gbx.latex}\\right) = ${hbx.simplify().latex}\\] `
+  texteCorr += `Enfin, on a : \\[h(${bx}) = f(${bx}) - g(${bx}) = ${by} - \\left(${gbx.latex}\\right) = ${miseEnEvidence(hbx.simplify().latex)}\\] `
   texteCorr += `<br> ${numAlpha(1)}`
   texteCorr += details
-  texteCorr += `<br> Comme $f(x) = h(x) + g(x)$, on trouve $f(x) = ${f.simplify().latex}$`
+  texteCorr += `<br> Comme $f(x) = h(x) + g(x)$, on trouve $f(x) = ${miseEnEvidence(f.simplify().latex)}$.`
   return [texte, texteCorr, ax, ay, bx, by]
 }
 
@@ -155,7 +155,10 @@ export default class nomExercice extends Exercice {
           : choice([questionRacine(), questionInterpolation()])
       if (this.questionJamaisPosee(i, ax, ay, bx, by)) {
         this.listeQuestions[i] = String(texte)
-        this.listeCorrections[i] = String(texteCorr)
+        this.listeCorrections[i] = String(texteCorr).replace(
+          /\\frac/g,
+          '\\dfrac',
+        )
         i++
       }
       cpt++
