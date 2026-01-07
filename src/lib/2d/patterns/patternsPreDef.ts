@@ -985,7 +985,7 @@ const pattern33: PatternRiche = {
   visualId: 54,
   shapes: ['carré'],
   fonctionNb: (x: number) => x + 1,
-  formule: 'n+1',
+  formule: '1\\times n+1',
   type: 'affine',
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
@@ -1448,7 +1448,7 @@ const pattern50: PatternRiche = {
 const pattern51: PatternRiche = {
   numero: 51,
   fonctionNb: (x: number) => 3 + x,
-  formule: '3+n',
+  formule: '1\\times n + 3',
   type: 'affine',
   shapes: ['chat'],
   iterate: function (this: VisualPattern, n?: number) {
@@ -2290,7 +2290,7 @@ const pattern80: PatternRiche = {
   visualId: 7,
   shapes: ['carré', 'carré'],
   fonctionNb: (x: number) => 1 + 2 * x,
-  formule: '1+2\\times n',
+  formule: '2\\times n+1',
   type: 'affine',
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
@@ -2341,7 +2341,7 @@ const pattern82: PatternRiche = {
   visualId: 252,
   fonctionNb: (x: number) => 5 + 6 * x,
   type: 'affine',
-  formule: '5+6\\times n',
+  formule: '6\\times n + 5',
   iterate: function (this: VisualPattern, n) {
     if (n === undefined) n = 1
     const newCells = new Set<string>()
@@ -2797,7 +2797,7 @@ const pattern96: PatternRiche = {
   numero: 96,
   shapes: ['fraise', 'soleil'],
   type: 'affine',
-  formule: '1+8\\times n',
+  formule: '8\\times n+1',
   fonctionNb: (x: number) => 1 + 8 * x,
   fonctionRatio: (x: number) => new Ratio([1 + 4 * x, 4 * x]),
   texRatio: 'fraises : soleils',
