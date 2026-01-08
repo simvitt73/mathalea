@@ -102,6 +102,10 @@ async function action(page: Page, description: string) {
     log('new URL (mode interactif): ' + page.url())
     const locators = await page.locator(questionSelector).all()
     log('nbre de questions:' + locators.length)
+    // locators.forEach(async (locator, index) => {
+    //   const text = await locator.innerText()
+    //   log(`Question ${index + 1}: ${text}`)
+    // })
     // => TODOS à poursuivre
     // Cliquer sur vérifier les données
     const buttonVerifier = page.locator('#verif0')
