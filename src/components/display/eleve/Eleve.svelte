@@ -211,6 +211,13 @@
   let resizeObserver: ResizeObserver
   onMount(async () => {
     log('Eleve.svelte mount')
+
+    // Pour FlowMath, on initialise d'abord le handler RPC AVANT de charger depuis l'URL
+    // Car les exercices peuvent arriver via postMessage plutôt que via l'URL
+    if ($globalOptions.recorder === 'flowmath') {
+      handleFlowmath(exercicesParams, resultsByExercice)
+    }
+
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
     if ($globalOptions.presMode === undefined) {
@@ -274,12 +281,6 @@
       if (eleveSection != null) resizeObserver.observe(eleveSection)
     }
     log('fin mount eleve')
-
-    if ($globalOptions.recorder === 'flowmath') {
-      // Wait for exercises to be loaded before initializing RPC
-      await tick()
-      handleFlowmath(exercicesParams, resultsByExercice)
-    }
   })
 
   onDestroy(() => {
