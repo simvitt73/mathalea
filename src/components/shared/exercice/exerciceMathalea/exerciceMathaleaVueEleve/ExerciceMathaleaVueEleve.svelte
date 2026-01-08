@@ -696,8 +696,9 @@
                   hover:shadow-lg focus:bg-coopmaths-action-lightest dark:focus:bg-coopmathsdark-action-lightest
                   focus:shadow-lg focus:outline-none focus:ring-0
                   active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest
-                  active:shadow-lg transition duration-150 ease-in-out checkReponses
-                  ${$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag ? 'hidden' : ''}`}
+                  active:shadow-lg transition duration-150 ease-in-out checkReponses`}
+          class:hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
+          hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
         >
           Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
         </button>
