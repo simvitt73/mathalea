@@ -150,7 +150,6 @@ export class Polygone extends ObjetMathalea2D {
     let xmax = -1000
     let ymin = 1000
     let ymax = -1000
-    this.bordures = [xmin, ymin, xmax, ymax]
     for (const unPoint of this.listePoints) {
       if (unPoint.typeObjet !== 'point')
         window.notify('Polygone : argument invalide', { ...points })
