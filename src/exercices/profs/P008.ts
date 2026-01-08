@@ -10,19 +10,8 @@ export const refs = {
 export const uuid = '691a6'
 
 /**
- * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
- *
- * Niveau de difficulté 1 :
- * * division par 2, 3 , 4 ou 5
- * * division par 6 à 9
- * * un 0 dans le quotient
- *
- * Niveau de difficulté 2 :
- * * division par 11, 12, 15, 25
- * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
- * * division par un multiple de 10 et un 0 dans le quotient
- * @author Rémi Angot
-
+ * Permet de poser des opérations (addition, soustraction, multiplication, division euclidienne et division décimale)
+ * @author Jean-Claude Lhote
  */
 export default class OperationsPosees extends Exercice {
   constructor() {
@@ -59,6 +48,16 @@ export default class OperationsPosees extends Exercice {
 
     nombres[0] = parseFloat(operandes[0])
     nombres[1] = parseFloat(operandes[1])
+    if (isNaN(nombres[0])) {
+      nombres[0] = 1234.5
+    }
+    if (isNaN(nombres[1]) || (this.sup === 4 && nombres[1] === 0)) {
+      // division euclidienne par 0 impossible
+      nombres[1] = 789.2
+    }
+    if (this.sup3 < 0 || this.sup3 > 5 || isNaN(this.sup3)) {
+      this.sup3 = 0
+    }
 
     const a = nombres[0]
     const b = nombres[1]
