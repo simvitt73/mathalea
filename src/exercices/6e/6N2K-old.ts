@@ -1,5 +1,6 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import {
@@ -17,37 +18,38 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre =
-  'Résoudre des problèmes utilisant la division euclidienne (2)'
+export const titre = 'Résoudre des problèmes utilisant la division euclidienne'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '11/12/2023'
-export const dateDeModifImportante = '09/01/2025'
+export const dateDeModifImportante = '16/04/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
  * Résolution de problèmes utilisant la division Euclidienne
  * @author Mickael Guironnet
+ * EE : Cet exercice est déréférencé car toutes les questions n'ont pas le même nb de champs-réponses et cela pose pb avec Capytale.
+ * Cet exercice est maintenant découpé en 6N2K, 6N2K-1 et 6N2K-2.
  */
 
-export const uuid = '8802x'
+export const uuid = '88021'
 
 export const refs = {
-  'fr-fr': ['6N2K-1'],
-  'fr-2016': ['6C12-2'],
-  'fr-ch': ['9NO16-1'],
+  'fr-fr': [''],
+  'fr-2016': [''],
+  'fr-ch': [''],
 }
-export default class QuestionsDivisionsEuclidiennes extends Exercice {
+export default class QuestionsDivisionsEuclidiennesOld extends Exercice {
   constructor() {
     super()
     this.besoinFormulaireTexte = [
       'Choix des questions',
-      "Nombres séparés par des tirets :\n1 : Bouquets de fleurs\n2 : Boîtes d'oeufs\n3 : Trésor de pirates\n4 : Séjour au ski\n5 : Places de cinéma\n6 : Timbres dans un album\n7 : Pirates et capitaine\n8 : Places assises\n9 : Mélange",
+      "Nombres séparés par des tirets :\n1 : Bouquets de fleurs\n2 : Boîtes d'oeufs\n3 : Trésor de pirates\n4 : Jour de semaine\n5 : Séjour au ski\n6 : Places de cinéma\n7 : Collier de perles\n8 : Timbres dans un album\n9 : Pirates et capitaine\n10 : Places assises\n11 : Mélange",
     ]
 
     this.nbQuestions = 4
-    this.sup = 9
+    this.sup = 11
     this.spacing = 1.5
     this.spacingCorr = 1.5
   }
@@ -60,10 +62,10 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
 
     const questionsDisponibles = gestionnaireFormulaireTexte({
       min: 1,
-      max: 8,
+      max: 10,
       defaut: 1,
       nbQuestions: this.nbQuestions,
-      melange: 9,
+      melange: 11,
       saisie: this.sup,
     })
     let indiceInteractif = 0
@@ -191,6 +193,50 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           indiceInteractif += 2
           break
         case 4: {
+          // problème sur le jour de semaine
+          diviseur = 7
+          quotient = randint(11, 19)
+          reste = randint(2, diviseur - 1)
+          dividende = diviseur * quotient + reste
+          const table = [
+            'lundi',
+            'mardi',
+            'mercredi',
+            'jeudi',
+            'vendredi',
+            'samedi',
+            'dimanche',
+          ]
+          const jour = randint(0, 6)
+          texte = `Aujourd'hui, nous sommes ${table[jour]}. Dans ${dividende} jours, quel jour de la semaine serons-nous ?`
+          this.autoCorrection[indiceInteractif] = {}
+          const autoCorr = this.autoCorrection[indiceInteractif]
+          autoCorr.propositions = []
+          for (let ee = 0; ee < 7; ee++) {
+            autoCorr.propositions[ee] = {
+              texte: table[ee],
+              statut: (jour + reste) % diviseur === ee,
+            }
+          }
+          this.autoCorrection[indiceInteractif].options = {
+            ordered: true,
+          }
+          texte += '<br>' + propositionsQcm(this, indiceInteractif).texte
+
+          texteCorr = `Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
+          texteCorr +=
+            operation({
+              operande1: dividende,
+              operande2: diviseur,
+              type: 'divisionE',
+            }) +
+            `$${miseEnEvidence(`${texNombre(dividende)}=(${diviseur}\\times${texNombre(quotient)})+ ${texNombre(reste)}`, 'blue')}$`
+          texteCorr += `<br>Il se sera écoulé ${texteEnCouleurEtGras(String(quotient), 'blue')} semaines complètes et ${texteEnCouleurEtGras(String(reste), 'blue')} jours.`
+          texteCorr += `<br>Donc nous serons ${reste} jours de plus que  ${table[jour]}, soit ${texteEnCouleurEtGras(table[(jour + reste) % diviseur])}.`
+          indiceInteractif++
+          break
+        }
+        case 5: {
           // problème sur le séjour au ski
           const prixForfait = randint(35, 39)
           const prixHotel = randint(25, 30)
@@ -238,7 +284,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           indiceInteractif += 2
           break
         }
-        case 5: {
+        case 6: {
           // problème sur le cinéma
           const nbPlacesPetiteSalles = randint(50, 80)
           const nbPetiteSalles = randint(2, 3)
@@ -286,7 +332,93 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           indiceInteractif += 2
           break
         }
-        case 6: {
+        case 7: {
+          // problème sur perle d'un colis
+          const nbPerlesJaune = randint(4, 9)
+          const nbPerlesRouge = randint(4, 9, [nbPerlesJaune])
+          const nbColliers = randint(22, 38)
+          const plus = choice([false, true])
+            ? [0, randint(10, 25)]
+            : [randint(10, 25), 0]
+          const nbPerlesJauneTotal = nbPerlesJaune * nbColliers + plus[0]
+          const nbPerlesRougeTotal = nbPerlesRouge * nbColliers + plus[1]
+          const nbColliersRouge = Math.floor(nbPerlesRougeTotal / nbPerlesRouge)
+          const nbColliersJaune = Math.floor(nbPerlesJauneTotal / nbPerlesJaune)
+          diviseur = nbColliers
+          dividende = nbPerlesJauneTotal
+          texte = `Un bijoutier fabrique des colliers avec des perles. Il décide de mettre ${nbPerlesJaune} perles jaunes et ${nbPerlesRouge} perles rouges par collier. Il possède ${nbPerlesRougeTotal} perles rouges et ${nbPerlesJauneTotal} perles jaunes.`
+          texte += `<br>${numAlpha(0)} Combien pourra-t-il fabriquer de colliers ?`
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif,
+            KeyboardType.clavierNumbers,
+          )
+          texte += `<br> ${numAlpha(1)} Combien lui restera-t-il de perles jaunes ?`
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif + 1,
+            KeyboardType.clavierNumbers,
+          )
+          texte += `<br> ${numAlpha(2)} Combien lui restera-t-il de perles rouges ?`
+          texte += ajouteChampTexteMathLive(
+            this,
+            indiceInteractif + 2,
+            KeyboardType.clavierNumbers,
+          )
+          texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPerlesJauneTotal)}$ par $${nbPerlesJaune}$. <br>`
+          texteCorr +=
+            operation({
+              operande1: nbPerlesJauneTotal,
+              operande2: nbPerlesJaune,
+              type: 'divisionE',
+            }) +
+            `$${miseEnEvidence(`${texNombre(nbPerlesJauneTotal)}=${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune === 0 ? `${nbPerlesJaune}\\times${texNombre(nbColliersJaune)}` : `(${nbPerlesJaune}\\times${texNombre(nbColliersJaune)})+ ${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune}`}`, 'blue')}$`
+          texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersJaune), 'blue')}$ colliers avec les perles jaunes.`
+          texteCorr += `<br>Posons la division euclidienne de $${texNombre(nbPerlesRougeTotal)}$ par $${nbPerlesRouge}$. <br>`
+          texteCorr +=
+            operation({
+              operande1: nbPerlesRougeTotal,
+              operande2: nbPerlesRouge,
+              type: 'divisionE',
+            }) +
+            `$${miseEnEvidence(`${texNombre(nbPerlesRougeTotal)}=${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge === 0 ? `${nbPerlesRouge}\\times${texNombre(nbColliersRouge)}` : `(${nbPerlesRouge}\\times${texNombre(nbColliersRouge)})+ ${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge}`}`, 'blue')}$`
+          texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersRouge), 'blue')}$ colliers avec les perles rouges.`
+          texteCorr += `<br>Finalement, en prenant en compte les deux couleurs, et puisque $${texNombre(Math.min(nbColliersRouge, nbColliersJaune))}$ < $${texNombre(Math.max(nbColliersRouge, nbColliersJaune))}$, le bijoutier ne pourra faire que $${miseEnEvidence(texNombre(Math.min(nbColliersRouge, nbColliersJaune)))}$ colliers.`
+          texteCorr += `<br>${numAlpha(1)} $${nbPerlesJauneTotal} - (${nbPerlesJaune} \\times ${Math.min(nbColliersRouge, nbColliersJaune)})=${miseEnEvidence(String(nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)))}$`
+          texteCorr +=
+            nbPerlesJauneTotal -
+              nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune) ===
+            0
+              ? '<br>Il ne restera aucune perle jaune.'
+              : `<br>Il restera $${miseEnEvidence(String(nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)))}$  perles jaunes.`
+          texteCorr += `<br>${numAlpha(2)} $${nbPerlesRougeTotal} - (${nbPerlesRouge} \\times ${Math.min(nbColliersRouge, nbColliersJaune)})=${miseEnEvidence(String(nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune)))}$`
+          texteCorr +=
+            nbPerlesRougeTotal -
+              nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) ===
+            0
+              ? '<br>Il ne restera aucune perle rouge.'
+              : `<br>Il restera $${miseEnEvidence(String(nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune)))}$  perles rouges.`
+          handleAnswers(this, indiceInteractif, {
+            reponse: { value: Math.min(nbColliersRouge, nbColliersJaune) },
+          })
+          handleAnswers(this, indiceInteractif + 1, {
+            reponse: {
+              value:
+                nbPerlesJauneTotal -
+                nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune),
+            },
+          })
+          handleAnswers(this, indiceInteractif + 2, {
+            reponse: {
+              value:
+                nbPerlesRougeTotal -
+                nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune),
+            },
+          })
+          indiceInteractif += 3
+          break
+        }
+        case 8: {
           // problème sur les timbres
           const nbTimbresParPage = randint(8, 15)
           const nbPages = randint(22, 38)
@@ -326,7 +458,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           indiceInteractif += 2
           break
         }
-        case 7: {
+        case 9: {
           // problème sur les pirates et le capitaine
           const nbPirates = randint(12, 18)
           const nbPiecesParPirate = randint(5, nbPirates - 5)
@@ -366,7 +498,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           indiceInteractif += 2
           break
         }
-        case 8:
+        case 10:
         default: {
           // problème sur les places assises
           let nbPlaces1ParRangée,
