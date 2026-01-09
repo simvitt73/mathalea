@@ -80,7 +80,8 @@ export default class VecteurNormEqCart extends Exercice {
     this.canReponseACompleter = ''
   }
 
-  correctionInteractive = (i) => {
+  correctionInteractive = (i: number) => {
+    let resultat = 'KO'
     const champTexte1 = document.getElementById(
       `champTexteEx${this.numeroExercice}Q${2 * i}`,
     )
@@ -93,23 +94,38 @@ export default class VecteurNormEqCart extends Exercice {
     const spanResultat2 = document.querySelector(
       `#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`,
     )
-    let saisie1 = champTexte1.value.replace(',', '.')
-    let saisie2 = champTexte2.value.replace(',', '.')
-    saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-    saisie2 = saisie2.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-    const x0 = this.autoCorrection[2 * i].reponse.valeur.reponse.value
-    const y0 = this.autoCorrection[2 * i + 1].reponse.valeur.reponse.value
-    const x = Number(saisie1)
-    const y = Number(saisie2)
-    let resultat
-    if (egal(x / x0, y / y0) && !(x === 0 && y === 0)) {
-      spanResultat1.innerHTML = '😎'
-      spanResultat2.innerHTML = '😎'
-      resultat = 'OK'
-    } else {
-      spanResultat1.innerHTML = '☹️'
-      spanResultat2.innerHTML = '☹️'
-      resultat = 'KO'
+    if (
+      champTexte1 &&
+      champTexte2 &&
+      spanResultat1 &&
+      spanResultat2 &&
+      'value' in champTexte1 &&
+      'value' in champTexte2
+    ) {
+      let saisie1 = String(champTexte1.value).replace(',', '.')
+      let saisie2 = String(champTexte2.value).replace(',', '.')
+      saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+      saisie2 = saisie2.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+      const reponse1 =
+        this.autoCorrection[2 * i]?.reponse?.valeur?.reponse?.value
+      const reponse2 =
+        this.autoCorrection[2 * i + 1]?.reponse?.valeur?.reponse?.value
+      if (reponse1 !== undefined || reponse2 !== undefined) {
+        const x0 = reponse1
+        const y0 = reponse2
+        const x = Number(saisie1)
+        const y = Number(saisie2)
+
+        if (egal(x / Number(x0), y / Number(y0)) && !(x === 0 && y === 0)) {
+          spanResultat1.innerHTML = '😎'
+          spanResultat2.innerHTML = '😎'
+          resultat = 'OK'
+        } else {
+          spanResultat1.innerHTML = '☹️'
+          spanResultat2.innerHTML = '☹️'
+          resultat = 'KO'
+        }
+      }
     }
     return resultat
   }
