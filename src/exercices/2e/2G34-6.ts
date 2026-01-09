@@ -1,9 +1,7 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   eqToLatex,
@@ -11,6 +9,8 @@ import {
   timesIfNotUn,
 } from '../../lib/outils/systemeEquations'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   'Résoudre un système linéaire de deux équations à deux inconnues par comparaison'
 export const interactifReady = true
@@ -199,7 +199,10 @@ export default class systemeEquationsPremDegComp extends Exercice {
               0,
               0,
               0,
-              solX.multiplieEntier(eqVarElim[3]).ajouteEntier(-eqVarElim[3]),
+              solX
+                .multiplieEntier(eqVarElim[3])
+                .ajouteEntier(-eqVarElim[3])
+                .toNumber(),
               0,
               0,
             ],
@@ -213,7 +216,10 @@ export default class systemeEquationsPremDegComp extends Exercice {
               0,
               0,
               0,
-              solY.multiplieEntier(eqVarElim[4]).ajouteEntier(-eqVarElim[4]),
+              solY
+                .multiplieEntier(eqVarElim[4])
+                .ajouteEntier(-eqVarElim[4])
+                .toNumber(),
               0,
               0,
             ],
