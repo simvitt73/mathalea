@@ -124,7 +124,7 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
-          objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+          objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l'arbre de probabilités ci-dessous :<br>
           
           `
@@ -215,7 +215,7 @@ export default class CalculProbaFormuleProbaTotale extends Exercice {
           })
 
           omega.setTailles() // On calcule les tailles des arbres.
-          objets = omega.represente(0, 7, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
+          objets = omega.represente(0, 7, 0, 1.5, true, 1, 10) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
           texte = `On donne l’arbre de probabilités ci-dessous :<br>
 
          `
