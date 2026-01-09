@@ -187,7 +187,7 @@ export default class TermeDUneSuiteDefinieParRecurrence extends Exercice {
 
       texte +=
         '<br>' +
-        ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+        ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
           texteAvant: `$${s}_{${k}}=$`,
         })
       if (this.questionJamaisPosee(i, a, u, k)) {
