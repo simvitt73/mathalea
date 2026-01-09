@@ -1,9 +1,11 @@
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   gestionnaireFormulaireTexte,
-  listeQuestionsToContenu
+  listeQuestionsToContenu,
+  randint,
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -52,7 +54,7 @@ export default class ProblemesAvecEquations extends Exercice {
       let i = 0, cpt = 0, texte, texteCorr;
       i < this.nbQuestions && cpt < 50;
       cpt++
-    ) {      
+    ) {
       let probleme: Probleme | undefined
       switch (listeTypeDeQuestions[i]) {
         case 1: {
@@ -79,15 +81,13 @@ export default class ProblemesAvecEquations extends Exercice {
       if (!probleme) continue
 
       texte = `${probleme.enonce} 
-        ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}<br><br>`
-        
+        ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
 
       handleAnswers(this, i, {
         reponse: { value: probleme.donnees.a.toString() },
       })
-      
 
-      texteCorr = `${probleme.solution}<br><br>`
+      texteCorr = `${probleme.solution}`
 
       if (this.questionJamaisPosee(i, probleme.donnees.a, probleme.donnees.b)) {
         this.listeQuestions[i] = texte || ''
@@ -109,18 +109,16 @@ type Probleme = {
   }
 }
 
-
-
 export function genererProblemeParking(): Probleme {
   // bornes raisonnables (collège)
-  const totalVehicules: number = Math.floor(Math.random() * 30) + 20 // 20 à 49
-  const motos: number = Math.floor(Math.random() * (totalVehicules - 1)) + 1
+  const totalVehicules: number = randint(20, 49) // 20 à 49
+  const motos: number = randint(5, totalVehicules)
   const voitures: number = totalVehicules - motos
   const roues: number = 2 * motos + 4 * voitures
 
   const enonce = `
 Sur un parking, il y a des voitures et des motos.
-J'ai compté $${totalVehicules}$ véhicules et $${roues}$ roues.
+J'ai compté $${totalVehicules}$ véhicules et $${roues}$ roues.<br>
 Combien y a-t-il de motos ?`.trim()
 
   const solution = `
@@ -137,7 +135,7 @@ $${4 * totalVehicules} - 2x = ${roues}$<br>
 $-2x = ${roues - 4 * totalVehicules}$<br>
 $x = ${motos}$<br>
 
-Il y a $${motos}$ motos et $${voitures}$ voitures.
+Il y a $${miseEnEvidence(motos)}$ motos et $${voitures}$ voitures.
 `.trim()
 
   return {
@@ -149,10 +147,10 @@ Il y a $${motos}$ motos et $${voitures}$ voitures.
 }
 
 function genererCinema(): Probleme {
-  const adultes = Math.floor(Math.random() * 40) + 50   // 50 à 89
-  const enfants = Math.floor(Math.random() * 30) + 30   // 30 à 59
-  const prixEnfant = Math.floor(Math.random() * 6) + 4  // 4 à 9 €
-  const prixAdulte = prixEnfant + Math.floor(Math.random() * 6) + 2  // 2 à 7 € de plus 
+  const adultes = randint(50, 89) // 50 à 89
+  const enfants = randint(30, 59) // 30 à 59
+  const prixEnfant = randint(4, 9) // 4 à 9 €
+  const prixAdulte = prixEnfant + randint(2, 7) // 2 à 7 € de plus
 
   const total = adultes * prixAdulte + enfants * prixEnfant
 
@@ -160,7 +158,7 @@ function genererCinema(): Probleme {
 Au cinéma pour la sortie d'un film, il y a eu $${adultes}$ adultes et $${enfants}$ enfants.<br>
 La place pour adulte coûte $${prixAdulte - prixEnfant}$ € de plus que celle pour enfant.<br>
 Au total, le cinéma a récolté $${total}$ €.<br>
-Quel est le prix du tarif enfant ?<br>
+Quel est le prix du tarif enfant ? 
 `.trim()
 
   const solution = `
@@ -173,23 +171,28 @@ $${enfants}x + ${adultes}x + ${adultes * (prixAdulte - prixEnfant)} = ${total}$<
 $${adultes + enfants}x = ${total - adultes * (prixAdulte - prixEnfant)}$<br>
 $x = ${prixEnfant}$<br>
 
-Le prix du tarif enfant est ${prixEnfant} €.<br>
+Le prix du tarif enfant est $${miseEnEvidence(prixEnfant)}$ €.<br>
 `.trim()
 
-  return { enonce, solution, reponse: prixEnfant, donnees: { a : adultes, b: enfants } }
+  return {
+    enonce,
+    solution,
+    reponse: prixEnfant,
+    donnees: { a: adultes, b: enfants },
+  }
 }
 
 function genererFleurs(): Probleme {
-  const jonquilles = Math.floor(Math.random() * 10) + 8  // 8 à 17
-  const roses = jonquilles + Math.floor(Math.random() * 2) + 5  // jonquilles + 5 à jonquilles + 6
-  const tulipes = roses * (Math.floor(Math.random() * 3 ) + 3)  // 3 à 5 fois roses
+  const jonquilles = randint(8, 17) // 8 à 17
+  const roses = jonquilles + randint(5, 6) // jonquilles + 5 à jonquilles + 6
+  const tulipes = roses * randint(3, 5) // 3 à 5 fois roses
   const total = jonquilles + roses + tulipes
 
   const enonce = `
 Un grossiste livre $${total}$ plantes à un fleuriste.<br>
 Cette livraison se compose de roses, de tulipes et de jonquilles.<br>
 Il y a $${roses - jonquilles}$ roses de plus que de jonquilles et $${tulipes / roses}$ fois plus de tulipes que de roses.<br>
-Combien y a-t-il de jonquilles ?<br>
+Combien y a-t-il de jonquilles ? 
 `.trim()
 
   const solution = `
@@ -199,15 +202,20 @@ Il y a $${tulipes / roses}(x + ${roses - jonquilles})$ tulipes.<br>
 
 Le total est :
 $x + (x + ${roses - jonquilles}) + ${tulipes / roses}(x + ${roses - jonquilles}) = ${total}$<br>
-$x + x + ${roses - jonquilles} + ${tulipes / roses}x + ${tulipes / roses * (roses - jonquilles)} = ${total}$<br>
+$x + x + ${roses - jonquilles} + ${tulipes / roses}x + ${(tulipes / roses) * (roses - jonquilles)} = ${total}$<br>
 $${2 + tulipes / roses}x + ${roses - jonquilles + (tulipes / roses) * (roses - jonquilles)} = ${total}$<br>
 $${2 + tulipes / roses}x  = ${total} -  ${roses - jonquilles + (tulipes / roses) * (roses - jonquilles)}$<br>
-$${2 + tulipes / roses}x  = ${total -  (roses - jonquilles + (tulipes / roses) * (roses - jonquilles))}$<br>
-$x  = \\dfrac{${total -  (roses - jonquilles + (tulipes / roses) * (roses - jonquilles))}}{${2 + tulipes / roses}}$<br>
+$${2 + tulipes / roses}x  = ${total - (roses - jonquilles + (tulipes / roses) * (roses - jonquilles))}$<br>
+$x  = \\dfrac{${total - (roses - jonquilles + (tulipes / roses) * (roses - jonquilles))}}{${2 + tulipes / roses}}$<br>
 $x = ${jonquilles}$<br>
 
-Il y a $${jonquilles}$ jonquilles.<br>
+Il y a $${miseEnEvidence(jonquilles)}$ jonquilles.<br>
 `.trim()
 
-  return { enonce, solution, reponse: jonquilles, donnees: { a : jonquilles, b: roses }  }
+  return {
+    enonce,
+    solution,
+    reponse: jonquilles,
+    donnees: { a: jonquilles, b: roses },
+  }
 }
