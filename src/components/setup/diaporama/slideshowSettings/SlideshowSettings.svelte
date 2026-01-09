@@ -110,7 +110,7 @@
 
 <div
   id="start"
-  class="flex flex-col h-screen scrollbar-hide
+  class="flex flex-col min-h-screen scrollbar-hide
     bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
     text-coopmaths-corpus dark:text-coopmathsdark-corpus"
 >
