@@ -288,7 +288,10 @@
   }
 </script>
 
-<div id="diaporama" class="h-screen {$darkMode.isActive ? 'dark' : ''}">
+<div
+  id="diaporama"
+  class="min-h-screen h-screen {$darkMode.isActive ? 'dark' : ''}"
+>
   {#if $globalOptions.v === 'overview' && slideshow.slides.length > 0}
     <SlideshowOverview
       {exercises}
