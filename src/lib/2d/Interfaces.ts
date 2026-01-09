@@ -311,13 +311,6 @@ export interface IVecteur {
   oppose(): void
   xSVG(coeff: number): number
   ySVG(coeff: number): number
-  representant(A: IPoint | IPointAbstrait, color?: string): ISegment
-  representantNomme(
-    A: IPoint,
-    nom: string,
-    taille?: number,
-    color?: string,
-  ): any
 }
 /**
  * Interface minimale pour Polygone

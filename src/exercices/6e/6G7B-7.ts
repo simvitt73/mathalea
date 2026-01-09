@@ -25,11 +25,13 @@ import { Pavage, pavage } from '../../modules/Pavage'
 import Exercice from '../Exercice'
 
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { mediatrice, type Mediatrice } from '../../lib/2d/Mediatrice'
 import type { Polygone } from '../../lib/2d/polygones'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 
 export const titre =
   "Trouver l'image d'une figure par une symétrie axiale dans un pavage"
@@ -170,8 +172,8 @@ export default class PavageEtReflexion2d extends Exercice {
       return result
     }
 
-    const objets = []
-    const objetsCorrection = []
+    const objets: NestedObjetMathalea2dArray = []
+    const objetsCorrection: NestedObjetMathalea2dArray = []
     let P1
     let P2
     let P3
@@ -206,13 +208,20 @@ export default class PavageEtReflexion2d extends Exercice {
     }
     let texte = ''
     let texteCorr = ''
-    let typeDePavage = Math.max(1, parseInt(this.sup3))
+    let typeDePavage = Math.max(1, parseInt(this.sup3)) as
+      | 1
+      | 2
+      | 3
+      | 4
+      | 5
+      | 6
+      | 7
     let nombreTentatives
     let nombrePavageTestes = 1
     if (this.sup3 === 8) {
-      typeDePavage = randint(1, 7)
+      typeDePavage = randint(1, 7) as 1 | 2 | 3 | 4 | 5 | 6 | 7
     } else {
-      typeDePavage = Math.max(1, this.sup3 % 8)
+      typeDePavage = Math.max(1, this.sup3 % 8) as 1 | 2 | 3 | 4 | 5 | 6 | 7
     }
     while (couples.length < nbSymetriques && nombrePavageTestes < 2) {
       nombreTentatives = 0
@@ -351,7 +360,11 @@ export default class PavageEtReflexion2d extends Exercice {
       objets.push(monpavage.polygones[i])
     }
 
-    texte = mathalea2d(fenetre, objets, texteNoir) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
+    texte = mathalea2d(
+      Object.assign({}, fixeBordures([...objets, ...texteNoir])),
+      objets,
+      texteNoir,
+    ) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     const couleurs = combinaisonListes(['green', 'red', 'blue'], nbSymetriques)
     for (let i = 0; i < nbSymetriques; i++) {
       setReponse(this, i, couples[i][1])
@@ -396,7 +409,15 @@ export default class PavageEtReflexion2d extends Exercice {
       }
     }
     if (this.correctionDetaillee) {
-      texteCorr += mathalea2d(fenetre, objets, objetsCorrection, texteGris)
+      texteCorr += mathalea2d(
+        Object.assign(
+          {},
+          fixeBordures([...objets, ...objetsCorrection, ...texteGris]),
+        ),
+        objets,
+        objetsCorrection,
+        texteGris,
+      )
     }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)

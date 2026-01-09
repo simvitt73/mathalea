@@ -514,7 +514,6 @@ export default class SommeDeVecteurs extends Exercice {
 
       this.figureApigCorr[i].options.animationStepInterval = 250
       this.figureApigCorr[i].grid!.color = 'gray'
-      this.figureApigCorr[i].grid!.colorLabel = 'gray'
       this.figureApigCorr[i].options.latexHeight = 20
       this.figureApigCorr[i].options.latexWidth = 20
 
@@ -710,7 +709,8 @@ export default class SommeDeVecteurs extends Exercice {
     this.figureApig[i].divButtons.style.display = 'none'
     this.figureApig[i].divUserMessage.style.display = 'none'
     const nbPoints = [...this.figureApig[i].elements.values()].filter(
-      (e) => e.type === 'Point' && e.isVisible && !e.isChild,
+      (e) =>
+        e.type === 'Point' && 'isVisible' in e && e.isVisible && !e.isChild,
     ).length
     const onePointWasAdded = nbPoints >= 3
 
