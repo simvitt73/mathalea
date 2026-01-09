@@ -13,12 +13,12 @@
   import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import FormConfigGlobal from '../../shared/forms/FormConfigGlobal.svelte'
   import FormConfigIndividual from '../../shared/forms/FormConfigIndividual.svelte'
-  import NavBar from '../../shared/header/NavBar.svelte'
-  import SimpleCard from '../../shared/ui/SimpleCard.svelte'
-  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
-  import FormConfigSection from './FormConfigSection.svelte'
   import InputNumber from '../../shared/forms/InputNumber.svelte'
   import InputText from '../../shared/forms/InputText.svelte'
+  import NavBar from '../../shared/header/NavBar.svelte'
+  import ImageCarousel from '../../shared/ui/ImageCarousel.svelte'
+  import SimpleCard from '../../shared/ui/SimpleCard.svelte'
+  import FormConfigSection from './FormConfigSection.svelte'
   import { decodeBase64, encodeBase64 } from './LatexConfig'
   import PdfResult from './PdfResult.svelte'
 
@@ -64,8 +64,14 @@
   }
 
   $: carouselImages = [
-    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`, alt: `${latexFileInfos.style} image-1` },
-    { src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`, alt: `${latexFileInfos.style} image-2` }
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`,
+      alt: `${latexFileInfos.style} image-1`,
+    },
+    {
+      src: `${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`,
+      alt: `${latexFileInfos.style} image-2`,
+    },
   ]
 
   let exercices: IExercice[]
@@ -224,9 +230,9 @@
 </script>
 
 <main
-  class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive
-    ? 'dark'
-    : ''}"
+  class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+   text-coopmaths-corpus dark:text-coopmathsdark-corpus
+  {$darkMode.isActive ? 'dark' : ''}"
 >
   <NavBar
     subtitle="PDF"
