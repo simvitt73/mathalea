@@ -13,7 +13,6 @@ import { segment } from '../2d/segmentsVecteurs'
 import { latex2d } from '../2d/textes'
 import { translation } from '../2d/transformations'
 import { vecteur } from '../2d/Vecteur'
-import engine from '../interactif/comparisonFunctions'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
 
@@ -3062,16 +3061,6 @@ export function tableauVariationsFonction(
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3, // taille de la première colonne en cm
   })
-}
-
-/**
- * retourne la dérivée partielle de la fonction de la variable
- * @param {string} fonction
- * @param {string} variable
- */
-export function derivee(fonction: string, variable: string) {
-  const laFonction = engine.parse(fonction.replaceAll('dfrac', 'frac'))
-  return engine.box(['D', laFonction, variable]).evaluate().latex
 }
 
 export function brent(
