@@ -202,7 +202,7 @@ class EqCartDroite extends Exercice {
           texteCorr += ` <br>L'équation cartésienne est donc de la forme : $ ${xn} x ${ecritureAlgebriqueSauf1(yn)} y + c=0$. `
           texteCorr += `<br>On cherche maintenant la valeur correspondante de $c$. <br>On utilise pour cela que $A(${xA}\\,;\\,${yA}) \\in(d)$. `
           texteCorr += ` <br>En remplaçant $x$ et $y$ par les coordonnées de $A$, on obtient : $${xn} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebrique(yn)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$, 
-          soit $ c= ${-xA * xn - yA * yn}$ `
+          soit $ c= ${-xA * xn - yA * yn}$.`
 
           break
       }
