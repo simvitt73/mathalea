@@ -5,6 +5,7 @@ import {
   combinaisonListesSansChangerOrdre,
   shuffle,
 } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
@@ -82,7 +83,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
             `,
         question: '',
         correction: `
-          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * 10 ** situations[0].p1))}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)} =  ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p1))}$
+          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * 10 ** situations[0].p1))}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)} =  ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)} = ${miseEnEvidence(texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p1)))}$
           `,
         reponse: arrondi(
           (situations[0].d1 * 10 + situations[0].u1) *
@@ -97,7 +98,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
             `,
         question: '',
         correction: `
-          $${texNombre(arrondi(situations[0].d1 * 10 + situations[0].u1))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2))} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p2))}$
+          $${texNombre(arrondi(situations[0].d1 * 10 + situations[0].u1))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2))} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p2)} = ${miseEnEvidence(texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p2)))}$
           `,
         reponse: arrondi(
           (situations[0].d1 * 10 + situations[0].u1) *
@@ -112,7 +113,7 @@ export default class ProduitDeDecimauxAPartirProduitConnu extends Exercice {
           `,
         question: '',
         correction: `
-          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * 10 ** situations[0].p1))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2))} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p1) * arrondi(10 ** situations[0].p2))}$
+          $${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * 10 ** situations[0].p1))}\\times ${texNombre(arrondi((situations[0].d2 * 10 + situations[0].u2) * 10 ** situations[0].p2))} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${texNombre(10 ** situations[0].p1)} \\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p2)} = ${arrondi(situations[0].d1 * 10 + situations[0].u1)}\\times ${arrondi(situations[0].d2 * 10 + situations[0].u2)}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)))}\\times ${texNombre(10 ** situations[0].p1)}\\times ${texNombre(10 ** situations[0].p2)} = ${miseEnEvidence(texNombre(arrondi((situations[0].d1 * 10 + situations[0].u1) * (situations[0].d2 * 10 + situations[0].u2)) * arrondi(10 ** situations[0].p1) * arrondi(10 ** situations[0].p2)))}$
           `,
         reponse: arrondi(
           (situations[0].d1 * 10 + situations[0].u1) *
