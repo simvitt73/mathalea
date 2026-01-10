@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -82,6 +82,7 @@ export default class Agrandissement extends Exercice {
           texte += `à l'échelle $k=${texNombre(k, 1)}$.`
           texte += "<br> Calculer l'aire de la figure  "
           texte += k.gt(1) ? ' agrandie. ' : ' réduite. '
+          texte += ' (unité à préciser)'
           texteCorr =
             'On sait que dans une réduction ou un agrandissement de rapport $k$, les aires sont multipliées par $k^2$.'
           texteCorr += "<br>Dans notre exercice, en appelant $A$ l'aire "
@@ -89,8 +90,11 @@ export default class Agrandissement extends Exercice {
           texteCorr += `on a l'égalité :  $A=${texNombre(k, 1)}^2\\times${A1}.$`
           texteCorr += `<br>D'où :  $A=${texNombre(A2, 2)}\\text{ cm}^2$`
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire)
-          setReponse(this, i, new Grandeur(A2, 'cm^2'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: {
+              value: new Grandeur(A2, 'cm^2'),
+              options: { unite: true },
+            },
           })
 
           break
@@ -98,6 +102,7 @@ export default class Agrandissement extends Exercice {
           texte = `Un solide a un volume de $${V1}\\text{ cm}^3$.`
           texte += k.gt(1) ? " On l'agrandit " : ' On le réduit '
           texte += ` à l'échelle $${texNombre(k, 1)}$. <br>Quel est le volume du nouveau solide ?` // Le LateX entre deux symboles $, les variables dans des ${ }
+          texte += ' (unité à préciser)'
           texteCorr =
             'On sait que dans une réduction ou un agrandissement de rapport $k$, les volumes sont multipliés par $k^3$.'
           texteCorr += '<br>Dans notre exercice, on'
@@ -105,8 +110,11 @@ export default class Agrandissement extends Exercice {
           texteCorr += `un solide à l'échelle $${texNombre(k, 1)}$.`
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
           texteCorr += `<br>Le volume obtenu est donc $V=${V1}\\times ${texNombre(k, 1)}^3=${texNombre(V2, 3)}\\text{ cm}^3$.`
-          setReponse(this, i, new Grandeur(V2, 'cm^3'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: {
+              value: new Grandeur(V2, 'cm^3'),
+              options: { unite: true },
+            },
           })
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.volume)
           break
@@ -115,6 +123,7 @@ export default class Agrandissement extends Exercice {
           texte += k.gt(1) ? 'agrandie ' : 'réduite '
           texte += `à l'échelle $k=${texNombre(k, 1)}$. L'aire de la figure obtenue est $${texNombre(A2, 2)}\\text{ cm}^2$.`
           texte += "<br> Calculer l'aire de la figure initiale. "
+          texte += '(unité à préciser)'
           texteCorr =
             'On sait que dans une réduction ou un agrandissement de rapport $k$, les aires sont multipliées par $k^2$.'
           texteCorr +=
@@ -122,8 +131,11 @@ export default class Agrandissement extends Exercice {
           texteCorr += `on a l'égalité :  $${texNombre(A2, 2)}=${texNombre(k, 1)}^2\\times A.$`
           texteCorr += `<br>D'où :  $A=\\dfrac{${texNombre(A2, 2)}}{${texNombre(k, 1)}^2}=${A1}\\text{ cm}^2$`
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.aire)
-          setReponse(this, i, new Grandeur(A1, 'cm^2'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: {
+              value: new Grandeur(A1, 'cm^2'),
+              options: { unite: true },
+            },
           })
 
           break
@@ -131,6 +143,7 @@ export default class Agrandissement extends Exercice {
           texte = 'Un solide a été '
           texte += k.gt(1) ? 'agrandi ' : 'réduit '
           texte += ` à l'échelle $${texNombre(k, 1)}$. Le volume final est $${texNombre(V2, 3)}$  cm$^3$.<br>Quel est le volume du solide initial ?` // Le LateX entre deux symboles $, les variables dans des ${ }
+          texte += ' (unité à préciser)'
           texteCorr =
             'On sait que dans une réduction ou un agrandissement de rapport $k$, les volumes sont multipliés par $k^3$.'
           texteCorr += '<br>Dans notre exercice, on'
@@ -138,8 +151,11 @@ export default class Agrandissement extends Exercice {
           texteCorr += `un solide à l'échelle $${texNombre(k, 1)}$.`
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
           texteCorr += `<br>Le volume initial est donc $V=\\dfrac{${texNombre(V2, 3)}}{${texNombre(k, 1)}^3}=${V1}\\text{ cm}^3$.`
-          setReponse(this, i, new Grandeur(V1, 'cm^3'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: {
+              value: new Grandeur(V1, 'cm^3'),
+              options: { unite: true },
+            },
           })
           texte += ajouteChampTexteMathLive(this, i, KeyboardType.volume)
           break
@@ -162,7 +178,7 @@ export default class Agrandissement extends Exercice {
             i,
             KeyboardType.clavierNumbers,
           )
-          setReponse(this, i, k)
+          handleAnswers(this, i, { reponse: { value: k } })
 
           break
 
@@ -188,7 +204,7 @@ export default class Agrandissement extends Exercice {
             KeyboardType.clavierNumbers,
           )
 
-          setReponse(this, i, k)
+          handleAnswers(this, i, { reponse: { value: k } })
           break
         case 7: // Calcul de k connaissant V1 et V2
           texte = `Un solide a un volume de $${V1}\\text{ cm}^3$.`
@@ -212,7 +228,7 @@ export default class Agrandissement extends Exercice {
             KeyboardType.clavierNumbers,
           )
 
-          setReponse(this, i, k)
+          handleAnswers(this, i, { reponse: { value: k } })
           break
 
         case 8: // conservation des angles
@@ -222,6 +238,7 @@ export default class Agrandissement extends Exercice {
           texte +=
             "<br> Déterminer la mesure de l'angle $\\widehat{A'B'C'}$ de la figure "
           texte += k.gt(1) ? '  agrandie. ' : ' réduite. '
+          texte += '(unité à préciser)'
           texteCorr =
             "On sait que dans un agrandissement ou une réduction à l'échelle $k$,  "
           texteCorr +=
@@ -232,11 +249,9 @@ export default class Agrandissement extends Exercice {
             i,
             KeyboardType.nombresEtDegre,
           )
-          setReponse(this, i, k)
-          setReponse(this, i, new Grandeur(V1, '°'), {
-            formatInteractif: 'unites',
+          handleAnswers(this, i, {
+            reponse: { value: new Grandeur(V1, '°'), options: { unite: true } },
           })
-
           break
       }
 
