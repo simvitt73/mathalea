@@ -29,6 +29,7 @@
     }}
     class="m-auto rounded-xl
       w-full md:w-2/3 xl:w-1/2
+      text-coopmaths-corpus dark:text-coopmathsdark-corpus
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     <div class="relative p-6 text-center">
