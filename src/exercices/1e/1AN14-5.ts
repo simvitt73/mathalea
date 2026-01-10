@@ -59,8 +59,6 @@ export default class DeriveeProduit extends Exercice {
       'Nombres séparés par des tirets :\n1 Monôme2 et affine\n2 : Inverse et affine\n3 : Racine et polynôme\n4 : Racine et polynôme degré 2 sans degré 1\n5 : Monôme2 et racine\n6 : Mélange',
     ]
 
-    this.consigne =
-      "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
     this.nbQuestions = 3
     // Sortie LaTeX
     this.nbCols = 2 // Nombre de colonnes
@@ -75,6 +73,10 @@ export default class DeriveeProduit extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions > 1
+        ? "Pour chacune des fonctions suivantes, déterminer l'expression de sa fonction dérivée."
+        : "Déterminer l'expression de la fonction dérivée de la fonction suivante."
     const listeValeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
