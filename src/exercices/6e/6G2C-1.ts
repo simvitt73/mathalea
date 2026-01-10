@@ -69,7 +69,7 @@ export default class RegionsDuPlan extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = '$M$ est un point de la partie grisée du plan.<br>'
       texte +=
-        'Trouve la, ou les conditions que doit vérifier le point $M$ :<br><br>'
+        'Trouve la ou les conditions vérifiées par le point $M$ :<br><br>'
       let texteCorr = ''
       const objetsEnonce: NestedObjetMathalea2dArray = []
       let donneesAleatoires: any[] = []
