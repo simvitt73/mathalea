@@ -1,10 +1,20 @@
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice'
-import { listeQuestionsToContenu } from '../../modules/outils'
 import { context } from '../../modules/context'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { listeQuestionsToContenu } from '../../modules/outils'
+import Exercice from '../Exercice'
 
+import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
+import { codageSegments } from '../../lib/2d/CodageSegment'
+import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { carre } from '../../lib/2d/polygonesParticuliers'
+import { latex2d } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { mathalea2d } from '../../modules/mathalea2d'
+import type { NestedObjetMathalea2dArray } from '../../types/2d'
 export const titre =
   "Déterminer la racine carrée d'un carré parfait (calcul mental)"
 export const amcReady = true
@@ -24,6 +34,40 @@ export const refs = {
   'fr-fr': ['4G20-2'],
   'fr-ch': ['10NO3-1'],
 }
+const figureCarre = (aire: number) => {
+  const c = Math.sqrt(aire) / 4
+  const A = pointAbstrait(0, 0)
+  const B = pointAbstrait(4 + c, 0)
+  const C = pointAbstrait(4 + c, 4 + c)
+  const D = pointAbstrait(0, 4 + c)
+  const ang1 = codageAngleDroit(A, B, C)
+  const ang2 = codageAngleDroit(B, C, D)
+  const ang3 = codageAngleDroit(C, D, A)
+  const ang4 = codageAngleDroit(D, A, B)
+  const cotesMarques = codageSegments('//', 'blue', A, B, B, C, C, D, D, A)
+  const square = carre(A, B)
+  square.hachures = true
+  square.couleurDesHachures = colorToLatexOrHTML('lightgray')
+  const afficheAire = latex2d(
+    `\\text{Aire : }${aire} \\text{ cm}^2`,
+    2 + c / 2,
+    2 + c / 2,
+    {
+      letterSize: 'small',
+    },
+  )
+  const objets: NestedObjetMathalea2dArray = [
+    square,
+    afficheAire,
+    ang1,
+    ang2,
+    ang3,
+    ang4,
+    cotesMarques,
+  ]
+  return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+}
+
 export default class RacineCareeDeCarresParfaits extends Exercice {
   constructor() {
     super()
@@ -40,8 +84,13 @@ export default class RacineCareeDeCarresParfaits extends Exercice {
       '1 : Calculer la racine de ...\n2 : Trouver le nombre positif dont le carré est ...\n3 : Mélange',
     ]
     this.besoinFormulaire2Numerique = ['Entier maximum', 2, '1 : 144\n2 : 256']
+    this.besoinFormulaire3CaseACocher = [
+      'Énoncé géométrique avec un carré',
+      false,
+    ]
     this.sup = 1
     this.sup2 = 2
+    this.sup3 = false
   }
 
   nouvelleVersion() {
@@ -66,20 +115,28 @@ export default class RacineCareeDeCarresParfaits extends Exercice {
     for (
       let i = 0, texte, texteCorr, a, c, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       a = listeRacines[i]
       c = a * a
-      if (listeQuestions[i] === 1) {
-        texte =
-          `Calculer de tête $\\sqrt{${c}}=$` + ajouteChampTexteMathLive(this, i)
+      if (!this.sup3) {
+        if (listeQuestions[i] === 1) {
+          texte =
+            `Calculer de tête $\\sqrt{${c}}=$` +
+            ajouteChampTexteMathLive(this, i)
+        } else {
+          texte =
+            `Quel est le nombre positif dont le carré est $${c}$ ?` +
+            ajouteChampTexteMathLive(this, i)
+        }
       } else {
         texte =
-          `Quel est le nombre positif dont le carré est $${c}$ ?` +
-          ajouteChampTexteMathLive(this, i)
+          figureCarre(c) +
+          `Quelle est la longueur du côté de ce carré ?` +
+          ajouteChampTexteMathLive(this, i, '', { texteApres: '$\\text{ cm}$' })
       }
-      texteCorr = `$\\sqrt{${c}}=${a}$`
-      setReponse(this, i, a)
+
+      texteCorr = `$\\sqrt{${c}}${this.sup3 ? '\\text{ cm}' : ''}=${miseEnEvidence(a.toString())}${this.sup3 ? '\\text{ cm}' : ''}$`
+      handleAnswers(this, i, { reponse: { value: a } })
 
       if (this.questionJamaisPosee(i, a)) {
         if (context.isAmc) {
