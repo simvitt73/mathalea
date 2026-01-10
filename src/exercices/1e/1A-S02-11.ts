@@ -58,7 +58,7 @@ export default class CalculEffectifQCM extends ExerciceQcmA {
     ].map((r) => `$${r}$`)
     this.enonce = `Voici la répartition des notes sur ${noteMax} d'une classe de première.<br>
       ${histogramme}<br><br>
-      Quelle est l'effectif total de cette classe ?`
+      Quel est l'effectif total de cette classe ?`
 
     // Correction : explication simple, claire
     this.correction = `L'effectif total est le nombre de notes représentées dans l'histogramme.<br>
