@@ -44,8 +44,8 @@ export default class CalculerDiscriminant extends Exercice {
     this.sup = contraindreValeur(1, 4, this.sup, 1)
 
     if (this.nbQuestions > 1)
-      this.consigne = 'Calculer le discriminant de chacune de ces expressions :'
-    else this.consigne = 'Calculer le discriminant de cett expression :'
+      this.consigne = 'Calculer le discriminant de chacune de ces expressions.'
+    else this.consigne = "Calculer le discriminant de l'expression suivante."
     let listeTypesDeQuestions
     if (this.sup < 4)
       listeTypesDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
