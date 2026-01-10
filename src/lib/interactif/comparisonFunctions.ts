@@ -1076,11 +1076,11 @@ function comparaisonFraction(
         let num, den
         if (saisieNativeParsed.operator !== 'Negate') {
           // Traitement des cas si la fraction est négative ou pas.
-          num = saisieNativeParsed.op1.evaluate().numericValue
-          den = saisieNativeParsed.op2.evaluate().numericValue
+          num = saisieNativeParsed.op1.canonical.evaluate().numericValue
+          den = saisieNativeParsed.op2.canonical.evaluate().numericValue
         } else {
-          num = saisieNativeParsed.op1.op1.evaluate().numericValue
-          den = saisieNativeParsed.op1.op2.evaluate().numericValue
+          num = saisieNativeParsed.op1.op1.canonical.evaluate().numericValue
+          den = saisieNativeParsed.op1.op2.canonical.evaluate().numericValue
         }
         if (Number.isInteger(num) && Number.isInteger(den)) {
           return { isOk: true }

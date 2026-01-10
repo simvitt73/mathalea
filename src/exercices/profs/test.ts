@@ -19,6 +19,17 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
+const saisie = engine.parse('(x+5)^2', { canonical: true })
+const saisieDev = engine
+  .box(['ExpandAll', saisie])
+  .evaluate()
+  .simplify().canonical
+const reponseParsed = engine.parse('(x+5)(x+5)', { canonical: true })
+const reponseDev = engine
+  .box(['ExpandAll', reponseParsed])
+  .evaluate()
+  .simplify().canonical
+console.log(saisieDev.isEqual(reponseDev))
 /* const result = fonctionComparaison('3.1\\times10^{3}', '3100', {
   ecritureScientifique: true,
 })
