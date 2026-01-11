@@ -316,10 +316,10 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
           break
         case 3: // .../... = u + d/10 + c/100=...
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
-          texteCorr = `$${texFraction(n, '100')}=${miseEnEvidence(u)}+${texFraction(
-            miseEnEvidence(d),
+          texteCorr = `$${texFraction(miseEnEvidence(n), '100')}=${u}+${texFraction(
+            d,
             '10',
-          )}+${texFraction(miseEnEvidence(c), '100')}=${miseEnEvidence(ecritureDecimale)}$`
+          )}+${texFraction(c, '100')}=${miseEnEvidence(ecritureDecimale)}$`
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{champ1}}{%{champ2}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{champ3}`
             texte = remplisLesBlancs(this, i, content)
@@ -556,7 +556,7 @@ export default class ExerciceDifferentesEcrituresNombresDecimaux extends Exercic
         case 7: // .../100 = u + d/10 =...
         default:
           ecritureDecimale = texNombre(arrondi(u + d / 10, 1))
-          texteCorr = `$${texFraction(n, '100')}=${miseEnEvidence(texNombre(u))}+${texFraction(miseEnEvidence(d), '10')}=${miseEnEvidence(ecritureDecimale)}$`
+          texteCorr = `$${texFraction(miseEnEvidence(n), '100')}=${u}+${texFraction(d, '10')}=${miseEnEvidence(ecritureDecimale)}$`
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{champ1}}{100}~=~ ${u} + \\dfrac{${d}}{10}~=~%{champ2}`
             texte = remplisLesBlancs(this, i, content)
