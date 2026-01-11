@@ -2,8 +2,8 @@ import Decimal from 'decimal.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import ExerciceCan from '../../ExerciceCan'
 import { randint } from '../../../modules/outils'
+import ExerciceCan from '../../ExerciceCan'
 
 export const titre = ''
 export const interactifReady = true
@@ -27,15 +27,15 @@ export default class Can32026Q29 extends ExerciceCan {
       const puiss = randint(2, 6)
       nombre = new Decimal(10).pow(puiss).mul(a).toNumber()
     }
+    this.optionsDeComparaison = { ecritureScientifique: true }
 
     this.formatChampTexte = KeyboardType.clavierFullOperations
     this.optionsChampTexte = { texteAvant: '<br>' }
 
-    
     // Calculer la puissance
     let puissance: number
     let coefficient: Decimal
-    
+
     if (nombre >= 1) {
       // Compter les chiffres avant la virgule
       const partieEntiere = Math.floor(nombre).toString()
@@ -52,12 +52,7 @@ export default class Can32026Q29 extends ExerciceCan {
     this.correction = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
 Ici : $${texNombre(nombre)}=\\underbrace{${miseEnEvidence(texNombre(coefficient))}}_{1\\leqslant ${texNombre(coefficient)} <10}${miseEnEvidence('\\times')} ${miseEnEvidence(`10^{${puissance}}`)}$.`
 
-    this.reponse = {
-      reponse: {
-        value: `${stringNombre(coefficient)}\\times 10^{${puissance}}`,
-        options: { ecritureScientifique: true },
-      },
-    }
+    this.reponse = `${stringNombre(coefficient)}\\times 10^{${puissance}}`
 
     this.canEnonce = this.question
     this.canReponseACompleter = ''

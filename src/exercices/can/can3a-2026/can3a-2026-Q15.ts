@@ -31,7 +31,7 @@ export default class Can32026Q15 extends ExerciceCan {
     // Construction de l'expression
     const expression =  `x^2${ecritureAlgebrique(a)}` 
     
-    this.question = `Calcule $${expression}$ pour $x=${x}$`
+    this.question = `Calcule $${expression}$ pour $x=${x}$.`
     
     if (this.interactif) {
       this.question += '<br>'
