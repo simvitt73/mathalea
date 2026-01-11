@@ -29,7 +29,7 @@ const reponseDev = engine
   .box(['ExpandAll', reponseParsed])
   .evaluate()
   .simplify().canonical
-console.log(saisieDev.isEqual(reponseDev))
+console.info(saisieDev.isEqual(reponseDev))
 /* const result = fonctionComparaison('3.1\\times10^{3}', '3100', {
   ecritureScientifique: true,
 })
