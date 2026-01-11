@@ -1,13 +1,13 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Calculer un produit (table de multiplication)'
+export const titre = 'Calculer une somme de décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '45105'
+export const uuid = 'admww'
 export const refs = {
   'fr-fr': [],
   'fr-ch': [],
@@ -17,17 +17,16 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can32026Q1 extends ExerciceCan {
-  enonce(a?: number, b?: number) {
+export default class Can32026Q3 extends ExerciceCan {
+enonce(a?: number, b?: number) {
     if (a == null || b == null) {
-      a = choice([4, 6, 7, 8])
-      b = choice([4, 6, 7, 8], [a])
+      a = randint(2, 5) * 0.1 + randint(1, 9) * 0.01
+      b = randint(1, 4) * 0.1
     }
-
     this.formatChampTexte = KeyboardType.clavierNumbers
-    this.reponse = a * b
-    this.question = `$${a} \\times ${b}$ `
-    this.correction = `$${a}\\times${b}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+    this.reponse = (a + b).toFixed(2)
+    this.question = `$${texNombre(a, 2)} + ${texNombre(b, 2)}$ `
+    this.correction = `$${texNombre(a, 2)} + ${texNombre(b, 2)}=${miseEnEvidence(texNombre(a + b, 2))}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (this.interactif) {
@@ -36,6 +35,6 @@ export default class Can32026Q1 extends ExerciceCan {
   }
 
   nouvelleVersion() {
-    this.canOfficielle ? this.enonce(4, 7) : this.enonce()
+    this.canOfficielle ? this.enonce(0.7, 0.13) : this.enonce()
   }
 }
