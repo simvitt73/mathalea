@@ -29,7 +29,7 @@ export const refs = {
 export default class Can32026Q17 extends ExerciceCan {
  enonce(angleBase?: number) {
     if (angleBase == null) {
-      // Angles de base entre 25° et 55° (pour avoir un angle au sommet entre 70° et 130°)
+      // Angles de base entre 25\\circ et 55\\circ (pour avoir un angle au sommet entre 70\\circ et 130\\circ)
       angleBase = randint(5, 11) * 5
     }
 
@@ -49,7 +49,7 @@ export default class Can32026Q17 extends ExerciceCan {
     const codages = codageSegments('||', 'black', A, C, A, B)
     
     // Affichage de l'angle de base connu (en C)
-    const angleC = afficheMesureAngle(B, C, A, 'black', 0.8, `${angleBase}°`)
+    const angleC = afficheMesureAngle(B, C, A, 'black', 0.8, `${angleBase}^\\circ`)
     
     // Affichage de l'angle cherché (en A, au sommet)
     const angleA = afficheMesureAngle(C, A, B, 'black', 0.5, '?')
@@ -78,20 +78,20 @@ export default class Can32026Q17 extends ExerciceCan {
     )
     
     this.correction = `Le triangle $ABC$ est isocèle en $A$ (les côtés $[AC]$ et $[AB]$ sont égaux).<br>
-Donc les angles à la base sont égaux : $\\widehat{ACB}=\\widehat{ABC}=${angleBase}°$.<br>
-La somme des angles d'un triangle est égale à $180°$, donc :<br>
-$\\widehat{CAB}+${angleBase}°+${angleBase}°=180°$<br>
-$\\widehat{CAB}=180°-${angleBase}°-${angleBase}°=180°-${2 * angleBase}°=${miseEnEvidence(angleSommet + '°')}$`
-    
+Donc les angles à la base sont égaux : $\\widehat{ACB}=\\widehat{ABC}=${angleBase}^\\circ$.<br>
+La somme des angles d'un triangle est égale à $180^\\circ$, donc :<br>
+$\\widehat{CAB}+${angleBase}^\\circ+${angleBase}^\\circ=180^\\circ$<br>
+$\\widehat{CAB}=180^\\circ-${angleBase}^\\circ-${angleBase}^\\circ=180^\\circ-${2 * angleBase}^\\circ=${miseEnEvidence(angleSommet + '^\\circ')}$`
+
     this.formatChampTexte = KeyboardType.clavierDeBase
     this.canEnonce = this.question
-    this.canReponseACompleter = '$?=\\ldots°$'
-    this.optionsChampTexte = { texteApres: '$°$' }
-    
+    this.canReponseACompleter = '$?=\\ldots^\\circ$'
+    this.optionsChampTexte = { texteApres: '$^\\circ$' }
+
     if (this.interactif) {
       this.question += '<br>$?=$'
     } else if (context.isHtml) {
-      this.question += '<br>$?=\\ldots°$'
+      this.question += '<br>$?=\\ldots^\\circ$'
     }
   }
 

@@ -7,6 +7,7 @@ import {
   polygone3d,
 } from '../../../lib/3d/3dProjectionMathalea2d/elementsEtTransformations3d'
 import { pyramide3d } from '../../../lib/3d/3dProjectionMathalea2d/Pyramide3dPerspectiveCavaliere'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -28,11 +29,11 @@ export const refs = {
  * @author Gilles Mora
 
 */
-export default class Can2026Q1 extends ExerciceCan {
+export default class Can32026Q1 extends ExerciceCan {
   enonce(b?: number, h?: number) {
     if (b == null || h == null) {
       b = choice([3, 4, 5, 6, 8])
-      h = choice([4.5, 6])
+      h = choice([3, 6])
       if (h === 4.5 && b % 2 === 1) {
         b++
       }
@@ -62,17 +63,16 @@ export default class Can2026Q1 extends ExerciceCan {
     context.anglePerspective = 30
     this.reponse = texNombre((b * b * h) / 3, 1)
     this.question = 'Volume de cette pyramide à base carrée<br>'
-    this.question += mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
-    this.correction = `$\\dfrac{1}{3}\\times\\mathcal{B}\\times h=\\dfrac{1}{3}\\times ${b * b}\\times ${texNombre(h, 1)}=${miseEnEvidence(this.reponse)}\\text{ cm}^3$`
+    this.question += mathalea2d(Object.assign({}, {scale: 0.7}, fixeBordures(objets)), objets)
+    this.correction = `$\\mathcal{V}=\\dfrac{1}{3}\\times\\mathcal{B}\\times h=\\dfrac{1}{3}\\times ${b * b}\\times ${texNombre(h, 1)}=${miseEnEvidence(this.reponse)}\\text{ cm}^3$`
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots\\text{ cm}^3$'
-    if (this.interactif) {
-      this.question += '$=$'
-    }
+   
   }
 
   nouvelleVersion() {
     this.canOfficielle || this.sup ? this.enonce(5, 3) : this.enonce()
     this.optionsChampTexte = { texteApres: '$\\text{ cm}^3$' }
+    this.formatChampTexte = KeyboardType.clavierDeBase
   }
 }

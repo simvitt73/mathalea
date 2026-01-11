@@ -33,7 +33,7 @@ export default class Can32026Q25 extends ExerciceCan {
 
     this.reponse = n
 
-    this.question = `Complète avec un nombre entier :<br>
+    this.question = `Complète avec un nombre entier :<br><br>
 $\\sqrt{${borne1}} < $`
 
     this.optionsChampTexte = {
@@ -52,7 +52,7 @@ Par conséquent : $\\sqrt{${borne1}} < ${miseEnEvidence(n)} < \\sqrt{${borne2}}$
     this.canReponseACompleter = `$\\sqrt{${borne1}} < \\ldots < \\sqrt{${borne2}}$`
 
     if (!this.interactif) {
-      this.question = `Complète avec un nombre entier :<br>
+      this.question = `Complète avec un nombre entier :<br><br>
 $\\sqrt{${borne1}} < \\ldots < \\sqrt{${borne2}}$`
     }
   }
