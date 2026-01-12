@@ -384,12 +384,18 @@ export interface Valeur {
   L1C1?: AnswerType
   L1C2?: AnswerType
   L1C3?: AnswerType
+  L1C4?: AnswerType
+  L1C5?: AnswerType
   L2C1?: AnswerType
   L2C2?: AnswerType
   L2C3?: AnswerType
+  L2C4?: AnswerType
+  L2C5?: AnswerType
   L3C1?: AnswerType
   L3C2?: AnswerType
   L3C3?: AnswerType
+  L3C4?: AnswerType
+  L3C5?: AnswerType
 
   // idem on en ajoutera si besoin
   callback?: (

@@ -41,21 +41,6 @@ export class Interactif2d extends ObjetMathalea2D {
   }
 
   tikz() {
-    if (this.backgroundCol.startsWith('#')) {
-      this.backgroundCol = `[HTML]{${this.backgroundCol.substring(1)}}`
-    } else {
-      this.backgroundCol = `${this.backgroundCol}`
-    }
-    if (this.col.startsWith('#')) {
-      this.col = `[HTML]{${this.col.substring(1)}}`
-    } else {
-      this.col =
-        this.col.startsWith('{') && this.col.endsWith('}')
-          ? this.col
-          : `{${this.col}}`
-    }
-    return this.backgroundCol !== '' && this.backgroundCol !== 'none'
-      ? `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\colorbox{${this.backgroundCol}} {\\${this.letterSize}  \\color${this.col}{$\\ldots$}}};`
-      : `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {\\${this.letterSize} \\color${this.col}{$\\ldots$}};`
+    return `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {$\\ldots$}}};`
   }
 }
