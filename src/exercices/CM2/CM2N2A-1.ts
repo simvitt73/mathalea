@@ -1,14 +1,13 @@
 import Figure from 'apigeom'
 import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
-import { grille, seyes } from '../../lib/2d/Grille'
-import { vide2d } from '../../lib/2d/Vide2d'
+import { fixeBordures } from '../../lib/2d/fixeBordures'
 import figureApigeom from '../../lib/figureApigeom'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import { fraction } from '../../modules/fractions'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { representationFraction } from '../../modules/representationsFractions'
+import { representeFractionSurBarre } from '../../modules/representationsFractions'
 import Exercice from '../Exercice'
 export const titre = "Représenter une fraction de l'unité"
 export const amcReady = true
@@ -39,21 +38,15 @@ export default class FractionsDunite extends Exercice {
     context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
     context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
     this.sup = 1
-    this.sup2 = 1
     this.besoinFormulaireNumerique = [
       'Type  de questions',
       5,
       '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions supérieures à 1\n5 : Fractions unitaires',
     ]
-    this.besoinFormulaire2Numerique = [
-      'Type de cahier',
-      2,
-      '1 : Cahier à petits carreaux\n2 : Cahier à gros carreaux (Seyes)',
-    ]
   }
 
   nouvelleVersion() {
-    let typesDeQuestionsDisponibles, g, carreaux, sc, unit
+    let typesDeQuestionsDisponibles, unit
     let listeTypeDeQuestions = []
     if (this.sup < 6) {
       typesDeQuestionsDisponibles = [parseInt(this.sup)]
@@ -99,20 +92,7 @@ export default class FractionsDunite extends Exercice {
       else unit = 8
       const frac = fraction(num, den)
       this.goodAnswers[i] = Math.round((num / den) * unit)
-      if (this.interactif) {
-        texte = `$${frac.texFraction}$ unité.`
-      } else {
-        texte = `$${frac.texFraction}$ unité en prenant $${unit}$ carreaux (ou $${unit}\\text{ cm}$) pour une unité.`
-      }
-      if (this.sup2 < 3) g = grille(0, 0, 26, 2, 'gray', 0.7)
-      else g = vide2d()
-      if (parseInt(this.sup2) === 2) {
-        sc = 0.6
-        carreaux = seyes(0, 0, 26, 2)
-      } else {
-        sc = 0.5
-        carreaux = vide2d()
-      }
+      texte = `$${frac.texFraction}$ unité.<br>`
 
       if (this.interactif) {
         const figure = new Figure({
@@ -137,13 +117,31 @@ export default class FractionsDunite extends Exercice {
         })
         figure.divButtons.style.display = 'none'
         figure.divUserMessage.style.display = 'none'
+      } else {
+        const schemaAColorier = representeFractionSurBarre(
+          fraction(0, den),
+          unit,
+          3,
+          6,
+        )
+        texte += mathalea2d(
+          Object.assign(
+            { pixelsParCm: 30, scale: 0.5 },
+            fixeBordures([...schemaAColorier]),
+          ),
+          [...schemaAColorier],
+        )
       }
 
+      const representeFraction = representeFractionSurBarre(frac, unit, 3, 6)
+
+      const objetsCorr = [...representeFraction]
       texteCorr = mathalea2d(
-        { xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc },
-        representationFraction(frac, 1, 1, unit, 0, 'segment', 'blue', 0, 1),
-        g,
-        carreaux,
+        Object.assign(
+          { pixelsParCm: 30, scale: 0.5 },
+          fixeBordures(objetsCorr),
+        ),
+        objetsCorr,
       )
       if (context.isAmc) {
         this.autoCorrection[i] = {
