@@ -8,11 +8,13 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
+import { Interactif2d } from '../../lib/2d/interactif2d'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { carre } from '../../lib/2d/polygonesParticuliers'
 import { latex2d } from '../../lib/2d/textes'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import type { IExercice } from '../../lib/types'
 import { mathalea2d } from '../../modules/mathalea2d'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 export const titre =
@@ -34,7 +36,7 @@ export const refs = {
   'fr-fr': ['4G20-2'],
   'fr-ch': ['10NO3-1'],
 }
-const figureCarre = (aire: number) => {
+const figureCarre = (aire: number, exercice: IExercice, question: number) => {
   const c = Math.sqrt(aire) / 4
   const A = pointAbstrait(0, 0)
   const B = pointAbstrait(4 + c, 0)
@@ -56,6 +58,11 @@ const figureCarre = (aire: number) => {
       letterSize: 'small',
     },
   )
+  const input = new Interactif2d('%{champ1}\\text{cm}', 4 + c + 2, 2 + c / 2, {
+    exercice,
+    question,
+  })
+  afficheAire.opacity = 0.5
   const objets: NestedObjetMathalea2dArray = [
     square,
     afficheAire,
@@ -64,6 +71,7 @@ const figureCarre = (aire: number) => {
     ang3,
     ang4,
     cotesMarques,
+    input,
   ]
   return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
 }
@@ -130,14 +138,19 @@ export default class RacineCareeDeCarresParfaits extends Exercice {
         }
       } else {
         texte =
-          figureCarre(c) +
-          `Quelle est la longueur du côté de ce carré ?` +
+          figureCarre(c, this, i) +
+          `Quelle est la longueur du côté de ce carré ?`
+        /* +
           ajouteChampTexteMathLive(this, i, '', { texteApres: '$\\text{ cm}$' })
+          */
       }
 
       texteCorr = `$\\sqrt{${c}}${this.sup3 ? '\\text{ cm}' : ''}=${miseEnEvidence(a.toString())}${this.sup3 ? '\\text{ cm}' : ''}$`
-      handleAnswers(this, i, { reponse: { value: a } })
-
+      if (this.sup3) {
+        handleAnswers(this, i, { champ1: { value: a } })
+      } else {
+        handleAnswers(this, i, { reponse: { value: a.toString() } })
+      }
       if (this.questionJamaisPosee(i, a)) {
         if (context.isAmc) {
           if (listeQuestions[i] === 1) {
