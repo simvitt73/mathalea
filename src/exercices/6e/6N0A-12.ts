@@ -46,6 +46,7 @@ export default class TableSimpleDistributivite extends Exercice {
       'Nombres de 2 à 4 séparés par des tirets',
     ]
     this.sup = '3'
+    this.listeAvecNumerotation = false
   }
 
   nouvelleVersion() {
@@ -94,7 +95,9 @@ export default class TableSimpleDistributivite extends Exercice {
       this.autoCorrection[2 * i] = {}
       this.autoCorrection[2 * i + 1] = {}
 
-      texte = `$${lettreDepuisChiffre(i + 1)} = ${choice([true, false]) ? `${a}\\times ${b}` : `${b}\\times ${a}`}$`
+      texte =
+        `$${lettreDepuisChiffre(i + 1)} = ${choice([true, false]) ? `${a}\\times ${b}` : `${b}\\times ${a}`}=$` +
+        ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierDeBase)
       texte += '<br><br>'
       texteCorr = texte
       // developpements = faitDeveloppement(a1, a0, b, c)
@@ -126,18 +129,11 @@ export default class TableSimpleDistributivite extends Exercice {
           1.7,
           true,
           this.numeroExercice,
-          i,
+          2 * i,
           false,
           { L0C0: 'red' },
         )
       }
-
-      texte += '<br><br>Résultat : '
-      texte += ajouteChampTexteMathLive(
-        this,
-        2 * i + 1,
-        KeyboardType.clavierDeBase,
-      )
 
       texteCorr += tableauColonneLigne(
         tableau.entetesCol,
@@ -151,28 +147,14 @@ export default class TableSimpleDistributivite extends Exercice {
         { L0C0: 'red' },
       )
 
-      texteCorr += `<br><br>Résultat : $${lettreDepuisChiffre(i + 1)} =${produits.map((x) => texNombre(a * x, 0)).join('+')} =${miseEnEvidence(a * b)}$`
-
+      texteCorr += `<br><br>$${lettreDepuisChiffre(i + 1)} =${produits.map((x) => texNombre(a * x, 0)).join('+')} =${miseEnEvidence(a * b)}$`
+      const champs = produits.map((x, index) => [
+        `L1C${index + 1}`,
+        { value: texNombre(a * x, 0) },
+      ])
       handleAnswers(this, 2 * i, {
         bareme: toutPourUnPoint,
-        L1C1: {
-          value: tableau.L1C1txt,
-          options: {
-            calculFormel: true,
-          },
-        },
-        L1C2: {
-          value: tableau.L1C2txt,
-          options: {
-            calculFormel: true,
-          },
-        },
-        L1C3: {
-          value: tableau.L1C3txt,
-          options: {
-            calculFormel: true,
-          },
-        },
+        ...Object.fromEntries(champs),
       })
       handleAnswers(this, 2 * i + 1, {
         reponse: {
@@ -216,10 +198,10 @@ function faitTableau(a: number, chiffres: number[]): TableauData {
     entetesCol,
     entetesLgn: [texNombre(a, 0)],
     contenu: chiffresNonNuls.map((x) => '\\phantom{E.}'),
-    L1C1txt: texNombre(chiffres[0], 0),
-    L1C2txt: texNombre(chiffres[1], 0),
-    L1C3txt: nbChiffres > 2 ? texNombre(chiffres[2], 0) : '',
-    L1C4txt: nbChiffres > 3 ? texNombre(chiffres[3], 0) : '',
+    L1C1txt: texNombre(chiffres[0] * a, 0),
+    L1C2txt: texNombre(chiffres[1] * a, 0),
+    L1C3txt: nbChiffres > 2 ? texNombre(chiffres[2] * a, 0) : '',
+    L1C4txt: nbChiffres > 3 ? texNombre(chiffres[3] * a, 0) : '',
   }
   return tableau
 }
