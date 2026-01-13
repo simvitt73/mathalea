@@ -2,6 +2,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { texNombre } from '../../lib/outils/texNombre'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -13,7 +14,7 @@ export const titre = 'Résoudre des problèmes en utilisant une équation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '07/01/2026'
+export const dateDeModifImportante = '12/01/2026'
 
 export const uuid = '67519'
 export const refs = {
@@ -33,9 +34,9 @@ export default class ProblemesAvecEquations extends Exercice {
       'Type de questions',
       [
         'Nombres séparés par des tirets :',
-        '1 : motos + voitures',
-        '2 : prix cinéma adultes/enfants',
-        '3 : fleurs (jonquilles, roses, tulipes)',
+        '1 : Motos + voitures',
+        '2 : Prix cinéma adultes/enfants',
+        '3 : Fleurs (jonquilles, roses, tulipes)',
         '4 : Mélange',
       ].join('\n'),
     ]
@@ -81,10 +82,9 @@ export default class ProblemesAvecEquations extends Exercice {
       if (!probleme) continue
 
       texte = `${probleme.enonce} 
-        ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
-
+        ${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteApres: ' ' + probleme.texteApres })}`
       handleAnswers(this, i, {
-        reponse: { value: probleme.donnees.a.toString() },
+        reponse: { value: probleme.reponse.toString() },
       })
 
       texteCorr = `${probleme.solution}`
@@ -107,6 +107,7 @@ type Probleme = {
     a: number
     b: number
   }
+  texteApres: string
 }
 
 export function genererProblemeParking(): Probleme {
@@ -143,6 +144,7 @@ Il y a $${miseEnEvidence(motos)}$ motos et $${voitures}$ voitures.
     solution,
     reponse: motos,
     donnees: { a: motos, b: voitures },
+    texteApres: 'motos',
   }
 }
 
@@ -157,7 +159,7 @@ function genererCinema(): Probleme {
   const enonce = `
 Au cinéma pour la sortie d'un film, il y a eu $${adultes}$ adultes et $${enfants}$ enfants.<br>
 La place pour adulte coûte $${prixAdulte - prixEnfant}$ € de plus que celle pour enfant.<br>
-Au total, le cinéma a récolté $${total}$ €.<br>
+Au total, le cinéma a récolté $${texNombre(total)}$ €.<br>
 Quel est le prix du tarif enfant ? 
 `.trim()
 
@@ -179,6 +181,7 @@ Le prix du tarif enfant est $${miseEnEvidence(prixEnfant)}$ €.<br>
     solution,
     reponse: prixEnfant,
     donnees: { a: adultes, b: enfants },
+    texteApres: '€',
   }
 }
 
@@ -217,5 +220,6 @@ Il y a $${miseEnEvidence(jonquilles)}$ jonquilles.<br>
     solution,
     reponse: jonquilles,
     donnees: { a: jonquilles, b: roses },
+    texteApres: 'jonquilles',
   }
 }
