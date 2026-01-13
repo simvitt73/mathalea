@@ -126,7 +126,7 @@ export default class ExprimerEnFonctionDesAutres extends Exercice {
                             Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
             varAExprimer = nomV[1]
             reponse = [
-              `${nomV[0]}\\times ${nomV[2]}`,
+              `${nomV[1]}=${nomV[0]}\\times ${nomV[2]}`,
               `${nomV[0]}\\times ${nomV[2]}`,
             ]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
@@ -155,7 +155,10 @@ $\\begin{aligned}
   $${nomV[0]}=${nomV[1]}\\times ${nomV[2]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
             varAExprimer = nomV[1]
-            reponse = `${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[2]}}`
+            reponse = [
+              `${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[2]}}`,
+              `\\dfrac{${nomV[0]}}{${nomV[2]}}`,
+            ]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
     $\\begin{aligned}
     ${nomV[0]}&=${nomV[1]}\\times ${nomV[2]}\\\\
