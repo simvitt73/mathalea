@@ -134,7 +134,7 @@ export function mathalea2d(
               } else if ('exercice' in codeLatex) {
                 const code = codeLatex as unknown as Interactif2dData
                 // C'est un interactif2d
-                const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%);" data-top=${ySvg} data-left=${xSvg}>${remplisLesBlancs(code.exercice, code.question, code.content)}</div>`
+                const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${remplisLesBlancs(code.exercice, code.question, code.content)}</div>`
                 divsLatex.push(divOuterHtml)
               } else {
                 window.notify(

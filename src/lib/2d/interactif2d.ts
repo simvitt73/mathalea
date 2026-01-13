@@ -8,6 +8,7 @@ export class Interactif2d extends ObjetMathalea2D {
   x: number
   y: number
   content: string
+  opacity: number = 1.0
   constructor(
     content: string,
     x: number,
@@ -15,9 +16,11 @@ export class Interactif2d extends ObjetMathalea2D {
     {
       exercice,
       question = 0,
+      opacity = 1.0,
     }: {
       exercice: IExercice
       question: number
+      opacity?: number
     },
   ) {
     super()
@@ -26,6 +29,7 @@ export class Interactif2d extends ObjetMathalea2D {
     this.content = content
     this.exercice = exercice
     this.question = question
+    this.opacity = opacity
     const marge = 0.5
     this.bordures = [x - marge, y - marge, x + marge, y + marge]
   }
@@ -37,10 +41,11 @@ export class Interactif2d extends ObjetMathalea2D {
       x: this.x,
       y: this.y,
       content: this.content,
+      opacity: this.opacity,
     }
   }
 
   tikz() {
-    return `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {$\\ldots$}}};`
+    return `\\draw[opacity=${this.opacity}] (${this.x},${this.y}) node[anchor = center, rotate=${this.orientation}] {$\\ldots$}};`
   }
 }
