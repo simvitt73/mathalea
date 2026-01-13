@@ -147,7 +147,9 @@ export default class RacineCareeDeCarresParfaits extends Exercice {
 
       texteCorr = `$\\sqrt{${c}}${this.sup3 ? '\\text{ cm}' : ''}=${miseEnEvidence(a.toString())}${this.sup3 ? '\\text{ cm}' : ''}$`
       if (this.sup3) {
-        handleAnswers(this, i, { champ1: { value: a } })
+        handleAnswers(this, i, {
+          champ1: { value: a, options: { noFeedback: true } },
+        })
       } else {
         handleAnswers(this, i, { reponse: { value: a.toString() } })
       }

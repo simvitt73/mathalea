@@ -20,6 +20,7 @@ export type Interactif2dData = {
   x: number
   y: number
   content: string
+  opacity: number
 }
 
 // Type récursif décrivant la structure des tableaux d'objets 2D.
