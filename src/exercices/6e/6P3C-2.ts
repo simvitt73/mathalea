@@ -263,7 +263,7 @@ function questionRecette(exo: Exercice, i: number) {
     liste[alea1].quantites_par_pers[alea3] * nbPersonneFinal // Pour la correction
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte =
-    `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour $${nbPersonneInit}$ personnes qu'il faut $$${texNombre(quantite)}$$ g de ${liste[alea1].ingredient}. <br>` +
+    `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour $${nbPersonneInit}$ personnes qu'il faut $${texNombre(quantite)}$ g de ${liste[alea1].ingredient}. <br>` +
     `Elle veut adapter sa recette pour $${nbPersonneFinal}$ personnes.` +
     `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` +
     ajouteChampTexteMathLive(exo, i, KeyboardType.clavierNumbers, {
@@ -272,8 +272,8 @@ function questionRecette(exo: Exercice, i: number) {
   const texteCorr =
     `Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne. <br>` +
     ` $${nbPersonneInit}$ personnes, c'est $${miseEnEvidence(nbPersonneInit, bleuMathalea)}$ fois $1$ personne. ` +
-    `il faut donc $${miseEnEvidence(nbPersonneInit, bleuMathalea)}$ fois moins que $$${texNombre(quantite)}$$ g pour $1$ personne.<br>` +
-    `$$${texNombre(quantite)}$$ g $\\div ${miseEnEvidence(nbPersonneInit, bleuMathalea)} = ${liste[alea1].quantites_par_pers[alea3]}$ g <br>` +
+    `il faut donc $${miseEnEvidence(nbPersonneInit, bleuMathalea)}$ fois moins que $${texNombre(quantite)}$ g pour $1$ personne.<br>` +
+    `$${texNombre(quantite)}$ g $\\div ${miseEnEvidence(nbPersonneInit, bleuMathalea)} = ${liste[alea1].quantites_par_pers[alea3]}$ g <br>` +
     texteEnCouleurEtGras(' Conclusion intermédiaire :', 'black') +
     ` il faut $${miseEnEvidence(liste[alea1].quantites_par_pers[alea3], bleuMathalea)}$ g de ${liste[alea1].ingredient} pour $1$ personne. <br>` +
     ` Cherchons maintenant la quantité nécessaire pour ${nbPersonneFinal} personnes. <br>` +
