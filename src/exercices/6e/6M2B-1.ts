@@ -172,7 +172,6 @@ export default class AireCarreRectangle extends Exercice {
         const cote = this.sup2 ? randint(20, 70) / 10 : randint(2, 9)
         a = cote * cote
         texte = figureCarre(cote, this, i)
-        handleAnswers(this, i, { champ1: { value: a } })
         texteCorr = `L'aire du carré est de $${texNombre(cote, 1)}\\text{ cm}\\times ${texNombre(cote, 1)}\\text{ cm}=${miseEnEvidence(texNombre(a, 2))}\\text{ cm}^2$.`
       } else if (typeDeQuestion === 2) {
         // rectangle
@@ -181,9 +180,11 @@ export default class AireCarreRectangle extends Exercice {
         a = largeur * longueur
         texte = figureRectangle(largeur, longueur, this, i)
         texteCorr = `L'aire du rectangle est de $${texNombre(largeur, 1)}\\text{ cm}\\times ${texNombre(longueur, 1)}\\text{ cm}=${miseEnEvidence(texNombre(a, 2))}\\text{ cm}^2$.`
-        handleAnswers(this, i, { champ1: { value: a } })
       }
       if (this.questionJamaisPosee(i, a)) {
+        handleAnswers(this, i, {
+          champ1: { value: a, options: { noFeedback: true } },
+        })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
