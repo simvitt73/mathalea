@@ -5,7 +5,7 @@ import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { Interactif2d } from '../../lib/2d/interactif2d'
 import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
-import { polygoneAvecNom } from '../../lib/2d/polygones'
+import { polygone, polygoneAvecNom } from '../../lib/2d/polygones'
 import { representant } from '../../lib/2d/representantVecteur'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { labelPoint } from '../../lib/2d/textes'
@@ -60,6 +60,8 @@ export default class ConservationTransformation extends Exercice {
       'Nombres séparés par des tirets\n1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Translation\n4 : Rotation\n5 : Mélange',
     ]
     this.sup = '2'
+    this.besoinFormulaire2CaseACocher = ['Sans les labels', false]
+    this.sup2 = false
   }
 
   nouvelleVersion() {
@@ -256,7 +258,9 @@ export default class ConservationTransformation extends Exercice {
           ).toString() + '^\\circ',
         ),
       )
-      texte = `Les points $${A.nom}'$, $${B.nom}'$, $${C.nom}'$ sont les images respectives de $${A.nom}$, $${B.nom}$, $${C.nom}$ ${enonceTransformation}.<br>`
+      texte = this.sup2
+        ? ''
+        : `Les points $${A.nom}'$, $${B.nom}'$, $${C.nom}'$ sont les images respectives de $${A.nom}$, $${B.nom}$, $${C.nom}$ ${enonceTransformation}.<br>`
       figure = `du triangle $${A.nom + B.nom + C.nom}$`
       texteCorr = texte
       texteCorr += `Or, la ${transformation} conserve les angles.<br>`
@@ -266,7 +270,9 @@ export default class ConservationTransformation extends Exercice {
       texteCorr += `Donc le segment [$${B.nom}'${C.nom}'$] mesure lui aussi $${texNombre(longueur(B, C, 1))}\\text{ cm}$.<br>`
       texte += `Compléter l'image ${figure} ${enonceTransformation} en utilisant les propriétés de conservation de la ${transformation} et en justifiant ses démarches.<br>`
       // On applique la transformation
-      const imPoly = polygoneAvecNom(imageA, imageB, imageC)
+      const imPoly = this.sup2
+        ? polygone(imageA, imageB, imageC)
+        : polygoneAvecNom(imageA, imageB, imageC)
       objetsEnonceEtCorr.push(imPoly)
       const placeAngle = afficheMesureAngle(
         imageA,
