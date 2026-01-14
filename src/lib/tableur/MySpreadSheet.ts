@@ -5,6 +5,7 @@ export class MySpreadsheetElement extends HTMLElement {
   private _spreadsheet: any = null
   private _buttonListener?: EventListener
   private _customListeners: { [eventName: string]: EventListener } = {}
+  private showVerifyButton: boolean = true
 
   constructor() {
     super()
@@ -29,6 +30,7 @@ export class MySpreadsheetElement extends HTMLElement {
     style = {},
     columns = [],
     interactif = false,
+    showVerifyButton = true,
   }: {
     id?: string
     data?: (string | number)[][]
@@ -36,6 +38,7 @@ export class MySpreadsheetElement extends HTMLElement {
     style?: any
     columns?: any[]
     interactif?: boolean
+    showVerifyButton?: boolean
   } = {}) {
     const elt = new MySpreadsheetElement()
     if (id) elt.id = id
@@ -44,6 +47,12 @@ export class MySpreadsheetElement extends HTMLElement {
     elt.setAttribute('style', JSON.stringify(style))
     elt.setAttribute('columns', JSON.stringify(columns))
     elt.setAttribute('interactif', interactif ? 'true' : 'false')
+    if (showVerifyButton !== undefined) {
+      elt.setAttribute(
+        'show-verify-button',
+        showVerifyButton ? 'true' : 'false',
+      )
+    }
     return elt
   }
 
@@ -108,6 +117,10 @@ export class MySpreadsheetElement extends HTMLElement {
     divFeedback.className =
       'italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest'
     container.appendChild(divFeedback)
+
+    if (this.getAttribute('show-verify-button') === 'false') {
+      this.showVerifyButton = false
+    }
     const bouton = document.createElement('button')
     bouton.id = 'runCode'
     bouton.textContent = 'Vérifier'
@@ -134,12 +147,17 @@ export class MySpreadsheetElement extends HTMLElement {
       bouton.style.backgroundColor = '#2b6cb0'
     }
     bouton.style.display =
-      this.getAttribute('interactif') === 'true' ? 'none' : 'block'
+      this.getAttribute('interactif') === 'true' ||
+      this.showVerifyButton === false
+        ? 'none'
+        : 'block'
     container.appendChild(bouton)
     if (idMatch) {
       const numeroExercice = Number(idMatch[1])
       const question = Number(idMatch[2])
-      this._setupButton(bouton, numeroExercice, question)
+      if (this.showVerifyButton) {
+        this._setupButton(bouton, numeroExercice, question)
+      }
     }
     this.dispatchEvent(new CustomEvent('spreadsheet-ready'))
   }
@@ -179,7 +197,9 @@ export class MySpreadsheetElement extends HTMLElement {
   }
 
   getCellFormula(column: number, row: number) {
-    return this._spreadsheet.getValueFromCoords(column, row, false)
+    return String(
+      this._spreadsheet.getValueFromCoords(column, row, false),
+    ).toUpperCase()
   }
 
   getData() {
@@ -192,7 +212,7 @@ export class MySpreadsheetElement extends HTMLElement {
   }
 
   setCellFormula(column: number, row: number, formula: string) {
-    if (!formula.startsWith('=')) formula = '=' + formula
+    if (!formula.startsWith('=')) formula = '=' + formula.toUpperCase()
     this._spreadsheet.setValueFromCoords(column, row, formula, true)
   }
 
@@ -218,37 +238,3 @@ export class MySpreadsheetElement extends HTMLElement {
 }
 
 customElements.define('my-spreadsheet', MySpreadsheetElement)
-
-export function addSheet({
-  numeroExercice,
-  question,
-  data,
-  minDimensions,
-  style,
-  columns,
-  interactif,
-}: {
-  numeroExercice: number
-  question: number
-  data: any[][]
-  minDimensions: [number, number]
-  style: any
-  columns: any[]
-  interactif: boolean
-}): string {
-  return (
-    `<my-spreadsheet
-  id="sheet-Ex${numeroExercice}Q${question}"
-  data='${JSON.stringify(data)}'
-  min-dimensions='${JSON.stringify(minDimensions)}'
-  style='${JSON.stringify(style)}'
-  columns='${JSON.stringify(columns)}'
-  interactif='${interactif}'
->` +
-    (interactif
-      ? `<div class="ml-2 py-2" id="resultatCheckEx${numeroExercice}Q${question}"></div>
-<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice}Q${question}"}></div>`
-      : '') +
-    '</my-spreadsheet>'
-  )
-}
