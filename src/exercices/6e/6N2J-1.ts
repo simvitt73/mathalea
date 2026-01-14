@@ -141,7 +141,7 @@ export default class DivisionsEuclidiennesEgaliteFondamentale extends Exercice {
               operande1: a,
               operande2: b,
               type: 'divisionE',
-              options: { solution: false, colore: '' },
+              // options: { solution: false, colore: '' },
             }),
           )
         : `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
