@@ -164,7 +164,7 @@ export default class ExerciceTableur3T10 extends Exercice {
         options,
       )
     }
-    const texteCorr = `Voici la formule à saisir dans le tableur :<br>${texteEnCouleurEtGras(
+    const texteCorr = `Voici la formule à saisir en cellule A2 :<br>${texteEnCouleurEtGras(
       `=MOYENNE(A1:${String.fromCharCode(
         'A'.charCodeAt(0) + serie.length - 1,
       )}1)`,
@@ -228,7 +228,7 @@ export default class ExerciceTableur3T10 extends Exercice {
                 ref: `A1:${String.fromCharCode(
                   'A'.charCodeAt(0) + nbDes - 1,
                 )}1`,
-                rangeValues: [1, nbFacesDe],
+                rangeValues: [4, 20],
               },
             ],
           },
@@ -254,7 +254,7 @@ export default class ExerciceTableur3T10 extends Exercice {
         options,
       )
     }
-    const texteCorr = `Voici la formule à saisir dans le tableur :<br>${texteEnCouleurEtGras(
+    const texteCorr = `Voici la formule à saisir en cellule A2 :<br>${texteEnCouleurEtGras(
       `=SOMME(A1:${String.fromCharCode('A'.charCodeAt(0) + nbDes - 1)}1)`,
     )}`
     return { texte, texteCorr }
@@ -340,7 +340,7 @@ export default class ExerciceTableur3T10 extends Exercice {
         options,
       )
     }
-    const texteCorr = `Voici la formule à saisir dans le tableur :<br>${texteEnCouleurEtGras(
+    const texteCorr = `Voici la formule à saisir en cellule B3 :<br>${texteEnCouleurEtGras(
       `=B1*B2`,
     )}`
     return { texte, texteCorr }
@@ -426,7 +426,7 @@ export default class ExerciceTableur3T10 extends Exercice {
         options,
       )
     }
-    const texteCorr = `Voici la formule à saisir dans le tableur :<br>${texteEnCouleurEtGras(
+    const texteCorr = `Voici la formule à saisir en cellule B3 :<br>${texteEnCouleurEtGras(
       `=B1*(1+B2/100)`,
     )}`
     return { texte, texteCorr }
@@ -514,7 +514,7 @@ export default class ExerciceTableur3T10 extends Exercice {
       )
     }
 
-    const texteCorr = `Voici la formule à saisir dans le tableur :<br>${texteEnCouleurEtGras(
+    const texteCorr = `Voici la formule à saisir en cellule B2 :<br>${texteEnCouleurEtGras(
       `=A2*B1/A1`,
     )}`
     return { texte, texteCorr }
@@ -609,7 +609,7 @@ export default class ExerciceTableur3T10 extends Exercice {
       )
     }
 
-    const texteCorr = `Voici la formule à saisir dans le tableur :<br>${texteEnCouleurEtGras(
+    const texteCorr = `Voici la formule à saisir en cellule ${String.fromCharCode(66 + indexPointureChoisie)}3 :<br>${texteEnCouleurEtGras(
       `=${String.fromCharCode(66 + indexPointureChoisie)}3/SOMME(B2:E2)`,
     )}`
     return { texte, texteCorr }
