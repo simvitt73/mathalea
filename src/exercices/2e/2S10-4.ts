@@ -52,7 +52,7 @@ export default class TableauProportion extends Exercice {
   }
 
    nouvelleVersion() {
-    this.answers = {}
+  this.answers = {}
 
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -74,27 +74,82 @@ export default class TableauProportion extends Exercice {
     let increment = 1
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       const typesDeQuestions = listeTypeDeQuestions[i]
-      const total = choice([240, 280, 320, 342, 360, 420, 450, 480]) 
-      // Pourcentages variés pour éviter les doublons
-      const pourcGA = choice([48, 52, 54, 56, 58])
-      const totalGA = Math.round((pourcGA * total) / 100)
-      const totalF = total - totalGA
       
-      // Pourcentage en filière générale (doit être > pourcGA pour avoir des filles en générale)
-      const pourcG = choice([62, 64, 66, 68])
-      const totalG = Math.round((pourcG * total) / 100)
-      const totalT = total - totalG
+      let total, totalGA, totalF, totalG, totalT, GAetG, FetG, GAetT, FetT
+      let pourcGA, pourcG, pourcGAetG, pourcF, pourcT
       
-      // Garçons en filière générale : doit être < min(pourcGA, pourcG)
-      // On prend entre 28% et 42% pour être sûr d'avoir GAetG < totalGA et GAetG < totalG
-      const pourcGAetG = choice([28, 31, 34, 37, 40])
-      const GAetG = Math.round((pourcGAetG * total) / 100)
-      
-      const FetG = totalG - GAetG
-      const GAetT = totalGA - GAetG
-      const FetT = totalF - FetG
-      const pourcF = arrondi((totalF * 100) / total, 0)
-      const pourcT = arrondi((totalT * 100) / total, 0)
+      if (typesDeQuestions === 1) {
+        // Pour le cas "compléter le tableau", on utilise des combinaisons pré-calculées
+        // garantissant que tous les calculs de pourcentages donnent des entiers
+        const combinaisons = [
+          // total=300: divisible par 2, 3, 4, 5, 6, 10, 12, 15, 20, 25, 30, 50, 60, 75, 100
+          { total: 300, pourcGA: 50, pourcG: 60, pourcGAetG: 30 }, // 150, 180, 90
+          { total: 300, pourcGA: 48, pourcG: 64, pourcGAetG: 32 }, // 144, 192, 96
+          { total: 300, pourcGA: 52, pourcG: 66, pourcGAetG: 34 }, // 156, 198, 102
+          { total: 300, pourcGA: 54, pourcG: 68, pourcGAetG: 36 }, // 162, 204, 108
+          
+          // total=400: divisible par 2, 4, 5, 8, 10, 16, 20, 25, 40, 50, 80, 100
+          { total: 400, pourcGA: 50, pourcG: 65, pourcGAetG: 30 }, // 200, 260, 120
+          { total: 400, pourcGA: 45, pourcG: 60, pourcGAetG: 25 }, // 180, 240, 100
+          { total: 400, pourcGA: 55, pourcG: 70, pourcGAetG: 35 }, // 220, 280, 140
+          { total: 400, pourcGA: 48, pourcG: 62, pourcGAetG: 28 }, // 192, 248, 112
+          
+          // total=500: divisible par 2, 4, 5, 10, 20, 25, 50, 100
+          { total: 500, pourcGA: 50, pourcG: 60, pourcGAetG: 30 }, // 250, 300, 150
+          { total: 500, pourcGA: 48, pourcG: 64, pourcGAetG: 32 }, // 240, 320, 160
+          { total: 500, pourcGA: 52, pourcG: 66, pourcGAetG: 34 }, // 260, 330, 170
+          { total: 500, pourcGA: 54, pourcG: 68, pourcGAetG: 36 }, // 270, 340, 180
+          { total: 500, pourcGA: 56, pourcG: 70, pourcGAetG: 38 }, // 280, 350, 190
+          
+          // total=600: divisible par 2, 3, 4, 5, 6, 8, 10, 12, 15, 20, 24, 25, 30, 40, 50, 60, 75, 100
+          { total: 600, pourcGA: 50, pourcG: 65, pourcGAetG: 30 }, // 300, 390, 180
+          { total: 600, pourcGA: 45, pourcG: 60, pourcGAetG: 25 }, // 270, 360, 150
+          { total: 600, pourcGA: 55, pourcG: 70, pourcGAetG: 35 }, // 330, 420, 210
+          { total: 600, pourcGA: 48, pourcG: 62, pourcGAetG: 28 }, // 288, 372, 168
+        ]
+        
+        const combi = choice(combinaisons)
+        total = combi.total
+        pourcGA = combi.pourcGA
+        pourcG = combi.pourcG
+        pourcGAetG = combi.pourcGAetG
+        
+        // Calculer les effectifs (tous sont garantis entiers)
+        totalGA = (pourcGA * total) / 100
+        totalF = total - totalGA
+        totalG = (pourcG * total) / 100
+        totalT = total - totalG
+        GAetG = (pourcGAetG * total) / 100
+        
+        // Calculer les autres valeurs
+        FetG = totalG - GAetG
+        GAetT = totalGA - GAetG
+        FetT = totalF - FetG
+        
+        // Calculer les pourcentages pour l'énoncé
+        pourcF = arrondi((totalF * 100) / total, 0)
+        pourcT = arrondi((totalT * 100) / total, 0)
+      } else {
+        // Pour le cas "utiliser le tableau", on peut utiliser l'ancienne méthode
+        total = choice([240, 280, 320, 342, 360, 420, 450, 480])
+        
+        pourcGA = choice([48, 52, 54, 56, 58])
+        totalGA = Math.round((pourcGA * total) / 100)
+        totalF = total - totalGA
+        
+        pourcG = choice([62, 64, 66, 68])
+        totalG = Math.round((pourcG * total) / 100)
+        totalT = total - totalG
+        
+        pourcGAetG = choice([28, 31, 34, 37, 40])
+        GAetG = Math.round((pourcGAetG * total) / 100)
+        
+        FetG = totalG - GAetG
+        GAetT = totalGA - GAetG
+        FetT = totalF - FetG
+        pourcF = arrondi((totalF * 100) / total, 0)
+        pourcT = arrondi((totalT * 100) / total, 0)
+      }
       const choix = choice([true, false])
       let texte = ''
       let texteCorr = ''
