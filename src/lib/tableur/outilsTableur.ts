@@ -26,9 +26,17 @@ export function compareSheetFunction(
         `La cellule ${cellRef} devrait contenir une formule mais elle ne contient pas de formule.<br>`,
       )
       testFormulas = false
+      const style: Record<string, string> = {}
+      style[cellRef] =
+        'background-color: #ffcccc; border: 2px solid #ff0000; border-radius: 8px; padding: 4px;'
+      userSheet.setCellStyle(style)
       return
     }
     if (String(userFormula).toUpperCase() === cellData.formula.toUpperCase()) {
+      const style: Record<string, string> = {}
+      style[cellRef] =
+        'background-color: #ccffcc; border: 2px solid #008000; border-radius: 8px; padding: 4px;'
+      userSheet.setCellStyle(style)
       goodFormulas++
     }
   })
@@ -41,7 +49,6 @@ export function compareSheetFunction(
           : '✅ Toutes les formules sont correctes !',
     }
   }
-
   let maxMessages = ''
   // sinon contrôler que les résultats sont corrects pour différentes valeurs avec les formules saisies par l'utilisateur
 
@@ -53,6 +60,7 @@ export function compareSheetFunction(
     interactif: false,
     id: 'testSheet',
   })
+
   const testSheetForUserResponses = MySpreadsheetElement.create({
     data: userData,
     minDimensions: userSheet.getMinDimensions(),
@@ -64,7 +72,13 @@ export function compareSheetFunction(
   testSheetForGoodAnswers.style.position = 'absolute'
   testSheetForGoodAnswers.style.left = '-9999px'
   document.body.appendChild(testSheetForGoodAnswers)
-
+  goodAnswers.forEach((cellData) => {
+    const cellRef = cellData.ref
+    const col = cellRef.charCodeAt(0) - 65
+    const row = parseInt(cellRef.slice(1)) - 1
+    // Remettre les bonnes formules
+    testSheetForGoodAnswers.setCellFormula(col, row, cellData.formula)
+  })
   testSheetForUserResponses.style.position = 'absolute'
   testSheetForUserResponses.style.left = '-5999px'
   document.body.appendChild(testSheetForUserResponses)
@@ -98,7 +112,7 @@ export function compareSheetFunction(
         const userAnswerValue = testSheetForUserResponses.getCellValue(col, row)
         if (goodAnswerValue !== userAnswerValue) {
           messagesPerTest[answerIndex].push(
-            `Pour la cellule ${cellRef}, avec ${testCellRef} variant de ${testData.rangeValues[0]} à ${testData.rangeValues[1]}, la valeur attendue est ${goodAnswerValue.toFixed(2)} mais la valeur obtenue est ${userAnswerValue.toFixed(2)}.<br>`,
+            `La formule de la cellule ${cellRef} [${userSheet.getCellFormula(col, row)}] est incorrecte .<br>`,
           )
         }
       } else {
@@ -113,7 +127,7 @@ export function compareSheetFunction(
         const userAnswerValue = testSheetForUserResponses.getCellValue(col, row)
         if (goodAnswerValue !== userAnswerValue) {
           messagesPerTest[answerIndex].push(
-            `Pour la cellule ${cellRef}, avec ${testCellRef} = ${randomValue}, la valeur attendue est ${goodAnswerValue.toFixed(2)} mais la valeur obtenue est ${userAnswerValue.toFixed(2)}.<br>`,
+            `La formule de la cellule ${cellRef} [${userSheet.getCellFormula(col, row)}] est incorrecte .<br>`,
           )
         }
       }

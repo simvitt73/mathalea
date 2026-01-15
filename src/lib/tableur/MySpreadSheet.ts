@@ -232,6 +232,10 @@ export class MySpreadsheetElement extends HTMLElement {
     return this._spreadsheet.style ?? {}
   }
 
+  setCellStyle(style: Record<string, string>) {
+    this._spreadsheet.setStyle(style)
+  }
+
   getColumns() {
     return this._spreadsheet.columns ?? []
   }
