@@ -1,7 +1,7 @@
-import { randint } from '../../modules/outils'
-import { toutPourUnPoint } from '../interactif/mathLive'
-import type { GoodAnswersFormulas, IExercice, SheetTestDatas } from '../types'
-import { MySpreadsheetElement } from './MySpreadSheet'
+import { randint } from '../../modules/outils';
+import { toutPourUnPoint } from '../interactif/mathLive';
+import type { GoodAnswersFormulas, IExercice, SheetTestDatas } from '../types';
+import { MySpreadsheetElement } from './MySpreadSheet';
 
 export function compareSheetFunction(
   exercice: IExercice,
@@ -65,8 +65,8 @@ export function compareSheetFunction(
       isOk: true,
       messages:
         goodAnswers.length === 1
-          ? '✅ La saisie est correcte !'
-          : '✅ Toutes les saisies sont correctes !',
+          ? 'La saisie est correcte !'
+          : 'Toutes les saisies sont correctes !',
     }
   }
   let maxMessages = ''
@@ -174,8 +174,8 @@ export function compareSheetFunction(
   document.body.removeChild(testSheetForUserResponses)
   const feedback =
     maxMessages.length === 0
-      ? '✅ Toutes les saisies sont correctes !'
-      : '❌ Des erreurs ont été détéctées.'
+      ? 'Toutes les saisies sont correctes !'
+      : 'Des erreurs ont été détéctées.'
   return {
     isOk: maxMessages.length === 0,
     messages: maxMessages + feedback,
@@ -244,6 +244,8 @@ export function verifQuestionTableur(
   let result: string[] = []
   const goodAnswersFormulas = sheetAnswer.goodAnswerFormulas
   const sheetTestDatas = sheetAnswer.sheetTestDatas
+  let messages = ''
+  let isOk = false
 
   const sheetElement = document.getElementById(
     `sheet-Ex${exercice.numeroExercice}Q${questionIndex}`,
@@ -267,18 +269,15 @@ export function verifQuestionTableur(
     const spanResultat = document.querySelector(
       `#resultatCheckEx${exercice.numeroExercice}Q${questionIndex}`,
     )
-    const divFeedback = document.querySelector<HTMLElement>(
-      `#feedbackEx${exercice.numeroExercice}Q${questionIndex}`,
-    )
-    const { isOk, messages } = compareSheetFunction(
+
+    ;({ isOk, messages } = compareSheetFunction(
       exercice,
       questionIndex,
       goodAnswersFormulas,
       sheetTestDatas,
       sheetElement,
-    )
-    if (messages.length > 0 && spanResultat && divFeedback) {
-      divFeedback.innerHTML = messages
+    ))
+    if (spanResultat) {
       if (!isOk) {
         if (spanResultat) spanResultat.innerHTML = '☹️'
         result = goodAnswersFormulas.map(() => 'KO')
@@ -298,7 +297,7 @@ export function verifQuestionTableur(
   )
   return {
     isOk: nbBonnesReponses === nbReponses,
-    feedback: '', // feedback géré dans compareSheetFunction
+    feedback: messages.length > 0 ? messages : '', // feedback géré dans compareSheetFunction
     score: { nbBonnesReponses, nbReponses },
   }
 }
