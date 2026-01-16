@@ -96,7 +96,7 @@
     "git-precommit-checks": "^3.1.0",
     "glisse-nombre": "git+https://forge.apps.education.fr/coopmaths/apps/glisse-nombre.git",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
-    "jspreadsheet-ce": "git+https://forge.apps.education.fr/jeanclaudelhote/spreadsheet-ce.git",
+    "jspreadsheet-ce": "git+https://forge.apps.education.fr/coopmaths/apps/spreadsheet-ce.git",
     "jszip": "^3.10.1",
     "jszip-utils": "^0.1.0",
     "katex": "^0.16.27",
