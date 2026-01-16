@@ -353,7 +353,8 @@ export type ClickFigures = Array<{ id: string; solution: boolean }>
  */
 export type CellDatas = {
   ref: string
-  formula: string
+  formula?: string
+  value?: string | number
 }
 export type TestCellDatas = {
   ref: string // Cellule à modifier aléatoirement

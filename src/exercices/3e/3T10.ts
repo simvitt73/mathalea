@@ -1,5 +1,6 @@
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice } from '../../lib/outils/arrayOutils'
+import { nomDuJour } from '../../lib/outils/dateEtHoraires'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { addSheet, createTableurLatex } from '../../lib/tableur/outilsTableur'
 import { context } from '../../modules/context'
@@ -70,6 +71,7 @@ export default class ExerciceTableur3T10 extends Exercice {
     'Prix TTC',
     'Quatrième proportionnelle',
     'Fréquence',
+    'Température moyenne',
   ]
 
   static readonly styles = {
@@ -615,6 +617,118 @@ export default class ExerciceTableur3T10 extends Exercice {
     return { texte, texteCorr }
   }
 
+  questionTemperatureMoyenne(q: number): { texte: string; texteCorr: string } {
+    // Question sur la température moyenne
+    let texte = ''
+    const jours = 7
+    const temperatures = Array.from({ length: jours }, () =>
+      randint(10, 25),
+    ).join(', ')
+    texte = `On a relevé les températures (en °C) d'une semaine : ${temperatures}.<br>
+    Quelle formule doit-on saisir dans la cellule H2 pour obtenir la température moyenne de cette semaine ?<br>`
+    const cellDatas: any = {
+      0: {
+        0: { v: nomDuJour(1) },
+        1: { v: nomDuJour(2) },
+        2: { v: nomDuJour(3) },
+        3: { v: nomDuJour(4) },
+        4: { v: nomDuJour(5) },
+        5: { v: nomDuJour(6) },
+        6: { v: nomDuJour(7) },
+      },
+      1: {
+        0: { v: temperatures.split(', ')[0] },
+        1: { v: temperatures.split(', ')[1] },
+        2: { v: temperatures.split(', ')[2] },
+        3: { v: temperatures.split(', ')[3] },
+        4: { v: temperatures.split(', ')[4] },
+        5: { v: temperatures.split(', ')[5] },
+        6: { v: temperatures.split(', ')[6] },
+      },
+    }
+    // On crée les données pour le tableur en HTML
+    const data: (number | string)[][] = [[], []]
+    data[0][0] = cellDatas[0][0].v
+    data[0][1] = cellDatas[0][1].v
+    data[0][2] = cellDatas[0][2].v
+    data[0][3] = cellDatas[0][3].v
+    data[0][4] = cellDatas[0][4].v
+    data[0][5] = cellDatas[0][5].v
+    data[0][6] = cellDatas[0][6].v
+    data[1][0] = cellDatas[1][0].v
+    data[1][1] = cellDatas[1][1].v
+    data[1][2] = cellDatas[1][2].v
+    data[1][3] = cellDatas[1][3].v
+    data[1][4] = cellDatas[1][4].v
+    data[1][5] = cellDatas[1][5].v
+    data[1][6] = cellDatas[1][6].v
+
+    if (context.isHtml) {
+      texte += addSheet({
+        numeroExercice: this.numeroExercice ?? 0,
+        question: q,
+        data,
+        minDimensions: [8, 3],
+        columns: [
+          { width: 90 },
+          { width: 90 },
+          { width: 90 },
+          { width: 90 },
+          { width: 90 },
+          { width: 90 },
+          { width: 90 },
+        ],
+        interactif: this.interactif,
+        showVerifyButton: false,
+        nbColonnesCachees: 0,
+        nbLignesCachees: 0,
+      })
+      handleAnswers(
+        this,
+        q,
+        {
+          sheetAnswer: {
+            goodAnswerFormulas: [
+              {
+                ref: `H2`,
+                formula: `=MOYENNE(A2:G2)`,
+              },
+            ],
+            sheetTestDatas: [
+              {
+                ref: `A2:G2`,
+                rangeValues: [10, 25],
+              },
+            ],
+          },
+        },
+        { formatInteractif: 'tableur' },
+      )
+    } else {
+      const options: {
+        formule?: boolean
+        formuleTexte?: string
+        formuleCellule?: string
+        firstColHeaderWidth?: string
+      } = {}
+      options.formule = true
+      options.formuleTexte = '=?'
+      options.formuleCellule = `H2`
+
+      texte += createTableurLatex(
+        2,
+        8,
+        cellDatas,
+        ExerciceTableur3T10.styles,
+        options,
+      )
+    }
+    const texteCorr = `Voici la formule à saisir en cellule H2 :<br>${texteEnCouleurEtGras(
+      `=MOYENNE(A2:G2)`,
+    )}`
+    return { texte, texteCorr }
+  }
+
   nouvelleVersion(): void {
     // MGu quand l'exercice est modifié, on détruit les anciens listeners
     this.destroyers.forEach((destroy) => destroy())
@@ -650,6 +764,9 @@ export default class ExerciceTableur3T10 extends Exercice {
           break
         case 6:
           ;({ texte, texteCorr } = this.questionFrequence(q))
+          break
+        case 7:
+          ;({ texte, texteCorr } = this.questionTemperatureMoyenne(q))
           break
         default:
           console.error(

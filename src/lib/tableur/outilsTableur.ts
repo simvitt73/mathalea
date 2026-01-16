@@ -20,24 +20,44 @@ export function compareSheetFunction(
     const cellRef = cellData.ref
     const col = cellRef.charCodeAt(0) - 65
     const row = parseInt(cellRef.slice(1)) - 1
-    const userFormula = userSheet.getCellFormula(col, row)
-    if (!userFormula.startsWith('=')) {
-      messages.push(
-        `La cellule ${cellRef} devrait contenir une formule mais elle ne contient pas de formule.<br>`,
+    if (cellData.formula && cellData.value === undefined) {
+      const userFormula = userSheet.getCellFormula(col, row)
+      if (!userFormula.startsWith('=')) {
+        messages.push(
+          `La cellule ${cellRef} devrait contenir une formule mais elle ne contient pas de formule.<br>`,
+        )
+        testFormulas = false
+        const style: Record<string, string> = {}
+        style[cellRef] =
+          'background-color: #ffcccc; border: 2px solid #ff0000; border-radius: 8px; padding: 4px;'
+        userSheet.setCellStyle(style)
+        return
+      }
+      if (
+        String(userFormula).toUpperCase() === cellData.formula.toUpperCase()
+      ) {
+        const style: Record<string, string> = {}
+        style[cellRef] =
+          'background-color: #ccffcc; border: 2px solid #008000; border-radius: 8px; padding: 4px;'
+        userSheet.setCellStyle(style)
+        goodFormulas++
+      }
+    } else if (cellData.value !== undefined) {
+      const userValue = userSheet.getCellValue(col, row)
+      if (userValue === cellData.value) {
+        const style: Record<string, string> = {}
+        style[cellRef] =
+          'background-color: #ccffcc; border: 2px solid #008000; border-radius: 8px; padding: 4px;'
+        userSheet.setCellStyle(style)
+        goodFormulas++
+      }
+    } else {
+      window.notify(
+        `compareSheetFunction: cellData invalide ${JSON.stringify(
+          cellData,
+        )} pour la question ${question} de l'exercice ${exercice.id}`,
+        { exercice, question, cellData },
       )
-      testFormulas = false
-      const style: Record<string, string> = {}
-      style[cellRef] =
-        'background-color: #ffcccc; border: 2px solid #ff0000; border-radius: 8px; padding: 4px;'
-      userSheet.setCellStyle(style)
-      return
-    }
-    if (String(userFormula).toUpperCase() === cellData.formula.toUpperCase()) {
-      const style: Record<string, string> = {}
-      style[cellRef] =
-        'background-color: #ccffcc; border: 2px solid #008000; border-radius: 8px; padding: 4px;'
-      userSheet.setCellStyle(style)
-      goodFormulas++
     }
   })
   if (testFormulas && goodFormulas === goodAnswers.length) {
@@ -45,8 +65,8 @@ export function compareSheetFunction(
       isOk: true,
       messages:
         goodAnswers.length === 1
-          ? '✅ La formule est correcte !'
-          : '✅ Toutes les formules sont correctes !',
+          ? '✅ La saisie est correcte !'
+          : '✅ Toutes les saisies sont correctes !',
     }
   }
   let maxMessages = ''
@@ -77,13 +97,17 @@ export function compareSheetFunction(
     const col = cellRef.charCodeAt(0) - 65
     const row = parseInt(cellRef.slice(1)) - 1
     // Remettre les bonnes formules
-    testSheetForGoodAnswers.setCellFormula(col, row, cellData.formula)
+    if (cellData.formula) {
+      testSheetForGoodAnswers.setCellFormula(col, row, cellData.formula)
+    } else if (cellData.value !== undefined) {
+      testSheetForGoodAnswers.setCellValue(col, row, cellData.value)
+    }
   })
   testSheetForUserResponses.style.position = 'absolute'
   testSheetForUserResponses.style.left = '-5999px'
   document.body.appendChild(testSheetForUserResponses)
   const messagesPerTest: string[][] = []
-  goodAnswers.forEach((cellData) => {
+  goodAnswers.forEach(() => {
     messagesPerTest.push([])
   })
   goodAnswers.forEach((cellData, answerIndex) => {
@@ -111,8 +135,12 @@ export function compareSheetFunction(
         const goodAnswerValue = testSheetForGoodAnswers.getCellValue(col, row)
         const userAnswerValue = testSheetForUserResponses.getCellValue(col, row)
         if (goodAnswerValue !== userAnswerValue) {
+          const style: Record<string, string> = {}
+          style[cellRef] =
+            'background-color: #ffcccc; border: 2px solid #ff0000; border-radius: 8px; padding: 4px;'
+          userSheet.setCellStyle(style)
           messagesPerTest[answerIndex].push(
-            `La formule de la cellule ${cellRef} [${userSheet.getCellFormula(col, row)}] est incorrecte .<br>`,
+            `La saisie de la cellule ${cellRef} [${userSheet.getCellFormula(col, row)}] est incorrecte .<br>`,
           )
         }
       } else {
@@ -126,8 +154,12 @@ export function compareSheetFunction(
         const goodAnswerValue = testSheetForGoodAnswers.getCellValue(col, row)
         const userAnswerValue = testSheetForUserResponses.getCellValue(col, row)
         if (goodAnswerValue !== userAnswerValue) {
+          const style: Record<string, string> = {}
+          style[cellRef] =
+            'background-color: #ffcccc; border: 2px solid #ff0000; border-radius: 8px; padding: 4px;'
+          userSheet.setCellStyle(style)
           messagesPerTest[answerIndex].push(
-            `La formule de la cellule ${cellRef} [${userSheet.getCellFormula(col, row)}] est incorrecte .<br>`,
+            `La saisie de la cellule ${cellRef} [${userSheet.getCellFormula(col, row)}] est incorrecte .<br>`,
           )
         }
       }
@@ -142,7 +174,7 @@ export function compareSheetFunction(
   document.body.removeChild(testSheetForUserResponses)
   const feedback =
     maxMessages.length === 0
-      ? '✅ Toutes les formules sont correctes !'
+      ? '✅ Toutes les saisies sont correctes !'
       : '❌ Des erreurs ont été détéctées.'
   return {
     isOk: maxMessages.length === 0,
@@ -340,6 +372,8 @@ export function addSheet({
   columns,
   interactif,
   showVerifyButton,
+  nbLignesCachees,
+  nbColonnesCachees,
 }: {
   numeroExercice: number
   question: number
@@ -349,6 +383,8 @@ export function addSheet({
   columns: any[]
   interactif: boolean
   showVerifyButton: boolean
+  nbLignesCachees?: number
+  nbColonnesCachees?: number
 }): string {
   return (
     `<my-spreadsheet
@@ -359,6 +395,8 @@ export function addSheet({
   columns='${JSON.stringify(columns)}'
   interactif='${interactif}'
     ${showVerifyButton !== undefined ? `show-verify-button='${showVerifyButton}'` : ''}
+    ${nbLignesCachees !== undefined ? `nb-lignes-cachees='${nbLignesCachees}'` : ''}
+    ${nbColonnesCachees !== undefined ? `nb-colonnes-cachees='${nbColonnesCachees}'` : ''}
 >` +
     (interactif
       ? `<div class="ml-2 py-2" id="resultatCheckEx${numeroExercice}Q${question}"></div>

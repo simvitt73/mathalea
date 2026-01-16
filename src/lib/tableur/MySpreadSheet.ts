@@ -65,6 +65,8 @@ export class MySpreadsheetElement extends HTMLElement {
     let minDimensions = [5, 5]
     let style = {}
     let columns = []
+    let nbLignesCachees = 0
+    let nbColonnesCachees = 0
     try {
       if (this.getAttribute('data'))
         data = JSON.parse(this.getAttribute('data') ?? '') as (
@@ -84,6 +86,16 @@ export class MySpreadsheetElement extends HTMLElement {
       if (this.getAttribute('columns'))
         columns = JSON.parse(this.getAttribute('columns') ?? '[]')
     } catch {}
+    try {
+      if (this.getAttribute('nb-lignes-cachees'))
+        nbLignesCachees = Number(this.getAttribute('nb-lignes-cachees') ?? '0')
+    } catch {}
+    try {
+      if (this.getAttribute('nb-colonnes-cachees'))
+        nbColonnesCachees = Number(
+          this.getAttribute('nb-colonnes-cachees') ?? '0',
+        )
+    } catch {}
     this._spreadsheet = jspreadsheet(container, {
       tabs: false,
       toolbar: false,
@@ -98,6 +110,12 @@ export class MySpreadsheetElement extends HTMLElement {
         } as any,
       ],
     })[0]
+    for (let i = 0; i < nbLignesCachees; i++) {
+      this.hideRow(i)
+    }
+    for (let j = 0; j < nbColonnesCachees; j++) {
+      this.hideColumn(j)
+    }
     let numeroExercice = 0
     let question = 0
     const idMatch = this.id.match(/sheet-Ex(\d+)Q(\d+)$/)
@@ -238,6 +256,22 @@ export class MySpreadsheetElement extends HTMLElement {
 
   getColumns() {
     return this._spreadsheet.columns ?? []
+  }
+
+  showRow(rowIndex: number) {
+    this._spreadsheet.showRow(rowIndex)
+  }
+
+  hideRow(rowIndex: number) {
+    this._spreadsheet.hideRow(rowIndex)
+  }
+
+  showColumn(colIndex: number) {
+    this._spreadsheet.showColumn(colIndex)
+  }
+
+  hideColumn(colIndex: number) {
+    this._spreadsheet.hideColumn(colIndex)
   }
 }
 
