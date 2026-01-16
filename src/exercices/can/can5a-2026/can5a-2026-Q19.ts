@@ -1,10 +1,17 @@
+import { afficheMesureAngle } from '../../../lib/2d/AfficheMesureAngle'
+import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
+import { polygoneAvecNom } from '../../../lib/2d/polygones'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { degTan } from '../../../lib/mathFonctions/radToDeg'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { context } from '../../../modules/context'
+import { mathalea2d } from '../../../modules/mathalea2d'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Calculer le périmètre d\'un rectangle'
+export const titre = 'Calculer un angle dans un triangle connaissant les deux autres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'e9ly4'
@@ -18,32 +25,91 @@ export const refs = {
 
 */
 export default class Can52026Q19 extends ExerciceCan {
-  enonce(longueur?: number, largeur?: number) {
-    if (longueur == null || largeur == null) {
-      longueur = randint(5, 9)
-      largeur = randint(3, longueur - 1)
+  enonce(angleD?: number, angleF?: number) {
+    if (angleD == null || angleF == null) {
+      // Configurations [angleD, angleF] avec somme < 180°
+      const listeCas = [
+        [75, 50],   // angleE = 55°
+        [65, 45],   // angleE = 70°
+        [70, 60],   // angleE = 50°
+       
+        [60, 50],   // angleE = 70°
+        [75, 45],   // angleE = 60°
+       
+        [70, 55],   // angleE = 55°
+        [65, 60],   // angleE = 55°
+       
+      ]
+      const cas = choice(listeCas)
+      angleD = cas[0]
+      angleF = cas[1]
     }
 
-    this.reponse = (longueur + largeur) * 2
-     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.question = `Un rectangle a une longueur de $${longueur}\\text{ cm}$ et une largeur de $${largeur}\\text{ cm}$.<br>
-Son périmètre est égal à :`
+    const angleE = 180 - angleD - angleF
     
-    this.correction = `Le périmètre d'un rectangle de longueur $${longueur}\\text{ cm}$ et de largeur $${largeur}\\text{ cm}$ est :<br>
-$2\\times (${longueur}+${largeur})=2\\times ${longueur + largeur}=${miseEnEvidence(texNombre((longueur + largeur) * 2, 0))}\\text{ cm}$.`
+    // Construction du triangle
+    // D en bas à gauche, F en bas à droite, E en haut
+    const D = pointAbstrait(0, 0, 'D')
+    const F = pointAbstrait(5, 0, 'F')
+    // Position de E basée sur l'angle en D
+    const E = pointAbstrait(2.5, 2.5 * degTan(angleD), 'E')
     
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
-    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
+    const pol = polygoneAvecNom(D, F, E)
+    const triangle = pol[0] // Le tracé du triangle
+    const labels = pol[1]   // Les labels des points
     
+    // Affichage de l'angle en D (connu)
+    const affAngleD = afficheMesureAngle(F, D, E, 'black', 0.8, `${angleD}°`)
+    
+    // Affichage de l'angle en F (connu)
+    const affAngleF = afficheMesureAngle(E, F, D, 'black', 0.8, `${angleF}°`)
+    
+    // Affichage de l'angle cherché en E
+    const affAngleE = afficheMesureAngle(D, E, F, 'black', 0.5, '?')
+
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.reponse = angleE
+    
+    const xmin = Math.min(D.x, F.x, E.x) - 1
+    const ymin = Math.min(D.y, F.y, E.y) - 1
+    const xmax = Math.max(D.x, F.x, E.x) + 1
+    const ymax = Math.max(D.y, F.y, E.y) + 1.5
+    
+    this.canEnonce = mathalea2d(
+      {
+        xmin,
+        ymin,
+        xmax,
+        ymax,
+        pixelsParCm: 20,
+        mainlevee: false,
+        amplitude: 0.3,
+        scale: 0.7,
+        style: 'margin: auto',
+      },
+      [triangle, labels, affAngleD, affAngleF, affAngleE]
+    )
+    
+    this.question = this.canEnonce
+    
+    this.correction = `La somme des angles d'un triangle est égale à $180\\circ$.<br>
+Dans le triangle $DEF$, on a :<br>
+$\\widehat{EDF}+\\widehat{DFE}+\\widehat{FED}=180\\circ$<br>
+$${angleD}\\circ+${angleF}\\circ+\\widehat{FED}=180\\circ$<br>
+$${angleD + angleF}\\circ+\\widehat{FED}=180\\circ$<br>
+$\\widehat{FED}=180\\circ-${angleD + angleF}\\circ=${miseEnEvidence(angleE + '$\\circ$')}$`
+    
+    this.canReponseACompleter = '$?=\\ldots\\circ$'
+    this.optionsChampTexte = { texteApres: '$\\circ$' }
+    this.formatChampTexte = KeyboardType.clavierDeBase
     if (this.interactif) {
-      this.question += '<br>'
-    } else {
-      this.question += '<br>$\\ldots$ cm'
+      this.question += '<br>$?=$'
+    } else if (context.isHtml) {
+      this.question += '<br>$?=\\ldots\\circ$'
     }
   }
 
   nouvelleVersion() {
-    this.canOfficielle ? this.enonce(7, 5) : this.enonce()
+    this.canOfficielle ? this.enonce(75, 50) : this.enonce()
   }
 }
