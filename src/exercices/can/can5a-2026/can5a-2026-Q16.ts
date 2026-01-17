@@ -1,10 +1,13 @@
+import type { MathfieldElement } from 'mathlive'
 import { fixeBordures } from '../../../lib/2d/fixeBordures'
 import { plot } from '../../../lib/2d/Plot'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import type { IExercice } from '../../../lib/types'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
@@ -46,6 +49,35 @@ export default class Can52026Q16 extends ExerciceCan {
     const fraction = new FractionEtendue(nbBlanches, total)
     const fractionSimplifiee = fraction.simplifie()
 
+    const callback = (exercice: IExercice, question: number) => {
+      const mfe = document.querySelector(
+        `#champTexteEx${exercice.numeroExercice}Q${question}`,
+      ) as MathfieldElement
+      if (mfe == null)
+        return {
+          isOk: false,
+          feedback: '',
+          score: { nbBonnesReponses: 0, nbReponses: 0 },
+        }
+      const num = Number(mfe.getPromptValue('champ1') || 0)
+      const den = Number(mfe.getPromptValue('champ2') || 0)
+      const isOk = num * total === nbBlanches * den
+      if (isOk) {
+        mfe.setPromptState('champ1', 'correct', true)
+        mfe.setPromptState('champ2', 'correct', true)
+      }
+      const spanReponseLigne = document.querySelector(
+        `#resultatCheckEx${exercice.numeroExercice}Q${question}`,
+      )
+      if (spanReponseLigne != null) {
+        spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
+      }
+      return {
+        isOk,
+        feedback: '',
+        score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 },
+      }
+    }
     const objets = []
 
     // Création du sac (contour)
@@ -107,8 +139,8 @@ La proportion de boules blanches est donc : $\\dfrac{${nbBlanches}}{${total}}=${
     this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
 
     this.reponse = {
-      champ1: { value: fractionSimplifiee.num },
-      champ2: { value: fractionSimplifiee.den },
+      bareme: toutPourUnPoint,
+      callback,
     }
     this.canReponseACompleter = '$\\dfrac{\\ldots}{\\ldots}$'
   }
