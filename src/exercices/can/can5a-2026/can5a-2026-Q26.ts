@@ -38,8 +38,8 @@ export default class Can52026Q26 extends ExerciceCan {
     const D = point3d(0, 0, -3)
     const pav = pave3d(A, B, C, D)
     
-    const la = latex2d(`${texNombre(hauteur, 0)}\\text{ cm}`, -0.5, -1.5, {})
-    const lb = latex2d(`${texNombre(largeur, 0)}\\text{ cm}`, 7.3, -2.7, {})
+    const la = latex2d(`${texNombre(hauteur, 0)}\\text{ cm}`, -1, -1.5, {})
+    const lb = latex2d(`${texNombre(largeur, 0)}\\text{ cm}`, 7.5, -3, {})
     const lc = latex2d(`${texNombre(longueur, 0)}\\text{ cm}`, 3, -3.4, {})
 
     const volume = longueur * largeur * hauteur
@@ -48,7 +48,7 @@ export default class Can52026Q26 extends ExerciceCan {
     this.question = `${mathalea2d(
       Object.assign(
         { pixelsParCm: 30, scale: 0.6 },
-        fixeBordures([pav.c2d], { rxmin: -1.5, rxmax: 1.5, rymin: -1 })
+        fixeBordures([pav.c2d, la], { rxmin: -1.5, rxmax: 1.5, rymin: -1 })
       ),
       [pav.c2d, la, lb, lc]
     )}

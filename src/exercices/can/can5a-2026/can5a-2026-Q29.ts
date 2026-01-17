@@ -1,10 +1,11 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre'
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Calculer le périmètre d\'un rectangle'
+export const titre = 'Rendre une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'upkts'
@@ -18,32 +19,55 @@ export const refs = {
 
 */
 export default class Can52026Q29 extends ExerciceCan {
-  enonce(longueur?: number, largeur?: number) {
-    if (longueur == null || largeur == null) {
-      longueur = randint(5, 9)
-      largeur = randint(3, longueur - 1)
+enonce(k?: number, numIrred?: number, denIrred?: number) {
+    if (k == null || numIrred == null || denIrred == null) {
+      // Génération aléatoire : on part d'une fraction irréductible et on la multiplie par k
+      k = randint(2, 7) // Facteur de simplification
+      const listeFractionsIrreductibles = [
+        [4, 15],
+        [3, 11],
+        [2, 9],
+        [5, 11],
+        [3, 13],
+        [10, 9],
+        [4, 11],
+        [7, 15],
+        [2, 15],
+        [5, 12],
+        [6, 5],
+        [7, 9],
+        [8, 15],
+        [3, 7],
+        [5, 13],
+      ]
+      const fraction = choice(listeFractionsIrreductibles)
+      numIrred = fraction[0]
+      denIrred = fraction[1]
     }
 
-    this.reponse = (longueur + largeur) * 2
-     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.question = `Un rectangle a une longueur de $${longueur}\\text{ cm}$ et une largeur de $${largeur}\\text{ cm}$.<br>
-Son périmètre est égal à :`
+    // Fraction de départ (non simplifiée)
+    const numerateur = k * numIrred
+    const denominateur = k * denIrred
+    const fractionInitiale = new FractionEtendue(numerateur, denominateur)
     
-    this.correction = `Le périmètre d'un rectangle de longueur $${longueur}\\text{ cm}$ et de largeur $${largeur}\\text{ cm}$ est :<br>
-$2\\times (${longueur}+${largeur})=2\\times ${longueur + largeur}=${miseEnEvidence(texNombre((longueur + largeur) * 2, 0))}\\text{ cm}$.`
-    
+    // Fraction simplifiée
+    const fractionSimplifiee = new FractionEtendue(numIrred, denIrred)
+
+    this.question = `Fraction irréductible de $${fractionInitiale.texFraction}$`
+
+    this.correction = `$${fractionInitiale.texFraction}=\\dfrac{${numIrred}\\times \\cancel{${k}}}{${denIrred}\\times \\cancel{${k}}}=${miseEnEvidence(fractionSimplifiee.texFraction)}$`
+ this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+    this.reponse = fractionSimplifiee.texFraction
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
-    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
-    
-    if (this.interactif) {
-      this.question += '<br>'
-    } else {
-      this.question += '<br>$\\ldots$ cm'
+    this.canReponseACompleter = '$\\dfrac{\\ldots}{\\ldots}$'
+    this.optionsDeComparaison = { fractionIrreductible: true }
+     if (this.interactif) {this.question += '<br>'}
+    else{
+      this.question += '<br>$\\dfrac{\\ldots}{\\ldots}$'
     }
   }
 
   nouvelleVersion() {
-    this.canOfficielle ? this.enonce(7, 5) : this.enonce()
+    this.canOfficielle ? this.enonce(7, 6, 5) : this.enonce()
   }
 }

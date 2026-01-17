@@ -1,10 +1,10 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 
-export const titre = 'Calculer le périmètre d\'un rectangle'
+export const titre = 'Calculer le double de la somme ou du produit de deux nombres'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'udtsm'
@@ -18,32 +18,48 @@ export const refs = {
 
 */
 export default class Can52026Q27 extends ExerciceCan {
-  enonce(longueur?: number, largeur?: number) {
-    if (longueur == null || largeur == null) {
-      longueur = randint(5, 9)
-      largeur = randint(3, longueur - 1)
+  enonce(typeQuestion?: string, a?: number, b?: number) {
+    if (typeQuestion == null || a == null || b == null) {
+      // Génération aléatoire
+      typeQuestion = choice(['somme', 'produit'])
+      a = randint(2, 9)
+      b = randint(2, 9, a)
     }
 
-    this.reponse = (longueur + largeur) * 2
-     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.question = `Un rectangle a une longueur de $${longueur}\\text{ cm}$ et une largeur de $${largeur}\\text{ cm}$.<br>
-Son périmètre est égal à :`
-    
-    this.correction = `Le périmètre d'un rectangle de longueur $${longueur}\\text{ cm}$ et de largeur $${largeur}\\text{ cm}$ est :<br>
-$2\\times (${longueur}+${largeur})=2\\times ${longueur + largeur}=${miseEnEvidence(texNombre((longueur + largeur) * 2, 0))}\\text{ cm}$.`
-    
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots\\text{ cm}$'
-    this.optionsChampTexte = { texteApres: ' $\\text{cm}$' }
-    
-    if (this.interactif) {
-      this.question += '<br>'
+    let calcul: number
+    let reponse: number
+
+    if (typeQuestion === 'somme') {
+      // Le double de la somme
+      calcul = a + b
+      reponse = 2 * calcul
+      
+      this.question = `Le double de la somme de $${a}$ et de $${b}$`
+      
+      this.correction = `La somme de $${a}$ et de $${b}$ est égale à : $${a}+${b}=${calcul}$.<br>
+Le double de la somme de $${a}$ et de $${b}$ est donc égal à : $2\\times ${calcul}=${miseEnEvidence(reponse)}$.`
     } else {
-      this.question += '<br>$\\ldots$ cm'
+      // Le double du produit
+      calcul = a * b
+      reponse = 2 * calcul
+      
+      this.question = `Le double du produit de $${a}$ par $${b}$`
+      
+      this.correction = `Le produit de $${a}$ par $${b}$ est égal à : $${a}\\times ${b}=${calcul}$.<br>
+Le double du produit de $${a}$ par $${b}$ est donc égal à : $2\\times ${calcul}=${miseEnEvidence(reponse)}$.`
+    }
+    this.formatChampTexte = KeyboardType.clavierDeBase
+    this.reponse = reponse
+    this.canEnonce = this.question
+    this.canReponseACompleter = '$\\ldots$'
+
+    if (this.interactif) {this.question += '<br>'}
+    else{
+      this.question += '<br>$\\ldots$'
     }
   }
 
   nouvelleVersion() {
-    this.canOfficielle ? this.enonce(7, 5) : this.enonce()
+    this.canOfficielle ? this.enonce('somme', 2, 8) : this.enonce()
   }
 }
