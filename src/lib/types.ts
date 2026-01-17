@@ -949,6 +949,12 @@ export interface IExerciceCan extends IExerciceSimple {
   canOfficielle?: boolean
 }
 
+export interface IExerciceQcmOptions {
+  ordered?: boolean
+  vertical?: boolean
+  lastChoice?: number
+}
+
 export interface IExerciceQcm extends IExercice {
   versionQcm?: boolean
   versionQcmDisponible: boolean
@@ -956,7 +962,7 @@ export interface IExerciceQcm extends IExercice {
   reponses: string[]
   bonnesReponses?: boolean[]
   corrections?: string[]
-  options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
+  options: IExerciceQcmOptions
   ajouteQcmCorr: boolean
   versionAleatoire?: () => void
   versionOriginale?: () => void
