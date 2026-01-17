@@ -31,6 +31,7 @@ import {
   testSequence,
   traducColor,
   traducNum,
+  type CouleurNLC,
 } from '../../modules/noteLaCouleur'
 import {
   contraindreValeur,
@@ -85,7 +86,7 @@ export default class NoteLaCouleurC3 extends Exercice {
   }
 
   nouvelleVersion() {
-    const damier = [
+    const damier: CouleurNLC[][] = [
       [
         'Blanc',
         'Blanc',
@@ -183,7 +184,7 @@ export default class NoteLaCouleurC3 extends Exercice {
         'Blanc',
       ],
     ]
-    const choixListeDeroulante = [
+    const choixListeDeroulante: CouleurNLC[][] = [
       [
         'Blanc',
         'Noir',
@@ -228,7 +229,7 @@ export default class NoteLaCouleurC3 extends Exercice {
     let result
     let nb_couleurs
     let instruction
-    let couleurs: string[] = []
+    let couleurs: CouleurNLC[] = []
     let liste_instructions
 
     let lutin, lutindepart
@@ -445,26 +446,27 @@ export default class NoteLaCouleurC3 extends Exercice {
           texte += '\n\\newpage'
         }
       }
-      reponseCouleur = couleurs
+      reponseCouleur = couleurs as string[]
       if (this.sup % 2 === 0)
         reponseCouleur[0] = '(' + traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteEnCouleurEtGras(reponseCouleur[0])} `
-      if (this.interactif) {
+      if (this.interactif && context.isHtml) {
         texte +=
           'Couleur n°1 : ' +
           choixDeroulant(this, q * couleurs.length, [
             { label: 'Choisir une couleur', value: '' },
-            ...choixListeDeroulante[(this.sup - 1) % 2].map((item) =>
-              this.sup === 1
-                ? {
-                    svg:
-                      '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' +
-                      traducColor(item) +
-                      '"/>',
-                    value: item,
-                  }
-                : { label: item, value: item },
+            ...choixListeDeroulante[(this.sup - 1) % 2].map(
+              (item: CouleurNLC) =>
+                this.sup === 1
+                  ? {
+                      svg:
+                        '<rect x="-10" y="-10" width="20" height="20" stroke="black" fill="' +
+                        traducColor(item) +
+                        '"/>',
+                      value: item,
+                    }
+                  : { label: item, value: item },
             ),
           ]) +
           '<br>'
@@ -474,7 +476,7 @@ export default class NoteLaCouleurC3 extends Exercice {
           { reponse: { value: couleurs[0] } },
           { formatInteractif: 'listeDeroulante' },
         )
-      } else {
+      } else if (context.isHtml) {
         listeDeroulanteToQcm(
           this,
           q * couleurs.length,
@@ -510,7 +512,7 @@ export default class NoteLaCouleurC3 extends Exercice {
         if (this.sup % 2 === 0)
           reponseCouleur[i] = '(' + traducNum(couleurs[i]) + ') ' + couleurs[i]
         texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
-        if (this.interactif) {
+        if (this.interactif && context.isHtml) {
           texte +=
             'Couleur n°' +
             (i + 1) +
@@ -536,7 +538,7 @@ export default class NoteLaCouleurC3 extends Exercice {
             { reponse: { value: couleurs[i] } },
             { formatInteractif: 'listeDeroulante' },
           )
-        } else {
+        } else if (context.isHtml) {
           listeDeroulanteToQcm(
             this,
             q * couleurs.length + i,
