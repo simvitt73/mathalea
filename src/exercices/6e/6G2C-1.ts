@@ -19,17 +19,22 @@ import {
   pointSurCercle,
   pointSurDroite,
 } from '../../lib/2d/utilitairesPoint'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
+import { context } from '../../modules/context'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
 import type { NestedObjetMathalea2dArray } from '../../types/2d'
 import Exercice from '../Exercice'
 
 export const titre = 'Identifier une région du plan'
-export const interactifReady = false
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const dateDePublication = '10/01/2026'
 
@@ -49,6 +54,7 @@ export default class RegionsDuPlan extends Exercice {
     this.comment =
       "Cet exercice n'est pas interactif, il s'agit d'un problème de géométrie plane classique à faire sur papier."
     this.nbQuestions = 1
+    this.consigne = "Dans cet exercice, l'unité de longueur est le centimètre."
   }
 
   nouvelleVersion() {
@@ -60,6 +66,7 @@ export default class RegionsDuPlan extends Exercice {
       'intersectionDeuxDisques',
       'exterieurDeuxDisques',
       'mediatrice',
+      'interieurDisqueExterieurAutreDisque',
     ]
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -67,6 +74,8 @@ export default class RegionsDuPlan extends Exercice {
       this.nbQuestions,
     )
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+      let content = ''
+      let objetReponse: any
       let texte = '$M$ est un point de la partie grisée du plan.<br>'
       texte +=
         'Trouve la ou les conditions vérifiées par le point $M$ :<br><br>'
@@ -104,6 +113,8 @@ export default class RegionsDuPlan extends Exercice {
             objetsEnonce.push(s, d, ad, egLongueur, poly, labels)
             texteCorr += `Le point $M$ doit être situé dans le demi-plan délimité par la droite $(d)$ et contenant le point $${cote > 0 ? noms[1] : noms[0]}$.<br>`
             texteCorr += `Autrement dit, $M$ doit être plus proche de $${cote > 0 ? noms[1] : noms[0]}$ que de $${cote > 0 ? noms[0] : noms[1]}$, donc $${miseEnEvidence(`M${cote > 0 ? noms[1] : noms[0]} < M${cote > 0 ? noms[0] : noms[1]}`)}$.`
+            content = `M${cote > 0 ? noms[1] : noms[0]} %{champ1} M${cote > 0 ? noms[0] : noms[1]}`
+            objetReponse = { champ1: { value: '<' } }
             donneesAleatoires = [cote, noms.join(''), xA, yA, xB, yB]
           }
           break
@@ -132,7 +143,10 @@ export default class RegionsDuPlan extends Exercice {
             poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             c.couleurDeRemplissage = colorToLatexOrHTML('white')
             objetsEnonce.push(poly, c, labels, centre, rayon, longRayon)
-            texteCorr += `Le point $M$ doit être situé à l'extérieur du disque de centre $${noms[0]}$ et de rayon $${texNombre(r, 1)}$ : $${miseEnEvidence(`M${noms[0]} > ${texNombre(r, 1)}`)}$.`
+            texteCorr += `Le point $M$ doit être situé à l'extérieur du disque de centre $${noms[0]}$ et de rayon $${texNombre(r, 1)}$.<br>
+            Autrement dit le point M doit être à plus de $${texNombre(r, 1)}\\text{ cm}$ du point $${noms[0]}$ : $${miseEnEvidence(`M${noms[0]} > ${texNombre(r, 1)}\\text{ cm}`)}$.`
+            content = `M${noms[0]} %{champ1} ${texNombre(r, 1)}\\text{ cm}`
+            objetReponse = { champ1: { value: '>' } }
             donneesAleatoires = [noms.join(''), xC, yC, r]
           }
           break
@@ -154,7 +168,10 @@ export default class RegionsDuPlan extends Exercice {
             })
             c.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             objetsEnonce.push(c, labels, centre, rayon, longRayon)
-            texteCorr += `Le point $M$ doit être situé à l'intérieur du disque de centre $${noms[0]}$ et de rayon $${texNombre(r, 1)}$ : $${miseEnEvidence(`M${noms[0]} < ${texNombre(r, 1)}`)}$.`
+            texteCorr += `Le point $M$ doit être situé à l'intérieur du disque de centre $${noms[0]}$ et de rayon $${texNombre(r, 1)}$.<br>
+            Autrement dit le point M doit être à moins de $${texNombre(r, 1)}\\text{ cm}$ du point $${noms[0]}$ : $${miseEnEvidence(`M${noms[0]} < ${texNombre(r, 1)}\\text{ cm}`)}$.`
+            content = `M${noms[0]} %{champ1} ${texNombre(r, 1)}\\text{ cm}`
+            objetReponse = { champ1: { value: '<' } }
             donneesAleatoires = [noms.join(''), xC, yC, r]
           }
           break
@@ -196,7 +213,10 @@ export default class RegionsDuPlan extends Exercice {
               rayon2,
               longRayon2,
             )
-            texteCorr += `Le point $M$ doit être situé dans l'anneau délimité par le disque de centre $${noms[0]}$ et de rayon $${texNombre(r2, 1)}$ et le disque de centre $${noms[0]}$ et de rayon $${texNombre(r1, 1)}$ : $${miseEnEvidence(`${texNombre(r1, 1)} < M${noms[0]} < ${texNombre(r2, 1)}`)}$.`
+            texteCorr += `Le point $M$ doit être situé dans l'anneau délimité par le disque de centre $${noms[0]}$ et de rayon $${texNombre(r2, 1)}\\text{ cm}$ et le disque de centre $${noms[0]}$ et de rayon $${texNombre(r1, 1)}\\text{ cm}$.<br>
+            Autrement dit le point M doit être à une distance comprise entre $${texNombre(r1, 1)}\\text{ cm}$ et $${texNombre(r2, 1)}\\text{ cm}$ du point $${noms[0]}$ : $${miseEnEvidence(`${texNombre(r1, 1)}\\text{ cm} < M${noms[0]} < ${texNombre(r2, 1)}\\text{ cm}`)}$.`
+            content = `${texNombre(r1, 1)}\\text{ cm} %{champ1} M${noms[0]} %{champ2} ${texNombre(r2, 1)}\\text{ cm}`
+            objetReponse = { champ1: { value: '<' }, champ2: { value: '<' } }
             donneesAleatoires = [noms.join(''), xC, yC, r1, r2]
           }
           break
@@ -245,8 +265,11 @@ export default class RegionsDuPlan extends Exercice {
               longRayon2,
             )
             texte = texte.replace('grisée du plan', 'gris foncé des disques')
-            texteCorr += `Le point $M$ doit être situé dans l'intersection des deux disques de centres $${noms[0]}$ et $${noms[1]}$ et de rayons respectifs $${texNombre(r1, 1)}$ et $${texNombre(r2, 1)}$ : $${miseEnEvidence(`M${noms[0]} < ${texNombre(r1, 1)}\\text{ et }M${noms[1]} < ${texNombre(r2, 1)}`)}$.`
+            texteCorr += `Le point $M$ doit être situé dans l'intersection des deux disques de centres $${noms[0]}$ et $${noms[1]}$ et de rayons respectifs $${texNombre(r1, 1)}\\text{ cm}$ et $${texNombre(r2, 1)}\\text{ cm}$.<br>
+            Autrement dit le point M doit être à une distance inférieure à $${texNombre(r1, 1)}\\text{ cm}$ du point $${noms[0]}$ et à une distance inférieure à $${texNombre(r2, 1)}\\text{ cm}$ du point $${noms[1]}$ : $${miseEnEvidence(`M${noms[0]} < ${texNombre(r1, 1)}\\text{ cm} \\text{ et }M${noms[1]} < ${texNombre(r2, 1)}\\text{ cm}`)}$.`
             donneesAleatoires = [noms.join(''), xC1, yC1, r1, xC2, yC2, r2]
+            content = `${texNombre(r1, 1)}\\text{ cm} %{champ1} M${noms[0]} %{champ2} ${texNombre(r2, 1)}\\text{ cm}`
+            objetReponse = { champ1: { value: '<' }, champ2: { value: '<' } }
           }
           break
         case 'exterieurDeuxDisques':
@@ -304,8 +327,11 @@ export default class RegionsDuPlan extends Exercice {
               rayon2,
               longRayon2,
             )
-            texteCorr += `Le point $M$ doit être situé à l'extérieur des deux disques de centres $${noms[0]}$ et $${noms[1]}$ et de rayons respectifs $${texNombre(r1, 1)}$ et $${texNombre(r2, 1)}$ : $${miseEnEvidence(`M${noms[0]} > ${texNombre(r1, 1)}\\text{ et }M${noms[1]} > ${texNombre(r2, 1)}`)}$.`
+            texteCorr += `Le point $M$ doit être situé à l'extérieur des deux disques de centres $${noms[0]}$ et $${noms[1]}$ et de rayons respectifs $${texNombre(r1, 1)}\\text{ cm}$ et $${texNombre(r2, 1)}\\text{ cm}$.<br>
+            Autrement dit le point M doit être à une distance supérieure à $${texNombre(r1, 1)}\\text{ cm}$ du point $${noms[0]}$ et à une distance supérieure à $${texNombre(r2, 1)}\\text{ cm}$ du point $${noms[1]}$ : $${miseEnEvidence(`M${noms[0]} > ${texNombre(r1, 1)}\\text{ cm} \\text{ et }M${noms[1]} > ${texNombre(r2, 1)}\\text{ cm}`)}$.`
             donneesAleatoires = [noms.join(''), xC1, yC1, r1, xC2, yC2, r2]
+            content = `M${noms[0]} %{champ1} ${texNombre(r1, 1)}\\text{ cm} \\text{ et }M${noms[1]} %{champ2} ${texNombre(r2, 1)}\\text{ cm}`
+            objetReponse = { champ1: { value: '>' }, champ2: { value: '>' } }
           }
           break
         case 'mediatrice':
@@ -329,9 +355,64 @@ export default class RegionsDuPlan extends Exercice {
             objetsEnonce.push(s, d, ad, egLongueur, labels)
             texte = texte.replace('grisée du plan', 'rouge du plan')
             texteCorr += `Le point $M$ doit être situé sur la médiatrice du segment $[${noms[0]}${noms[1]}]$, c'est-à-dire le lieu des points équidistants de $${noms[0]}$ et $${noms[1]}$ : $${miseEnEvidence(`M${noms[0]} = M${noms[1]}`)}$.`
+            content = `M${noms[0]} %{champ1} M${noms[1]}`
+            objetReponse = { champ1: { value: '=' } }
             donneesAleatoires = [noms.join(''), xA, yA, xB, yB]
           }
           break
+        case 'interieurDisqueExterieurAutreDisque':
+          {
+            const xC1 = randint(-2, 0)
+            const yC1 = randint(-2, 0)
+            const r1 = randint(25, 35) / 10
+            const xC2 = randint(0, 2, xC1)
+            const yC2 = randint(0, 2, yC1)
+            const r2 = randint(15, 25) / 10
+            const C1 = pointAbstrait(xC1, yC1, noms[0], 'left')
+            const C2 = pointAbstrait(xC2, yC2, noms[1], 'right')
+            const c1 = cercle(C1, r1)
+            const c2 = cercle(C2, r2)
+            const D1 = pointSurCercle(c1, -135, '', 'above')
+            const D2 = pointSurCercle(c2, 60, '', 'above')
+            const labels = labelPoint(C1, C2)
+            const centre1 = tracePoint(C1)
+            const centre2 = tracePoint(C2)
+            const rayon1 = segment(C1, D1)
+            const longRayon1 = placeLatexSurSegment(texNombre(r1, 1), D1, C1, {
+              horizontal: true,
+              distance: 0.5,
+              letterSize: 'scriptsize',
+            })
+            const rayon2 = segment(C2, D2)
+            const longRayon2 = placeLatexSurSegment(texNombre(r2, 1), C2, D2, {
+              distance: 0.5,
+              letterSize: 'scriptsize',
+            })
+
+            c1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
+            c2.couleurDeRemplissage = colorToLatexOrHTML('white')
+            objetsEnonce.push(
+              c1,
+              c2,
+              labels,
+              centre1,
+              centre2,
+              rayon1,
+              longRayon1,
+              rayon2,
+              longRayon2,
+            )
+            texteCorr += `Le point $M$ doit être situé à l'intérieur du disque de centre $${noms[0]}$ et de rayon $${texNombre(r1, 1)}\\text{ cm}$ et à l'extérieur du disque de centre $${noms[1]}$ et de rayon $${texNombre(r2, 1)}\\text{ cm}$.<br>
+            Autrement dit le point M doit être à une distance inférieure à $${texNombre(r1, 1)}\\text{ cm}$ du point $${noms[0]}$ et à une distance supérieure à $${texNombre(r2, 1)}\\text{ cm}$ du point $${noms[1]}$ : $${miseEnEvidence(`M${noms[0]} < ${texNombre(r1, 1)}\\text{ cm} \\text{ et }M${noms[1]} > ${texNombre(r2, 1)}\\text{ cm}`)}$.`
+            donneesAleatoires = [noms.join(''), xC1, yC1, r1, xC2, yC2, r2]
+            content = `M${noms[0]} %{champ1} ${texNombre(r1, 1)}\\text{ cm} \\text{ et }M${noms[1]} %{champ2} ${texNombre(r2, 1)}\\text{ cm}`
+            objetReponse = { champ1: { value: '<' }, champ2: { value: '>' } }
+          }
+          break
+      }
+      if (context.isHtml && this.interactif) {
+        texte += remplisLesBlancs(this, i, content, KeyboardType.clavierCompare)
+        handleAnswers(this, i, objetReponse)
       }
       texte += mathalea2d(
         {

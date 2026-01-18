@@ -1,3 +1,4 @@
+import type { IExerciceQcmOptions } from '../lib/types'
 import Exercice from './Exercice'
 
 export default class ExerciceSimple extends Exercice {
@@ -5,6 +6,7 @@ export default class ExerciceSimple extends Exercice {
   typeExercice: 'simple'
   versionQcmDisponible?: boolean // Pour les exercices de type simple, si des distracteurs sont définis, on peut proposer une version QCM
   versionQcm?: boolean // Seulement pour les exercices de type simple, version QCM activée si 'true'
+  versionQcmOptions?: IExerciceQcmOptions
   constructor() {
     super()
     this.distracteurs = []

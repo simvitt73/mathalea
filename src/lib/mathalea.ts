@@ -970,7 +970,7 @@ export function mathaleaHandleExerciceSimple(
                 ))
             ) {
               exercice.autoCorrection[i] = {
-                options: { radio: true },
+                options: exercice.versionQcmOptions ?? { radio: true },
                 enonce: exercice.question,
                 propositions: [
                   {

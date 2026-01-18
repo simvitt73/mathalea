@@ -89,7 +89,7 @@ export default class Can32026Q13 extends ExerciceCan {
     const xmin = Math.min(A.x, B.x, C.x) - 1
     const ymin = Math.min(A.y, B.y, C.y) - 1
     const xmax = Math.max(A.x, B.x, C.x) + 2
-    const ymax = Math.max(A.y, B.y, C.y) + 1
+    const ymax = Math.max(A.y, B.y, C.y) + 1.5
 
     this.consigne = mathalea2d(
       {

@@ -286,7 +286,50 @@ export default class Auto1AC3m extends ExerciceQcmA {
   }
 
   versionOriginale: () => void = () => {
-    this.appliquerLesValeurs(1, 70, 2000)
+    // Version originale de l'image : 70×10⁻³ mm pour 1 feuille, pile de 2000 feuilles
+    // Calcul : 70×10⁻³ × 2000 = 140 mm = 14 cm
+    
+    const epaisseurValeur = 70
+    const exposant = -3
+    const unite = 'mm'
+  
+    const nbFeuillesPile = 2000
+    
+    // Calcul
+    const epaisseurUneFeuilleEnMm = epaisseurValeur * Math.pow(10, exposant) // 0,07 mm
+    const epaisseurPileEnMm = epaisseurUneFeuilleEnMm * nbFeuillesPile // 140 mm
+    const valeurBonneReponse = epaisseurPileEnMm / 10 // 14 cm
+    const uniteBonneReponse = 'cm'
+    
+    // Énoncé
+    this.enonce = `L'épaisseur d'une feuille de papier est égale à $${texNombre(epaisseurValeur)} \\times 10^{${exposant}}$ ${unite}.<br>`
+    this.enonce += `L'épaisseur d'une pile de $${texNombre(nbFeuillesPile)}$ feuilles est égale à :`
+    
+    // Réponses exactes de l'image
+    const bonneReponse = `$14$ cm` // 14 cm (bonne réponse c)
+    const dist1 = `$140$ cm` // 140 cm (choix a)
+    const dist2 = `$14$ mm` // 14 mm (choix b)
+    const dist3 = `$72$ cm` // 72 cm (choix d)
+    
+    // Correction
+    this.correction =
+      `L'épaisseur d'une feuille est $${texNombre(epaisseurValeur)} \\times 10^{${exposant}}$ ${unite}.<br>` +
+      `Pour $${texNombre(nbFeuillesPile)}$ feuilles, il faut multiplier par $${texNombre(nbFeuillesPile)}$.<br>` +
+      `L'épaisseur de la pile en $\\textbf{${unite}}$ est donc : <br>` +
+      `$\\begin{aligned}` +
+      `${texNombre(epaisseurValeur)} \\times ${texNombre(nbFeuillesPile)} \\times 10^{${exposant}}` +
+      `&=${texNombre(epaisseurValeur * nbFeuillesPile)} \\times 10^{${exposant}}\\\\` +
+      `&=${texNombre(14)} \\times 10^{1} \\\\` +
+      `&=${texNombre(epaisseurPileEnMm)}` +
+      `\\end{aligned}$<br>` +
+      `L'épaisseur de la pile est donc de $${miseEnEvidence(`${texNombre(valeurBonneReponse)} \\text{ ${uniteBonneReponse}}`)}$.`
+    
+    this.reponses = [
+      bonneReponse, // 14 cm (bonne réponse)
+      dist1,        // 140 cm
+      dist2,        // 14 mm
+      dist3         // 72 cm
+    ]
   }
 
   versionAleatoire: () => void = () => {

@@ -323,6 +323,7 @@ export type InteractivityType =
   | 'dnd'
   | 'listeDeroulante'
   | 'custom'
+  | 'tableur'
 export function isInteractivityType(
   value: unknown,
 ): value is InteractivityType {
@@ -335,7 +336,8 @@ export function isInteractivityType(
     value === 'cliqueFigure' ||
     value === 'dnd' ||
     value === 'listeDeroulante' ||
-    value === 'custom'
+    value === 'custom' ||
+    value === 'tableur'
   )
 }
 
@@ -346,10 +348,30 @@ export type TableauMathliveType = 'doubleEntree' | 'proportionnalite'
  */
 export type ClickFigures = Array<{ id: string; solution: boolean }>
 
+/**
+ * Type pour les données de test et de correction des exercices tableur
+ */
+export type CellDatas = {
+  ref: string
+  formula?: string
+  value?: string | number
+}
+export type TestCellDatas = {
+  ref: string // Cellule à modifier aléatoirement
+  rangeValues: [number, number] // Plage de valeurs possibles
+}
+export type GoodAnswersFormulas = CellDatas[]
+export type SheetTestDatas = TestCellDatas[]
+
 export type AnswerType = {
   value: AnswerValueType
   compare?: CompareFunction
   options?: OptionsComparaisonType
+}
+
+export type SheetAnswerType = {
+  goodAnswerFormulas: GoodAnswersFormulas
+  sheetTestDatas: SheetTestDatas
 }
 
 export type AnswerNormalizedType = {
@@ -396,6 +418,7 @@ export interface Valeur {
   L3C3?: AnswerType
   L3C4?: AnswerType
   L3C5?: AnswerType
+  sheetAnswer?: SheetAnswerType
 
   // idem on en ajoutera si besoin
   callback?: (
@@ -432,12 +455,19 @@ export interface ValeurNormalized {
   L1C1?: AnswerNormalizedType
   L1C2?: AnswerNormalizedType
   L1C3?: AnswerNormalizedType
+  L1C4?: AnswerNormalizedType
+  L1C5?: AnswerNormalizedType
   L2C1?: AnswerNormalizedType
   L2C2?: AnswerNormalizedType
   L2C3?: AnswerNormalizedType
+  L2C4?: AnswerNormalizedType
+  L2C5?: AnswerNormalizedType
   L3C1?: AnswerNormalizedType
   L3C2?: AnswerNormalizedType
   L3C3?: AnswerNormalizedType
+  L3C4?: AnswerNormalizedType
+  L3C5?: AnswerNormalizedType
+  sheetAnswer?: SheetAnswerType
   callback?: (
     exercice: IExercice,
     question: number,
@@ -919,6 +949,12 @@ export interface IExerciceCan extends IExerciceSimple {
   canOfficielle?: boolean
 }
 
+export interface IExerciceQcmOptions {
+  ordered?: boolean
+  vertical?: boolean
+  lastChoice?: number
+}
+
 export interface IExerciceQcm extends IExercice {
   versionQcm?: boolean
   versionQcmDisponible: boolean
@@ -926,7 +962,7 @@ export interface IExerciceQcm extends IExercice {
   reponses: string[]
   bonnesReponses?: boolean[]
   corrections?: string[]
-  options: { vertical?: boolean; ordered: boolean; lastChoice?: number }
+  options: IExerciceQcmOptions
   ajouteQcmCorr: boolean
   versionAleatoire?: () => void
   versionOriginale?: () => void
