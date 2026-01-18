@@ -13,8 +13,7 @@ import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
 export const dateDePublication = '27/12/2025'
 export const dateDeModifImportante = '17/01/2026'
-export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifReady = false
 export const titre = 'Résoudre un problème avec le théorème du point fixe'
 
 /**
