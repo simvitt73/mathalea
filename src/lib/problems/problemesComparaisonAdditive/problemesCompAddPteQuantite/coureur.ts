@@ -17,7 +17,7 @@ export function coureur6(decimal = true): Probleme {
   const uniteComplete = decimal ? 'kilomètres' : 'mètres'
   const enonce = `${personnage.prenom} a réalisé un trail au cours duquel ${personnage.pronom} a marché sur $${texNombre(nb2 + nb1, 3)}$ ${uniteComplete}, soit $${texNombre(data.nb2, 3)}$ ${uniteComplete} de plus que la distanxe courue.
   Sur quelle distance a-t-${personnage.pronom} couru ?`
-  const correction = `${personnage.prenom} a marché sur $${texNombre(nb2, 3)}$ ${uniteComplete} de plus que $${texNombre(nb1 + nb2, 3)}$ ${uniteComplete}.
+  const correction = `${personnage.prenom} a marché sur $${texNombre(nb2, 3)}$ ${uniteComplete} de moins que $${texNombre(nb1 + nb2, 3)}$ ${uniteComplete}.
   ${personnage.prenom} a donc couru  $${texNombre(nb1 + nb2, 3)}-${texNombre(nb2, 3)} = ${miseEnEvidence(texNombre(nb1, 3))}$ ${uniteComplete}.`
   const probleme = new ProblemeCompAddPteQantite('coureur6', data)
   probleme.enonce = enonce
