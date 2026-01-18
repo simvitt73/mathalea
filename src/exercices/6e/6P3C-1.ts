@@ -56,7 +56,8 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
     super()
 
     context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-
+    this.besoinFormulaireCaseACocher = ['Résolution avec tableau récapitulatif']
+this.sup = false
     /*  if (context.isAmc) {
     titre = 'Résoudre un problème relevant de la proportionnalité'
   } */
@@ -236,10 +237,12 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
           },
         ],
       })
+      if (!this.sup){
       texteCorr = `
         C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
         <br>C'est ce que nous allons faire pour les trois premières questions.
         <br>`
+        
       const texteCorrInit = `
         Pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
         <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
@@ -278,7 +281,64 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
         <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$${sp()}€ $\\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.
         <br> Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.
         <br> Avec $${texPrix(nMax * situation.pu)}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
+    }
+    else {
+      texteCorr = `
+      C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
+      <br>`
+      const texteCorrInit = ``
+    const texteCorrn3 = `
+      $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€ = $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€.
+      <br>`
+    const texteCorrn4 = `
+      $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€ = $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€.
+      <br>`
+    const texteCorrn5 = `
+     $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€ = $${miseEnEvidence(texPrix(n5 * situation.pu))}$${sp()}€.
+      <br>`
+    for (let kk = 0; kk < 3; kk++) {
+      texteCorr += `<br>${numAlpha(kCorr++)} ` + texteCorrInit
+      switch (consigneQuestions[kk]) {
+        case n3:
+          texteCorr += texteCorrn3
+          break
+        case n4:
+          texteCorr += texteCorrn4
+          break
+        case n5:
+          texteCorr += texteCorrn5
+          break
+      }
+    }
+    
+    texteCorr += `<br>
+      ${numAlpha(kCorr++)}$${texPrix(n1 * situation.pu)}$${sp()}€ $\\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.
+      <br> $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
 
+
+        const tableauRécap = `
+        <table style="margin-top:1em; border-collapse:collapse;">
+          <tr>
+            <th style="border:1px solid #777; padding:4px;">Nombre de ${situation.achat_plur}</th>
+            <td style="border:1px solid #777; padding:4px;">${n1}</td>
+            <td style="border:1px solid #777; padding:4px;">${n2}</td>
+            <td style="border:1px solid #777; padding:4px;">${consigneQuestions[0]}</td>
+            <td style="border:1px solid #777; padding:4px;">${consigneQuestions[1]}</td>
+            <td style="border:1px solid #777; padding:4px;">${consigneQuestions[2]}</td>
+            <td style="border:1px solid #777; padding:4px;">$${miseEnEvidence(nMax)}$</td>
+          </tr>
+          <tr>
+            <th style="border:1px solid #777; padding:4px;">Prix (en €)</th>
+            <td style="border:1px solid #777; padding:4px;">$${texPrix(n1 * situation.pu)}$</td>
+            <td style="border:1px solid #777; padding:4px;">$${texPrix(n2 * situation.pu)}$</td>
+            <td style="border:1px solid #777; padding:4px;">$${miseEnEvidence(texPrix(consigneQuestions[0] * situation.pu))}$</td>
+            <td style="border:1px solid #777; padding:4px;">$${miseEnEvidence(texPrix(consigneQuestions[1] * situation.pu))}$</td>
+            <td style="border:1px solid #777; padding:4px;">$${miseEnEvidence(texPrix(consigneQuestions[2] * situation.pu))}$</td>
+            <td style="border:1px solid #777; padding:4px;">$${texPrix(nMax * situation.pu)}$</td>
+          </tr>
+        </table>`;
+       texteCorr += tableauRécap;}
+        
       if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         tabHash.push(checkSum(prenomliste[3], n3, n2, nMax))
