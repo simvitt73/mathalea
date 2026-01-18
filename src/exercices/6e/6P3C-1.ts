@@ -56,8 +56,8 @@ export default class ProportionnaliteParLineariteBis extends Exercice {
     super()
 
     context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
-    this.besoinFormulaireCaseACocher = ['Résolution avec tableau récapitulatif']
-this.sup = false
+    this.besoinFormulaireCaseACocher = ['Résolution avec tableau récapitulatif en version html']
+    this.sup = false
     /*  if (context.isAmc) {
     titre = 'Résoudre un problème relevant de la proportionnalité'
   } */
@@ -237,7 +237,7 @@ this.sup = false
           },
         ],
       })
-      if (!this.sup){
+      if ( !this.sup || !context.isHtml ){
       texteCorr = `
         C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
         <br>C'est ce que nous allons faire pour les trois premières questions.
@@ -282,7 +282,7 @@ this.sup = false
         <br> Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.
         <br> Avec $${texPrix(nMax * situation.pu)}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
     }
-    else {
+    if (this.sup && context.isHtml) {
       texteCorr = `
       C'est une situation de proportionnalité. Nous pouvons donc utiliser les propriétés de linéarité de la proportionnalité.
       <br>`
