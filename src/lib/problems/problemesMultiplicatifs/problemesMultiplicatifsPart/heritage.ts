@@ -15,7 +15,7 @@ export function heritage(decimal = false): Probleme {
   const data = { nbFois, quotité }
   const probleme = new ProblemeMultiplicatifParts('heritage', data)
   probleme.enonce = `Lors d'un héritage, une somme de $${texNombre(total, 2)}\\text{\\,€}$ est partagée équitablement entre $${texNombre(nbFois, 0)}$ héritiers. Combien chacun recevra-t-il ?`
-  probleme.correction = `On partage $${texNombre(total, 2)}\\text{\\,€}$ entre $${texNombre(nbFois, 0)}$ héritiers. Chacun recevra $\\dfrac{${texNombre(total, 2)}}{${texNombre(nbFois, 0)}} = ${miseEnEvidence(texNombre(total / nbFois, 2))}$ euros.`
+  probleme.correction = `On partage $${texNombre(total, 2)}\\text{\\,€}$ entre $${texNombre(nbFois, 0)}$ héritiers. Chacun recevra : $${texNombre(total, 2)}\\text{\\,€} \\div ${texNombre(nbFois, 0)} = ${miseEnEvidence(texNombre(total / nbFois, 2))}\\text{\\,€}$.`
   probleme.schema.topBraces = [
     {
       start: 1,
