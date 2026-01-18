@@ -25,7 +25,7 @@ export default class ProblemeMultiplicatifParts extends Probleme {
         {
           barres: [
             {
-              content: `$${texNombre(quotité, 2)}\\text{\\,feutres}$`,
+              content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,feutres}$`,
               length: 3,
               color: 'lightgray',
             },
@@ -38,7 +38,7 @@ export default class ProblemeMultiplicatifParts extends Probleme {
               },
             },
             {
-              content: `$${texNombre(quotité, 2)}\\text{\\,feutres}$`,
+              content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,feutres}$`,
               length: 3,
               color: 'lightgray',
             },

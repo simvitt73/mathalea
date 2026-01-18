@@ -25,7 +25,7 @@ export function musique(decimal = false): Probleme {
     {
       barres: [
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,min}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,min}$`,
           length: 3,
           color: 'lightgray',
         },
@@ -38,7 +38,7 @@ export function musique(decimal = false): Probleme {
           },
         },
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,min}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,min}$`,
           length: 3,
           color: 'lightgray',
         },

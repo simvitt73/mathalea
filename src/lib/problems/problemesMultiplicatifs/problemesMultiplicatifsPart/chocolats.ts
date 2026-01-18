@@ -27,7 +27,7 @@ export function chocolats(decimal = false): Probleme {
     {
       barres: [
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,${unité}}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,${unité}}$`,
           length: 3,
           color: 'lightgray',
         },
@@ -40,7 +40,7 @@ export function chocolats(decimal = false): Probleme {
           },
         },
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,${unité}}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,${unité}}$`,
           length: 3,
           color: 'lightgray',
         },

@@ -31,7 +31,7 @@ export function tempsEcran(decimal = false): Probleme {
     {
       barres: [
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,${unité}}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,${unité}}$`,
           length: 3,
           color: 'lightgray',
         },
@@ -44,7 +44,7 @@ export function tempsEcran(decimal = false): Probleme {
           },
         },
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,${unité}}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,${unité}}$`,
           length: 3,
           color: 'lightgray',
         },

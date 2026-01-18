@@ -27,7 +27,7 @@ export function heritage(decimal = false): Probleme {
     {
       barres: [
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,€}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,€}$`,
           length: 3,
           color: 'lightgray',
         },
@@ -40,7 +40,7 @@ export function heritage(decimal = false): Probleme {
           },
         },
         {
-          content: `$${texNombre(quotité, 2)}\\text{\\,€}$`,
+          content: `$${miseEnEvidence(texNombre(quotité, 2))}\\text{\\,€}$`,
           length: 3,
           color: 'lightgray',
         },
