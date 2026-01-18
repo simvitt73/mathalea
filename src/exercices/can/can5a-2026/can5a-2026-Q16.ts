@@ -11,6 +11,7 @@ import type { IExercice } from '../../../lib/types'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { mathalea2d } from '../../../modules/mathalea2d'
 import ExerciceCan from '../../ExerciceCan'
+import { pgcd } from '../../../lib/outils/primalite'
 
 export const titre = 'Calculer la proportion de boules blanches dans un sac'
 export const interactifReady = true
@@ -30,7 +31,7 @@ export default class Can52026Q16 extends ExerciceCan {
     if (nbBlanches == null || nbNoires == null) {
       const listeCas = [
         [3, 5],
-        [4, 4],
+        [5, 4],
         [2, 6],
         [5, 3],
         [3, 6],
@@ -38,7 +39,7 @@ export default class Can52026Q16 extends ExerciceCan {
         [2, 5],
         [3, 4],
         [4, 6],
-        [5, 5],
+        [3, 4],
       ]
       const cas = choice(listeCas)
       nbBlanches = cas[0]
@@ -131,12 +132,12 @@ export default class Can52026Q16 extends ExerciceCan {
 
     this.consigne =
       mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets) +
-      'La proportion de boules blanches de cette boîte est :'
+      'La proportion de boules blanches dans cette boîte est :'
     this.question = '\\dfrac{%{champ1}}{%{champ2}}'
 
     this.correction = `Il y a $${nbBlanches}$ boules blanches sur un total de $${total}$ boules.<br>
-La proportion de boules blanches est donc : $\\dfrac{${nbBlanches}}{${total}}=${miseEnEvidence(fractionSimplifiee.texFraction)}$.`
-    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
+La proportion de boules blanches est donc : ${pgcd(nbBlanches, total)!==1 ? `$\\dfrac{${nbBlanches}}{${total}}=${miseEnEvidence(fractionSimplifiee.texFraction)}$`: `$${miseEnEvidence(`\\dfrac{${nbBlanches}}{${total}}`)}$`}.`
+    this.formatChampTexte = KeyboardType.clavierDeBase
 
     this.reponse = {
       bareme: toutPourUnPoint,
