@@ -3,6 +3,7 @@ import { get } from 'svelte/store'
 import { canOptions } from '../../src/lib/stores/canStore'
 import type { IExercice } from '../lib/types'
 import { context } from '../modules/context'
+import { exercicesParams } from './stores/generalStore'
 import { globalOptions } from './stores/globalOptions'
 
 export function isFigureArray(figs: IExercice['figures']): figs is Figure[] {
@@ -26,7 +27,7 @@ export default function figureApigeom({
   defaultAction,
   idAddendum = '',
   isDynamic,
-  hasFeedback = true
+  hasFeedback = true,
 }: {
   exercice: IExercice
   figure: Figure
@@ -124,7 +125,23 @@ export default function figureApigeom({
     }
 
     container.innerHTML = ''
-    figure.setContainer(container)
+    try {
+      figure.setContainer(container)
+    } catch (e) {
+      window.notify(
+        `figureApigeom: erreur lors du setContainer de la figure ${idApigeom}`,
+        {
+          figure,
+          exo: exercice,
+          globalOptions: get(globalOptions),
+          exercicesParams: get(exercicesParams),
+        },
+      )
+      throw new Error(
+        `figureApigeom: erreur lors du setContainer de la figure ${idApigeom} : ${(e as Error).message}`,
+      )
+    }
+
     if (animation) {
       figure.divUserMessage.innerHTML = ''
       figure.restart()

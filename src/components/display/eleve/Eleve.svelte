@@ -176,7 +176,7 @@
 
   let debug = false
   function log(str: string) {
-    if (debug) {
+    if (debug || window.logDebug > 1) {
       console.info(str)
     }
   }
