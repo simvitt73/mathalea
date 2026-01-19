@@ -11,6 +11,7 @@ export type ObjetDivLatex = {
   color: string
   latex: string
   letterSize: string
+  gras: boolean
   bordures: [number, number, number, number]
 }
 
