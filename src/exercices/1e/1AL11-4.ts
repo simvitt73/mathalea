@@ -292,7 +292,7 @@ export default class TermesSASG extends Exercice {
       ) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
             texteAvant: `$${NomS}_{${k}}=$`,
           })
       } else {
