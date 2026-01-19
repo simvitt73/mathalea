@@ -145,11 +145,11 @@ export default class SuitesRaison extends Exercice {
 
         case 3: // suite géométrique avec deux termes consécutifs
           a = this.sup2
-            ? new Decimal(randint(1, 99)).div(10)
+            ? new Decimal(randint(1, 99, 0)).div(10)
             : randint(-12, 12, 0)
           q = this.sup2
-            ? new Decimal(randint(-99, 99, 0)).div(10)
-            : randint(-15, 15, 0)
+            ? new Decimal(randint(0, 10, [0, 10])).div(10)
+            : randint(-15, 15, [0, 1])
           b = new Decimal(a).mul(q)
           indice = randint(0, 10)
           indiceP = indice + 1
@@ -174,10 +174,12 @@ export default class SuitesRaison extends Exercice {
           break
 
         case 4:
-          a = this.sup2 ? new Decimal(randint(1, 99)).div(10) : randint(-12, 12)
+          a = this.sup2
+            ? new Decimal(randint(1, 99, 0)).div(10)
+            : randint(-12, 12, 0)
           k = 2
           q = this.sup2
-            ? new Decimal(randint(-99, 99, [0, 1])).div(10)
+            ? new Decimal(randint(-99, 99, [0, 10])).div(10)
             : randint(-15, 15, [0, 1])
           b = new Decimal(q).pow(k).mul(a)
           q2 = new Decimal(b).div(a)
