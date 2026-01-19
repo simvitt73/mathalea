@@ -424,7 +424,7 @@ export default class BetaReperage2e extends Exercice {
     let allPointsAreGood = true
     for (let j = 0; j < this.labelsPoints[i].length; j++) {
       const label = this.labelsPoints[i][j]
-      const { isValid, message, points } = figure.checkCoords({
+      const { isValid, points } = figure.checkCoords({
         checkOnlyAbscissa: false,
         label,
         x: this.X[i][j],
@@ -442,7 +442,6 @@ export default class BetaReperage2e extends Exercice {
         if (point !== undefined) {
           point.color = 'red'
           point.colorLabel = 'red'
-          point.color = 'red'
           point.thickness = 3
         }
       }
