@@ -92,7 +92,8 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
       sousCorrection4a = `$60 \\text{ minutes}= 1 \\text{ h}$ donc sans compter son arrêt de $10 \\text{ minutes}$, sa vitesse moyenne a été de $v_1$ = $${texNombre(longueurParcours, 1)}\\text{ km/h}$`
     } else {
       sousCorrection4a = `Sans compter son arrêt de $10 \\text{ minutes}$, sa vitesse moyenne a été de $v_1$ = `
-      sousCorrection4a += `$\\dfrac{d}{t} = \\dfrac{${texNombre(longueurParcours, 1)} \\text{ km}}{\\dfrac{${texNombre(tempsParcours, 1)}}{60}\\text{ h}}$ = $${texNombre(longueurParcours, 1)} \\times \\dfrac{60}{${texNombre(tempsParcours, 1)}}$`
+      sousCorrection4a += `$\\dfrac{d}{t}$<br>`
+      sousCorrection4a += `$v_2 = \\dfrac{${texNombre(longueurParcours, 1)} \\text{ km}}{\\dfrac{${texNombre(tempsParcours, 1)}}{60}\\text{ h}}$ = $${texNombre(longueurParcours, 1)} \\times \\dfrac{60}{${texNombre(tempsParcours, 1)}}$`
       vitesse = longueurParcours / (tempsParcours / 60)
       if (texNombre(vitesse, 2) === texNombre(vitesse, 1)) {
         sousCorrection4a += `= $${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
@@ -103,8 +104,8 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     if (tempsParcours - 10 === 60) {
       sousCorrection4b = `$60 \\text{ minutes}= 1 \\text{ h}$ donc avec son arrêt de $10 \\text{ minutes}$, sa vitesse moyenne a été de $v_1$ = $${texNombre(longueurParcours, 1)}\\text{ km/h}$`
     } else {
-      sousCorrection4b = `Avec son arrêt de $10 \\text{ minutes}$, sa vitesse moyenne a été de $v_2$ =`
-      sousCorrection4b += `$\\dfrac{d}{t} = \\dfrac{${texNombre(longueurParcours, 1)} \\text{ km}}{\\dfrac{${texNombre(tempsParcours - 10, 1)}}{60}\\text{ h}}$ = $${texNombre(longueurParcours, 1)} \\times \\dfrac{60}{${texNombre(tempsParcours - 10, 1)}}$`
+      sousCorrection4b = `Avec son arrêt de $10 \\text{ minutes}$, sa vitesse moyenne a été de $v_2 = \\dfrac{d}{t}$<br>`
+      sousCorrection4b += `$v_2 = \\dfrac{${texNombre(longueurParcours, 1)} \\text{ km}}{\\dfrac{${texNombre(tempsParcours - 10, 1)}}{60}\\text{ h}}$ = $${texNombre(longueurParcours, 1)} \\times \\dfrac{60}{${texNombre(tempsParcours - 10, 1)}}$`
       vitesse = longueurParcours / ((tempsParcours - 10) / 60)
       if (texNombre(vitesse, 2) === texNombre(vitesse, 1)) {
         sousCorrection4b += `= $${texNombre(vitesse, 1)}\\text{ km/h}$.<br>`
