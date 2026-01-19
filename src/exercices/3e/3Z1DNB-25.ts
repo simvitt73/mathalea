@@ -260,25 +260,33 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     let vitesseMoyenne: number = (distanceAvantPause / heurePause) * 60
     let sousListeAleatoire = listePoints(miTemps - 1, 1)
     let d = 0
+    let tAvant = 0
     for (let i = 0; i < sousListeAleatoire.length; i++) {
       const t = sousListeAleatoire[i] * 10
-      d += Math.round(((vitesseMoyenne * 10) / 60) * 2) / 2
+      d +=
+        Math.round(((vitesseMoyenne * (t - tAvant)) / 60) * 2) / 2 +
+        0.5 * choice([-1, 0, 1])
       pointsParcours.push({ x: t, y: d })
       listePointsAleatoires.push({ x: t, y: d })
+      tAvant = t
     }
     pointsParcours.push({ x: heurePause, y: distanceAvantPause })
     pointsParcours.push({ x: heurePause + 10, y: distanceAvantPause })
     vitesseMoyenne =
       ((longueurParcours - distanceAvantPause) /
-        (tempsParcours - heurePause + 10)) *
+        (tempsParcours - heurePause - 10)) *
       60
     d = distanceAvantPause
+    tAvant = heurePause + 10
     sousListeAleatoire = listePoints(tempsParcours10 - miTemps - 2, miTemps + 2)
     for (let i = 0; i < sousListeAleatoire.length; i++) {
       const t = sousListeAleatoire[i] * 10
-      d += Math.round(((vitesseMoyenne * 10) / 60) * 2) / 2
+      d +=
+        Math.round(((vitesseMoyenne * (t - tAvant)) / 60) * 2) / 2 +
+        0.5 * choice([-1, 0, 1])
       pointsParcours.push({ x: t, y: d })
       listePointsAleatoires.push({ x: t, y: d })
+      tAvant = t
     }
     pointsParcours.push({ x: tempsParcours, y: longueurParcours })
     const indexQuestion2 = randint(0, listePointsAleatoires.length - 1)
