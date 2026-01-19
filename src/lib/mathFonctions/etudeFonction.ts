@@ -16,6 +16,17 @@ import { vecteur } from '../2d/Vecteur'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { matrice } from './Matrice'
 
+type TabInit0 = [string, number, number][]
+type TabInit1 = (string | number)[]
+type TabInit = [TabInit0, TabInit1]
+type TabLine = (string | number)[]
+type ColorsTableauDeVariation = {
+  colorL?: string
+  colorV?: string
+  colorC?: string
+  colorT?: string
+}[]
+
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
  * publié le 9/02/2021
@@ -48,13 +59,23 @@ import { matrice } from './Matrice'
  * @author Jean-Claude Lhote
  */
 export function tableauDeVariation({
-  tabInit = ['', ''],
+  tabInit = [[], []],
   tabLines = [],
   lgt = 3.5,
   espcl = 5,
   deltacl = 0.8,
   colors = [],
   scale = 0.75,
+  hauteurLignes = [],
+}: {
+  tabInit?: TabInit
+  tabLines?: TabLine[]
+  lgt?: number
+  espcl?: number
+  deltacl?: number
+  colors?: ColorsTableauDeVariation
+  scale?: number
+  hauteurLignes?: number[]
 }) {
   if (context.isHtml) {
     const hauteurLignes = context.pixelsParCm
@@ -89,7 +110,11 @@ export function tableauDeVariation({
     const latexContent = (text: string) => {
       let txt = text
       if (txt == null || typeof txt !== 'string') {
-        return false // c'est sortieTexte() qui va faire le signalement.
+        window.notify(
+          `Dans TableauDeVariation(), sortieTexte() a reçu un drôle de texte : ${txt}, du coup je renvoie ''`,
+          {},
+        )
+        txt = ''
       }
       if (txt[0] === '$') txt = txt.substring(1, txt.length - 1)
       return txt
@@ -139,7 +164,7 @@ export function tableauDeVariation({
       ),
     )
     for (let j = 0; j < tabInit1.length / 2; j++) {
-      texte = tabInit1[j * 2]
+      texte = String(tabInit1[j * 2])
       long = tabInit1[j * 2 + 1]
       textes.push(
         sortieTexte(
@@ -169,7 +194,7 @@ export function tableauDeVariation({
 
           for (let k = 1; k < tabLines[index].length / 2; k++) {
             if (tabLines[index][k * 2] !== '') {
-              texte = tabLines[index][k * 2]
+              texte = String(tabLines[index][k * 2])
               long = tabLines[index][k * 2 + 1]
               if (texte.length === 1) {
                 switch (texte[0]) {
@@ -332,8 +357,8 @@ export function tableauDeVariation({
               ),
             )
             if (tabLines[index][k * 2] !== '') {
-              texte = tabLines[index][k * 2]
-              long = tabLines[index][k * 2 - 1] ?? 20
+              texte = String(tabLines[index][k * 2])
+              long = Number(tabLines[index][k * 2 - 1]) ?? 20
               codeVar = texte.split('/')
               if (codeVar.length === 1) {
                 // il n'y a qu'un code
@@ -1850,17 +1875,17 @@ export function tableauDeVariation({
             long = tabLines[index][6]
             textes.push(
               sortieTexte(
-                latexContent(tabLines[index][5]),
+                latexContent(String(tabLines[index][5])),
                 lgt +
                   deltacl +
-                  espcl * (tabLines[index][1] - 1) +
+                  espcl * (Number(tabLines[index][1]) - 1) +
                   1 +
                   (espcl - 2) *
-                    (tabLines[index][2] - tabLines[index][1]) *
-                    tabLines[index][3],
+                    (Number(tabLines[index][2]) - Number(tabLines[index][1])) *
+                    Number(tabLines[index][3]),
                 yLine +
                   1.1 +
-                  tabLines[index][3] *
+                  Number(tabLines[index][3]) *
                     tabInit0[i][1] *
                     hauteurLignes *
                     demiIntervalle,
@@ -1868,14 +1893,14 @@ export function tableauDeVariation({
             )
             textes.push(
               sortieTexte(
-                latexContent(tabLines[index][4]),
+                latexContent(String(tabLines[index][4])),
                 lgt +
                   deltacl +
-                  espcl * (tabLines[index][1] - 1) +
+                  espcl * (Number(tabLines[index][1]) - 1) +
                   1 +
                   (espcl - 2) *
-                    (tabLines[index][2] - tabLines[index][1]) *
-                    tabLines[index][3],
+                    (Number(tabLines[index][2]) - Number(tabLines[index][1])) *
+                    Number(tabLines[index][3]),
                 -tabInit0[0][1] * hauteurLignes * demiIntervalle,
               ),
             )
@@ -1884,15 +1909,17 @@ export function tableauDeVariation({
           break
         case 'Ima': // ajouter des valeurs sur la flèche...
           if (tabLines[index][4] !== '') {
-            texte = tabLines[index][4]
-            long = tabLines[index][3]
+            texte = String(tabLines[index][4])
+            long = Number(tabLines[index][3])
             textes.push(
               sortieTexte(
                 latexContent(texte),
                 lgt +
                   deltacl +
                   (espcl *
-                    (tabLines[index][1] - 1 + (tabLines[index][2] - 1))) /
+                    (Number(tabLines[index][1]) -
+                      1 +
+                      (Number(tabLines[index][2]) - 1))) /
                     2,
                 yLine + tabInit0[i][1] * hauteurLignes * demiIntervalle,
               ),
@@ -1992,7 +2019,7 @@ export function tableauDeVariation({
         // les expressions à mettre sur les flèches ou au bout de celles-ci doivent avoir leur $ $
         if (
           typeof tabLines[i][j] === 'string' &&
-          tabLines[i][j].includes(',')
+          String(tabLines[i][j]).includes(',')
         ) {
           tabLines[i][j] = `{${tabLines[i][j]}}`
         }
@@ -2018,7 +2045,7 @@ export function tableauDeVariation({
       // si c'est pas tabVal, tabIma ou tabVar, c'est un tabLine et ça ne contient que des codes !
       codeLatex += `\\tkzTab${type}{ `
       for (let j = 2; j < tabLines[i].length; j += 2) {
-        if (tabLines[i][j].indexOf(',') !== -1) {
+        if (String(tabLines[i][j]).indexOf(',') !== -1) {
           tabLines[i][j] = `{${tabLines[i][j]}}`
         }
         codeLatex += ` ${tabLines[i][j]},`
@@ -2455,22 +2482,24 @@ export function tableauSignesFonction(
     if (
       i > 0 &&
       (signes[i].xG instanceof FractionEtendue
-        ? signes[i].xG.toNumber()
+        ? Number(signes[i].xG)
         : signes[i].xG) !==
         (signes[i - 1].xG instanceof FractionEtendue
-          ? signes[i - 1].xG.toNumber()
+          ? Number(signes[i - 1].xG)
           : signes[i - 1].xG)
     ) {
       if (fractionTex === false) {
         if (signes[i].xG instanceof FractionEtendue)
-          premiereLigne.push(texNombre(signes[i].xG.toNumber()), 10)
-        else premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
+          premiereLigne.push(texNombre(Number(signes[i].xG)), 10)
+        else premiereLigne.push(stringNombre(Number(signes[i].xG), 2), 10)
       } else {
-        if (signes[i].xG instanceof FractionEtendue)
-          premiereLigne.push(signes[i].xG.texFractionSimplifiee, 10)
-        else
+        if (signes[i].xG instanceof FractionEtendue) {
+          const fracSimp = (signes[i].xG as FractionEtendue)
+            .texFractionSimplifiee
+          premiereLigne.push(fracSimp, 10)
+        } else
           premiereLigne.push(
-            new FractionEtendue(signes[i].xG, 1).texFractionSimplifiee,
+            new FractionEtendue(Number(signes[i].xG), 1).texFractionSimplifiee,
             10,
           )
       }
@@ -2478,14 +2507,20 @@ export function tableauSignesFonction(
   }
   if (fractionTex === false) {
     if (signes[signes.length - 1].xD instanceof FractionEtendue)
-      premiereLigne.push(texNombre(signes[signes.length - 1].xD.toNumber()), 10)
-    else premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
-  } else {
-    if (signes[signes.length - 1].xD instanceof FractionEtendue)
-      premiereLigne.push(signes[signes.length - 1].xD.texFractionSimplifiee, 10)
+      premiereLigne.push(texNombre(Number(signes[signes.length - 1].xD)), 10)
     else
       premiereLigne.push(
-        new FractionEtendue(signes[signes.length - 1].xD, 1)
+        stringNombre(Number(signes[signes.length - 1].xD), 2),
+        10,
+      )
+  } else {
+    if (signes[signes.length - 1].xD instanceof FractionEtendue) {
+      const fracSimp = (signes[signes.length - 1].xD as FractionEtendue)
+        .texFractionSimplifiee
+      premiereLigne.push(fracSimp, 10)
+    } else
+      premiereLigne.push(
+        new FractionEtendue(Number(signes[signes.length - 1].xD), 1)
           .texFractionSimplifiee,
         10,
       )
@@ -2522,7 +2557,6 @@ export function tableauSignesFonction(
       premiereLigne,
     ],
     tabLines: [tabLine],
-    colorBackground: '',
     espcl: 2.1, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3, // taille de la première colonne en cm
@@ -2778,8 +2812,7 @@ export function tableauSignesFacteurs(
   ) => {
     const milieu = (gauche + droite) / 2
     const image = f(milieu)
-    const valeur =
-      image instanceof FractionEtendue ? image.toNumber() : (image ?? 0)
+    const valeur = Number(image) ?? 0
     if (Number.isNaN(valeur)) return ''
     if (Math.abs(valeur) < EPSILON) return '0'
     return valeur > 0 ? '+' : '-'
@@ -2868,7 +2901,6 @@ export function tableauSignesFacteurs(
   return tableauDeVariation({
     tabInit: [entetes, premiereLigne],
     tabLines: lignes,
-    colorBackground: '',
     espcl: espacementColonnes,
     deltacl: 0.8,
     lgt: 3,
@@ -2925,11 +2957,12 @@ export function tableauVariationsFonction(
   const imgSubstituts = []
   premiereLigne.push(
     ...signes.reduce(
-      (previous, current) => previous.concat([stringNombre(current.xG, 3), 10]),
+      (previous, current) =>
+        previous.concat([stringNombre(Number(current.xG), 3), 10]),
       initalValue,
     ),
   )
-  premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 3), 10)
+  premiereLigne.push(stringNombre(Number(signes[signes.length - 1].xD), 3), 10)
   if (substituts && Array.isArray(substituts)) {
     for (let i = 0; i < premiereLigne.length; i += 2) {
       const nb: number = Number(
@@ -3010,12 +3043,12 @@ export function tableauVariationsFonction(
   if (variationD != null) {
     if (variationD.variation === 'croissant') {
       tabLineVariations.push(
-        `+/${stringNombre(fonction(variationD.xD, 1), precisionImage)}`,
+        `+/${stringNombre(fonction(variationD.xD), precisionImage)}`,
         30,
       )
     } else {
       tabLineVariations.push(
-        `-/${stringNombre(fonction(variationD.xD, 1), precisionImage)}`,
+        `-/${stringNombre(fonction(variationD.xD), precisionImage)}`,
         30,
       )
     }
@@ -3056,7 +3089,6 @@ export function tableauVariationsFonction(
       premiereLigne,
     ],
     tabLines,
-    colorBackground: '',
     espcl: 5, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3, // taille de la première colonne en cm

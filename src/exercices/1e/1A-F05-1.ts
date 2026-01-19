@@ -276,14 +276,12 @@ export default class Auto1AF5 extends ExerciceQcmA {
     On en déduit le tableau de signes de leur produit :` +
       tableauDeVariation({
         tabInit: [
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           [
             ['$x$', 2, 30],
             ['$g(x)$', 2, 50],
             ['$h(x)$', 2, 50],
             ['$f(x)$', 2, 100],
           ],
-          // @ts-expect-error tableau de variation n'est pas typé
           [
             '$-\\infty$',
             30,
@@ -295,9 +293,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
             30,
           ],
         ],
-        // @ts-expect-error tableau de variation n'est pas typé
         tabLines: [ligne1, ligne2, ligne3],
-        colorBackground: '',
         espcl: 3,
         deltacl: 1,
         lgt: 5,
@@ -585,14 +581,12 @@ export default class Auto1AF5 extends ExerciceQcmA {
     On en déduit le tableau de signes de leur produit :` +
       tableauDeVariation({
         tabInit: [
-          // @ts-expect-error TableauDeVariation n'est pas typé correctement
           [
             ['$x$', 2, 30],
             ['$g(x)$', 2, 50],
             ['$h(x)$', 2, 50],
             ['$f(x)$', 2, 100],
           ],
-          // @ts-expect-error tableau de variation n'est pas typé
           [
             '$-\\infty$',
             30,
@@ -604,9 +598,7 @@ export default class Auto1AF5 extends ExerciceQcmA {
             30,
           ],
         ],
-        // @ts-expect-error tableau de variation n'est pas typé
         tabLines: [ligne1, ligne2, ligne3],
-        colorBackground: '',
         espcl: 3,
         deltacl: 1,
         lgt: 5,
@@ -617,6 +609,8 @@ export default class Auto1AF5 extends ExerciceQcmA {
     super()
     // Appel de la version originale par défaut, ou de la version aléatoire selon les besoins
     this.versionOriginale()
-    context.isHtml ? this.options = { vertical: false, ordered: false } : this.options = { vertical: true, ordered: false }
+    context.isHtml
+      ? (this.options = { vertical: false, ordered: false })
+      : (this.options = { vertical: true, ordered: false })
   }
 }
