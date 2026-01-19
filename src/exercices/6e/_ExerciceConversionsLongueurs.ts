@@ -38,7 +38,7 @@ export default class ExerciceConversionsLongueurs extends Exercice {
     this.besoinFormulaireNumerique = [
       'Niveau de difficulté',
       4,
-      ' 1 : De dam, hm, $\\text{km}$ vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
+      ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard',
     ]
     this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
     this.besoinFormulaire3CaseACocher = ['Avec tableau']
