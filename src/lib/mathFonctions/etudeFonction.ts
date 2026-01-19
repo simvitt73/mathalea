@@ -66,6 +66,7 @@ export function tableauDeVariation({
   deltacl = 0.8,
   colors = [],
   scale = 0.75,
+  hauteurLignes = [],
 }: {
   tabInit?: TabInit
   tabLines?: TabLine[]
@@ -74,6 +75,7 @@ export function tableauDeVariation({
   deltacl?: number
   colors?: ColorsTableauDeVariation
   scale?: number
+  hauteurLignes?: number[]
 }) {
   if (context.isHtml) {
     const hauteurLignes = context.pixelsParCm
