@@ -11,7 +11,7 @@ import Probleme from '../../Probleme'
 export default class ProblemeCompMulTout extends Probleme {
   constructor(name: string = '', data?: { nb1: number; nbFois: number }) {
     const personnage = prenomPronom()
-    data = data == null ? { nb1: randint(4, 8), nbFois: randint(2, 5) } : data
+    data = data == null ? { nb1: randint(4, 8), nbFois: randint(3, 6) } : data
     const nb2 = data.nb1 * data.nbFois
     super(name, data)
     this.schema = new SchemaEnBoite({
