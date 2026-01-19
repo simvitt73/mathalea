@@ -5,7 +5,7 @@ import { polyline } from '../../lib/2d/Polyline'
 import { latex2d } from '../../lib/2d/textes'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -28,10 +28,11 @@ export const dateDePublication = '3/06/2025'
 /**
  * @author Jean-Claude Lhote
  */
-export const uuid = '5c5a2'
+export const uuid = '4e89d'
 
 export const refs = {
-  'fr-fr': ['6N4A-3'],
+  // exercice conservé pour retrocompatibilité
+  'fr-fr': [],
   'fr-2016': [],
   'fr-ch': [],
 }
@@ -248,25 +249,28 @@ export default class ResoudreDesProblemes extends Exercice {
         ),
         [shape2.shapeDef, shape2.shape2D],
       )
-      texte += '<br><br>'
-      texte += remplisLesBlancs(
-        this,
-        i,
-        `\\text{Quelle est la masse  d'${shape1.articleSingulier} ${shape1.nomSingulier} : }~%{champ1}~\\text{et celle d'${shape2.articleSingulier} ${shape2.nomSingulier} : }~%{champ2}\\text{ ?}`,
-        KeyboardType.masse,
-      )
-
-      handleAnswers(this, i, {
-        champ1: {
+      texte += `<br>Quelle est la masse  d'${shape1.articleSingulier} ${shape1.nomSingulier} ${
+        this.interactif
+          ? `${ajouteChampTexteMathLive(this, 2 * i, KeyboardType.masse)}<br>`
+          : ''
+      }
+      et celle d'${shape2.articleSingulier} ${shape2.nomSingulier} ${
+        this.interactif
+          ? ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.masse)
+          : ''
+      }?`
+      handleAnswers(this, 2 * i, {
+        reponse: {
           value: `${stringNombre(p1, 3)}${this.sup2 ? ' kg' : ' g'}`,
           options: { unite: true },
         },
-        champ2: {
+      })
+      handleAnswers(this, 2 * i + 1, {
+        reponse: {
           value: `${stringNombre(p2, 3)}${this.sup2 ? ' kg' : ' g'}`,
           options: { unite: true },
         },
       })
-
       switch (niveaux[i]) {
         case 1: // élimination directe d'un des deux fruits par soustraction
           if (a === c) {
