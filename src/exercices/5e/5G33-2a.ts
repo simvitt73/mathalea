@@ -84,7 +84,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       max: 4,
       defaut: 5,
       melange: 5,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: 50, // EE : laisser 50 à cause de mélange
       shuffle: true,
     }).map(Number)
     QuestionsDisponibles = enleveDoublonNum(QuestionsDisponibles)
@@ -95,7 +95,7 @@ export default class ProprietesParallelesPerpendiculaires extends Exercice {
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: 50, // EE : laisser 50 à cause de mélange
       shuffle: true,
     }).map(Number)
     proprietesDisponibles = enleveDoublonNum(proprietesDisponibles)
