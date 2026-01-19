@@ -364,7 +364,7 @@
           <InputNumber
             id="export-latex-nb-versions-input"
             min={1}
-            max={20}
+            max={50}
             bind:value={latexFileInfos.nbVersions}
           />
         </span>

@@ -364,7 +364,7 @@
                 <InputNumber
                   id="pdf-nb-versions"
                   min={1}
-                  max={20}
+                  max={50}
                   bind:value={latexFileInfos.nbVersions}
                 />
               </SimpleCard>
