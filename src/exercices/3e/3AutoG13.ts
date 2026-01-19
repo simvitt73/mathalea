@@ -30,11 +30,12 @@ export const refs = {
 export default class FormuleCosinus extends ExerciceSimple {
   constructor() {
     super()
-    this.besoinFormulaireCaseACocher = [
+    /* this.besoinFormulaireCaseACocher = [
       'Sujet original (2e paramètre inutile si coché)',
       false,
     ]
-    // this.besoinFormulaire2CaseACocher = ['Autres formules', false]
+    this.besoinFormulaire2CaseACocher = ['Autres formules', false]
+    */
     this.sup = false
     this.sup2 = false
     this.typeExercice = 'simple'
