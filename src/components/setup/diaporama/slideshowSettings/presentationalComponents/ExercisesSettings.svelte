@@ -161,6 +161,7 @@
           <td class="whitespace-normal px-3 py-4 text-sm">
             <NumberInput
               id="diaporama-exo-duration-{i}"
+              max={1000}
               value={exercise.duration || 10}
               isDisabled={!!durationGlobal || isManualModeActive}
               on:change={(e) => {
