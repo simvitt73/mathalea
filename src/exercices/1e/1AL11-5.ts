@@ -210,13 +210,13 @@ export default class SuitesRaison extends Exercice {
       if (listeTypeDeQuestions[i] === 1 || listeTypeDeQuestions[i] === 2) {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
             texteAvant: '$r=$',
           })
       } else {
         texte +=
           '<br>' +
-          ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, {
+          ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, {
             texteAvant: '$q=$',
           })
       }
