@@ -1,9 +1,10 @@
-import DernierChiffre from '../6e/6N0A-6'
-export const titre = "Trouver le dernier chiffre d'un calcul"
+import DernierChiffre from '../6e/6N0A-5'
+export const titre = "Trouver le dernier chiffre d'une somme"
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '19/01/2026'
 export const uuid = 'e2a48'
 export const refs = {
   'fr-fr': ['CM2N3A-6'],
@@ -15,5 +16,8 @@ export default class DernierChiffreC3 extends DernierChiffre {
     super()
     this.nbQuestions = 4
     this.besoinFormulaireNumerique = false
+
+    this.consigne =
+      'Pour chaque somme, déterminer le dernier chiffre du résultat.'
   }
 }
