@@ -609,7 +609,7 @@ export default class Stat {
       barres
         ? cumul
           ? `diagramme cumulé (${croissance ? 'croissant' : 'décroissant'})`
-          : 'Diagramme en bâtons'
+          : 'Diagramme en barres'
         : cumul
           ? `Polygone des ${yName} cumulé${yName === 'fréquences' ? 'es' : 's'} (${croissance ? 'croissantes' : 'décroissantes'})`
           : `Polygone des ${yName}`
