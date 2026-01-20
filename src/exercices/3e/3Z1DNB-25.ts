@@ -1,16 +1,15 @@
-import { createList } from '../../lib/format/lists'
-import { texteItalique } from '../../lib/outils/embellissements'
-import { prenomsPronoms } from '../../lib/outils/Personne'
-import ExerciceBrevetA from '../ExerciceBrevetA'
-// import { texteParPosition } from '../../lib/2d/textes'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
 import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polyline } from '../../lib/2d/Polyline'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
+import { createList } from '../../lib/format/lists'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texteItalique } from '../../lib/outils/embellissements'
+import { prenomsPronoms } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/mathalea2d'
 import { randint } from '../../modules/outils'
+import ExerciceBrevetA from '../ExerciceBrevetA'
 
 export const uuid = 'f296a'
 export const refs = {
@@ -23,7 +22,7 @@ export const dateDePublication = '20/01/2026'
 /**
  * @Author Olivier Mimeau
  *
- *
+ * ex 4 brevet Amérique du Nord juin 2025 aleatoire
  */
 export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
   constructor() {
@@ -50,19 +49,20 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     prenom2: string,
     prenom3: string,
   ): void {
-    /*     const aireTotale =
-      grandeLongueur * petiteLongueur + petiteLongueur * petiteLongueur
-    const nombreChevre = Math.floor((aireTotale / 10000) * densiteChevre)
-    const productionLaitTotale = nombreChevre * productionLait
-    const volumeB = (Math.PI * (diametreB / 2) ** 2 * hauteurB) / 1000
-    
- */ // const volumeA= contenanceA / 1000
-    // const majIlElle1 = ilElle1 === 'il' ? 'Il' : 'Elle'
+    Question3.y = 1.5
+    let txtPremiersKm = `les $${texNombre(Question3.y, 1)}$ premiers $\\text{kilomètres}$`
+    if (Question3.y === 1) {
+      txtPremiersKm = `le premier $\\text{kilomètre}$`
+    }
+    if (Question3.y === 1.5) {
+      txtPremiersKm = `le premier $\\text{kilomètre}$ et demi`
+    }
+
     const listeQuestions = createList({
       items: [
         `Le temps et la distance parcourue par ${prenom1} sont-ils proportionnels ?`,
-        `Quelle distance ${prenom1} a-t-${ilElle1} parcourue au bout de $${texNombre(Question2.x, 1)}\\text{ minutes}$  ?<br>Aucune justification n’est attendue.`,
-        `Combien de temps a-t-${ilElle1} mis pour faire les $${texNombre(Question3.y, 1)}$ premiers $\\text{ kilomètres}$ ?<br>Aucune justification n’est attendue.`,
+        `Quelle distance ${prenom1} a-t-${ilElle1} parcourue au bout de $${texNombre(Question2.x, 1)}\\text{ minutes}$ ?<br>Aucune justification n’est attendue.`,
+        `Combien de temps a-t-${ilElle1} mis pour faire ${txtPremiersKm} ?<br>Aucune justification n’est attendue.`,
         `Quelle est la vitesse moyenne de ${prenom1} lors de cette course ?<BR>Exprimer le résultat au dixième de $\\text{ km/h}$ près.`,
         `${prenom2} et ${prenom3} ont couru sur le même parcours de $${texNombre(longueurParcours, 1)}\\text{ km}$. ${prenom2} à une vitesse régulière égale à $${texNombre(vitesse2, 1)}\\text{ km/h}$ et ${prenom3} a une vitesse régulière égale à  $${texNombre(vitesse3, 1)}\\text{ km/h}$.`,
       ],
@@ -83,7 +83,7 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
 
     const correction1 = `La représentation graphique de la distance parcourue en fonction du temps n’est pas un segment contenant l’origine : la distance parcourue par ${prenom1} n’est pas proportionnelle au temps de course.`
     const correction2 = `On lit sur la courbe qu’au bout de  $${texNombre(Question2.x, 1)}\\text{ minutes}$, ${prenom1} a parcouru $${texNombre(Question2.y, 1)}\\text{ km}$.`
-    const correction3 = `${prenom1} a parcouru le $${texNombre(Question3.y, 1)}$ premiers $\\text{ kilomètres}$ en $${texNombre(Question3.x, 1)}\\text{ minutes}$.`
+    const correction3 = `${prenom1} a parcouru ${txtPremiersKm} en $${texNombre(Question3.x, 1)}\\text{ minutes}$.`
     let correction4 = `${prenom1} a parcouru les $${texNombre(longueurParcours, 1)}\\text{ km}$ en $${texNombre(tempsParcours, 1)}\\text{ minutes}$ :`
     let sousCorrection4a = ``
     let sousCorrection4b = ``
@@ -253,8 +253,9 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     const prenom3 = personnes[2].prenom
     const listePointsAleatoires: { x: number; y: number }[] = []
     const pointsParcours: { x: number; y: number }[] = [{ x: 0, y: 0 }]
-    const miTemps: number = Math.floor(tempsParcours / 2 / 10) // en dizaine de minutes
-    const heurePause: number = randint(miTemps - 1, miTemps) * 10
+    let miTemps: number = Math.floor(tempsParcours / 2 / 10) // en dizaine de minutes
+    miTemps = randint(miTemps - 1, miTemps)
+    const heurePause: number = miTemps * 10
     const miParcours: number = Math.floor(longueurParcours / 2)
     const distanceAvantPause: number =
       randint(miParcours, miParcours + 1) + 0.5 * choice([0, 1])
@@ -320,7 +321,7 @@ function listePoints(nbPointsMax: number, debutPoints: number): number[] {
     { length: nbPointsMax },
     (_, i) => debutPoints + i,
   )
-  const truc = combinaisonListes(listeNombres, nbPoints)
-  const sousListeAleatoire = truc.slice(0, nbPoints).sort((a, b) => a - b)
+  const melange = combinaisonListes(listeNombres, nbPoints)
+  const sousListeAleatoire = melange.slice(0, nbPoints).sort((a, b) => a - b)
   return sousListeAleatoire
 }
