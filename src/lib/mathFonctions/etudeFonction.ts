@@ -81,6 +81,81 @@ export function tableauDeVariation({
     const hauteurLignes = context.pixelsParCm
     const tabInit0 = tabInit[0]
     const tabInit1 = tabInit[1]
+    let isTabInit0Valid = true
+    if (!Array.isArray(tabInit0) || tabInit0.length === 0) {
+      isTabInit0Valid = false
+    } else {
+      for (let i = 0; i < tabInit0.length; i++) {
+        if (tabInit0[i].length !== 3) {
+          isTabInit0Valid = false
+          break
+        }
+        if (typeof tabInit0[i][0] !== 'string') {
+          isTabInit0Valid = false
+          break
+        }
+        if (typeof tabInit0[i][1] !== 'number') {
+          isTabInit0Valid = false
+          break
+        }
+        if (typeof tabInit0[i][2] !== 'number') {
+          isTabInit0Valid = false
+          break
+        }
+      }
+    }
+    if (!isTabInit0Valid) {
+      window.notify('Dans TableauDeVariation(), tabInit[0] est invalide', {
+        tabInit0,
+      })
+      return ''
+    }
+    let isTabInit1Valid = true
+    if (!Array.isArray(tabInit1) || tabInit1.length === 0) {
+      isTabInit1Valid = false
+    } else {
+      for (let i = 0; i < tabInit1.length; i++) {
+        if (
+          typeof tabInit1[i] !== 'string' &&
+          typeof tabInit1[i] !== 'number'
+        ) {
+          isTabInit1Valid = false
+          break
+        }
+      }
+    }
+    if (!isTabInit1Valid) {
+      window.notify('Dans TableauDeVariation(), tabInit[1] est invalide', {
+        tabInit1,
+      })
+      return ''
+    }
+    let isTabLinesValid = true
+    if (!Array.isArray(tabLines) || tabLines.length === 0) {
+      isTabLinesValid = false
+    } else {
+      for (let i = 0; i < tabLines.length; i++) {
+        if (!Array.isArray(tabLines[i]) || tabLines[i].length === 0) {
+          isTabLinesValid = false
+          break
+        }
+        if (
+          typeof tabLines[i][0] !== 'string' ||
+          !['Line', 'Var', 'Ima', 'Val', 'Slope'].includes(
+            String(tabLines[i][0]),
+          )
+        ) {
+          isTabLinesValid = false
+          break
+        }
+      }
+    }
+    if (!isTabLinesValid) {
+      window.notify('Dans TableauDeVariation(), tabLines est invalide', {
+        tabLines,
+      })
+      return ''
+    }
     let yLine = 0
     const segments = []
     let index = 0
