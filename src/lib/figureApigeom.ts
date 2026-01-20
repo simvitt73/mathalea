@@ -132,14 +132,13 @@ export default function figureApigeom({
         `figureApigeom: erreur lors du setContainer de la figure ${idApigeom}`,
         {
           figure,
+          container,
           exo: exercice,
           globalOptions: get(globalOptions),
           exercicesParams: get(exercicesParams),
         },
       )
-      throw new Error(
-        `figureApigeom: erreur lors du setContainer de la figure ${idApigeom} : ${(e as Error).message}`,
-      )
+      throw e
     }
 
     if (animation) {
