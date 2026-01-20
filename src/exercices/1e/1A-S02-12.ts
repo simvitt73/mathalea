@@ -66,10 +66,10 @@ export default class CalculPourcentageQCM extends ExerciceQcmA {
     )
 
     this.reponses = [
-      `${texNombre(pourCent, 0)}\\%`,
-      `${texNombre(distracteur1, 0)}\\%`,
-      `${texNombre(distracteur2, 0)}\\%`,
-      `${texNombre(distracteur3, 0)}\\%`,
+      `${texNombre(pourCent, 0)}~\\%`,
+      `${texNombre(distracteur1, 0)}~\\%`,
+      `${texNombre(distracteur2, 0)}~\\%`,
+      `${texNombre(distracteur3, 0)}~\\%`,
     ].map((r) => `$${r}$`)
     this.enonce = `Voici la répartition des notes sur ${noteMax} d'une classe de première.<br>
       ${histogramme}<br><br>
@@ -80,7 +80,8 @@ export default class CalculPourcentageQCM extends ExerciceQcmA {
       L'effectif total est le nombre de notes représentées dans l'histogramme.<br>
       Ici, on trouve un effectif total de $${n}$ élèves.<br>
       L'effectif des élèves ayant obtenu la note ${valeurCible} est de $${maSerie.serieTableau.find(([note]) => note === valeurCible)?.[1] ?? 0}$.<br>
-      Donc le pourcentage est de $\\dfrac{${maSerie.serieTableau.find(([note]) => note === valeurCible)?.[1] ?? 0}}{${n}} \\times 100 = ${pourCent}\\%$.`
+      $\\dfrac{${maSerie.serieTableau.find(([note]) => note === valeurCible)?.[1] ?? 0}}{${n}} \\times 100 = ${pourCent}$<br>
+      Donc le pourcentage est de $${pourCent}~\\%$.`
   }
 
   versionOriginale: () => void = () => {

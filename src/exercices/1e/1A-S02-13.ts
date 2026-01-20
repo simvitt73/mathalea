@@ -67,10 +67,10 @@ export default class CalculPourcentageEtMoyenneQCM extends ExerciceQcmA {
     )
 
     this.reponses = [
-      `${texNombre(pourCent, 0)}\\%`,
-      `${texNombre(distracteur1, 0)}\\%`,
-      `${texNombre(distracteur2, 0)}\\%`,
-      `${texNombre(distracteur3, 0)}\\%`,
+      `${texNombre(pourCent, 0)}~\\%`,
+      `${texNombre(distracteur1, 0)}~\\%`,
+      `${texNombre(distracteur2, 0)}~\\%`,
+      `${texNombre(distracteur3, 0)}~\\%`,
     ].map((r) => `$${r}$`)
     this.enonce = `Voici la répartition des notes sur ${noteMax} d'une classe de première.<br>
       ${histogramme}<br><br>
@@ -81,7 +81,8 @@ export default class CalculPourcentageEtMoyenneQCM extends ExerciceQcmA {
       L'effectif total est le nombre de notes représentées dans l'histogramme.<br>
       Ici, on trouve un effectif total de $${n}$ élèves.<br>
       L'effectif des élèves ayant obtenu une note supérieure ou égale à la moyenne est de $${effectifCible}$.<br>
-      Donc le pourcentage est de $\\dfrac{${effectifCible}}{${n}} \\times 100 = ${pourCent}\\%$.`
+      $\\dfrac{${effectifCible}}{${n}} \\times 100 = ${pourCent}$.<br>
+      Donc le pourcentage est de $${pourCent}~\\%$.`
   }
 
   versionOriginale: () => void = () => {
