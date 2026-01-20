@@ -108,7 +108,7 @@ export default class ExerciceComparerQuatreFractions extends Exercice {
           (n1 / d1 - n3 / d3) *
           (n1 / d1 - n4 / d4) *
           (n2 / d2 - n3 / d3) *
-          (n2 / d3 - n4 / d4) *
+          (n2 / d2 - n4 / d4) *
           (n3 / d3 - n4 / d4) <
           0.1 ||
         n1 % d1 === 0 ||
