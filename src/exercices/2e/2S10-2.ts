@@ -234,9 +234,9 @@ export default class Proportions extends Exercice {
               texte = `Pour le cadeau de ${prénom}, j'ai donné $${texPrix(sous)}$ €. Cela représente $${taux}~\\%$ du prix total du cadeau. <br>Quel est le montant du cadeau ?`
               texteCorr = `Soit $x$ le montant du cadeau. <br> Comme $${taux}~\\%$ de $x$ est égal à $${texPrix(sous)}$, on a :`
               texteCorr += `<br>$\\begin{aligned}
-              \\dfrac{${taux}}{100} \\times x &= ${sous} \\\\\\
-              ${texNombre(p, 2)} \\times x &= ${sous} \\\\
-              x &= \\dfrac{${texPrix(sous)}}{${texNombre(p, 2)}} \\\\
+              \\dfrac{${taux}}{100} \\times x &= ${texNombre(sous)} \\\\\\
+              ${texNombre(p, 2)} \\times x &= ${texNombre(sous)} \\\\
+              x &= \\dfrac{${texNombre(sous)}}{${texNombre(p, 2)}} \\\\
               x &= ${texPrix(totale)}
               \\end{aligned}$`
               texteCorr += `<br>Le cadeau coûte $${miseEnEvidence(texPrix(totale))}$ €.`
