@@ -1,4 +1,5 @@
 import type { BoxedExpression } from '@cortex-js/compute-engine'
+import { Matrix } from 'mathjs'
 import { randint } from '../../modules/outils'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 import { ecritureAlgebrique } from '../outils/ecritures'
@@ -151,11 +152,13 @@ export function resolutionSystemeLineaire2x2(
     [x2 ** 2, x2],
   ])
   if (maMatrice.determinant() === 0) return [0, 0]
-  const [a, b] = maMatrice
-    .inverse()
-    .multiply([fx1 - c, fx2 - c])
-    .toArray()
-  return [a, b]
+  const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
+  if (resultat instanceof Matrix) {
+    const [a, b] = resultat.toArray() as number[]
+    return [a, b]
+  }
+
+  return [0, 0]
 }
 
 /**
@@ -183,8 +186,12 @@ export function resolutionSystemeLineaire3x3(
   if (maMatrice && maMatrice.determinant() === 0) {
     return [0, 0, 0]
   }
-  const [a, b, c] = maMatrice.inverse().multiply([y1, y2, y3]).toArray()
-  return [a, b, c]
+  const resultat = maMatrice.inverse().multiply([y1, y2, y3])
+  if (resultat instanceof Matrix) {
+    const [a, b, c] = resultat.toArray() as number[]
+    return [a, b, c]
+  }
+  return [0, 0, 0]
 }
 
 /**
@@ -197,12 +204,17 @@ export function resolutionSystemeLineaire3x3(
  */
 const miseEnForme = (str: string, color: string, isColored: boolean) =>
   isColored ? miseEnEvidence(str, color) : str
-function neg(expr) {
-  if (expr.operator !== 'Add') return engine.function('Multiply', [expr, '-1'])
-  return engine.function('Add', expr.ops.map(neg), {
-    canonical: false,
-    structural: false,
-  })
+function neg(expr: BoxedExpression): BoxedExpression {
+  if (expr.operator !== 'Add')
+    return engine.function('Multiply', [expr, engine.parse('-1')])
+  const ops = expr.ops ?? []
+  if (ops.length === 0)
+    return engine.function('Multiply', [expr, engine.parse('-1')])
+  else
+    return engine.function('Add', ops.map(neg), {
+      canonical: false,
+      structural: false,
+    })
 }
 
 /**

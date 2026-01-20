@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { Droite, droiteAvecNomLatex } from '../../lib/2d/droites'
-import { Point, PointAbstrait } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait } from '../../lib/2d/PointAbstrait'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
@@ -26,8 +26,12 @@ import Exercice from '../Exercice'
 
 import { codageMediatrice } from '../../lib/2d/CodageMediatrice'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { mediatrice, type Mediatrice } from '../../lib/2d/Mediatrice'
-import type { Polygone } from '../../lib/2d/polygones'
+import type {
+  IDroite,
+  IPointAbstrait,
+  IPolygone,
+} from '../../lib/2d/Interfaces'
+import { mediatrice } from '../../lib/2d/Mediatrice'
 import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -104,7 +108,7 @@ export default class PavageEtReflexion2d extends Exercice {
       }
       return tableau
     }
-    const compare2polys = function (poly1: Polygone, poly2: Polygone) {
+    const compare2polys = function (poly1: IPolygone, poly2: IPolygone) {
       if (comparenbsommets(poly1, poly2)) {
         if (comparesommets(poly1, poly2)) {
           return true
@@ -115,18 +119,21 @@ export default class PavageEtReflexion2d extends Exercice {
         return false
       }
     }
-    const comparenbsommets = function (poly1: Polygone, poly2: Polygone) {
+    const comparenbsommets = function (poly1: IPolygone, poly2: IPolygone) {
       if (poly1.listePoints.length === poly2.listePoints.length) {
         return true
       } else return false
     }
 
-    const compare2sommets = function (sommet1: Point, sommet2: Point) {
+    const compare2sommets = function (
+      sommet1: IPointAbstrait,
+      sommet2: IPointAbstrait,
+    ) {
       if (egal(sommet1.x, sommet2.x, 0.1) && egal(sommet1.y, sommet2.y, 0.1)) {
         return true
       } else return false
     }
-    const comparesommets = function (poly1: Polygone, poly2: Polygone) {
+    const comparesommets = function (poly1: IPolygone, poly2: IPolygone) {
       let trouve = false
       let trouves = 0
       if (comparenbsommets(poly1, poly2)) {
@@ -153,16 +160,12 @@ export default class PavageEtReflexion2d extends Exercice {
       } else return false
     }
 
-    const refleccion = function (
-      pavage: Pavage,
-      d: Droite | Mediatrice,
-      numero: number,
-    ) {
+    const refleccion = function (pavage: Pavage, d: IDroite, numero: number) {
       // retourne le numero du polygone symétrique ou -1 si il n'existe pas
       const poly = pavage.polygones[numero - 1]
       let pol
       const result = -1
-      const sympoly = symetrieAxiale(poly, d)
+      const sympoly = symetrieAxiale(poly, d as IDroite)
       for (let k = 0; k < pavage.polygones.length; k++) {
         pol = pavage.polygones[k]
         if (compare2polys(sympoly, pol)) {
@@ -283,7 +286,7 @@ export default class PavageEtReflexion2d extends Exercice {
           index2 = choice(indicesSimilaires, lastChoice)
           B = monpavage.barycentres[index2]
           if (longueur(A, B) === 0) continue
-          d = mediatrice(A, B, '', 'red') // l'axe sera la droite passant par ces deux points si ça fonctionne
+          d = mediatrice(A, B, '', 'red') as IDroite // l'axe sera la droite passant par ces deux points si ça fonctionne
           if (Math.abs(d.pente) < 0.1) {
             continue
           }
