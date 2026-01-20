@@ -299,9 +299,9 @@ export default class AutoC1c extends ExerciceQcmA {
       if (Math.abs(coeff - v.coefficient) > 0.001) {
         // Calculer le facteur de conversion
         const puissanceFacteur = puiss - v.puissance
-        correctionTexte += `• ${v.nom} : $${texNombre(v.coefficient, 4)}\\times 10^{${v.puissance}} = ${texNombre(coeff, 4)}\\times 10^{${puissanceFacteur}}\\times 10^{${v.puissance}} = ${texNombre(coeff, 4)}\\times 10^{${puiss}}$ ${unite.replace('\\text', '').replace('{', '').replace('}', '')}<br>`
+        correctionTexte += `• ${v.nom} : $${texNombre(v.coefficient, 8)}\\times 10^{${v.puissance}} = ${texNombre(coeff, 8)}\\times 10^{${puissanceFacteur}}\\times 10^{${v.puissance}} = ${texNombre(coeff, 8)}\\times 10^{${puiss}}$ ${unite.replace('\\text', '').replace('{', '').replace('}', '')}<br>`
       } else {
-        correctionTexte += `• ${v.nom} : $${texNombre(v.coefficient, 4)}\\times 10^{${v.puissance}}$ ${unite.replace('\\text', '').replace('{', '').replace('}', '')}<br>`
+        correctionTexte += `• ${v.nom} : $${texNombre(v.coefficient, 8)}\\times 10^{${v.puissance}}$ ${unite.replace('\\text', '').replace('{', '').replace('}', '')}<br>`
       }
     }
 
@@ -312,7 +312,7 @@ export default class AutoC1c extends ExerciceQcmA {
 
     correctionTexte += `<br>On a donc : `
     for (let i = 0; i < valeursTriees.length; i++) {
-      correctionTexte += `$${texNombre(valeursTriees[i].coeffScientifique, 6)}\\times 10^{${valeursTriees[i].puissanceScientifique}}$`
+      correctionTexte += `$${texNombre(valeursTriees[i].coeffScientifique, 8)}\\times 10^{${valeursTriees[i].puissanceScientifique}}$`
       if (i < valeursTriees.length - 1) correctionTexte += ' $>$ '
     }
 
