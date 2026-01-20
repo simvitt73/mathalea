@@ -49,7 +49,6 @@ export default class ExerciceAmeriqueNord4062025 extends ExerciceBrevetA {
     prenom2: string,
     prenom3: string,
   ): void {
-    Question3.y = 1.5
     let txtPremiersKm = `les $${texNombre(Question3.y, 1)}$ premiers $\\text{kilomètres}$`
     if (Question3.y === 1) {
       txtPremiersKm = `le premier $\\text{kilomètre}$`
