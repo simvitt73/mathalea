@@ -153,12 +153,16 @@ export function resolutionSystemeLineaire2x2(
   ])
   if (maMatrice.determinant() === 0) return [0, 0]
   const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
+  let arr: number[]
   if (resultat instanceof Matrix) {
-    const [a, b] = resultat.toArray() as number[]
-    return [a, b]
+    arr = resultat.toArray() as number[]
+  } else if (Array.isArray(resultat)) {
+    arr = resultat as number[]
+  } else {
+    return [0, 0]
   }
-
-  return [0, 0]
+  const [a, b] = arr
+  return [a, b]
 }
 
 /**
@@ -187,11 +191,16 @@ export function resolutionSystemeLineaire3x3(
     return [0, 0, 0]
   }
   const resultat = maMatrice.inverse().multiply([y1, y2, y3])
+  let arr: number[]
   if (resultat instanceof Matrix) {
-    const [a, b, c] = resultat.toArray() as number[]
-    return [a, b, c]
+    arr = resultat.toArray() as number[]
+  } else if (Array.isArray(resultat)) {
+    arr = resultat as number[]
+  } else {
+    return [0, 0, 0]
   }
-  return [0, 0, 0]
+  const [a, b, c] = arr
+  return [a, b, c]
 }
 
 /**
