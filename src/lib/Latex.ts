@@ -415,6 +415,7 @@ class Latex {
           exercice.spacingCorr,
           Boolean(exercice.listeAvecNumerotation),
           confExo.cols_corr ? confExo.cols_corr : Number(exercice.nbColsCorr),
+          confExo.labels ? { labels: confExo.labels } : {},
         )
         content += testIfLoaded(
           [...exercice.listeCorrections],

@@ -320,7 +320,7 @@ export default class AlgoTortue extends Exercice {
       // On crée 2 colonnes selon le contexte html / Latex
       texte += '<table style="width: 100%"><tr><td>'
     } else {
-      texte += '\\begin{minipage}[b]{.25\\textwidth}'
+      texte += '\\begin{minipage}[t]{.25\\textwidth}'
     }
     texte += scratchblock(lutins[0].codeScratch) // la fonction scratchblock va convertir le code Latex en code html si besoin.
     if (context.isHtml) {
@@ -331,7 +331,7 @@ export default class AlgoTortue extends Exercice {
         : '<br><br>'
     } else {
       texte += '\\end{minipage} '
-      texte += '\\hfill \\begin{minipage}[b]{.74\\textwidth}'
+      texte += '\\hfill \\begin{minipage}[t]{.70\\textwidth}'
     }
 
     let ordreLutins = [0, 1, 2, 3, 4]
@@ -373,9 +373,10 @@ export default class AlgoTortue extends Exercice {
         ymin: -1.5,
         xmax: largeur,
         ymax: hauteur + 1,
-        pixelsParCm: Math.round(200 / largeur),
-        scale: 2 / largeur,
-        style: '',
+        pixelsParCm: Math.round(100 / largeur),
+        scale: 2.5 / largeur,
+        zoom: 1,
+        style: 'display:inline-block; margin-right:0.5em;',
         id: `figure${i}exo${numeroExercice}`,
       }
       paramsCorrection = {
@@ -383,8 +384,8 @@ export default class AlgoTortue extends Exercice {
         ymin: -0.5,
         xmax: largeur,
         ymax: hauteur + 1,
-        pixelsParCm: Math.round(200 / largeur),
-        scale: 2 / largeur,
+        pixelsParCm: Math.round(100 / largeur),
+        scale: 2.5 / largeur,
       }
       texte += mathalea2d(
         paramsEnonces,
@@ -404,6 +405,9 @@ export default class AlgoTortue extends Exercice {
         ),
         echelle,
       )
+      if (!context.isHtml) {
+        texte += '\\ \\hfill '
+      }
     }
     if (context.isHtml) {
       texte += '</td></tr></table>'

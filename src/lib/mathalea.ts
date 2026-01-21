@@ -41,7 +41,7 @@ import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import { propositionsQcm } from './interactif/qcm'
 import { shuffle } from './outils/arrayOutils'
 import { formaterReponse } from './outils/ecritures'
-import renderScratch from './renderScratch'
+import { renderScratchDiv } from './renderScratch'
 import { canOptions } from './stores/canStore'
 import {
   exercicesParams,
@@ -504,7 +504,7 @@ export function mathaleaRenderDiv(
   zoom = zoom ?? Number(params.z)
 
   renderKatex(div)
-  renderScratch('body')
+  renderScratchDiv(div ?? document.body)
   if (zoom !== -1) {
     resizeContent(div, zoom)
   }
