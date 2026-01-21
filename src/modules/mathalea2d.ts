@@ -240,7 +240,7 @@ export function mathalea2d(
   }
   // On prépare le code HTML
   const divsLatex: string[] = []
-  let codeSvg = `<svg class="mathalea2d" ${style} ${id !== '' ? `id="${id}"` : ''}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
+  let codeSvg = `<svg class="mathalea2d" ${style ? `style="${style}"` : ''} ${id !== '' ? `id="${id}"` : ''}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
     (ymax - ymin) * pixelsParCm * zoom
   }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${
     (xmax - xmin) * pixelsParCm
