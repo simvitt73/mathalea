@@ -36,13 +36,6 @@ export function gestionCan(exercice: IExercice) {
             throw Error(
               "qcm_mathLive ça n'existe pas comme formatInteractif, c'est qcm ou mathlive",
             )
-          /*  if (exercice.autoCorrection[i]?.propositions != null) {
-              resultat = verifQuestionQcm(exercice, i)
-            } else {
-              resultat = verifQuestionMathLive(this, i).isOk ? 'OK' : 'KO'
-            }
-          }
-           */
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document

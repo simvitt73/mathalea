@@ -14,10 +14,10 @@ import type {
   InteractivityType,
   OldFormatInteractifType,
   OptionsComparaisonType,
+  CompareFunction,
   Valeur,
 } from '../lib/types'
 import type { IFractionEtendue } from '../modules/FractionEtendue.type'
-import type Grandeur from '../modules/Grandeur'
 import {
   exportedApplyNewSeed,
   exportedNouvelleVersionWrapper,
@@ -71,15 +71,7 @@ export default class Exercice implements IExercice {
 
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   // tailleDiaporama?: number // Pour fixer un zoom de base en mode diaporama
-  compare?:
-    | ((
-        input: string,
-        goodAnswer: string,
-      ) => { isOk: boolean; feedback?: string })
-    | ((
-        input: string,
-        goodAnswer: Grandeur,
-      ) => { isOk: boolean; feedback?: string }) // Seulement pour les exercices de type simple
+  compare?: CompareFunction // Seulement pour les exercices de type simple
 
   // optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
   optionsDeComparaison?: Partial<OptionsComparaisonType>
