@@ -453,10 +453,10 @@ export function labelOnLine(
       for (let j = 0; j < usedPosition.length; j++) {
         const label = usedPosition[j]
         const dis =
-          segment(
-            pointAbstrait(label.x, label.y),
-            pointAbstrait(positions[i].label.x, positions[i].label.y),
-          ).longueur * context.pixelsParCm
+          Math.sqrt(
+            (label.x - positions[i].label.x) ** 2 +
+              (label.y - positions[i].label.y) ** 2,
+          ) * context.pixelsParCm
         // colision deux rectangles
         const XYlabel = [
           label.x * context.pixelsParCm - largeur / 2,
@@ -769,6 +769,7 @@ export class Droite extends ObjetMathalea2D {
     ymin?: number
     ymax?: number
   }
+
   leNom?: TexteParPoint
   constructor(
     arg1: number | PointAbstrait,
