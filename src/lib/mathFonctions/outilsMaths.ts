@@ -3,7 +3,7 @@ import { randint } from '../../modules/outils'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 import { ecritureAlgebrique } from '../outils/ecritures'
 import { miseEnEvidence } from '../outils/embellissements'
-import { matrice } from './Matrice'
+import { Matrice, matrice } from './Matrice'
 import { Polynome } from './Polynome'
 
 /**
@@ -151,10 +151,16 @@ export function resolutionSystemeLineaire2x2(
     [x2 ** 2, x2],
   ])
   if (maMatrice.determinant() === 0) return [0, 0]
-  const [a, b] = maMatrice
-    .inverse()
-    .multiply([fx1 - c, fx2 - c])
-    .toArray()
+  const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
+  let arr: number[]
+  if (resultat instanceof Matrice) {
+    arr = resultat.toArray() as number[]
+  } else if (Array.isArray(resultat)) {
+    arr = resultat as number[]
+  } else {
+    return [0, 0]
+  }
+  const [a, b] = arr
   return [a, b]
 }
 
@@ -183,7 +189,16 @@ export function resolutionSystemeLineaire3x3(
   if (maMatrice && maMatrice.determinant() === 0) {
     return [0, 0, 0]
   }
-  const [a, b, c] = maMatrice.inverse().multiply([y1, y2, y3]).toArray()
+  const resultat = maMatrice.inverse().multiply([y1, y2, y3])
+  let arr: number[]
+  if (resultat instanceof Matrice) {
+    arr = resultat.toArray() as number[]
+  } else if (Array.isArray(resultat)) {
+    arr = resultat as number[]
+  } else {
+    return [0, 0, 0]
+  }
+  const [a, b, c] = arr
   return [a, b, c]
 }
 
