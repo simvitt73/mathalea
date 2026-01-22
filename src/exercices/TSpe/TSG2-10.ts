@@ -1,8 +1,9 @@
+import { createList } from '../../lib/format/lists'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
-import { texteItalique } from '../../lib/outils/embellissements'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -116,23 +117,48 @@ export default class NomExercice extends Exercice {
 
       // Énoncé
       texte =
-        'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $(\\mathcal):<br>'
-      texte += `  le plan $(P)$ d'équation cartésienne : 
-      $${equationPlan}$.<br>`
+        'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
+    texte += createList({
+      items: [
+        `Le plan $(P)$ a pour équation cartésienne : $${equationPlan}$.<br>`,
+        `La droite $(d)$ admet la représentation paramétrique suivante :<br>
+        $(d) \\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\end{cases}.$`
+      ],
+      style: 'fleches',
+    })
       texte +=
-        'La droite $(d)$ admet la représentation paramétrique suivante :<br>'
-      texte += `$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\\\z=${z0}${ecritureAlgebrique(uz)}t\\end{cases}.$`
+        '<br>Déterminer la position relative de $(d)$ et $\\mathcal{P}$ .'
       texte +=
-        '<br>Déterminer la position relative de $(d)$ et $(P)$ (parallèles, droite incluse ou sécantes).'
-      texte +=
-        '<br>En cas d’intersection, calculer les coordonnées du point commun en résolvant le système formé par ces quatre équations.'
+        '<br>En cas d’intersection, calculer les coordonnées du point commun.'
 
       // Correction
+      let orthogonalite =`${texteEnCouleurEtGras('Etudier l\'orthogonalité d\'un vecteur directeur de $(d)$ et d\'un vecteur normal à $\\mathcal{P}$ ')}<br>Si un vecteur directeur de la droite $(d)$ est orthogonal au vecteur normal du plan $\\mathcal{P}$, alors la droite $(d)$ est parallèle au plan $\\mathcal{P}$ ou incluse dedans. <br>`
+         orthogonalite +='Dans le cas contraire, la droite $(d)$ est sécante au plan $\\mathcal{P}$.<br>'
+       orthogonalite +='On sait qu\'un plan qui a une équation cartesienne du type $ax+by+cz+d=0$ admet  $\\vec n\\begin{pmatrix}' +
+        `a\\\\b\\\\c\\end{pmatrix}$ comme vecteur normal. <br>`
+        orthogonalite +=
+        'On en déduit que le vecteur $\\vec n\\begin{pmatrix}' +
+        `${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est un vecteur normal au  plan $(\\mathcal{P})$. <br>`
+      orthogonalite +=
+       'On sait qu\' une droite qui admet une représentation paramétrique de la forme $(d) \\begin{cases}x=x_0+at\\\\y=y_0+bt\\quad (t\\in\\mathbb{R})\\\\z=z_0+ct\\end{cases}$'
+        orthogonalite +=
+        '$\\quad$ admet comme vecteur directeur $\\vec u\\begin{pmatrix}' +
+        `a\\\\b\\\\c\\end{pmatrix}$. <br>`
+         orthogonalite +='On en déduit qu\'un vecteur directeur de la droite $(d)$ est $\\vec u\\begin{pmatrix}' +
+        `${ux}\\\\${uy}\\\\${uz}\\end{pmatrix}$. <br>`
+      
+      
+      
+      
       texteCorr =
-        'Le vecteur normal du plan est $\\vec n\\begin{pmatrix}' +
-        `${a}\\\\${b}\\\\${c}\\end{pmatrix}$. `
-      texteCorr +=
-        'Le produit scalaire $\\vec n\\cdot\\vec u = ' +
+        'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '
+         texteCorr +=createList({items:['$(d)$ est parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
+      })
+        texteCorr +='<br>Nous allons pour cela procéder en deux étapes : <br>'+createList({items:[orthogonalite], style: 'nombres',
+      })
+            
+     
+       texteCorr +='Le produit scalaire $\\vec n\\cdot\\vec u = ' +
         `${a}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitScalaire}$.`
 
       if (produitScalaire === 0 && valeurDuPoint === 0) {
