@@ -18,8 +18,8 @@ export function tempsEcran(decimal = false): Probleme {
   const unité = decimal ? 'h' : 'min'
   const unitéComplète = decimal ? 'heures' : 'minutes'
   const probleme = new ProblemeMultiplicatifParts('tempsEcran', data)
-  probleme.enonce = `Les parents de ${prenom} veulent limiter le temps d\'écran par semaine à $${texNombre(total, 2)}$ ${unité}. Il est réparti équitablement entre $${texNombre(nbFois, 0)}$ jours. Combien ${decimal ? "d'heures" : "de minutes"} par jour ${prenom} peut-${pronom} s'exposer à un écran ?`
-  probleme.correction = `On répartit $${texNombre(total, 2)}$ ${unité} d\'écran sur $${texNombre(nbFois, 0)}$ jours. Chaque jour, cela représente : $${texNombre(total, 2)}\\text{\\,${unité}} \\div ${texNombre(nbFois, 0)} = ${miseEnEvidence(texNombre(total / nbFois, 2))}\\text{\\,${unité}}$.`
+  probleme.enonce = `Les parents de ${prenom} veulent limiter le temps d'écran par semaine à $${texNombre(total, 2)}$ ${unité}. Il est réparti équitablement entre $${texNombre(nbFois, 0)}$ jours. <br>Combien ${decimal ? "d'heures" : "de minutes"} par jour ${prenom} peut-${pronom} s'exposer à un écran ?`
+  probleme.correction = `On répartit $${texNombre(total, 2)}$ ${unité} d'écran sur $${texNombre(nbFois, 0)}$ jours. Chaque jour, cela représente : $${texNombre(total, 2)}\\text{\\,${unité}} \\div ${texNombre(nbFois, 0)} = ${miseEnEvidence(texNombre(total / nbFois, 2))}\\text{\\,${unité}}$.`
   probleme.schema.topBraces = [
     {
       start: 1,
