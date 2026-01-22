@@ -293,7 +293,7 @@ export type OptionsComparaisonType = {
 export type CompareFunction = (
   input: string,
   goodAnswer: string,
-  options: OptionsComparaisonType,
+  options?: OptionsComparaisonType,
 ) => ResultType
 
 export type CleaningOperation =
