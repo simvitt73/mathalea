@@ -114,7 +114,7 @@ export default class NomExercice extends Exercice {
 
       const produitScalaire = a * ux + b * uy + c * uz
       const valeurDuPoint = a * x0 + b * y0 + c * z0
-
+   
       // Énoncé
       texte =
         'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
@@ -146,8 +146,14 @@ export default class NomExercice extends Exercice {
         `a\\\\b\\\\c\\end{pmatrix}$. <br>`
          orthogonalite +='On en déduit qu\'un vecteur directeur de la droite $(d)$ est $\\vec u\\begin{pmatrix}' +
         `${ux}\\\\${uy}\\\\${uz}\\end{pmatrix}$. <br>`
-      
-      
+      orthogonalite +='On calcule le produit scalaire des vecteurs $\\vec n$ et $ \\vec u$ :<br>' +
+        `$\\begin{aligned}\\vec n \\cdot \\vec u &=${a}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(uz)}\\\\
+        & = ${produitScalaire}\\end{aligned}$.`
+         if (produitScalaire !== 0) {
+           orthogonalite += '<br>Le produit scalaire est non nul, les vecteurs ne sont donc pas orthogonaux.  La droite $(d)$ est sécante au plan $\\mathcal{P}$.'
+           
+         }
+      else {orthogonalite += '<br>Le produit scalaire est nul, les vecteurs sont donc orthogonaux.  La droite $(d)$ est soit parallèle au plan $\\mathcal{P}$ soit incluse dedans.'}
       
       
       texteCorr =
@@ -158,8 +164,7 @@ export default class NomExercice extends Exercice {
       })
             
      
-       texteCorr +='Le produit scalaire $\\vec n\\cdot\\vec u = ' +
-        `${a}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitScalaire}$.`
+
 
       if (produitScalaire === 0 && valeurDuPoint === 0) {
         texteCorr +=
@@ -186,8 +191,7 @@ export default class NomExercice extends Exercice {
         const yI = y0 + uy * tValeur
         const zI = z0 + uz * tValeur
 
-        texteCorr +=
-          '<br>Le produit scalaire est non nul : la droite est sécante.'
+       
         texteCorr +=
           '<br>On résout le système $\\begin{cases}x=' +
           `${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\${equationPlan}\\end{cases}$.`
