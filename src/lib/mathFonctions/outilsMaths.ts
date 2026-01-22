@@ -1,10 +1,9 @@
 import type { BoxedExpression } from '@cortex-js/compute-engine'
-import { Matrix } from 'mathjs'
 import { randint } from '../../modules/outils'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 import { ecritureAlgebrique } from '../outils/ecritures'
 import { miseEnEvidence } from '../outils/embellissements'
-import { matrice } from './Matrice'
+import { Matrice, matrice } from './Matrice'
 import { Polynome } from './Polynome'
 
 /**
@@ -154,7 +153,7 @@ export function resolutionSystemeLineaire2x2(
   if (maMatrice.determinant() === 0) return [0, 0]
   const resultat = maMatrice.inverse().multiply([fx1 - c, fx2 - c])
   let arr: number[]
-  if (resultat instanceof Matrix) {
+  if (resultat instanceof Matrice) {
     arr = resultat.toArray() as number[]
   } else if (Array.isArray(resultat)) {
     arr = resultat as number[]
@@ -192,7 +191,7 @@ export function resolutionSystemeLineaire3x3(
   }
   const resultat = maMatrice.inverse().multiply([y1, y2, y3])
   let arr: number[]
-  if (resultat instanceof Matrix) {
+  if (resultat instanceof Matrice) {
     arr = resultat.toArray() as number[]
   } else if (Array.isArray(resultat)) {
     arr = resultat as number[]
