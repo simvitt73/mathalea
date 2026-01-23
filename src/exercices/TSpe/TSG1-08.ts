@@ -1,11 +1,10 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const titre = 'Relation de Newton.'
+export const titre = 'Connaître la relation de Newton.'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -11,7 +11,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ppcm } from '../../lib/outils/primalite'
 
-export const titre = 'Vecteur normal à deux autre vecteurs'
+export const titre = 'Déterminer un vecteur normal à deux autre vecteurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
