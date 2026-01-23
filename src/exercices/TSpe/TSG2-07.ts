@@ -11,7 +11,7 @@ import { fraction } from '../../modules/fractions'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = "Distance d'un point à une droite"
+export const titre = "Calculer la distance d'un point à une droite"
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

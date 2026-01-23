@@ -8,7 +8,7 @@ import { rienSi1 } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre =
-  'Utilisation de $\\cos(\\theta+\\theta^\\prime)=\\cos(\\theta)\\cos(\\theta^\\prime)-\\sin(\\theta)\\sin(\\theta^\\prime)$'
+  'Utiliser $\\cos(\\theta+\\theta^\\prime)=\\cos(\\theta)\\cos(\\theta^\\prime)-\\sin(\\theta)\\sin(\\theta^\\prime)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '91bbd'

@@ -360,7 +360,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 // tabLines ci-dessous contient les autres lignes du tableau.
 
                 tabLines: [ligneFseconde, ligneFconvexite],
-                // colorBackground: '',
+
                 espcl: 8, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3.5, // taille de la première colonne en cm
