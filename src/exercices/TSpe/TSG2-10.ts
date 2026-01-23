@@ -75,6 +75,9 @@ export default class NomExercice extends Exercice {
                }
       const produitScalaire = a * ux + b * uy + c * uz
       const solution = new FractionEtendue(-a*x0-b*y0-c*z0,produitScalaire)
+      const abscisseM = new FractionEtendue(x0*produitScalaire+ux*(-a*x0-b*y0-c*z0),produitScalaire)
+      const ordonneeM = new FractionEtendue(y0*produitScalaire+uy*(-a*x0-b*y0-c*z0),produitScalaire)
+      const coteM= new FractionEtendue(z0*produitScalaire+uz*(-a*x0-b*y0-c*z0),produitScalaire)
   texte =
         'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
     texte += createList({
@@ -116,7 +119,8 @@ export default class NomExercice extends Exercice {
       
       let PointCommun =''
       PointCommun +=`${texteEnCouleurEtGras('Calcul du point d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$ :')}<br>`
-      PointCommun +='Pour déterminer les éventuels points d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$, on cherche les points dont les coordonnées vérifient en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'
+      if (produitScalaire===0) {PointCommun +='Pour différencier les deux cas possibles, on va chercher s\'il existe des points d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$. On cherche donc les points $M(x;y;z)$ dont les coordonnées vérifient en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'}
+      else{PointCommun +='On  cherche les coordonnées du point $M(x;y;z)$, intersection entre la droite $(d)$ et le plan $\\mathcal{P}$. Ses coordonnées vérifient donc en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'}
       PointCommun +='On obtient ainsi un système à résoudre: <br>'
        PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
         PointCommun +='En remplaçant les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation du plan, on obtient cette équation en $t$ :<br>'
@@ -124,19 +128,24 @@ export default class NomExercice extends Exercice {
       ${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}t&=0\\\\
      ${produitScalaire} t&=${-(a*x0+b*y0+c*z0)}
        \\end{aligned}.$<br>`
-      if (cas === 'secant') {   PointCommun +=`$\\begin{aligned}\\phantom {${a*x0}${ecritureAlgebrique(ux*a)}t${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}}t&=${solution.texFractionSimplifiee}\\\\
+      // Cas sécant
+       if (cas === 'secant') {   PointCommun +=`$\\begin{aligned}\\phantom {${a*x0}${ecritureAlgebrique(ux*a)}t${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}}t&=${solution.texFractionSimplifiee}\\\\
      \\end{aligned}.$<br>`
       PointCommun +='On remplace cette valeur de $t$ dans la représentation paramétrique de la droite pour obtenir les coordonnées du point d\'intersection : <br>'
-      const t= -(a*x0+b*y0+c*z0)/produitScalaire
-      const xI= x0 + ux*t
-      const yI= y0 + uy*t
-      const zI= z0 + uz*t
-       PointCommun +=`$\\begin{cases}x_I=${xI}\\\\y_I=${yI}\\\\z_I=${zI}\\end{cases}.$<br>`
-       PointCommun +='Le point d\'intersection $I$ entre la droite $(d)$ et le plan $\\mathcal{P}$ a donc pour coordonnées : <br>'
-       PointCommun +=`$I(${xI};${yI};${zI})$.<br>`
+       PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}\\times ${solution.texFractionSimplifiee}\\\\y=${y0}${ecritureAlgebrique(uy)}\\times ${solution.texFractionSimplifiee}\\\\z=${z0}${ecritureAlgebrique(uz)}\\times ${solution.texFractionSimplifiee}\\end{cases}\\quad$ d'où 
+       $\\begin{cases}x=${abscisseM.texFractionSimplifiee}\\\\y=${ordonneeM.texFractionSimplifiee}\\\\z=${coteM.texFractionSimplifiee}\\end{cases}.$`
+       PointCommun +='<br>Le point d\'intersection $M$ entre la droite $(d)$ et le plan $\\mathcal{P}$ a donc pour coordonnées : <br>'
+       PointCommun +=`$M\\left(${abscisseM.texFractionSimplifiee};${ordonneeM.texFractionSimplifiee};${coteM.texFractionSimplifiee}\\right)$.<br>`
       }  
-      
-      texteCorr =
+      // Cas parallèles
+        if (cas === 'parallele') {
+         
+          PointCommun +='Cette équation n\'admet pas de solution. Il n\'y a pas de point commun à $(d)$ et $\\mathcal P$. <br> On peut conclure que  $(d)$ et $\\mathcal P$ sont strictement parallèles.'}
+        // Cas confondus
+        if (cas === 'incluse') {
+          PointCommun +='Cette équation admet une infinité de solution. Il y a une infinité de points commun à $(d)$ et $\\mathcal P$. <br> On peut conclure que  $(d)$ est incluse dans le plan $\\mathcal P$.'}
+     
+        texteCorr =
         'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '
          texteCorr +=createList({items:['$(d)$ est strictement parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
       })
