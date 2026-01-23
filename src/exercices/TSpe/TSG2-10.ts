@@ -22,7 +22,7 @@ export const refs = {
  *
  * @author Stéphane Guyon
  */
-export default class NomExercice extends Exercice {
+export default class NomExercice extends Exercice { 
   constructor() {
     super()
     this.nbQuestions = 1
@@ -47,9 +47,9 @@ export default class NomExercice extends Exercice {
       // Plan : équation ax + by + cz = 0 avec (a,b,c) non nul
       const a = randint(-4, 4, 0)
       const b = randint(-4, 4, 0)
-      const c = randint(-4, 4, 0)
-      
-      const equationPlan = `${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}z=0`
+      let c : number
+        const d = randint(-4, 4, 0)
+    
 
       // Choix du cas : secant plus fréquent
       const tirageCas = randint(1, 6)
@@ -57,66 +57,33 @@ export default class NomExercice extends Exercice {
         tirageCas <= 3 ? 'secant' : tirageCas <= 5 ? 'parallele' : 'incluse'
 
       // Fonction pour obtenir un vecteur directeur orthogonal à (a,b,c)
-      let ux: number
-      let uy: number
+      const ux= randint(-5, 5, 0)
+      const uy= randint(-5, 5, 0)
       let uz: number
 
       // Données de la droite
-      let x0 = 0
-      let y0 = 0
+      const x0 = randint(-5, 5, 0)
+      const y0 = randint(-5, 5, 0)
       let z0 = 0
     
-
-      if (cas === 'incluse') {
-        // Point du plan et direction incluse dans le plan
-       
-          x0 = b
-          y0 = -a
-          z0 = 0
-        
-       
-          ux=b
-       uy= -a
-       uz= 0
-      } else if (cas === 'parallele') {
+    // On gère le cas le plus simple : droite incluse dans le plan       
+       z0 = -a*x0-b*y0-d // Point du plan On fixe c=1 pour ne pas s'emmerder
+       c=1
+      uz= -(a*ux + b*uy) // vecteur u orthogonal à n
+  const equationPlan = `${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}z=0`
+      if (cas === 'parallele') {
         // Direction dans le plan mais point extérieur
        
-        ux=b
-       uy= -a
-       uz= 0
-        // On part d'un point du plan puis on le translate selon la normale pour sortir du plan
-        const pPlan =
-          a !== 0 || b !== 0
-            ? { x: b, y: -a, z: 0 }
-            : { x: 1, y: 0, z: 0 }
-        x0 = pPlan.x + a
-        y0 = pPlan.y + b
-        z0 = pPlan.z + c
-      } else {
-        // Cas sécant : vecteur non orthogonal au normal
-        let produit = 0
-        let essais = 0
-        do {
-          ux = randint(-4, 4, 0)
-          uy = randint(-4, 4, 0)
-          uz = randint(-4, 4, 0)
-          produit = a * ux + b * uy + c * uz
-          essais++
-        } while (produit === 0 && essais < 20)
-        if (produit === 0) {
-          cpt++
-          continue
-        }
-        x0 = randint(-5, 5, 0)
-        y0 = randint(-5, 5, 0)
-        z0 = randint(-5, 5, 0)
+      z0 = z0 + randint(-5, 5, 0)// On ajuste la cote du point pour que le point ne soit pas dans le plan
       }
-
+     if (cas === 'secant') {
+        // Cas sécant : vecteur non orthogonal au normal             
+          uz = uz+randint(-4, 4, 0)
+          c= randint(-4, 4, [0,1])                
+               }
       const produitScalaire = a * ux + b * uy + c * uz
-      const valeurDuPoint = a * x0 + b * y0 + c * z0
-   
-      // Énoncé
-      texte =
+      
+  texte =
         'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
     texte += createList({
       items: [
@@ -157,9 +124,12 @@ export default class NomExercice extends Exercice {
       
       let PointCommun =''
       PointCommun +=`${texteEnCouleurEtGras('Calcul du point d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$ :')}<br>`
-      PointCommun +='Pour déterminer le point d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$, on remplace les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation cartésienne du plan. <br>'
-      PointCommun +='On obtient ainsi une équation à une inconnue $t$. <br>'
-      PointCommun +='En résolvant cette équation, on trouve la valeur de $t$ qui permet de déterminer les coordonnées du point d\'intersection en les remplaçant dans la représentation paramétrique de la droite. <br>'
+      PointCommun +='Pour déterminer les éventuels points d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$, on cherche les points dont les coordonnées vérifient en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'
+      PointCommun +='On obtient ainsi un système à résoudre: <br>'
+       PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
+        PointCommun +='En remplaçant les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation du plan, on obtient cette équation en $t$ :<br>'
+      PointCommun +=`$${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)=0.$<br>`
+        PointCommun +='En résolvant cette équation, on trouve la valeur de $t$ qui permet de déterminer les coordonnées du point d\'intersection en les remplaçant dans la représentation paramétrique de la droite. <br>'
       texteCorr =
         'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '
          texteCorr +=createList({items:['$(d)$ est strictement parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
@@ -169,66 +139,14 @@ export default class NomExercice extends Exercice {
             
      
 
-
-      if (produitScalaire === 0 && valeurDuPoint === 0) {
-        texteCorr +=
-          '<br>Le vecteur directeur est orthogonal à $\\vec n$ et le point de passage vérifie l’équation du plan : la droite est incluse dans $(P)$.'
-      } else if (produitScalaire === 0) {
-        texteCorr +=
-          "<br>Le vecteur directeur est orthogonal à $\\vec n$ mais le point n'appartient pas au plan ("
-        texteCorr +=
-          `$${a}\\times ${ecritureParentheseSiNegatif(x0)}${ecritureAlgebrique(b)}\\times ${ecritureParentheseSiNegatif(y0)}${ecritureAlgebrique(c)}\\times ${ecritureParentheseSiNegatif(z0)}=${valeurDuPoint}\\neq 0$)`
-        texteCorr +=
-          ' : la droite est parallèle au plan (sans point commun).'
-      } else {
-        const numerateur = -valeurDuPoint
-        const denominateur = produitScalaire
-        const div = pgcd(numerateur, denominateur)
-        const numReduit = numerateur / div
-        const denReduit = denominateur / div
-        const tTex =
-          denReduit === 1
-            ? `${numReduit}`
-            : `\\dfrac{${numReduit}}{${denReduit}}`
-        const tValeur = numerateur / denominateur
-        const xI = x0 + ux * tValeur
-        const yI = y0 + uy * tValeur
-        const zI = z0 + uz * tValeur
-
-       
-        texteCorr +=
-          '<br>On résout le système $\\begin{cases}x=' +
-          `${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\${equationPlan}\\end{cases}$.`
-        texteCorr +=
-          `<br>En remplaçant dans l’équation du plan, on obtient ${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)=0, soit ${denominateur}t${ecritureAlgebrique(numerateur)}=0.`
-        texteCorr += `<br>D’où $t=${tTex}$.`
-        texteCorr +=
-          `<br>Le point d’intersection est donc $I\\Big(${x0}${ecritureAlgebrique(ux)}\\times ${tTex}\\ ;\\ ${y0}${ecritureAlgebrique(uy)}\\times ${tTex}\\ ;\\ ${z0}${ecritureAlgebrique(uz)}\\times ${tTex}\\Big)$`
-        texteCorr +=
-          `, soit numériquement $I\\approx\\big(${xI.toFixed(2)}\\ ;\\ ${yI.toFixed(2)}\\ ;\\ ${zI.toFixed(2)}\\big)$.`
-      }
-
-      if (
-        this.questionJamaisPosee(
-          i,
-          a,
-          b,
-          c,
-          ux,
-          uy,
-          uz,
-          x0,
-          y0,
-          z0,
-          cas,
-        )
-      ) {
+      if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
+
     listeQuestionsToContenu(this)
   }
 }
