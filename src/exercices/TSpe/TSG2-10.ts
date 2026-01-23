@@ -120,8 +120,8 @@ export default class NomExercice extends Exercice {
         'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
     texte += createList({
       items: [
-        `Le plan $(P)$ a pour équation cartésienne : $${equationPlan}$.<br>`,
-        `La droite $(d)$ admet la représentation paramétrique suivante :<br>
+        `Le plan $P$ a pour équation cartésienne : $${equationPlan}$.<br>`,
+        `La droite $(d)$ admet la représentation paramétrique suivante :
         $(d) \\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\end{cases}.$`
       ],
       style: 'fleches',
@@ -153,14 +153,18 @@ export default class NomExercice extends Exercice {
            orthogonalite += '<br>Le produit scalaire est non nul, les vecteurs ne sont donc pas orthogonaux.  La droite $(d)$ est sécante au plan $\\mathcal{P}$.'
            
          }
-      else {orthogonalite += '<br>Le produit scalaire est nul, les vecteurs sont donc orthogonaux.  La droite $(d)$ est soit parallèle au plan $\\mathcal{P}$ soit incluse dedans.'}
+      else {orthogonalite += '<br>Le produit scalaire est nul, les vecteurs sont donc orthogonaux.  La droite $(d)$ est soit strictement parallèle au plan $\\mathcal{P}$ soit incluse dedans.'}
       
-      
+      let PointCommun =''
+      PointCommun +=`${texteEnCouleurEtGras('Calcul du point d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$ :')}<br>`
+      PointCommun +='Pour déterminer le point d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$, on remplace les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation cartésienne du plan. <br>'
+      PointCommun +='On obtient ainsi une équation à une inconnue $t$. <br>'
+      PointCommun +='En résolvant cette équation, on trouve la valeur de $t$ qui permet de déterminer les coordonnées du point d\'intersection en les remplaçant dans la représentation paramétrique de la droite. <br>'
       texteCorr =
         'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '
-         texteCorr +=createList({items:['$(d)$ est parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
+         texteCorr +=createList({items:['$(d)$ est strictement parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
       })
-        texteCorr +='<br>Nous allons pour cela procéder en deux étapes : <br>'+createList({items:[orthogonalite], style: 'nombres',
+        texteCorr +='<br>Nous allons pour cela procéder en deux étapes : <br>'+createList({items:[orthogonalite, PointCommun], style: 'nombres',
       })
             
      
