@@ -10,7 +10,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Affirmations sur les primitives'
+export const titre = 'Connaître le cours sur les primitives'
 export const dateDePublication = '26/03/2025'
 
 /*

@@ -2,7 +2,7 @@ import ExerciceSimple from '../ExerciceSimple'
 import { randint } from '../../modules/outils'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-export const titre = 'Dénombrement.'
+export const titre = 'Effectuer un dénombrement (code).'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
