@@ -360,8 +360,9 @@
     globalOptions: InterfaceGlobalOptions
     canOptions: CanOptions
   }) {
-    canOptions.set(params.canOptions)
-    globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
+    // MGu d'après bugsnag, il arrive que params.canOptions soit null!
+    if (params.canOptions) canOptions.set(params.canOptions)
+    if (params.globalOptions) globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
   }
 
   function toggleSidenav(forceOpening: boolean): void {
