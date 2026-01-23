@@ -18,24 +18,28 @@ export const refs = {
 
 */
 export default class Can2a2026Q18 extends ExerciceCan {
-  enonce(a?: Decimal, b?: number) {
-    if (a == null || b == null) {
-      a = new Decimal(randint(2, 9)).div(10)
-      b = randint(5, 9)
+  enonce(taux?: Decimal) {
+    if (taux == null) {
+      taux = new Decimal(randint(11, 99, [20, 30, 40, 50, 60, 70, 80, 90])).div(
+        1000,
+      )
+     
     }
-
+ const Taux = taux.mul(100)
+      const coeff = taux.add(1)
     this.formatChampTexte = KeyboardType.clavierDeBase
-    this.reponse = texNombre(a.mul(b), 1)
-    this.question = `$${texNombre(a, 1)} \\times ${b}$ `
-    this.correction = `$${texNombre(a, 1)} \\times ${b}=${miseEnEvidence(this.reponse)}$`
+    this.reponse = new Decimal(taux).mul(100)
+    this.question = `Multiplier un nombre par $${texNombre(coeff, 3)}$ revient à effectuer une hausse de  `
+    this.correction = `Comme $${texNombre(coeff, 3)}=1+${texNombre(taux, 3)}=1+\\dfrac{${Taux}}{100}$, multiplier par $${texNombre(coeff, 3)}$ revient à effectuer une hausse de $${miseEnEvidence(texNombre(Taux, 2))}\\,\\%$. `
+   this.optionsChampTexte = { texteApres: '$\\%$.' }
+        if (!this.interactif) {
+          this.question += '$\\ldots\\,\\%$'
+        }
     this.canEnonce = this.question
-    this.canReponseACompleter = ''
-    if (this.interactif) {
-      this.question += '$=$'
-    }
+    this.canReponseACompleter = '$\\ldots\\,\\%$'
   }
 
   nouvelleVersion() {
-    this.canOfficielle ? this.enonce(new Decimal(0.6), 9) : this.enonce()
+    this.canOfficielle ? this.enonce(new Decimal(0.026)) : this.enonce()
   }
 }
