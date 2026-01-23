@@ -255,14 +255,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 }
                 correction += tableauDeVariation({
                   tabInit: [
-                      // @ts-expect-error
+                  
                     [
                       ['x', 2, 100],
                       ["f'(x)", 2, 30],
                       ['f(x)', 4, 30],
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                    // @ts-expect-error
+                  
                     [
                       '$-\\infty$',
                       30,
@@ -347,14 +347,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     ]
               correction += tableauDeVariation({
                 tabInit: [
-                  // @ts-expect-error
+                 
                   [
                     ['x', 2, 20],
                     ["f''(x)", 2, 30],
                     ['$f$', 2, 20],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  // @ts-expect-error
+                 
                   [
                     '$-\\infty$',
                     30,
@@ -365,9 +365,9 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
-                // @ts-expect-error
+               
                 tabLines: [ligneFseconde, ligneFconvexite],
-                colorBackground: '',
+              
                 espcl: 8, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3.5, // taille de la première colonne en cm
