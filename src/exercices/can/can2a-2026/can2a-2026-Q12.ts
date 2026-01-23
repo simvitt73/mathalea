@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils'
 import ExerciceCan from '../../ExerciceCan'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
-export const titre = 'Multiplier un entier avec un décimal'
+export const titre = 'Calcul retourné par un algorithme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '697jm'
