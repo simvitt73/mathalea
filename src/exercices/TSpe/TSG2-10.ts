@@ -36,7 +36,7 @@ export default class NomExercice extends Exercice {
       let texte = ''
       let texteCorr = ''
 
-      // Plan : équation ax + by + cz = 0 avec (a,b,c) non nul
+      // Plan : équation ax + by + cz + d = 0 avec (a,b,c) non nul
       const a = randint(-4, 4, 0)
       const b = randint(-4, 4, 0)
       let c : number
@@ -62,7 +62,7 @@ export default class NomExercice extends Exercice {
        z0 = -a*x0-b*y0-d // Point du plan On fixe c=1 pour ne pas s'emmerder
        c=1
       uz= -(a*ux + b*uy) // vecteur u orthogonal à n
-  const equationPlan = `${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}z=0`
+  const equationPlan = `${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}z${ecritureAlgebrique(d)}=0`
       if (cas === 'parallele') {
         // Direction dans le plan mais point extérieur
        
@@ -74,10 +74,10 @@ export default class NomExercice extends Exercice {
           c= randint(-4, 4, [0,1])                
                }
       const produitScalaire = a * ux + b * uy + c * uz
-      const solution = new FractionEtendue(-a*x0-b*y0-c*z0,produitScalaire)
-      const abscisseM = new FractionEtendue(x0*produitScalaire+ux*(-a*x0-b*y0-c*z0),produitScalaire)
-      const ordonneeM = new FractionEtendue(y0*produitScalaire+uy*(-a*x0-b*y0-c*z0),produitScalaire)
-      const coteM= new FractionEtendue(z0*produitScalaire+uz*(-a*x0-b*y0-c*z0),produitScalaire)
+      const solution = new FractionEtendue(-a*x0-b*y0-c*z0-d,produitScalaire)
+      const abscisseM = new FractionEtendue(x0*produitScalaire+ux*(-a*x0-b*y0-c*z0-d),produitScalaire)
+      const ordonneeM = new FractionEtendue(y0*produitScalaire+uy*(-a*x0-b*y0-c*z0-d),produitScalaire)
+      const coteM= new FractionEtendue(z0*produitScalaire+uz*(-a*x0-b*y0-c*z0-d),produitScalaire)
   texte =
         'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
     texte += createList({
@@ -124,9 +124,9 @@ export default class NomExercice extends Exercice {
       PointCommun +='On obtient ainsi un système à résoudre: <br>'
        PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
         PointCommun +='En remplaçant les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation du plan, on obtient cette équation en $t$ :<br>'
-      PointCommun +=`$\\begin{aligned}${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)&=0\\\\
-      ${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}t&=0\\\\
-     ${produitScalaire} t&=${-(a*x0+b*y0+c*z0)}
+      PointCommun +=`$\\begin{aligned}${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)${ecritureAlgebrique(d)}&=0\\\\
+      ${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}t${ecritureAlgebrique(d)}&=0\\\\
+     ${produitScalaire} t&=${-(a*x0+b*y0+c*z0+d)}
        \\end{aligned}.$<br>`
       // Cas sécant
        if (cas === 'secant') {   PointCommun +=`$\\begin{aligned}\\phantom {${a*x0}${ecritureAlgebrique(ux*a)}t${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}}t&=${solution.texFractionSimplifiee}\\\\
