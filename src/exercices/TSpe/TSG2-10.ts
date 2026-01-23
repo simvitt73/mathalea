@@ -4,6 +4,7 @@ import {
   ecritureParentheseSiNegatif,
 } from '../../lib/outils/ecritures'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -29,16 +30,7 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion() {
-    const pgcd = (a: number, b: number) => {
-      let x = Math.abs(a)
-      let y = Math.abs(b)
-      while (y !== 0) {
-        const t = y
-        y = x % y
-        x = t
-      }
-      return x === 0 ? 1 : x
-    }
+   
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
       let texte = ''
@@ -82,7 +74,7 @@ export default class NomExercice extends Exercice {
           c= randint(-4, 4, [0,1])                
                }
       const produitScalaire = a * ux + b * uy + c * uz
-      
+      const solution = new FractionEtendue(-a*x0-b*y0-c*z0,produitScalaire)
   texte =
         'Dans l\'espace muni d\'un repère orthonormé, on considère un plan $\\mathcal{P}$ et une droite $(d)$ :<br>'
     texte += createList({
@@ -128,8 +120,22 @@ export default class NomExercice extends Exercice {
       PointCommun +='On obtient ainsi un système à résoudre: <br>'
        PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
         PointCommun +='En remplaçant les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation du plan, on obtient cette équation en $t$ :<br>'
-      PointCommun +=`$${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)=0.$<br>`
-        PointCommun +='En résolvant cette équation, on trouve la valeur de $t$ qui permet de déterminer les coordonnées du point d\'intersection en les remplaçant dans la représentation paramétrique de la droite. <br>'
+      PointCommun +=`$\\begin{aligned}${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)&=0\\\\
+      ${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}t&=0\\\\
+     ${produitScalaire} t&=${-(a*x0+b*y0+c*z0)}
+       \\end{aligned}.$<br>`
+      if (cas === 'secant') {   PointCommun +=`$\\begin{aligned}\\phantom {${a*x0}${ecritureAlgebrique(ux*a)}t${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}}t&=${solution.texFractionSimplifiee}\\\\
+     \\end{aligned}.$<br>`
+      PointCommun +='On remplace cette valeur de $t$ dans la représentation paramétrique de la droite pour obtenir les coordonnées du point d\'intersection : <br>'
+      const t= -(a*x0+b*y0+c*z0)/produitScalaire
+      const xI= x0 + ux*t
+      const yI= y0 + uy*t
+      const zI= z0 + uz*t
+       PointCommun +=`$\\begin{cases}x_I=${xI}\\\\y_I=${yI}\\\\z_I=${zI}\\end{cases}.$<br>`
+       PointCommun +='Le point d\'intersection $I$ entre la droite $(d)$ et le plan $\\mathcal{P}$ a donc pour coordonnées : <br>'
+       PointCommun +=`$I(${xI};${yI};${zI})$.<br>`
+      }  
+      
       texteCorr =
         'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '
          texteCorr +=createList({items:['$(d)$ est strictement parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
