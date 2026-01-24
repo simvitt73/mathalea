@@ -6,7 +6,7 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1,
 } from '../../lib/outils/ecritures'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {  texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -86,10 +86,9 @@ export default class NomExercice extends Exercice {
     texte += createList({
       items: [
         `Le plan $P$ a pour équation cartésienne : $${equationPlan}$.<br>`,
-        `La droite $(d)$ admet la représentation paramétrique suivante :
-        $(d) \\begin{cases}x=${x0}${ecritureAlgebriqueSauf1(ux)}t\\\\y=${y0}${ecritureAlgebriqueSauf1(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebriqueSauf1(uz)}t\\end{cases}.$`
+        'La droite $(d)$ admet la représentation paramétrique suivante :'
       ],
-      style: 'fleches',
+     style: 'nombres',
     })
       texte +=
         '<br>Déterminer la position relative de $(d)$ et $\\mathcal{P}$ .'
@@ -124,7 +123,7 @@ export default class NomExercice extends Exercice {
       PointCommun +=`${texteEnCouleurEtGras('Étude de l\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$ :')}<br>`
       if (produitScalaire===0) {PointCommun +='Pour différencier les deux cas possibles, on va chercher s\'il existe des points d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$. On cherche donc les points $M(x;y;z)$ dont les coordonnées vérifient en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'}
       else{PointCommun +='On  cherche les coordonnées du point $M(x;y;z)$, intersection entre la droite $(d)$ et le plan $\\mathcal{P}$. Ses coordonnées vérifient donc la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'}
-      PointCommun +='On cherche donc l\'existence des réels $t$ qui vérifient le système à résoudre: <br>'
+PointCommun +='On cherche donc l\'ensemble des $(x, y, z, t)$ qui vérifient le système : <br>'
        PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebriqueSauf1(ux)}t\\\\y=${y0}${ecritureAlgebriqueSauf1(uy)}t\\\\z=${z0}${ecritureAlgebriqueSauf1(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
         PointCommun +='En remplaçant les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation du plan, on obtient cette équation en $t$ :<br>'
       PointCommun +=`$\\begin{aligned}${rienSi1(a)}\\big(${x0}${ecritureAlgebriqueSauf1(ux)}t\\big)${ecritureAlgebriqueSauf1(b)}\\big(${y0}${ecritureAlgebriqueSauf1(uy)}t\\big)${ecritureAlgebriqueSauf1(c)}\\big(${z0}${ecritureAlgebriqueSauf1(uz)}t\\big)${ecritureAlgebriqueSauf0(d)}&=0\\\\
@@ -137,16 +136,15 @@ export default class NomExercice extends Exercice {
       PointCommun +='On remplace cette valeur de $t$ dans la représentation paramétrique de la droite pour obtenir les coordonnées du point d\'intersection : <br>'
        PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}\\times ${solution.texFractionSimplifiee}\\\\y=${y0}${ecritureAlgebrique(uy)}\\times ${solution.texFractionSimplifiee}\\\\z=${z0}${ecritureAlgebrique(uz)}\\times ${solution.texFractionSimplifiee}\\end{cases}\\quad$ d'où 
        $\\begin{cases}x=${abscisseM.texFractionSimplifiee}\\\\y=${ordonneeM.texFractionSimplifiee}\\\\z=${coteM.texFractionSimplifiee}\\end{cases}.$`
-       PointCommun +='<br>Le point d\'intersection $M$ entre la droite $(d)$ et le plan $\\mathcal{P}$ a donc pour coordonnées : <br>'
-       PointCommun +=`$M\\left(${abscisseM.texFractionSimplifiee};${ordonneeM.texFractionSimplifiee};${coteM.texFractionSimplifiee}\\right)$.<br>`
+       PointCommun +=`<br>${texteEnCouleurEtGras(`La droite $(d)$ et le plan $\\mathcal{P}$ sont donc sécants en $M\\left(${abscisseM.texFractionSimplifiee};${ordonneeM.texFractionSimplifiee};${coteM.texFractionSimplifiee}\\right)$.`)}<br>`
       }  
       // Cas parallèles
         if (cas === 'parallele') {
          
-          PointCommun +='Cette équation n\'admet pas de solution. Il n\'y a pas de point commun à $(d)$ et $\\mathcal P$. <br> On peut conclure que  $(d)$ et $\\mathcal P$ sont strictement parallèles.'}
+          PointCommun +=`Cette équation n'admet pas de solution. Il n'y a pas de point commun à $(d)$ et $\\mathcal P$. <br> ${texteEnCouleurEtGras('On peut conclure que la droite $(d)$ et le plan $\\mathcal P$ sont strictement parallèles.')}`}
         // Cas confondus
         if (cas === 'incluse') {
-          PointCommun +='Cette équation admet une infinité de solution. Il y a une infinité de points commun à $(d)$ et $\\mathcal P$. <br> On peut conclure que  $(d)$ est incluse dans le plan $\\mathcal P$.'}
+          PointCommun +=`Cette équation admet une infinité de solution. Il y a une infinité de points commun à $(d)$ et $\\mathcal P$. <br> ${texteEnCouleurEtGras('On peut conclure que la droite $(d)$ est incluse dans le plan $\\mathcal P$.')}`}
      
         texteCorr =
         'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '

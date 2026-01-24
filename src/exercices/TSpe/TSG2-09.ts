@@ -8,6 +8,8 @@ import {
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+import { createList } from '../../lib/format/lists'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre =
   "Déterminer une équation cartésienne d'un plan."
@@ -76,16 +78,16 @@ export default class NomExercice extends Exercice {
       texte +=
         "On note $\\mathcal{P}$ le plan passant par $A$ et engendré par $\\vec u$ et $\\vec v$. "
       texte +=
-        `<br>Justifier que l'équation $${equationPlane}$  est une équation cartésienne du plan $\\mathcal{P}$.br>`
+        `<br>Justifier que l'équation $${equationPlane}$  est une équation cartésienne du plan $\\mathcal{P}$.<br>`
    
-
+let engendreparuv=''
+     
       texteCorr =
-        "Les vecteurs $\\vec u$ et $\\vec v$ ne sont pas colinéaires car leur produit vectoriel est non nul : "
-      texteCorr += `$\\vec n = \\vec u \\wedge \\vec v = \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}\\neq\\vec 0$.`
+        `Considérons le plan d'équation cartésienne $${equationPlane}$.<br>Nous allons procéder en deux étapes :` + createList({items:[engendreparuv,`${texteEnCouleurEtGras('Démontrer que le point A appartient à ce plan')}`] ,style: 'nombres'})  
+engendreparuv=`${texteEnCouleurEtGras('Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$')}Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$, ce qui prouvera que ce plan est parallèle ou confondu au plan $\\mathcal{P}$. Par construction, $\\vec n$ est un vecteur normal au plan $(P)$.`
+engendreparuv+=`${texteEnCouleurEtGras('Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$')}
       texteCorr +=
-        '<br>Par construction, $\\vec n$ est un vecteur normal au plan $(P)$.'
-      texteCorr +=
-        `<br>On vérifie qu'il est orthogonal aux deux générateurs :`
+        'On vérifie qu'il est orthogonal aux deux générateurs :`
       texteCorr += `<br>$\\vec n\\cdot\\vec u = ${nx}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitAvecU}$.`
       texteCorr += `<br>$\\vec n\\cdot\\vec v = ${nx}\\times ${ecritureParentheseSiNegatif(vx)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(vy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(vz)} = ${produitAvecV}$.`
       texteCorr +=
