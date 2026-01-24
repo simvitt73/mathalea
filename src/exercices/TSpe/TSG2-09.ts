@@ -12,7 +12,7 @@ import { createList } from '../../lib/format/lists'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre =
-  "Déterminer une équation cartésienne d'un plan."
+  "Associer un plan à son équation cartésienne."
 
 export const dateDePublication = '26/01/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -81,27 +81,36 @@ export default class NomExercice extends Exercice {
         `<br>Justifier que l'équation $${equationPlane}$  est une équation cartésienne du plan $\\mathcal{P}$.<br>`
    
 let engendreparuv=''
-     
-      texteCorr =
-        `Considérons le plan d'équation cartésienne $${equationPlane}$.<br>Nous allons procéder en deux étapes :` + createList({items:[engendreparuv,`${texteEnCouleurEtGras('Démontrer que le point A appartient à ce plan')}`] ,style: 'nombres'})  
-engendreparuv=`${texteEnCouleurEtGras('Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$')}Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$, ce qui prouvera que ce plan est parallèle ou confondu au plan $\\mathcal{P}$. Par construction, $\\vec n$ est un vecteur normal au plan $(P)$.`
-engendreparuv+=`${texteEnCouleurEtGras('Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$')}
-      texteCorr +=
-        'On vérifie qu'il est orthogonal aux deux générateurs :`
-      texteCorr += `<br>$\\vec n\\cdot\\vec u = ${nx}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitAvecU}$.`
-      texteCorr += `<br>$\\vec n\\cdot\\vec v = ${nx}\\times ${ecritureParentheseSiNegatif(vx)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(vy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(vz)} = ${produitAvecV}$.`
-      texteCorr +=
-        '<br>Ces produits scalaires sont nuls, donc $\\vec n$ est bien normal au plan $(P)$.'
-      texteCorr +=
-        `<br>Une équation d'un plan de vecteur normal $\\vec n(a~;b~;c)$ passant par un point $A(x_A;y_A;z_A)$ est $ax+by+cz+d=0$ avec $d=-(ax_A+by_A+cz_A)$.`
-      texteCorr += `<br>Ici, cela donne $${equationPlane}$.`
-      texteCorr += `<br>Le point $A$ vérifie cette équation : ${nx}\\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(yA)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(zA)}${ecritureAlgebrique(d)}=${valeurEnA}$.`
-      texteCorr +=
-        '<br>Pour tout point $M$ du plan $(P)$, il existe $\\lambda$ et $\\mu$ tels que $\\overrightarrow{AM}=\\lambda\\vec u+\\mu\\vec v$.'
-      texteCorr +=
-        '<br>Alors $a x_M + b y_M + c z_M + d = (\\vec n\\cdot\\vec u)\\lambda+(\\vec n\\cdot\\vec v)\\mu+\\vec n\\cdot \\overrightarrow{OA}+d=0$, puisque $\\vec n\\cdot\\vec u=\\vec n\\cdot\\vec v=0$ et que $A$ satisfait déjà l\'équation.'
-      texteCorr +=
-        "<br>Par conséquent, l'équation proposée décrit exactement le plan $(P)$."
+     engendreparuv=`${texteEnCouleurEtGras('Démontrer que ce plan est engendré par $\\vec u$ et $\\vec v$.')}<br>`
+
+engendreparuv+=`On sait qu'un plan ayant pour équation cartesienne : $ax+by+cz+d=0$ où $a$, $b$, $c$ et $d$ sont des réels, admet comme vecteur normal $\\vec n\\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$.<br>`
+engendreparuv+=`Ici, le vecteur normal du plan proposé est donc $\\vec n\\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$.<br>`
+engendreparuv+=
+  'Vérifions si ce vecteur est orthogonal aux deux vecteurs $\\vec u$ et $\\vec v$. Pour cela, calculons les produits scalaires respectifs :'
+engendreparuv += `<br>$\\vec n\\cdot\\vec u = ${nx}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitAvecU}$.`
+engendreparuv += `<br>$\\vec n\\cdot\\vec v = ${nx}\\times ${ecritureParentheseSiNegatif(vx)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(vy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(vz)} = ${produitAvecV}$.`
+engendreparuv +=
+  '<br>Ces produits scalaires sont nuls, donc $\\vec n$ est orthogonal aux vecteurs $\\vec u$ et $\\vec v$. <br>';
+  engendreparuv += 'Comme $\\vec u$ et $\\vec v$ ne sont pas colinéaires, ils forment une base de $\\mathcal{P}$. Le vecteur $\\vec n$ est orthogonal à une base du plan $\\mathcal{P}$, il est donc normal à ce plan. <br>';
+ engendreparuv +=
+  `Le plan étudié est donc soit parallèle soit confondu au plan $\\mathcal{P}$.<br>`
+
+let pointAappartientAuPlan=''
+pointAappartientAuPlan=`${texteEnCouleurEtGras('Démontrer que le point A appartient à ce plan.')}<br>`
+pointAappartientAuPlan += `Pour déterminer si le plan d'équation $${equationPlane}$ est strictement parallèle ou confondu au plan $\\mathcal{P}$, vérifions si les coordonnées du point $AA(${xA}~;${yA}~;${zA})$ satisfont son équation :<br>`
+pointAappartientAuPlan += ` $\\begin{aligned}${nx}\\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(yA)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(zA)}${ecritureAlgebrique(d)}&=${(nx*xA)}${ecritureAlgebrique(ny*yA)}${ecritureAlgebrique(nz*zA)}${ecritureAlgebrique(d)}\\\\
+&=${(nx*xA)+(ny*yA)+(nz*zA)}${ecritureAlgebrique(d)}\\\\
+&=0\\end{aligned}$.`
+pointAappartientAuPlan += `<br>Le point $A$ appartient donc au plan d'équation $${equationPlane}$ et au plan $\\mathcal{P}$.<br>`
+pointAappartientAuPlan +=
+  'Les deux plans sont donc confondus et l\'équation proposée est bien une équation cartésienne du plan $\\mathcal{P}$.'
+
+texteCorr =
+        `Considérons le plan d'équation cartésienne $${equationPlane}$.<br>Nous allons procéder en deux étapes :` + createList({items:[engendreparuv,pointAappartientAuPlan] ,style: 'nombres'})  
+
+    
+   
+    
 
      if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
