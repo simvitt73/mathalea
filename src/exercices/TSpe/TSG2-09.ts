@@ -1,13 +1,16 @@
 import {
   ecritureAlgebrique,
+  ecritureAlgebriqueSauf0,
+  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
+  rienSi1,
 } from '../../lib/outils/ecritures'
-import { texteItalique } from '../../lib/outils/embellissements'
+
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 export const titre =
-  "Montrer qu'une équation cartésienne correspond à un plan de l'espace"
+  "Déterminer une équation cartésienne d'un plan."
 
 export const dateDePublication = '26/01/2025' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
@@ -26,9 +29,7 @@ export default class NomExercice extends Exercice {
   constructor() {
     super()
     this.nbQuestions = 1
-    this.consigne = texteItalique(
-      "On considère le plan $(P)$ défini par un point $A$ et deux vecteurs directeurs non colinéaires $\\vec u$ et $\\vec v$. Montrer que l'équation proposée est bien une équation cartésienne du plan.",
-    )
+   
   }
 
   nouvelleVersion() {
@@ -42,58 +43,41 @@ export default class NomExercice extends Exercice {
       const zA = randint(-6, 6, 0)
 
       // Vecteurs directeurs u et v non nuls et non colinéaires
-      let ux = randint(-5, 5, 0)
-      let uy = randint(-5, 5, 0)
-      let uz = randint(-5, 5, 0)
-      while (ux === 0 && uy === 0 && uz === 0) {
-        ux = randint(-5, 5, 0)
-        uy = randint(-5, 5, 0)
-        uz = randint(-5, 5, 0)
-      }
+      const ux = randint(-5, 5, 0)
+      const uy = randint(-5, 5, 0)
+      const uz = randint(-5, 5, 0)
+    
 
-      let vx = randint(-5, 5, 0)
+      const vx = randint(-5, 5, 0)
       let vy = randint(-5, 5, 0)
-      let vz = randint(-5, 5, 0)
-
-      // Regénérer v tant qu'il est colinéaire à u
-      let nx = uy * vz - uz * vy
-      let ny = uz * vx - ux * vz
-      let nz = ux * vy - uy * vx
-      let essais = 0
-      while (
-        ((vx === 0 && vy === 0 && vz === 0) ||
-          (nx === 0 && ny === 0 && nz === 0)) &&
-        essais < 20
-      ) {
-        vx = randint(-5, 5, 0)
+      while (vy * ux === uy * vx) {
         vy = randint(-5, 5, 0)
-        vz = randint(-5, 5, 0)
-        nx = uy * vz - uz * vy
-        ny = uz * vx - ux * vz
-        nz = ux * vy - uy * vx
-        essais++
       }
-      if (nx === 0 && ny === 0 && nz === 0) {
-        cpt++
-        continue
-      }
+      let vz = randint(-5, 5, 0)
+      while (vz*vy === uz*uy)
+        {  vz = randint(-5, 5, 0)}
+      const nz = ux * vy - uy * vx
+      const nx = uy * vz - uz * vy
+      const ny = uz * vx - ux * vz
+   
+
+    
+    
 
       const d = -(nx * xA + ny * yA + nz * zA)
       const produitAvecU = nx * ux + ny * uy + nz * uz
       const produitAvecV = nx * vx + ny * vy + nz * vz
       const valeurEnA = nx * xA + ny * yA + nz * zA + d
-      const equationPlane = `${nx}x${ecritureAlgebrique(ny)}y${ecritureAlgebrique(nz)}z${ecritureAlgebrique(d)}=0`
+      const equationPlane = `${rienSi1(nx)}x${ecritureAlgebriqueSauf1(ny)}y${ecritureAlgebriqueSauf1(nz)}z${ecritureAlgebriqueSauf0(d)}=0`
 
       texte =
         "Dans un repère orthonormé de l'espace, on considère le point " +
         `$A(${xA}~;${yA}~;${zA})$ et les vecteurs $\\vec u\\begin{pmatrix}${ux}\\\\${uy}\\\\${uz}\\end{pmatrix}$ et $\\vec v\\begin{pmatrix}${vx}\\\\${vy}\\\\${vz}\\end{pmatrix}$ qui ne sont pas colinéaires.<br>`
       texte +=
-        "On note $(P)$ le plan passant par $A$ et engendré par $\\vec u$ et $\\vec v$. "
+        "On note $\\mathcal{P}$ le plan passant par $A$ et engendré par $\\vec u$ et $\\vec v$. "
       texte +=
-        "On affirme que l'équation suivante est une équation cartésienne du plan $(P)$ :<br>"
-      texte += `$${equationPlane}$.<br>`
-      texte +=
-        'Justifier que cette équation correspond bien au plan $(P)$.'
+        `Justifier que l'équation ${equationPlane}  est une équation cartésienne du plan $\\mathcal{P}$.br>`
+   
 
       texteCorr =
         "Les vecteurs $\\vec u$ et $\\vec v$ ne sont pas colinéaires car leur produit vectoriel est non nul : "
@@ -117,28 +101,14 @@ export default class NomExercice extends Exercice {
       texteCorr +=
         "<br>Par conséquent, l'équation proposée décrit exactement le plan $(P)$."
 
-      if (
-        this.questionJamaisPosee(
-          i,
-          xA,
-          yA,
-          zA,
-          ux,
-          uy,
-          uz,
-          vx,
-          vy,
-          vz,
-          equationPlane,
-        )
-      ) {
+     if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
         i++
       }
       cpt++
     }
+
     listeQuestionsToContenu(this)
   }
 }
-

@@ -1,7 +1,10 @@
 import { createList } from '../../lib/format/lists'
 import {
   ecritureAlgebrique,
+  ecritureAlgebriqueSauf0,
+  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
+  rienSi1,
 } from '../../lib/outils/ecritures'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -62,7 +65,7 @@ export default class NomExercice extends Exercice {
        z0 = -a*x0-b*y0-d // Point du plan On fixe c=1 pour ne pas s'emmerder
        c=1
       uz= -(a*ux + b*uy) // vecteur u orthogonal à n
-  const equationPlan = `${a}x${ecritureAlgebrique(b)}y${ecritureAlgebrique(c)}z${ecritureAlgebrique(d)}=0`
+  const equationPlan = `${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebriqueSauf1(c)}z${ecritureAlgebriqueSauf0(d)}=0`
       if (cas === 'parallele') {
         // Direction dans le plan mais point extérieur
        
@@ -84,7 +87,7 @@ export default class NomExercice extends Exercice {
       items: [
         `Le plan $P$ a pour équation cartésienne : $${equationPlan}$.<br>`,
         `La droite $(d)$ admet la représentation paramétrique suivante :
-        $(d) \\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\end{cases}.$`
+        $(d) \\begin{cases}x=${x0}${ecritureAlgebriqueSauf1(ux)}t\\\\y=${y0}${ecritureAlgebriqueSauf1(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebriqueSauf1(uz)}t\\end{cases}.$`
       ],
       style: 'fleches',
     })
@@ -122,14 +125,14 @@ export default class NomExercice extends Exercice {
       if (produitScalaire===0) {PointCommun +='Pour différencier les deux cas possibles, on va chercher s\'il existe des points d\'intersection entre la droite $(d)$ et le plan $\\mathcal{P}$. On cherche donc les points $M(x;y;z)$ dont les coordonnées vérifient en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'}
       else{PointCommun +='On  cherche les coordonnées du point $M(x;y;z)$, intersection entre la droite $(d)$ et le plan $\\mathcal{P}$. Ses coordonnées vérifient donc en même temps la représentation paramétrique de $(d)$ et l\'équation cartésienne de $(\\mathcal{P})$. <br>'}
       PointCommun +='On obtient ainsi un système à résoudre: <br>'
-       PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}t\\\\y=${y0}${ecritureAlgebrique(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebrique(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
+       PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebriqueSauf1(ux)}t\\\\y=${y0}${ecritureAlgebriqueSauf1(uy)}t\\quad (t\\in\\mathbb{R})\\\\z=${z0}${ecritureAlgebriqueSauf1(uz)}t\\\\ ${equationPlan}\\end{cases}.$<br>`
         PointCommun +='En remplaçant les expressions de $x$, $y$ et $z$ issues de la représentation paramétrique de la droite dans l\'équation du plan, on obtient cette équation en $t$ :<br>'
-      PointCommun +=`$\\begin{aligned}${a}\\big(${x0}${ecritureAlgebrique(ux)}t\\big)${ecritureAlgebrique(b)}\\big(${y0}${ecritureAlgebrique(uy)}t\\big)${ecritureAlgebrique(c)}\\big(${z0}${ecritureAlgebrique(uz)}t\\big)${ecritureAlgebrique(d)}&=0\\\\
-      ${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}t${ecritureAlgebrique(d)}&=0\\\\
+      PointCommun +=`$\\begin{aligned}${rienSi1(a)}\\big(${x0}${ecritureAlgebriqueSauf1(ux)}t\\big)${ecritureAlgebriqueSauf1(b)}\\big(${y0}${ecritureAlgebriqueSauf1(uy)}t\\big)${ecritureAlgebriqueSauf1(c)}\\big(${z0}${ecritureAlgebriqueSauf1(uz)}t\\big)${ecritureAlgebriqueSauf0(d)}&=0\\\\
+      ${a*x0}${ecritureAlgebriqueSauf1(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebriqueSauf1(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebriqueSauf1(uz*c)}t${ecritureAlgebrique(d)}&=0\\\\
      ${produitScalaire} t&=${-(a*x0+b*y0+c*z0+d)}
        \\end{aligned}.$<br>`
       // Cas sécant
-       if (cas === 'secant') {   PointCommun +=`$\\begin{aligned}\\phantom {${a*x0}${ecritureAlgebrique(ux*a)}t${a*x0}${ecritureAlgebrique(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebrique(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebrique(uz*c)}}t&=${solution.texFractionSimplifiee}\\\\
+       if (cas === 'secant') {   PointCommun +=`$\\begin{aligned}\\phantom {${a*x0}${ecritureAlgebriqueSauf1(ux*a)}t${a*x0}${ecritureAlgebriqueSauf1(ux*a)}t${ecritureAlgebrique(b*y0)}${ecritureAlgebriqueSauf1(uy*b)}t${ecritureAlgebrique(c*z0)}${ecritureAlgebriqueSauf1(uz*c)}}t&=${solution.texFractionSimplifiee}\\\\
      \\end{aligned}.$<br>`
       PointCommun +='On remplace cette valeur de $t$ dans la représentation paramétrique de la droite pour obtenir les coordonnées du point d\'intersection : <br>'
        PointCommun +=`$\\begin{cases}x=${x0}${ecritureAlgebrique(ux)}\\times ${solution.texFractionSimplifiee}\\\\y=${y0}${ecritureAlgebrique(uy)}\\times ${solution.texFractionSimplifiee}\\\\z=${z0}${ecritureAlgebrique(uz)}\\times ${solution.texFractionSimplifiee}\\end{cases}\\quad$ d'où 
@@ -147,7 +150,7 @@ export default class NomExercice extends Exercice {
      
         texteCorr =
         'Etudier la position relative de la droite $(d)$ et du plan $\\mathcal{P}$, c\'est déterminer si : '
-         texteCorr +=createList({items:['$(d)$ est strictement parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante $\\mathcal{P}$'],  style: 'fleches',
+         texteCorr +=createList({items:['$(d)$ est strictement parallèle à $\\mathcal{P}$', '$(d)$ est incluse dans $\\mathcal{P}$','$(d)$ est sécante à $\\mathcal{P}$'],  style: 'fleches',
       })
         texteCorr +='<br>Nous allons pour cela procéder en deux étapes : <br>'+createList({items:[orthogonalite, PointCommun], style: 'nombres',
       })
