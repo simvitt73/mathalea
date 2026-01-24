@@ -378,13 +378,25 @@ class Latex {
           '\\anote{',
           '\n\\resetcustomnotes',
         )
-        if (
-          latexFileInfos.qrcodeOption === 'AvecQrcode' &&
-          (exercice.introduction.length > 40 || exercice.consigne.length > 40)
-        ) {
-          // il faut un espace pour le QRCODE
-          content += '\n\\vspace{2cm}'
+        if (latexFileInfos.qrcodeOption === 'AvecQrcode') {
+          const phrases =
+            exercice.listeQuestions.length > 0
+              ? exercice.listeQuestions[0].split(/\\\\|\r?\n/)
+              : []
+          const firstQuestion = phrases.length > 0 ? phrases[0] : ''
+          const secondQuestion = phrases.length > 1 ? phrases[1] : ''
+          if (
+            latexFileInfos.qrcodeOption === 'AvecQrcode' &&
+            (exercice.introduction.length > 40 ||
+              exercice.consigne.length > 40 ||
+              firstQuestion.length > 40 ||
+              secondQuestion.length > 40)
+          ) {
+            // il faut un espace pour le QRCODE
+            content += '\n\\vspace{2cm}'
+          }
         }
+
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
         content += buildContent(

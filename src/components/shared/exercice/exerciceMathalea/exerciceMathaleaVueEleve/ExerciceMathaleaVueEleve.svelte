@@ -360,8 +360,22 @@
         //  le score ne peut pas être inferieur à best score,
         //  car c'est de la restitution de la meilleure copie
         // donc si on est ici dans ce IF, c'est un bug du moteur à faire vite remonter
+        const previousResultatByExercice =
+          get(resultsByExercice)[exercise.numeroExercice as number]
+        if (exercise?.checkSum !== previousResultatByExercice?.checkSum) {
+          window.notify(
+            `Exercice ${exercise.numeroExercice} a changé, passé de ${previousBestScore} à ${numberOfPoints}. Checksum différent avant ${previousResultatByExercice?.checkSum} et maintenant ${exercise?.checkSum}.`,
+            {
+              exo: exercise,
+              globalOptions: get(globalOptions),
+              exercicesParams: get(exercicesParams),
+              resultsByExercice: get(resultsByExercice),
+            },
+          )
+        }
+
         window.notify(
-          `Le score de l'exercice ${exercise.numeroExercice} est incorrect, passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
+          `Le score de l'exercice ${exercise.numeroExercice} est incorrect, checksum(${exercise?.checkSum === previousResultatByExercice?.checkSum}), passé de ${previousBestScore} à ${numberOfPoints}. Merci de le signaler au support.`,
           {
             exo: exercise,
             globalOptions: get(globalOptions),
@@ -697,8 +711,10 @@
                   focus:shadow-lg focus:outline-none focus:ring-0
                   active:bg-coopmaths-action-lightest dark:active:bg-coopmathsdark-action-lightest
                   active:shadow-lg transition duration-150 ease-in-out checkReponses`}
-          class:hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
-          hidden={$globalOptions.recorder === 'flowmath' && !boutonValidationUrlFlag}
+          class:hidden={$globalOptions.recorder === 'flowmath' &&
+            !boutonValidationUrlFlag}
+          hidden={$globalOptions.recorder === 'flowmath' &&
+            !boutonValidationUrlFlag}
         >
           Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}
         </button>
