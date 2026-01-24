@@ -1,7 +1,7 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { randint } from '../../modules/outils'
 import ExerciceSimple from '../ExerciceSimple'
-export const titre = 'Dénombrement.'
+export const titre = 'Utiliser le produit cartésien.'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

@@ -23,10 +23,11 @@ import {
 import Exercice from '../Exercice'
 
 export const titre =
-  'Travailler un sujet de synthèse avec la fonction exponentielle.'
+  'Travailler un sujet de synthèse avec la fonction exponentielle'
 export const interactifReady = false
 export const interactifType = 'mathLive'
 export const dateDePublication = '18/12/2025'
+export const dateDeModifImportante = '23/01/2026'
 
 export const uuid = '777be'
 
@@ -62,16 +63,14 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
 
   nouvelleVersion() {
     const typesDeQuestionsDisponibles = enleveDoublonNum(
-      (this.sup === '' ? '6' : this.sup).includes('6')
-        ? [1, 2, 3, 4, 5]
-        : gestionnaireFormulaireTexte({
-            saisie: this.sup,
-            max: 6,
-            melange: 1000,
-            defaut: 6,
-            nbQuestions: 5,
-            shuffle: false,
-          }).map(Number),
+      gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        max: 5,
+        melange: 6,
+        defaut: 6,
+        nbQuestions: 5,
+        shuffle: false,
+      }).map(Number),
     )
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
@@ -219,8 +218,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     15,
                     '+/$+\\infty$',
                   ]
-                }
-                if (a < 0 && m < 0) {
+                } else if (a < 0 && m < 0) {
                   ligneVariation = [
                     'Var',
                     10,
@@ -230,8 +228,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     15,
                     '+/$0$',
                   ]
-                }
-                if (a > 0 && m < 0) {
+                } else if (a > 0 && m < 0) {
                   ligneVariation = [
                     'Var',
                     10,
@@ -241,8 +238,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     15,
                     '-/$0$',
                   ]
-                }
-                if (a < 0 && m > 0) {
+                } else {
                   ligneVariation = [
                     'Var',
                     10,
@@ -255,14 +251,13 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                 }
                 correction += tableauDeVariation({
                   tabInit: [
-                      // @ts-expect-error
                     [
                       ['x', 2, 100],
                       ["f'(x)", 2, 30],
                       ['f(x)', 4, 30],
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                    // @ts-expect-error
+
                     [
                       '$-\\infty$',
                       30,
@@ -273,9 +268,9 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     ],
                   ],
                   // tabLines ci-dessous contient les autres lignes du tableau.
-                  // @ts-expect-error
+
                   tabLines: [ligneFprime, ligneVariation],
-                  colorBackground: '',
+                  // colorBackground: '',
                   espcl: 8, // taille en cm entre deux antécédents
                   deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 3.5, // taille de la première colonne en cm
@@ -286,8 +281,7 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   : (correction += `<br>$\\begin{aligned}f\\left(\\frac{${sommet.numIrred}}{${sommet.denIrred}}\\right)& = ${extremumF1.texFractionSimplifiee}\\mathrm{e}^{${extremumF2.numIrred}}\\\\&\\approx ${texNombre(extremum)}\\end{aligned}$.<br>`)
               }
               break
-            case 4:
-            {
+            case 4: {
               question += `Soit $f''$ la dérivée de la fonction $f'$.
               On donne, pour tout $x\\in\\mathbb{R}, f''(x) = \\mathrm{e}^{${rienSi1(m)}x}\\left(${rienSi1(a * m * m)}x${ecritureAlgebrique(m * (2 * a + m * b))}\\right)$.<br>
               Étudier la convexité de la fonction $f$.<br>
@@ -347,14 +341,13 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                     ]
               correction += tableauDeVariation({
                 tabInit: [
-                  // @ts-expect-error
                   [
                     ['x', 2, 20],
                     ["f''(x)", 2, 30],
                     ['$f$', 2, 20],
                   ],
                   // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  // @ts-expect-error
+
                   [
                     '$-\\infty$',
                     30,
@@ -365,9 +358,9 @@ export default class EtudeCompleteFonctionExponentielle extends Exercice {
                   ],
                 ],
                 // tabLines ci-dessous contient les autres lignes du tableau.
-                // @ts-expect-error
+
                 tabLines: [ligneFseconde, ligneFconvexite],
-                colorBackground: '',
+
                 espcl: 8, // taille en cm entre deux antécédents
                 deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 3.5, // taille de la première colonne en cm

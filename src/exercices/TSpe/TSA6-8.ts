@@ -10,7 +10,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'Affirmations sur le calcul intégral'
+export const titre = 'Connaître le cours sur le calcul intégral'
 export const dateDePublication = '4/4/2025'
 
 /*
