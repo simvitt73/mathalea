@@ -47,7 +47,7 @@ export function generateProgram(
   switch (model) {
     case 'ax+b': {
       return {
-        expression: `${a}x ${sign(b)}}`,
+        expression: `${a}x ${sign(b)}`,
         a,
         b,
         program: [
