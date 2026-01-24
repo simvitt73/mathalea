@@ -1,11 +1,12 @@
 import { courbe } from '../../lib/2d/Courbe'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Interactif2d } from '../../lib/2d/interactif2d'
+import { MetaInteractif2d } from '../../lib/2d/interactif2d'
 import { point } from '../../lib/2d/PointAbstrait'
 import { repere } from '../../lib/2d/reperes'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import {
   creerTableauHtml,
   tableauDeVariation,
@@ -30,7 +31,7 @@ import Exercice from '../Exercice'
 export const dateDeModifImportante = '06/07/2023'
 export const titre = "Déterminer le signe d'une fonction affine"
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'MetaInteractif2d'
 
 /**
  * @author Stéphane Guyon+Gilles Mora
@@ -182,6 +183,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
             })
 
             if (this.interactif) {
+              // On rédcupère les objets Mathalea2d du tableau de signes
               const objets = creerTableauHtml({
                 tabInit: [
                   [
@@ -198,30 +200,59 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 8, // taille de la première colonne en cm
               })
-              const inputx0 = new Interactif2d('%{champ1}', 12.2, -1.5, {
-                exercice: this,
-                question: 3 * i,
-              })
-              const inputSigne0 = new Interactif2d('%{champ1}', 10, -4, {
-                exercice: this,
-                question: 3 * i + 1,
-              })
-              const inputSigne1 = new Interactif2d('%{champ1}', 14.4, -4, {
-                exercice: this,
-                question: 3 * i + 2,
-              })
-              handleAnswers(this, 3 * i, { champ1: { value: zero.texFSD } })
-              handleAnswers(this, 3 * i + 1, {
-                champ1: { value: a < 0 ? '+' : '-' },
-              })
-              handleAnswers(this, 3 * i + 2, {
-                champ1: { value: a < 0 ? '-' : '+' },
-              })
-              objets.push(inputx0, inputSigne0, inputSigne1)
-              texte += mathalea2d(
-                Object.assign({}, fixeBordures(objets)),
-                objets,
+              // On crée l'interactif MetaInteractif2d
+              const inputs = new MetaInteractif2d(
+                [
+                  {
+                    x: 12.2,
+                    y: -1.5,
+                    content: '%{champ1}',
+                    classe: '',
+                    blanc: '\\ldots',
+                    opacity: 1,
+                    index: 0,
+                  },
+                  {
+                    x: 10,
+                    y: -4,
+                    content: '%{champ1}',
+                    classe: '',
+                    blanc: '\\ldots',
+                    opacity: 1,
+                    index: 1,
+                  },
+                  {
+                    x: 14.4,
+                    y: -4,
+                    content: '%{champ1}',
+                    classe: '',
+                    blanc: '\\ldots',
+                    opacity: 1,
+                    index: 2,
+                  },
+                ],
+                {
+                  exercice: this,
+                  question: i,
+                },
               )
+              objets.push(inputs)
+              // On gère les réponses
+              handleAnswers(
+                this,
+                i,
+                {
+                  field0: { value: zero.texFSD },
+                  field1: { value: a < 0 ? '+' : '-' },
+                  field2: { value: a < 0 ? '-' : '+' },
+                },
+                { formatInteractif: 'MetaInteractif2d' },
+              )
+              // On ajoute le tableau, le span pour le résultat et le div pour le feedback
+              texte +=
+                mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+                `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                ajouteFeedback(this, i)
             }
             const f = (x: number) => a * x + b
             const monRepere = repere({
@@ -337,6 +368,7 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               hauteurLignes: [15, 15],
             })
             if (this.interactif) {
+              // On rédcupère les objets Mathalea2d du tableau de signes
               const objets = creerTableauHtml({
                 tabInit: [
                   [
@@ -353,31 +385,62 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
                 deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                 lgt: 8, // taille de la première colonne en cm
               })
-              const inputx0 = new Interactif2d('%{champ1}', 12.2, -1.5, {
-                exercice: this,
-                question: 3 * i,
-              })
-              const inputSigne0 = new Interactif2d('%{champ1}', 10, -4, {
-                exercice: this,
-                question: 3 * i + 1,
-              })
-              const inputSigne1 = new Interactif2d('%{champ1}', 14.4, -4, {
-                exercice: this,
-                question: 3 * i + 2,
-              })
-              handleAnswers(this, 3 * i, { champ1: { value: zero.texFSD } })
-              handleAnswers(this, 3 * i + 1, {
-                champ1: { value: a.inferieurstrict(0) ? '+' : '-' },
-              })
-              handleAnswers(this, 3 * i + 2, {
-                champ1: { value: a.inferieurstrict(0) ? '-' : '+' },
-              })
-              objets.push(inputx0, inputSigne0, inputSigne1)
-              texte += mathalea2d(
-                Object.assign({}, fixeBordures(objets)),
-                objets,
+              // On crée l'interactif MetaInteractif2d
+              const input = new MetaInteractif2d(
+                [
+                  {
+                    x: 12.2,
+                    y: -1.5,
+                    content: '%{champ1}',
+                    classe: '',
+                    blanc: '\\ldots',
+                    opacity: 1,
+                    index: 0,
+                  },
+                  {
+                    x: 10,
+                    y: -4,
+                    content: '%{champ1}',
+                    classe: '',
+                    blanc: '\\ldots',
+                    opacity: 1,
+                    index: 1,
+                  },
+                  {
+                    x: 14.4,
+                    y: -4,
+                    content: '%{champ1}',
+                    classe: '',
+                    blanc: '\\ldots',
+                    opacity: 1,
+                    index: 2,
+                  },
+                ],
+                {
+                  exercice: this,
+                  question: i,
+                },
               )
+              objets.push(input)
+
+              // On gère les réponses
+              handleAnswers(
+                this,
+                i,
+                {
+                  field0: { value: zero.texFSD },
+                  field1: { value: a.valeurDecimale < 0 ? '+' : '-' },
+                  field2: { value: a.valeurDecimale < 0 ? '-' : '+' },
+                },
+                { formatInteractif: 'MetaInteractif2d' },
+              )
+              // On ajoute le tableau, le span pour le résultat et le div pour le feedback
+              texte +=
+                mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+                `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                ajouteFeedback(this, i)
             }
+
             const f = (x: number) => a.valeurDecimale * x + b
             const monRepere = repere({
               xMin: -8,

@@ -1,4 +1,5 @@
 import type LabyrintheElement from 'labyrinthe/src/LabyrintheElement'
+import type { MathfieldElement } from 'mathlive'
 import { get } from 'svelte/store'
 import { type MathaleaSVG } from '../lib/types'
 import type ListeDeroulanteElement from './interactif/listeDeroulante/ListeDeroulanteElement'
@@ -96,11 +97,39 @@ export function mathaleaWriteStudentPreviousAnswers(answers?: {
   const promiseAnswers: Promise<Boolean>[] = []
   const starttime = window.performance.now()
   for (const answer in answers) {
-    if (answer.includes('sheet')) {
+    if (answer.includes('MetaInteractif2d')) {
+      const p = new Promise<Boolean>((resolve) => {
+        const saisies = JSON.parse(answers[answer])
+        const selectors = Object.keys(saisies).map((field) => `#${field}`)
+
+        Promise.all(selectors.map((selector) => waitForElement(selector)))
+          .then(() => {
+            for (const field in saisies) {
+              const mf = document.getElementById(field) as MathfieldElement
+              if (
+                mf &&
+                'setPromptValue' in mf &&
+                typeof mf.setPromptValue === 'function'
+              ) {
+                mf.setPromptValue('champ1', saisies[field], { mode: 'auto' })
+              }
+            }
+            const time = window.performance.now()
+            log(`duration ${answer}: ${time - starttime}`)
+            resolve(true)
+          })
+          .catch((reason) => {
+            console.error(reason)
+            window.notify(`Erreur dans la réponse ${answer} : ${reason}`, {})
+            resolve(true)
+          })
+      })
+      promiseAnswers.push(p)
+    } else if (answer.includes('sheet')) {
       const p = new Promise<Boolean>((resolve) => {
         waitForElement('#' + answer)
           .then(() => {
-            // La réponse correspond à une figure apigeom
+            // La réponse correspond à une feuille de calcul jspreadsheet
             const sheetElement = document.getElementById(
               answer,
             ) as MySpreadsheetElement

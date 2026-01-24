@@ -1,5 +1,6 @@
 import type Figure from 'apigeom/src/Figure'
 import Decimal from 'decimal.js'
+import type { MathfieldElement } from 'mathlive'
 import type {
   AnswerValueType,
   AutoCorrection,
@@ -22,7 +23,7 @@ import { verifQuestionTableur } from '../tableur/outilsTableur'
 import { afficheScore } from './afficheScore'
 import { fonctionComparaison } from './comparisonFunctions'
 import { verifDragAndDrop } from './DragAndDrop'
-import { verifQuestionMathLive } from './mathLive'
+import { toutPourUnPoint, verifQuestionMathLive } from './mathLive'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 
@@ -132,10 +133,42 @@ export function exerciceInteractif(
   if (exercice.interactifType === 'custom') {
     return verifExerciceCustom(exercice, divScore, buttonScore)
   }
+
   for (let i = 0; i < exercice.autoCorrection.length; i++) {
     const format = exercice.autoCorrection[i]?.reponse?.param?.formatInteractif
     let resultat: string
     switch (format) {
+      case 'MetaInteractif2d':
+        {
+          const result = verifQuestionMetaInteractif2d(exercice, i)
+          if (result == null) {
+            window.notify('erreur dans la correction de la question', {
+              exercice,
+              i,
+            })
+          } else {
+            nbQuestionsValidees += result.score.nbBonnesReponses
+            nbQuestionsNonValidees +=
+              result.score.nbReponses - result.score.nbBonnesReponses
+            if (result.feedback && result.feedback !== '') {
+              const divFeedback = document.querySelector(
+                `#feedbackEx${exercice.numeroExercice}Q${i}`,
+              )
+              if (divFeedback != null) {
+                divFeedback.innerHTML = `💡 ${result.feedback}`
+                divFeedback.classList.add(
+                  'py-2',
+                  'italic',
+                  'text-coopmaths-warn-darkest',
+                  'dark:text-coopmathsdark-warn-darkest',
+                )
+                ;(divFeedback as HTMLDivElement).style.display = 'block'
+              }
+            }
+          }
+        }
+        break
+
       case 'tableur': {
         const result = verifQuestionTableur(exercice, i)
         if (result == null) {
@@ -1081,5 +1114,130 @@ export function handleAnswers(
       `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${question + 1} : `,
       rep.valeur,
     )
+  }
+}
+
+function verifQuestionMetaInteractif2d(
+  exercice: IExercice,
+  i: number,
+): {
+  isOk: boolean
+  feedback: string
+  score: { nbBonnesReponses: number; nbReponses: number }
+} {
+  const eltFeedback = document.querySelector(
+    `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
+  ) as HTMLSpanElement
+  if (eltFeedback) {
+    setStyles(eltFeedback, 'marginBottom: 20px')
+    eltFeedback.innerHTML = ''
+  }
+  if (exercice.autoCorrection[i]?.reponse == null) {
+    throw Error(
+      `verifQuestionMetaInteractif2d appelé sur une question sans réponse: ${JSON.stringify(
+        {
+          exercice,
+          question: i,
+          autoCorrection: exercice.autoCorrection[i],
+        },
+      )}`,
+    )
+  }
+  const reponses = exercice.autoCorrection[i].reponse.valeur
+  if (reponses == null) {
+    window.notify(
+      `verifQuestionMathlive: reponses est null pour la question ${i} de l'exercice ${exercice.id}`,
+      { exercice, i },
+    )
+    return {
+      isOk: false,
+      feedback: 'erreur dans le programme',
+      score: { nbBonnesReponses: 0, nbReponses: 1 },
+    }
+  }
+  const bareme: (arg: number[]) => [number, number] =
+    reponses.bareme ?? toutPourUnPoint
+  const variables = Object.entries(reponses).filter(
+    ([key]) => key !== 'bareme' && key !== 'feedback',
+  )
+  const points = []
+  const saisies: Record<string, string> = {}
+  let feedback = ''
+  let compteurSaisiesVides = 0
+  let compteurBonnesReponses = 0
+  let noFeedback = false
+  for (const [field, reponse] of variables) {
+    const options = reponse.options
+    noFeedback = noFeedback || Boolean(options?.noFeedback)
+    const compareFunction = reponse.compare ?? fonctionComparaison
+    const index = parseInt(field.replace('field', ''), 10)
+    const mf = document.querySelector(
+      `#MetaInteractif2dEx${exercice.numeroExercice}Q${i}Field${index}`,
+    ) as MathfieldElement
+    const saisie = mf.getPromptValue('champ1')
+    if (saisie === '') {
+      compteurSaisiesVides++
+      mf.classList.add('corrected')
+      points.push(0)
+      continue
+    }
+    saisies[`MetaInteractif2dEx${exercice.numeroExercice}Q${i}${field}`] =
+      saisie
+    let result
+    if (Array.isArray(reponse.value)) {
+      let ii = 0
+      while (!result?.isOk && ii < reponse.value.length) {
+        result = compareFunction(saisie, reponse.value[ii], options)
+        ii++
+      }
+    } else {
+      result = compareFunction(saisie, reponse.value, options)
+    }
+    if (result.isOk) {
+      compteurBonnesReponses++
+      points.push(1)
+      mf.setPromptState('champ1', 'correct', true)
+    } else {
+      points.push(0)
+      mf.setPromptState('champ1', 'incorrect', true)
+      if (result.feedback === 'saisieVide') result.feedback = null
+      else {
+        result = {
+          isOk: false,
+          feedback: '',
+        }
+      }
+    }
+    mf.classList.add('corrected')
+    if (result.feedback != null) feedback += result.feedback
+  }
+
+  if (compteurBonnesReponses === variables.length) {
+    feedback = ''
+  } else {
+    if (compteurSaisiesVides > 0) {
+      feedback = `Il manque ${compteurSaisiesVides} réponse(s).`
+    } else {
+      feedback = `Certaines réponses sont incorrectes.`
+    }
+  }
+
+  const [nbBonnesReponses, nbReponses] = bareme(points)
+  const spanReponseLigne = document.querySelector(
+    `#resultatCheckEx${exercice.numeroExercice}Q${i}`,
+  ) as HTMLSpanElement
+  if (spanReponseLigne != null) {
+    spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
+  }
+  if (typeof exercice.answers === 'object' && exercice.answers !== null) {
+    exercice.answers[`MetaInteractif2dEx${exercice.numeroExercice}Q${i}`] =
+      JSON.stringify(saisies)
+  }
+
+  // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
+  return {
+    isOk: nbBonnesReponses === nbReponses,
+    feedback: noFeedback ? '' : feedback,
+    score: { nbBonnesReponses, nbReponses },
   }
 }
