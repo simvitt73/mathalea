@@ -145,7 +145,7 @@ export function mathalea2d(
                     const xSvgInput = (input.x - xmin) * pixelsParCm * zoom
                     const ySvgInput = -(input.y - ymax) * pixelsParCm * zoom
                     const dataKeyboard = buildDataKeyboardString(input.classe)
-                    const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: translate(-50%,-50%); opacity: ${input.opacity};" data-top=${ySvgInput} data-left=${xSvgInput}><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} fillInTheBlanks" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}Field${input.index}">${input.content.replace('%{champ1}', '\\placeholder[champ1]{}')}</math-field></div>`
+                    const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: translate(-50%,-50%); opacity: ${input.opacity};" data-top=${ySvgInput} data-left=${xSvgInput}><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} fillInTheBlanks" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}field${input.index}">${input.content.replace('%{champ1}', '\\placeholder[champ1]{}')}</math-field></div>`
                     divsLatex.push(divOuterHtml)
                   }
                 } else {

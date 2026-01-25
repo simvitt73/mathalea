@@ -1172,7 +1172,7 @@ function verifQuestionMetaInteractif2d(
     const compareFunction = reponse.compare ?? fonctionComparaison
     const index = parseInt(field.replace('field', ''), 10)
     const mf = document.querySelector(
-      `#MetaInteractif2dEx${exercice.numeroExercice}Q${i}Field${index}`,
+      `#MetaInteractif2dEx${exercice.numeroExercice}Q${i}field${index}`,
     ) as MathfieldElement
     const saisie = mf.getPromptValue('champ1')
     if (saisie === '') {
