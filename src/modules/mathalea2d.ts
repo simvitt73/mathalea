@@ -1,13 +1,19 @@
 import katex from 'katex'
 import { ObjetMathalea2D } from '../lib/2d/ObjetMathalea2D'
 import { normaliseOrientation } from '../lib/2d/utilitairesGeometriques'
+import { buildDataKeyboardFromStyle } from '../lib/interactif/claviers/keyboard'
 import { remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import type {
   Interactif2dData,
+  MetaInteractif2dData,
   NestedObjetMathalea2dArray,
   ObjetDivLatex,
 } from '../types/2d'
 import { context } from './context'
+const buildDataKeyboardString = (style = '') => {
+  const blocks = buildDataKeyboardFromStyle(style)
+  return blocks.join(' ')
+}
 /*
   MathALEA2D
  @name      mathalea2d
@@ -132,10 +138,22 @@ export function mathalea2d(
                     : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${normaliseOrientation(-codeLatex.orientation)}deg); opacity: ${codeLatex.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('{\\color{' + codeLatex.color + '} \\' + codeLatex.letterSize + '{' + (codeLatex.gras ? '\\textbf{' : '') + codeLatex.latex + (codeLatex.gras ? '}' : '') + '}}')}</div>`
                 divsLatex.push(divOuterHtml)
               } else if ('exercice' in codeLatex) {
-                const code = codeLatex as unknown as Interactif2dData
-                // C'est un interactif2d
-                const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${remplisLesBlancs(code.exercice, code.question, code.content)}</div>`
-                divsLatex.push(divOuterHtml)
+                if ('inputs' in codeLatex) {
+                  const code = codeLatex as unknown as MetaInteractif2dData
+                  const inputs = code.inputs
+                  for (const input of inputs) {
+                    const xSvgInput = (input.x - xmin) * pixelsParCm * zoom
+                    const ySvgInput = -(input.y - ymax) * pixelsParCm * zoom
+                    const dataKeyboard = buildDataKeyboardString(input.classe)
+                    const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvgInput}px; left: ${xSvgInput}px; transform: translate(-50%,-50%); opacity: ${input.opacity};" data-top=${ySvgInput} data-left=${xSvgInput}><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${input.classe} fillInTheBlanks" id="MetaInteractif2dEx${code.exercice.numeroExercice}Q${code.question}Field${input.index}">${input.content.replace('%{champ1}', '\\placeholder[champ1]{}')}</math-field></div>`
+                    divsLatex.push(divOuterHtml)
+                  }
+                } else {
+                  const code = codeLatex as unknown as Interactif2dData
+                  // C'est un interactif2d
+                  const divOuterHtml = `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${remplisLesBlancs(code.exercice, code.question, code.content, code.classe, code.blanc)}</div>`
+                  divsLatex.push(divOuterHtml)
+                }
               } else {
                 window.notify(
                   "Dans mathalea2d, la méthode svg() de l'objet a renvoyé un objet inconnu",
