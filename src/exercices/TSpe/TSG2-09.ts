@@ -90,8 +90,7 @@ engendreparuv+=
 engendreparuv += `<br>$\\vec n\\cdot\\vec u = ${nx}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitAvecU}$.`
 engendreparuv += `<br>$\\vec n\\cdot\\vec v = ${nx}\\times ${ecritureParentheseSiNegatif(vx)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(vy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(vz)} = ${produitAvecV}$.`
 engendreparuv +=
-  '<br>Ces produits scalaires sont nuls, donc $\\vec n$ est orthogonal aux vecteurs $\\vec u$ et $\\vec v$. <br>';
-  engendreparuv += 'Comme $\\vec u$ et $\\vec v$ ne sont pas colinéaires, ils forment une base de $\\mathcal{P}$. Le vecteur $\\vec n$ est orthogonal à une base du plan $\\mathcal{P}$, il est donc normal à ce plan. Comme il est aussi normal à $\\mathcal{P\'}$, on en déduit que le plan $\\mathcal{P\'}$ est soit parallèle soit confondu au plan $\\mathcal{P}$.<br>'
+  '<br>Ces produits scalaires sont nuls donc $\\vec n$ est orthogonal aux vecteurs $\\vec u$ et $\\vec v$ qui sont deux vecteurs directeurs du plan $\\mathcal{P}$, donc le vecteur $\\vec n$ est normal au plan $\\mathcal{P}$. On en déduit que les plans $\\mathcal{P}$ et $\\mathcal{P}\'$ sont parallèles.<br>'
 
 let pointAappartientAuPlan=''
 pointAappartientAuPlan=`${texteEnCouleurEtGras('Démontrer que le point A appartient à ce plan.')}<br>`
