@@ -90,11 +90,11 @@ engendreparuv+=
 engendreparuv += `<br>$\\vec n\\cdot\\vec u = ${nx}\\times ${ecritureParentheseSiNegatif(ux)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(uy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(uz)} = ${produitAvecU}$.`
 engendreparuv += `<br>$\\vec n\\cdot\\vec v = ${nx}\\times ${ecritureParentheseSiNegatif(vx)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(vy)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(vz)} = ${produitAvecV}$.`
 engendreparuv +=
-  '<br>Ces produits scalaires sont nuls donc $\\vec n$ est orthogonal aux vecteurs $\\vec u$ et $\\vec v$ qui sont deux vecteurs directeurs du plan $\\mathcal{P}$, donc le vecteur $\\vec n$ est normal au plan $\\mathcal{P}$. On en déduit que les plans $\\mathcal{P}$ et $\\mathcal{P}\'$ sont parallèles (éventuellement confondus).<br>'
+  '<br>Ces produits scalaires sont nuls donc le vecteur $\\vec n$ est orthogonal aux vecteurs $\\vec u$ et $\\vec v$ qui engendrent le plan $\\mathcal{P}$, donc le vecteur $\\vec n$ est normal au plan $\\mathcal{P}$. On en déduit que les plans $\\mathcal{P}$ et $\\mathcal{P}\'$ sont parallèles (éventuellement confondus).<br>'
 
 let pointAappartientAuPlan=''
 pointAappartientAuPlan=`${texteEnCouleurEtGras('Démontrer que le point A appartient à ce plan.')}<br>`
-pointAappartientAuPlan += `Pour déterminer si le plan $\\mathcal{P'}$ est strictement parallèle ou confondu au plan $\\mathcal{P}$, vérifions si les coordonnées du point $A(${xA}~;${yA}~;${zA})$ satisfont son équation :<br>`
+pointAappartientAuPlan += `Pour déterminer si le plan $\\mathcal{P'}$ est strictement parallèle ou confondu au plan $\\mathcal{P}$, vérifions si les coordonnées du point $A(${xA}~;${yA}~;${zA})$ satisfont l'équation :<br>`
 pointAappartientAuPlan += ` $\\begin{aligned}${nx}\\times ${ecritureParentheseSiNegatif(xA)}${ecritureAlgebrique(ny)}\\times ${ecritureParentheseSiNegatif(yA)}${ecritureAlgebrique(nz)}\\times ${ecritureParentheseSiNegatif(zA)}${ecritureAlgebrique(d)}&=${(nx*xA)}${ecritureAlgebrique(ny*yA)}${ecritureAlgebrique(nz*zA)}${ecritureAlgebrique(d)}\\\\
 &=${(nx*xA)+(ny*yA)+(nz*zA)}${ecritureAlgebrique(d)}\\\\
 &=0\\end{aligned}$.`
