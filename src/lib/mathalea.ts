@@ -1002,6 +1002,20 @@ export function mathaleaHandleExerciceSimple(
             `checkEx${n}Q${i}"`,
           )
           exercice.listeQuestions.push(exercice.question ?? '')
+        } else if (exercice.formatInteractif === 'MetaInteractif2d') {
+          const n = exercice.numeroExercice
+          if (exercice.question != null) {
+            const inputsIds = exercice.question.matchAll(
+              /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
+            )
+            for (const match of inputsIds) {
+              exercice.question = exercice.question?.replace(
+                `id="MetaInteractif2dEx${n}Q0field${match[1]}"`,
+                `id="MetaInteractif2dEx${n}Q${i}field${match[1]}"`,
+              )
+            }
+            exercice.listeQuestions.push(exercice.question ?? '')
+          }
         } else {
           exercice.listeQuestions.push(
             exercice.question +

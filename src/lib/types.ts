@@ -324,6 +324,7 @@ export type InteractivityType =
   | 'listeDeroulante'
   | 'custom'
   | 'tableur'
+  | 'MetaInteractif2d'
 export function isInteractivityType(
   value: unknown,
 ): value is InteractivityType {
@@ -337,7 +338,8 @@ export function isInteractivityType(
     value === 'dnd' ||
     value === 'listeDeroulante' ||
     value === 'custom' ||
-    value === 'tableur'
+    value === 'tableur' ||
+    value === 'MetaInteractif2d'
   )
 }
 
