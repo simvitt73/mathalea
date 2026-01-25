@@ -20,13 +20,14 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 const ce = new ComputeEngine()
 export const dateDePublication = '26/11/2022'
-export const dateDeModifImportante = '18/11/2023'
-// Modif EE : Passage en interactif donc passage en TS
+export const dateDeModifImportante = '25/01/2026'
+
 /**
  * Distributivité numérique
  * @author Sébastien LOZANO
+ * Modif EE : Passage en interactif donc passage en TS
+ * Modif OM : variables didactiques : choix du facteur commun et du nombre ajouté ou retiré
  */
-
 export const uuid = '3b474'
 
 export const refs = {
@@ -57,6 +58,17 @@ class DistributiviteNumerique extends Exercice {
       'Nombres entre 1 et 3 séparés par des tirets, 4 pour mélange',
     ]
     this.sup2 = '4'
+    this.besoinFormulaire3Texte = [
+      'Choix du facteur',
+      [
+        'Nombres séparés par des tirets  :',
+        '1 : Entre 16 et 46',
+        '2 : Entre 47 et 65',
+        '3 : Entre 66 et 83',
+        '4 : Mélange',
+      ].join('\n'),
+    ]
+    this.sup3 = '2-3'
   }
 
   nouvelleVersion() {
@@ -69,6 +81,14 @@ class DistributiviteNumerique extends Exercice {
     )
     const ajoutRetrait = gestionnaireFormulaireTexte({
       saisie: this.sup2,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions,
+    }).map(Number)
+    const facteurCommun = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
       min: 1,
       max: 3,
       melange: 4,
@@ -146,7 +166,20 @@ class DistributiviteNumerique extends Exercice {
       let correctionTableau: [string, number, number, number, number, number] =
         ['', 0, 0, 0, 0, 0]
       const puissance = choice([100, 1000])
-      k = randint(47, 83)
+      switch (facteurCommun[i]) {
+        case 1:
+          k = randint(16, 46)
+          break
+        case 2:
+          k = randint(47, 65)
+          break
+        case 3:
+          k = randint(66, 83)
+          break
+        default:
+          k = randint(47, 83)
+          break
+      }
       // const ajoutRetrait = randint(1, 3) // OM : remplacé par formulaire
       const c = ajoutRetrait[i]
       switch (
