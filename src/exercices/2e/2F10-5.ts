@@ -28,7 +28,7 @@ import { mathalea2d } from '../../modules/mathalea2d'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const dateDeModifImportante = '06/07/2023'
+export const dateDeModifImportante = '25/01/2026' // Mise en place de MetaInteractif2d par Jean-Claude Lhote
 export const titre = "Déterminer le signe d'une fonction affine"
 export const interactifReady = true
 export const interactifType = 'MetaInteractif2d'
@@ -182,78 +182,82 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               hauteurLignes: [15, 15],
             })
 
-            if (this.interactif) {
-              // On rédcupère les objets Mathalea2d du tableau de signes
-              const objets = creerTableauHtml({
-                tabInit: [
-                  [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 3, 25],
-                    [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50],
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 20, '', 20, '$+\\infty$', 30],
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 25, '', 0, '', 20, 'z', 20, '']],
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 8, // taille de la première colonne en cm
-              })
-              // On crée l'interactif MetaInteractif2d
-              const inputs = new MetaInteractif2d(
+            // On rédcupère les objets Mathalea2d du tableau de signes
+            const objetsTableau = creerTableauHtml({
+              tabInit: [
                 [
-                  {
-                    x: 12.2,
-                    y: -1.5,
-                    content: '%{champ1}',
-                    classe: '',
-                    blanc: '\\ldots',
-                    opacity: 1,
-                    index: 0,
-                  },
-                  {
-                    x: 10,
-                    y: -4,
-                    content: '%{champ1}',
-                    classe: '',
-                    blanc: '\\ldots',
-                    opacity: 1,
-                    index: 1,
-                  },
-                  {
-                    x: 14.4,
-                    y: -4,
-                    content: '%{champ1}',
-                    classe: '',
-                    blanc: '\\ldots',
-                    opacity: 1,
-                    index: 2,
-                  },
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  ['$x$', 3, 25],
+                  [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50],
                 ],
+                // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                ['$-\\infty$', 20, '', 20, '$+\\infty$', 30],
+              ],
+              // tabLines ci-dessous contient les autres lignes du tableau.
+              tabLines: [['Line', 25, '', 0, '', 20, 'z', 20, '']],
+              espcl: 3.5, // taille en cm entre deux antécédents
+              deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+              lgt: 8, // taille de la première colonne en cm
+            })
+            // On crée l'interactif MetaInteractif2d
+            const inputs = new MetaInteractif2d(
+              [
                 {
-                  exercice: this,
-                  question: i,
+                  x: 12.2,
+                  y: -1.5,
+                  content: '%{champ1}',
+                  classe: '',
+                  blanc: '\\ldots',
+                  opacity: 1,
+                  index: 0,
                 },
-              )
-              objets.push(inputs)
-              // On gère les réponses
-              handleAnswers(
-                this,
-                i,
                 {
-                  field0: { value: zero.texFSD },
-                  field1: { value: a < 0 ? '+' : '-' },
-                  field2: { value: a < 0 ? '-' : '+' },
+                  x: 10,
+                  y: -4,
+                  content: '%{champ1}',
+                  classe: '',
+                  blanc: '\\ldots',
+                  opacity: 1,
+                  index: 1,
                 },
-                { formatInteractif: 'MetaInteractif2d' },
-              )
-              // On ajoute le tableau, le span pour le résultat et le div pour le feedback
-              texte +=
-                mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
-                `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
-                ajouteFeedback(this, i)
-            }
+                {
+                  x: 14.4,
+                  y: -4,
+                  content: '%{champ1}',
+                  classe: '',
+                  blanc: '\\ldots',
+                  opacity: 1,
+                  index: 2,
+                },
+              ],
+              {
+                exercice: this,
+                question: i,
+              },
+            )
+            objetsTableau.push(inputs)
+            // On gère les réponses
+            handleAnswers(
+              this,
+              i,
+              {
+                field0: { value: zero.texFSD },
+                field1: { value: a < 0 ? '+' : '-' },
+                field2: { value: a < 0 ? '-' : '+' },
+              },
+              { formatInteractif: 'MetaInteractif2d' },
+            )
+            // On ajoute le tableau, le span pour le résultat et le div pour le feedback
+            texte +=
+              mathalea2d(
+                Object.assign({}, fixeBordures(objetsTableau)),
+                objetsTableau,
+              ) +
+              (this.interactif
+                ? `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                  ajouteFeedback(this, i)
+                : '')
+
             const f = (x: number) => a * x + b
             const monRepere = repere({
               xMin: -8,
@@ -367,80 +371,82 @@ ${a !== 1 ? `x& ${a < 0 ? `${miseEnEvidence(`${sp(1.5)}\\boldsymbol{<}${sp(1.5)}
               lgt: 8, // taille de la première colonne en cm
               hauteurLignes: [15, 15],
             })
-            if (this.interactif) {
-              // On rédcupère les objets Mathalea2d du tableau de signes
-              const objets = creerTableauHtml({
-                tabInit: [
-                  [
-                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
-                    ['$x$', 3, 25],
-                    [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50],
-                  ],
-                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                  ['$-\\infty$', 20, '', 20, '$+\\infty$', 30],
-                ],
-                // tabLines ci-dessous contient les autres lignes du tableau.
-                tabLines: [['Line', 25, '', 0, '', 20, 'z', 20, '']],
-                espcl: 3.5, // taille en cm entre deux antécédents
-                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-                lgt: 8, // taille de la première colonne en cm
-              })
-              // On crée l'interactif MetaInteractif2d
-              const input = new MetaInteractif2d(
+            // On rédcupère les objets Mathalea2d du tableau de signes
+            const objetsTableau = creerTableauHtml({
+              tabInit: [
                 [
-                  {
-                    x: 12.2,
-                    y: -1.5,
-                    content: '%{champ1}',
-                    classe: '',
-                    blanc: '\\ldots',
-                    opacity: 1,
-                    index: 0,
-                  },
-                  {
-                    x: 10,
-                    y: -4,
-                    content: '%{champ1}',
-                    classe: '',
-                    blanc: '\\ldots',
-                    opacity: 1,
-                    index: 1,
-                  },
-                  {
-                    x: 14.4,
-                    y: -4,
-                    content: '%{champ1}',
-                    classe: '',
-                    blanc: '\\ldots',
-                    opacity: 1,
-                    index: 2,
-                  },
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  ['$x$', 3, 25],
+                  [`$f(x)=${reduireAxPlusB(a, b)}$`, 2, 50],
                 ],
+                // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                ['$-\\infty$', 20, '', 20, '$+\\infty$', 30],
+              ],
+              // tabLines ci-dessous contient les autres lignes du tableau.
+              tabLines: [['Line', 25, '', 0, '', 20, 'z', 20, '']],
+              espcl: 3.5, // taille en cm entre deux antécédents
+              deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+              lgt: 8, // taille de la première colonne en cm
+            })
+            // On crée l'interactif MetaInteractif2d
+            const input = new MetaInteractif2d(
+              [
                 {
-                  exercice: this,
-                  question: i,
+                  x: 12.2,
+                  y: -1.5,
+                  content: '%{champ1}',
+                  classe: '',
+                  blanc: '\\ldots',
+                  opacity: 1,
+                  index: 0,
                 },
-              )
-              objets.push(input)
-
-              // On gère les réponses
-              handleAnswers(
-                this,
-                i,
                 {
-                  field0: { value: zero.texFSD },
-                  field1: { value: a.valeurDecimale < 0 ? '+' : '-' },
-                  field2: { value: a.valeurDecimale < 0 ? '-' : '+' },
+                  x: 10,
+                  y: -4,
+                  content: '%{champ1}',
+                  classe: '',
+                  blanc: '\\ldots',
+                  opacity: 1,
+                  index: 1,
                 },
-                { formatInteractif: 'MetaInteractif2d' },
-              )
-              // On ajoute le tableau, le span pour le résultat et le div pour le feedback
-              texte +=
-                mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
-                `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
-                ajouteFeedback(this, i)
-            }
+                {
+                  x: 14.4,
+                  y: -4,
+                  content: '%{champ1}',
+                  classe: '',
+                  blanc: '\\ldots',
+                  opacity: 1,
+                  index: 2,
+                },
+              ],
+              {
+                exercice: this,
+                question: i,
+              },
+            )
+            objetsTableau.push(input)
 
+            // On gère les réponses
+            handleAnswers(
+              this,
+              i,
+              {
+                field0: { value: zero.texFSD },
+                field1: { value: a.valeurDecimale < 0 ? '+' : '-' },
+                field2: { value: a.valeurDecimale < 0 ? '-' : '+' },
+              },
+              { formatInteractif: 'MetaInteractif2d' },
+            )
+            // On ajoute le tableau, le span pour le résultat et le div pour le feedback
+            texte +=
+              mathalea2d(
+                Object.assign({}, fixeBordures(objetsTableau)),
+                objetsTableau,
+              ) +
+              (this.interactif
+                ? `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>` +
+                  ajouteFeedback(this, i)
+                : '')
             const f = (x: number) => a.valeurDecimale * x + b
             const monRepere = repere({
               xMin: -8,
