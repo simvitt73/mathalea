@@ -180,6 +180,16 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       .replaceAll('\\', '/')
       .split('/')
       .reverse()
+  } else {
+    console.error(`UUID introuvable dans uuidToUrl: ${uuid}`)
+    window.notify(`L'exercice n'existe pas avec la référence uuid:${uuid}`, {
+      exercicesParams: get(exercicesParams),
+    })
+
+    const exercice = new Exercice()
+    exercice.titre = `L'exercice n'existe pas ou plus avec la référence uuid:${uuid}`
+    exercice.nouvelleVersion = () => {}
+    return exercice as IExercice
   }
   let attempts = 0
   const maxAttempts = 3
