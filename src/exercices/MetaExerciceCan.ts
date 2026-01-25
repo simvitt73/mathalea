@@ -173,6 +173,32 @@ export default class MetaExercice extends Exercice {
               )
               this.listeQuestions[indexQuestion] = consigne + Question.question
               this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+            } else if (Question.formatInteractif === 'MetaInteractif2d') {
+              const n = Question.numeroExercice
+              if (Question.question != null) {
+                const inputsIds = Question.question.matchAll(
+                  /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
+                )
+                for (const match of inputsIds) {
+                  Question.question = Question.question.replace(
+                    `id="MetaInteractif2dEx${n}Q0field${match[1]}"`,
+                    `id="MetaInteractif2dEx${n}Q${indexQuestion}field${match[1]}"`,
+                  )
+                }
+                Question.question = Question.question.replace(
+                  `id="resultatCheckEx${n}Q0"`,
+                  `id="resultatCheckEx${n}Q${indexQuestion}"`,
+                )
+                Question.question = Question.question.replace(
+                  `id="feedbackEx${n}Q0"`,
+                  `id="feedbackEx${n}Q${indexQuestion}"`,
+                )
+                Question.listeQuestions.push(Question.question ?? '')
+              }
+              handleAnswers(this, indexQuestion, Question.reponse as Valeur, {
+                formatInteractif: 'MetaInteractif2d',
+              })
+              this.listeQuestions[indexQuestion] = consigne + Question.question
             } else {
               // * ***************** Question MathLive *****************//
               if (Question.compare == null) {
