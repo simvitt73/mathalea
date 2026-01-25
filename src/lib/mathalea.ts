@@ -1009,11 +1009,19 @@ export function mathaleaHandleExerciceSimple(
               /id="MetaInteractif2dEx\d+Q\d+field(\d+)"/g,
             )
             for (const match of inputsIds) {
-              exercice.question = exercice.question?.replace(
+              exercice.question = exercice.question.replace(
                 `id="MetaInteractif2dEx${n}Q0field${match[1]}"`,
                 `id="MetaInteractif2dEx${n}Q${i}field${match[1]}"`,
               )
             }
+            exercice.question = exercice.question.replace(
+              `id="resultatCheckEx${n}Q0"`,
+              `id="resultatCheckEx${n}Q${i}"`,
+            )
+            exercice.question = exercice.question.replace(
+              `id="feedbackEx${n}Q0"`,
+              `id="feedbackEx${n}Q${i}"`,
+            )
             exercice.listeQuestions.push(exercice.question ?? '')
           }
         } else {
