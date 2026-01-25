@@ -1,7 +1,8 @@
 
 import { createList } from '../../lib/format/lists'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
@@ -56,7 +57,10 @@ export default class NomExercice extends Exercice {
       const xB=xA+ux
       const yB=yA+uy
       const zB=zA+uz
-
+      const valeurt = new FractionEtendue(ux * xM + uy * yM + uz * zM-(ux*xA+uy*yA+uz*zA),ux * ux + uy * uy + uz * uz)
+      const abscisseH =new FractionEtendue(xA * (ux * ux + uy * uy + uz * uz) + ux * (ux * xM + uy * yM + uz * zM-(ux*xA+uy*yA+uz*zA)),ux * ux + uy * uy + uz * uz)
+      const ordonneeH =new FractionEtendue(yA * (ux * ux + uy * uy + uz * uz) + uy * (ux * xM + uy * yM + uz * zM-(ux*xA+uy*yA+uz*zA)),ux * ux + uy * uy + uz * uz)
+      const coteH =new FractionEtendue(zA * (ux * ux + uy * uy + uz * uz) + uz * (ux * xM + uy * yM + uz * zM-(ux*xA+uy*yA+uz*zA)),ux * ux + uy * uy + uz * uz) 
       texte = 'Dans un repère orthonormé de l\'espace, on considère les points $A$ , $B$  et $M$de coordonnées respectives : '
 texte+=`$A(${xA} ; ${yA} ; ${zA})$ , $B(${xB} ; ${yB} ; ${zB})$ et $M(${xM} ; ${yM} ; ${zM})$ .<br>`
 texte+=`Déterminer les coordonnées du point $H$ projeté orthogonal du point $M$ sur la droite $(AB)$ .<br>`
@@ -88,12 +92,16 @@ texteCorr +=`$\\begin{aligned}
 &${rienSi1(ux)}  (${xA}  ${ecritureAlgebriqueSauf1(ux)}  t) + ${rienSi1(uy)}  (${yA}  ${ecritureAlgebriqueSauf1(uy)}  t) + ${rienSi1(uz)}  (${zA}  ${ecritureAlgebriqueSauf1(uz)}  t)  ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\\\
 \\iff &${ux*xA}  ${ecritureAlgebriqueSauf1(ux*ux)}t  ${ecritureAlgebrique(uy*yA)} ${ecritureAlgebriqueSauf1(uy*uy)} t ${ecritureAlgebrique(uz*zA)} ${ecritureAlgebriqueSauf1(uz*uz)}t ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\\\
 \\iff &${ux*ux+uy*uy+uz*uz}t  = ${ux * xM + uy * yM + uz * zM-(ux*xA+uy*yA+uz*zA)} \\\\
-\\iff& (${ux}^2 + ${uy}^2 + ${uz}^2) \\times t = ${ux * xM + uy * yM + uz * zM} - (${ux} \\times ${xA} + ${uy} \\times ${yA} + ${uz} \\times ${zA})\\end{aligned}$<br>`
-texteCorr +=`$\\Leftrightarrow t = \\dfrac{${ux * xM + uy * yM + uz * zM} - (${ux} \\times ${xA} + ${uy} \\times ${yA} + ${uz} \\times ${zA})}{${ux * ux} + ${uy * uy} + ${uz * uz}} = ${((ux * xM + uy * yM + uz * zM) - (ux * xA + uy * yA + uz * zA)) / (ux * ux + uy * uy + uz * uz)}$ <br>`
-texteCorr +=`On en déduit les coordonnées du point $H$ : <br>`
-texteCorr +=`$\\left\\{ \\begin{array}{l} x_H = ${xA} + ${ux} \\times ${((ux * xM + uy * yM + uz * zM) - (ux * xA + uy * yA + uz * zA)) / (ux * ux + uy * uy + uz * uz)} \\\\ y_H = ${yA} + ${uy} \\times ${((ux * xM + uy * yM + uz * zM) - (ux * xA + uy * yA + uz * zA)) / (ux * ux + uy * uy + uz * uz)} \\\\ z_H = ${zA} + ${uz} \\times ${((ux * xM + uy * yM + uz * zM) - (ux * xA + uy * yA + uz * zA)) / (ux * ux + uy * uy + uz * uz)} \\end{array} \\right.$ <br>`
+\\iff & t=${valeurt.texFractionSimplifiee}\\end{aligned}$<br>`
 
+texteCorr +=`On en déduit les coordonnées du point $H$ en remplaçant $t$ par ${valeurt.texFractionSimplifiee} dans les $3$ premières équations du système : <br>`
+texteCorr +=`$\\begin{cases}
+x_H = ${xA}  ${ecritureAlgebrique(ux)} \\times ${valeurt.texFSP} \\\\\\\\ y_H = ${yA}  ${ecritureAlgebrique(uy)} \\times ${valeurt.texFSP} \\\\\\\\ z_H = ${zA}  ${ecritureAlgebrique(uz)} \\times ${valeurt.texFSP} \\end{cases}$ d'où finalement`
+texteCorr +=`$\\begin{cases}
+x_H = ${abscisseH.texFractionSimplifiee} \\\\ y_H = ${ordonneeH.texFractionSimplifiee} \\\\ z_H = ${coteH.texFractionSimplifiee} \\end{cases}$ <br>`
+texteCorr +=`Ainsi, les coordonnées du point $H$ sont $${miseEnEvidence(`H(${abscisseH.texFractionSimplifiee} ; ${ordonneeH.texFractionSimplifiee} ; ${coteH.texFractionSimplifiee}).`)}$`
 
+      
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions[i] = texte
         this.listeCorrections[i] = texteCorr
