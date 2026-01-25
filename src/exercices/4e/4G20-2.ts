@@ -8,11 +8,14 @@ import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
 import { codageSegments } from '../../lib/2d/CodageSegment'
 import { colorToLatexOrHTML } from '../../lib/2d/colorToLatexOrHtml'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { Interactif2d } from '../../lib/2d/interactif2d'
+import { MetaInteractif2d } from '../../lib/2d/interactif2d'
 import { pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { carre } from '../../lib/2d/polygonesParticuliers'
 import { latex2d } from '../../lib/2d/textes'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import {
+  ajouteChampTexteMathLive,
+  ajouteFeedback,
+} from '../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import type { IExercice } from '../../lib/types'
 import { mathalea2d } from '../../modules/mathalea2d'
@@ -21,7 +24,7 @@ export const titre =
   "Déterminer la racine carrée d'un carré parfait (calcul mental)"
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const interactifType = 'mathLive'
+export const interactifType = 'MetaInteractif2d'
 export const interactifReady = true
 
 /**
@@ -58,10 +61,23 @@ const figureCarre = (aire: number, exercice: IExercice, question: number) => {
       letterSize: 'small',
     },
   )
-  const input = new Interactif2d('%{champ1}\\text{cm}', 4 + c + 2, 2 + c / 2, {
-    exercice,
-    question,
-  })
+  const input = new MetaInteractif2d(
+    [
+      {
+        x: 4 + c + 2,
+        y: 2 + c / 2,
+        content: `%{champ1} \\text{ cm}`,
+        classe: '',
+        blanc: '\\ldots ',
+        opacity: 1,
+        index: 0,
+      },
+    ],
+    {
+      exercice,
+      question,
+    },
+  )
   afficheAire.opacity = 0.5
   const objets: NestedObjetMathalea2dArray = [
     square,
@@ -73,7 +89,11 @@ const figureCarre = (aire: number, exercice: IExercice, question: number) => {
     cotesMarques,
     input,
   ]
-  return mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
+  return (
+    mathalea2d(Object.assign({}, fixeBordures(objets)), objets) +
+    `<span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>` +
+    ajouteFeedback(exercice, question)
+  )
 }
 
 export default class RacineCareeDeCarresParfaits extends Exercice {
@@ -147,9 +167,14 @@ export default class RacineCareeDeCarresParfaits extends Exercice {
 
       texteCorr = `$\\sqrt{${c}}${this.sup3 ? '\\text{ cm}' : ''}=${miseEnEvidence(a.toString())}${this.sup3 ? '\\text{ cm}' : ''}$`
       if (this.sup3) {
-        handleAnswers(this, i, {
-          champ1: { value: a, options: { noFeedback: true } },
-        })
+        handleAnswers(
+          this,
+          i,
+          {
+            field0: { value: a, options: { noFeedback: true } },
+          },
+          { formatInteractif: 'MetaInteractif2d' },
+        )
       } else {
         handleAnswers(this, i, { reponse: { value: a.toString() } })
       }
