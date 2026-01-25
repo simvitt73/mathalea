@@ -15,18 +15,6 @@ export type ObjetDivLatex = {
   bordures: [number, number, number, number]
 }
 
-export type Interactif2dData = {
-  exercice: IExercice
-  question: number
-  x: number
-  y: number
-  content: string
-  classe: string
-  blanc: string
-  opacity: number
-  index?: number
-}
-
 export type MetaInteractif2dInputs = {
   x: number
   y: number
