@@ -1,7 +1,10 @@
 import { grille } from '../../../lib/2d/Grille'
 import { pointAbstrait } from '../../../lib/2d/PointAbstrait'
 import { polyline } from '../../../lib/2d/Polyline'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
+import {
+  segment,
+  segmentAvecExtremites,
+} from '../../../lib/2d/segmentsVecteurs'
 import { latex2d } from '../../../lib/2d/textes'
 import { milieu } from '../../../lib/2d/utilitairesPoint'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -37,7 +40,9 @@ const creerQuestionLigneBrisee = () => {
   const G = pointAbstrait(0, 4, 'G', 'above')
   const H = pointAbstrait(longueurUnite, 4, 'H', 'above')
   const segmentUnite = segment(G, H)
-  segmentUnite.epaisseur = 3
+  segmentUnite.epaisseur = 2
+  segmentUnite.styleExtremites = '<->'
+  segmentUnite.tailleExtremites = 8
 
   // Générer aléatoirement une ligne brisée
   // La ligne brisée aura entre longueurUnite et 3*longueurUnite carreaux de longueur
@@ -118,11 +123,13 @@ export default class Can2a2026Q30 extends ExerciceCan {
     // Fonction pour créer aléatoirement une question de ligne brisée sur grille
     if (this.canOfficielle || this.sup) {
       const objets: NestedObjetMathalea2dArray = []
-      objets.push(grille(0, 0, 8, 6, 'gray', 1, 1))
-      const G = pointAbstrait(1, 6)
-      const H = pointAbstrait(6, 6)
-      const segmentUnite = segment(G, H)
-      segmentUnite.epaisseur = 3
+      objets.push(grille(0, 0, 7, 4, 'gray', 1, 1))
+      const G = pointAbstrait(0, 4)
+      const H = pointAbstrait(3, 4)
+      const segmentUnite = segmentAvecExtremites(G, H)
+      segmentUnite.epaisseur = 2
+      segmentUnite.styleExtremites = '<->'
+      segmentUnite.tailleExtremites = 8
       objets.push(segmentUnite)
       objets.push(
         latex2d('1 u.\\ell.', milieu(G, H).x, milieu(G, H).y + 0.5, {
@@ -130,21 +137,25 @@ export default class Can2a2026Q30 extends ExerciceCan {
         }),
       )
       const ligneBrisee = polyline(
-        pointAbstrait(1, 4),
-        pointAbstrait(4, 4),
-        pointAbstrait(4, 2),
-        pointAbstrait(7, 2),
+        pointAbstrait(1, 3),
+        pointAbstrait(1, 1),
+        pointAbstrait(3, 1),
+        pointAbstrait(3, 3),
+        pointAbstrait(5, 3),
+        pointAbstrait(5, 1),
+        pointAbstrait(6, 1),
+        pointAbstrait(6, 3),
       )
       ligneBrisee.epaisseur = 3
       objets.push(ligneBrisee)
       questionData = {
         objets,
-        longueurUnite: 5,
-        longueurLigneBrisee: 8,
-        xmin: 0,
+        longueurUnite: 3,
+        longueurLigneBrisee: 13,
+        xmin: -0.2,
         ymin: 0,
-        xmax: 8,
-        ymax: 7,
+        xmax: 7,
+        ymax: 5,
       }
     } else {
       questionData = creerQuestionLigneBrisee()
@@ -158,13 +169,11 @@ export default class Can2a2026Q30 extends ExerciceCan {
     this.question +=
       mathalea2d(
         {
-          xmin: questionData.xmin,
+          xmin: questionData.xmin - 0.5,
           ymin: questionData.ymin,
           xmax: questionData.xmax,
           ymax: questionData.ymax,
           pixelsParCm: 20,
-          mainlevee: false,
-          amplitude: 0.5,
           scale: 0.5,
           style: 'margin: auto',
         },
