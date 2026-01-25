@@ -50,7 +50,7 @@ export type PatternRicheRepetition = {
  * On trie d'abord par z croissant (du bas vers le haut), puis par y croissant (de gauche à droite),
  * puis par x croissant (de l'arrière vers l'avant).
  */
-const rangeCubes = function (
+export const rangeCubes = function (
   coords: [number, number, number, string][],
 ): [number, number, number, string][] {
   // Regrouper par z croissant
