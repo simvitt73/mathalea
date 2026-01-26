@@ -16,6 +16,7 @@
   } from '../../../../../lib/mathalea'
   import { mathaleaWriteStudentPreviousAnswers } from '../../../../../lib/mathaleaUtils'
   import {
+    capytaleStudentAssignment,
     exercicesParams,
     isMenuNeededForExercises,
     resultsByExercice,
@@ -360,8 +361,9 @@
         //  le score ne peut pas être inferieur à best score,
         //  car c'est de la restitution de la meilleure copie
         // donc si on est ici dans ce IF, c'est un bug du moteur à faire vite remonter
+        const newStudentAssignement = get(capytaleStudentAssignment) || []
         const previousResultatByExercice =
-          get(resultsByExercice)[exercise.numeroExercice as number]
+          newStudentAssignement[exercise.numeroExercice as number]
         if (exercise?.checkSum !== previousResultatByExercice?.checkSum) {
           window.notify(
             `Exercice ${exercise.numeroExercice} a changé, passé de ${previousBestScore} à ${numberOfPoints}. Checksum différent avant ${previousResultatByExercice?.checkSum} et maintenant ${exercise?.checkSum}.`,
