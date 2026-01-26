@@ -260,7 +260,9 @@
     }
     if (divScore) {
       divScore.innerHTML = ''
-      divScore.classList.remove(
+    }
+    if (buttonScore) {
+      buttonScore.classList.remove(
         'cursor-not-allowed',
         'opacity-50',
         'pointer-events-none',
