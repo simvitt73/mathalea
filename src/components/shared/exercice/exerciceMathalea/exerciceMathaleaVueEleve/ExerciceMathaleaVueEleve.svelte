@@ -258,7 +258,14 @@
       // si les données ont été chargées par Capytale, on remet à 0
       buttonScore.dataset.capytaleLoadAnswers = '0'
     }
-    if (divScore) divScore.innerHTML = ''
+    if (divScore) {
+      divScore.innerHTML = ''
+      divScore.classList.remove(
+        'cursor-not-allowed',
+        'opacity-50',
+        'pointer-events-none',
+      )
+    }
     updateDisplay()
   }
 
