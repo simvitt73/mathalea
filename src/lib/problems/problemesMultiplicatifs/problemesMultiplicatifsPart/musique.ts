@@ -34,7 +34,7 @@ export function musique(decimal = false): Probleme {
           length: 8,
           color: 'white',
           options: {
-            justify: 'start',
+            justify: 'center',
           },
         },
         {
