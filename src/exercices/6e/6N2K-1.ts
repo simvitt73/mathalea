@@ -334,7 +334,7 @@ export default class QuestionsDivisionsEuclidiennes extends Exercice {
           diviseur = nbPirates
           dividende = nbPirates * nbPiecesParPirate + reste
           texte = `Une bande de ${nbPirates} pirates et leur capitaine doivent se partager un trésor de ${dividende} pièces d'or. Le capitaine dit à ses hommes : « Vous avez bien travaillé, partagez-vous le trésor, je me contenterai
-          du reste. » <br> Le capitaine est-il vraiment généreux ?`
+          du reste. » ${this.interactif ? '' : '<br> Le capitaine est-il vraiment généreux ?'}`
           texte += `<br>${numAlpha(0)}  Combien de pièces aura chaque pirate ?`
           texte += ajouteChampTexteMathLive(
             this,
