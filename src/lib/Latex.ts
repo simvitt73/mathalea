@@ -346,6 +346,8 @@ class Latex {
                 : ''
             }%[Lignes=5,Interieur]\n`
           }
+          if (latexFileInfos.qrcodeOption === 'AvecQrcode')
+            content += '\n\\vspace{2cm}'
           content += exercice.content
           content += '\n\\end{exercice}\n'
           content += '\n\\begin{Solution}\n'
