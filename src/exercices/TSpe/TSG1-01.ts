@@ -81,8 +81,7 @@ export default class nomExercice extends Exercice {
       let texte = ''
       let texteCorr = ''
       const variables: string[] = []
-      const n =
-        listeTypeQuestions[i] === 'type5' ? randint(3, 9) : randint(3, 15)
+      const n = randint(3, 9)
       const k = randint(2, n - 1)
       const arrangement = new Decimal(factorielle(n).toString()).div(
         new Decimal(factorielle(n - k).toString()),
@@ -125,7 +124,7 @@ export default class nomExercice extends Exercice {
             "Le nombre de $k$-uplet d'un ensemble fini $E$ est $\\mathrm{Card}(E)^k$.<br>"
           texteCorr += `Comme $\\mathrm{Card}(E)=${n}$, le nombre de ${kuplet} est $\\mathrm{Card}(E)^${k}=${n}^{${k}}=${texNombre(new Decimal(n).pow(k))}$.<br>`
           texteCorr += `Il y a donc $${miseEnEvidence(texNombre(new Decimal(n).pow(k)))}$ tirages possibles.<br>`
-          reponse = `${n ** k}`
+          reponse = `${(n ** k).toString()}`
           break
         case 'type2':
           texte = `On considère une urne contenant ${n} boules numérotées de $1$ à ${n}.<br> On tire successivement ${k} boules au hasard dans l'urne, sans les remettre une fois tirée.<br>`
@@ -146,7 +145,7 @@ export default class nomExercice extends Exercice {
             'On sait alors que : $A_n^k=n\\times (n-1)\\ldots (n-k+1)$ ou encore : $A_n^k=\\dfrac{n~!}{(n-k)~!}$.<br>'
           texteCorr += `Dans notre situation, $A_{${n}}^{${k}}=\\dfrac{${n}~!}{${n - k}~!}=${arrangement}$.<br>`
           texteCorr += `Il y a donc $${miseEnEvidence(texNombre(arrangement))}$ tirages possibles.<br>`
-          reponse = `${arrangement}`
+          reponse = `${arrangement.toString()}`
           break
         case 'type3':
           texte = `On considère une urne contenant ${n} boules numérotées de $1$ à ${n}.<br> On tire simultanément ${k} boules au hasard dans l'urne.<br>`
@@ -156,7 +155,7 @@ export default class nomExercice extends Exercice {
             'On sait que le nombre de combinaisons, de k éléments parmi n, vaut : $\\dbinom{n}{k} =\\dfrac{n~!}{k~!(n-k)~!}$.<br>'
           texteCorr += `Dans notre situation, on calcule le nombre de combinaisons de ${k} éléments parmi ${n} :<br> $\\dbinom{${n}}{${k}}=\\dfrac{${n}~!}{${k}~!\\times ${n - k}~!}=${combinaison}$.<br>`
           texteCorr += `Il y a donc $${miseEnEvidence(texNombre(combinaison))}$ tirages possibles.<br>`
-          reponse = `${combinaison}`
+          reponse = `${combinaison.toString()}`
           break
         case 'type4':
           texte = `On considère ${n} boules numérotées de $1$ à ${n}.<br> En considérant l'ensemble $E$ constitué de ces boules, combien de sous parties de $E$ peut-on créer ?<br>`
@@ -165,7 +164,7 @@ export default class nomExercice extends Exercice {
           texteCorr += `Dans notre situation, $\\mathrm{Card}(E)=${n}$.<br>`
           texteCorr += `On calcule alors $2^{${n}}=${texNombre(2 ** n)}$ . <br>`
           texteCorr += `On peut donc créer $${miseEnEvidence(texNombre(2 ** n))}$ sous-parties de $E$.<br>`
-          reponse = `${2 ** n}`
+          reponse = `${(2 ** n).toString()}`
           break
         case 'type5':
           factorielleN = new Decimal(factorielle(n).toString())
@@ -175,7 +174,7 @@ export default class nomExercice extends Exercice {
           texteCorr += `Dans notre situation, $\\mathrm{Card}(E)=${n}$.<br>`
           texteCorr += `On calcule alors $${n}~!=${texNombre(factorielleN)}$ . <br>`
           texteCorr += `On peut donc créer $${miseEnEvidence(texNombre(factorielleN))}$ permutations de $E$.<br>`
-          reponse = `${factorielleN}`
+          reponse = `${factorielleN.toString()}`
           break
       }
 
