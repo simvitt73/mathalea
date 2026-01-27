@@ -127,11 +127,12 @@ function experience3() {
     B: 'bleue',
     V: 'verte',
   }
+  const couleurChoisie = choice(['R', 'B', 'V']) as keyof typeof nomsCouleurs
 
   const conditionsDeVictoire = [
     `tire deux boules de la même couleur`,
     `tire deux boules de couleurs différentes`,
-    `tire au moins une boule verte`,
+    `tire au moins une boule ${nomsCouleurs[couleurChoisie]}`,
   ]
   const conditionDeVictoire = choice(conditionsDeVictoire)
   const gagnePerdu = function (conditionDeVictoire: string) {
@@ -140,8 +141,9 @@ function experience3() {
         return (b1: string, b2: string) => b1 === b2
       case 'tire deux boules de couleurs différentes':
         return (b1: string, b2: string) => b1 !== b2
-      case 'tire au moins une boule verte':
-        return (b1: string, b2: string) => b1 === 'V' || b2 === 'V'
+      case `tire au moins une boule ${nomsCouleurs[couleurChoisie]}`:
+        return (b1: string, b2: string) =>
+          b1 === couleurChoisie || b2 === couleurChoisie
       default:
         return () => false
     }
