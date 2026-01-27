@@ -68,14 +68,14 @@ export default class NomExercice extends Exercice {
       texte += `$${rienSi1(a)}x ${ecritureAlgebriqueSauf1(b)} y ${ecritureAlgebriqueSauf1(c)} z ${ecritureAlgebrique(d)} = 0$.<br>`
       texte += `Déterminer la valeur approchée, arrondie au centième, de la distance du point $A$ au plan $\\mathcal{P}$ .<br>`
 
-      const normal = `${texteEnCouleurEtGras('Vecteur normal au plan :', 'blue')}<br>A partir de l'équation cartésienne du plan $\\mathcal{P}$, on en déduit que le vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est un vecteur normal du plan $\\mathcal{P}$.<br>`
+      const normal = `${texteEnCouleurEtGras('Vecteur normal au plan :', 'black')}<br>A partir de l'équation cartésienne du plan $\\mathcal{P}$, on en déduit que le vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est un vecteur normal du plan $\\mathcal{P}$.<br>`
 
-      const droiteNormale = `${texteEnCouleurEtGras('Représentation paramétrique de la droite orthogonale au plan $\\mathcal{P}$ passant par le point $A$ :', 'blue')}<br>
+      const droiteNormale = `${texteEnCouleurEtGras('Représentation paramétrique de la droite orthogonale au plan $\\mathcal{P}$ passant par le point $A$ :', 'black')}<br>
       On cherche une représentation paramétrique de la droite $(d)$, orthogonale au plan $\\mathcal{P}$ et passant par le point $A(${xA} ; ${yA} ; ${zA})$.
       Elle possède comme vecteur directeur vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$. 
       On obtient alors : <br>  $(d) :\\left\\{ \\begin{array}{l} x = ${xA} ${ecritureAlgebriqueSauf1(a)} t \\\\ y = ${yA} ${ecritureAlgebriqueSauf1(b)} t \\quad (t\\in\\mathbb{R}) \\\\ z = ${zA} ${ecritureAlgebriqueSauf1(c)} t \\end{array} \\right.$<br>`
 
-      let intersection = `${texteEnCouleurEtGras("Coordonnées du point $H$ intersection entre la droite $(d)$ et la plan $\\mathcal{P}$ :", 'blue')}<br>`
+      let intersection = `${texteEnCouleurEtGras("Coordonnées du point $H$ intersection entre la droite $(d)$ et la plan $\\mathcal{P}$ :", 'black')}<br>`
       intersection += `La droite $(d)$ étant orthogonale au plan $\\mathcal{P}$, on sait qu'ils admettent un unique point commun $H$.<br>
       Le point $H(x_H,y_H,z_H)$ appartient au plan $\\mathcal{P}$ et à la droite $(d)$ si et seulement si il existe des réels $(x_H,y_H,z_H,t)$ tels que : <br>`
       intersection += `$\\begin{cases}x_H = ${xA} ${ecritureAlgebriqueSauf1(a)} t \\\\ y_H = ${yA} ${ecritureAlgebriqueSauf1(b)} t \\\\ z_H = ${zA} ${ecritureAlgebriqueSauf1(c)} t \\\\ ${rienSi1(a)}x_H ${ecritureAlgebriqueSauf1(b)} y_H ${ecritureAlgebriqueSauf1(c)} z_H ${ecritureAlgebrique(d)} = 0\\end{cases}$<br>`
@@ -87,7 +87,7 @@ export default class NomExercice extends Exercice {
       intersection +=`$\\begin{cases}x_H = ${xA} ${ecritureAlgebrique(a)} \\times ${tIntersection.texFSP} \\\\\\\\ y_H = ${yA} ${ecritureAlgebrique(b)} \\times ${tIntersection.texFSP} \\\\\\\\ z_H = ${zA} ${ecritureAlgebrique(c)} \\times ${tIntersection.texFSP} \\end{cases} \\iff $`
        intersection += `$\\begin{cases} x_H = ${xH.texFractionSimplifiee} \\\\\\\\ y_H = ${yH.texFractionSimplifiee} \\\\\\\\ z_H = ${zH.texFractionSimplifiee} \\end{cases}$.<br>`
 
-      let distance = `${texteEnCouleurEtGras('Distance $AH$ :', 'blue')}<br>`
+      let distance = `${texteEnCouleurEtGras('Distance $AH$ :', 'black')}<br>`
       const dx = new FractionEtendue(-a*valeurPlanEnA(),denom )
       const dy = new FractionEtendue(-b*valeurPlanEnA(),denom )
       const dz = new FractionEtendue(-c*valeurPlanEnA(),denom )
@@ -98,12 +98,12 @@ export default class NomExercice extends Exercice {
       distance +=  `On en déduit que : <br>`
    
        distance +=  ` $AH=\\sqrt{\\left(${dx.texFractionSimplifiee}\\right)^2 + \\left(${dy.texFractionSimplifiee}\\right)^2 + \\left(${dz.texFractionSimplifiee}\\right)^2}  \\approx ${texNombre(distanceAH,2)}$`
-      let appartient = `${texteEnCouleurEtGras("Vérification que $A$ n'appartient pas au plan $\\mathcal{P}$  :", 'blue')}<br>`
+      let appartient = `${texteEnCouleurEtGras("Vérification que $A$ n'appartient pas au plan $\\mathcal{P}$  :", 'black')}<br>`
       appartient += `On remplace les coordonénes du point $A$ dans l'équation du plan et on calcule $${a} \\times ${ecritureParentheseSiNegatif(xA)}  ${ecritureAlgebrique(b)} \\times ${ecritureParentheseSiNegatif(yA)}  ${ecritureAlgebrique(c)} \\times ${ecritureParentheseSiNegatif(zA)}  ${ecritureAlgebrique(d)} = ${valeurPlanEnA()} \\neq 0$.<br>`
       appartient += `Donc le point $A$ n'appartient pas au plan $\\mathcal{P}$ .<br>`
       texteCorr = lampeMessage({
         titre: 'Méthode de résolution :',
-        texte: 'Pour calculer la distance du point $A$ au plan $\\mathcal{P}$ , nous allons d\'abord vérifier si le point $A$ appartient au plan.<br>S\'il n\'appartient pas, on cherche une représentation paramétrique de la droite $(\\Delta)$ orthogonale au plan $\\mathcal{P}$ passant par le point $A$. De là, on calcule les coordonnées du point H intersection de (Δ) avec P. La distance recherchée est la longueur AH.', couleur: 'blue',})
+        texte: 'Pour calculer la distance du point $A$ au plan $\\mathcal{P}$ , nous allons d\'abord vérifier si le point $A$ appartient au plan.<br>S\'il n\'appartient pas, on cherche une représentation paramétrique de la droite $(\\Delta)$ orthogonale au plan $\\mathcal{P}$ passant par le point $A$. De là, on calcule les coordonnées du point H intersection de (Δ) avec P. La distance recherchée est la longueur AH.', couleur: 'black',})
       
       texteCorr += createList({
         items: [appartient, normal, droiteNormale, intersection, distance],
