@@ -71,8 +71,8 @@ export default class NomExercice extends Exercice {
       const normal = `${texteEnCouleurEtGras('Vecteur normal au plan :', 'blue')}<br>A partir de l'équation cartésienne du plan $\\mathcal{P}$, on en déduit que le vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$ est un vecteur normal du plan $\\mathcal{P}$.<br>`
 
       const droiteNormale = `${texteEnCouleurEtGras('Représentation paramétrique de la droite orthogonale au plan $\\mathcal{P}$ passant par le point $A$ :', 'blue')}<br>
-      On cherche une représentation paramétrique de la droite $(d)$, orthogonale au plan $\\mathcal{P}$. 
-      Elle passe par le point $A(${xA} ; ${yA} ; ${zA})$ et possède comme vecteur directeur vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$. 
+      On cherche une représentation paramétrique de la droite $(d)$, orthogonale au plan $\\mathcal{P}$ et passant par le point $A(${xA} ; ${yA} ; ${zA})$.
+      Elle possède comme vecteur directeur vecteur $\\vec{n}\\begin{pmatrix}${a}\\\\${b}\\\\${c}\\end{pmatrix}$. 
       On obtient alors : <br>  $(d) :\\left\\{ \\begin{array}{l} x = ${xA} ${ecritureAlgebriqueSauf1(a)} t \\\\ y = ${yA} ${ecritureAlgebriqueSauf1(b)} t \\quad (t\\in\\mathbb{R}) \\\\ z = ${zA} ${ecritureAlgebriqueSauf1(c)} t \\end{array} \\right.$<br>`
 
       let intersection = `${texteEnCouleurEtGras("Coordonnées du point $H$ intersection entre la droite $(d)$ et la plan $\\mathcal{P}$ :", 'blue')}<br>`
