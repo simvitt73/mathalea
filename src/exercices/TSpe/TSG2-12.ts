@@ -103,9 +103,7 @@ export default class NomExercice extends Exercice {
       appartient += `Donc le point $A$ n'appartient pas au plan $\\mathcal{P}$ .<br>`
       texteCorr = lampeMessage({
         titre: 'Méthode de résolution :',
-        texte: 'Pour calculer la distance du point $A$ au plan $\\mathcal{P}$ , nous allons d\'abord vérifier si le point $A$ appartient au plan.<br> S\'il n\'appartient pas, on cherche la représentation paramétrique de la droite orthogonale au plan $\\mathcal{P}$ passant par le point $A$. <br>On pourra alors calculer les coordonnées du point $H$, comme intersection de la droite $(AB)$ et du plan $\\mathcal{P}$. Le point $H$ sera bien alors le projeté orthogonal du point $A$ sur le plan $\\mathcal{P}$.  On calculera alors la distance $AH$.',
-        couleur: 'blue',
-      })
+        texte: 'Pour calculer la distance du point $A$ au plan $\\mathcal{P}$ , nous allons d\'abord vérifier si le point $A$ appartient au plan.<br>S\'il n\'appartient pas, on cherche une représentation paramétrique de la droite $(\\Delta)$ orthogonale au plan $\\mathcal{P}$ passant par le point $A$. De là, on calcule les coordonnées du point H intersection de (Δ) avec P. La distance recherchée est la longueur AH.', couleur: 'blue',})
       
       texteCorr += createList({
         items: [appartient, normal, droiteNormale, intersection, distance],
