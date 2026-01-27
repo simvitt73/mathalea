@@ -81,7 +81,8 @@ export default class nomExercice extends Exercice {
       let texte = ''
       let texteCorr = ''
       const variables: string[] = []
-      const n = randint(3, 9)
+      const n =
+        listeTypeQuestions[i] === 'type5' ? randint(3, 9) : randint(3, 15)
       const k = randint(2, n - 1)
       const arrangement = new Decimal(factorielle(n).toString()).div(
         new Decimal(factorielle(n - k).toString()),
