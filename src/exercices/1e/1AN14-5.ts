@@ -15,9 +15,9 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Dériver $u\\times v$'
+export const titre = 'Dériver une fonction du type $u\\times v$'
 export const dateDePublication = '22/01/2022'
-export const dateDeModifImportante = '06/05/2024'
+export const dateDeModifImportante = '28/01/2026'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

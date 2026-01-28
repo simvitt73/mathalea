@@ -17,7 +17,7 @@ import {
 } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre = 'Dériver $\\dfrac{u}{v}$'
+export const titre = 'Dériver une fonction du type $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModifImportante = '27/01/2026'
 export const interactifReady = true
