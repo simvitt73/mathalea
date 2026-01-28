@@ -88,10 +88,10 @@ export default class DernierChiffreSommeDifférenceDécimaux extends Exercice {
     const typeDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 3,
-      melange: 4,
-      defaut: 4,
-      nbQuestions: 3,
+      max: 2,
+      melange: 3,
+      defaut: 2,
+      nbQuestions: 2,
       listeOfCase: ['somme', 'difference'],
     })
 
