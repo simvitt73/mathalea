@@ -113,7 +113,7 @@ class DerivationQuotientParticulier extends Exercice {
 
         case 2: // u(x) = mx + p
           {
-            const m = randint(-9, 9, [0, 1, -1])
+            const m = randint(-4, 9, [0, 1, -1])
             const p = randint(-10, 10, 0)
             const u = reduireAxPlusB(m, p, 'x')
 
