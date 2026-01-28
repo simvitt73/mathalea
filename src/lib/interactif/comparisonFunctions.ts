@@ -248,9 +248,9 @@ function cleanLatex(str: string): string {
   return str
 }
 
-function cleanMultipliyByOne(str: string): string {
-  if (!str.match(/\D*1([a-z])/)) return str // à priori, rien à nettoyer ici
-  return str.replace(/(\D*)1([a-z])/g, '$1$2')
+function cleanMultiplyByOne(str: string): string {
+  if (!str.match(/(?<!\d)1([a-z])/)) return str // à priori, rien à nettoyer ici
+  return str.replace(/(?<!\d)1([a-z])/g, '$1')
 }
 
 export function generateCleaner(
@@ -281,7 +281,7 @@ export function generateCleaner(
       case 'latex':
         return cleanLatex
       case 'foisUn':
-        return cleanMultipliyByOne
+        return cleanMultiplyByOne
       case 'unites':
         return cleanUnity
       case 'doubleEspaces':
