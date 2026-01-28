@@ -34,7 +34,6 @@ export default class MultiplierDecimaux extends Exercice {
   constructor() {
     super()
 
-    this.consigne = 'Poser et effectuer les calculs suivants.'
     this.spacing = 2
 
     this.nbQuestions = 4
@@ -65,6 +64,10 @@ export default class MultiplierDecimaux extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Poser et effectuer le calcul suivant.'
+        : 'Poser et effectuer les calculs suivants.'
     let reponse
     const nbChiffresa = parseInt(this.sup)
     const nbChiffresb = parseInt(this.sup2)

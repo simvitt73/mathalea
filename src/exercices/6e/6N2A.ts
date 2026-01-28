@@ -74,6 +74,10 @@ export default class AdditionnerSoustrairesDecimaux extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Poser et effectuer le calcul suivant.'
+        : 'Poser et effectuer les calculs suivants.'
     let typesDeQuestions, reponse
     const typesAdditions = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
     const typesSoustractions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
