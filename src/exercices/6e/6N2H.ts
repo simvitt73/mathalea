@@ -49,8 +49,6 @@ export default class DivisionDecimale extends Exercice {
       2,
       '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au millième près',
     ]
-    this.consigne =
-      'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
     this.spacing = 2
     context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
     this.nbQuestions = 4
@@ -58,6 +56,11 @@ export default class DivisionDecimale extends Exercice {
   }
 
   nouvelleVersion() {
+    this.consigne =
+      this.nbQuestions === 1
+        ? 'Effectuer la division décimale suivante et donner la valeur exacte de son quotient.'
+        : 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
+
     let typesDeQuestionsDisponibles
 
     parseInt(this.sup) === 1

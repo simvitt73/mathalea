@@ -1,10 +1,6 @@
-import {
-  choice,
-  combinaisonListes,
-  shuffle,
-} from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { fraction } from '../../modules/fractions'
-import { randint } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
 import { tableauColonneLigne } from '../../lib/2d/tableau'
@@ -49,22 +45,24 @@ ${premiereLettreEnMajuscule(
 Calculer la probabilité de gagner à ce jeu.`
   let correction = `Pour gagner, le joueur doit tirer une boule bleue dont le numéro est supérieur ou égal au numéro obtenu avec le dé.<br>
   On remplit le tableau à double entrée des issues possibles de cette expérience aléatoire :<br>`
-  const ligneEnt = ['\\text{Dé\\textbackslash Boule}']
-  const colonneEnt = []
+  const entetesColonne = ['\\text{Dé\\textbackslash Boule}']
+  const entetesLigne = []
   const contenu = []
   for (let i = 1; i <= 6; i++) {
-    ligneEnt.push(`\\text{${i}}`)
-    colonneEnt.push(`\\text{${i}}`)
+    entetesColonne.push(
+      `\\text{${i} (${boules[i - 1] === 'B' ? 'bleue' : 'rouge'})}`,
+    )
+    entetesLigne.push(`\\text{${i}}`)
     for (let j = 1; j <= 6; j++) {
       contenu.push(
-        i <= j && boules[j - 1] === 'B' ? '\\text{gagné}' : '\\text{perdu}',
+        i <= j && boules[j - 1] === 'B' ? '\\textbf{gagné}' : '\\text{perdu}',
       )
     }
   }
-  const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
+  const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
   correction += tableau + '<br>'
   const nbIssuesGagnantes = contenu.filter(
-    (issue) => issue === '\\text{gagné}',
+    (issue) => issue === '\\textbf{gagné}',
   ).length
   const probaGagner = fraction(nbIssuesGagnantes, 36)
   correction += `Il y a ${nbIssuesGagnantes} issues gagnantes parmi 36 issues possibles.<br>`
@@ -164,17 +162,17 @@ Calculer la probabilité de gagner à ce jeu.`
   let correction = `Pour gagner, le joueur doit ${conditionDeVictoire.replace('tire', 'tirer')} (avec remise).<br>
   On remplit le tableau à double entrée des issues possibles de cette expérience aléatoire :<br>`
 
-  const ligneEnt = [
+  const entetesColonne = [
     '1^\\text{er}\\text{ tirage}\\backslash 2^\\text{e}\\text{ tirage}',
   ]
-  const colonneEnt = []
+  const entetesLigne = []
   const contenu = []
   const totalIssues = totalBoules * totalBoules
 
   // Crée les étiquettes du tableau
   for (let i = 0; i < totalBoules; i++) {
-    ligneEnt.push(`\\text{${urne[i]}}`)
-    colonneEnt.push(`\\text{${urne[i]}}`)
+    entetesColonne.push(`\\text{${urne[i]}}`)
+    entetesLigne.push(`\\text{${urne[i]}}`)
   }
 
   // Remplit le tableau
@@ -182,17 +180,17 @@ Calculer la probabilité de gagner à ce jeu.`
     for (let j = 0; j < totalBoules; j++) {
       contenu.push(
         gagnePerdu(conditionDeVictoire)(urne[i], urne[j])
-          ? '\\text{gagné}'
+          ? '\\textbf{gagné}'
           : '\\text{perdu}',
       )
     }
   }
 
-  const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
+  const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
   correction += tableau + '<br>'
 
   const nbIssuesGagnantes = contenu.filter(
-    (issue) => issue === '\\text{gagné}',
+    (issue) => issue === '\\textbf{gagné}',
   ).length
   const probaGagner = fraction(nbIssuesGagnantes, totalIssues)
 
@@ -242,14 +240,14 @@ Calculer la probabilité de gagner à ce jeu.`
     let correction = `Pour gagner, il faut que ${condition}.<br>
   On remplit le tableau à double entrée des issues possibles de cette expérience aléatoire :<br>`
 
-    const ligneEnt = ['\\text{Dé rouge\\textbackslash Dé bleu}']
-    const colonneEnt = []
+    const entetesColonne = ['\\text{Dé rouge\\textbackslash Dé bleu}']
+    const entetesLigne = []
     const contenu = []
 
     // Crée les étiquettes du tableau
     for (let i = 1; i <= 6; i++) {
-      ligneEnt.push(`\\text{${i}}`)
-      colonneEnt.push(`\\text{${i}}`)
+      entetesColonne.push(`\\text{${i}}`)
+      entetesLigne.push(`\\text{${i}}`)
     }
 
     // Remplit le tableau
@@ -281,7 +279,7 @@ Calculer la probabilité de gagner à ce jeu.`
         }
 
         if (isGagnante) {
-          contenu.push('\\text{gagné}')
+          contenu.push('\\textbf{gagné}')
           nbIssuesGagnantes++
         } else {
           contenu.push('\\text{perdu}')
@@ -289,7 +287,7 @@ Calculer la probabilité de gagner à ce jeu.`
       }
     }
 
-    const tableau = tableauColonneLigne(ligneEnt, colonneEnt, contenu)
+    const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
     correction += tableau + '<br>'
 
     const probaGagner = fraction(nbIssuesGagnantes, 36)
@@ -308,6 +306,209 @@ Calculer la probabilité de gagner à ce jeu.`
   } while (true)
 }
 
+// Lancer deux dés de tailles différentes : un dé à 4 faces et un dé à 6 faces
+// On gagne selon différents critères
+function experience4() {
+  const conditionsDeVictoire = [
+    {
+      nom: 'le produit des deux dés soit pair',
+      test: (d4: number, d6: number) => (d4 * d6) % 2 === 0,
+    },
+    {
+      nom: 'le produit des deux dés soit impair',
+      test: (d4: number, d6: number) => (d4 * d6) % 2 === 1,
+    },
+    {
+      nom: 'la somme des deux dés soit un multiple de 3',
+      test: (d4: number, d6: number) => (d4 + d6) % 3 === 0,
+    },
+    {
+      nom: 'la somme des deux dés soit supérieure à 7',
+      test: (d4: number, d6: number) => d4 + d6 > 7,
+    },
+    {
+      nom: 'la somme des deux dés soit inférieure ou égale à 5',
+      test: (d4: number, d6: number) => d4 + d6 <= 5,
+    },
+    {
+      nom: 'le dé à 6 faces affiche un nombre strictement supérieur au dé à 4 faces',
+      test: (d4: number, d6: number) => d6 > d4,
+    },
+    {
+      nom: 'le dé à 4 faces affiche un nombre supérieur ou égal au dé à 6 faces',
+      test: (d4: number, d6: number) => d4 >= d6,
+    },
+    {
+      nom: 'les deux dés affichent des nombres pairs',
+      test: (d4: number, d6: number) => d4 % 2 === 0 && d6 % 2 === 0,
+    },
+    {
+      nom: 'au moins un des deux dés affiche un nombre impair',
+      test: (d4: number, d6: number) => d4 % 2 === 1 || d6 % 2 === 1,
+    },
+    {
+      nom: 'le produit des deux dés soit supérieur à 10',
+      test: (d4: number, d6: number) => d4 * d6 > 10,
+    },
+  ]
+
+  const conditionChoisie = choice(conditionsDeVictoire)
+
+  const enonce = `Un joueur lance deux dés : un dé à 4 faces numérotées de 1 à 4 et un dé à 6 faces numérotées de 1 à 6.<br>
+Pour gagner, il faut que ${conditionChoisie.nom}.<br>
+Calculer la probabilité de gagner à ce jeu.`
+
+  let correction = `Pour gagner, il faut que ${conditionChoisie.nom}.<br>
+  On remplit le tableau à double entrée des issues possibles de cette expérience aléatoire :<br>`
+
+  const entetesColonne = ['\\text{Dé 4 faces\\textbackslash Dé 6 faces}']
+  const entetesLigne = []
+  const contenu = []
+
+  // Crée les étiquettes du tableau
+  for (let i = 1; i <= 6; i++) {
+    entetesColonne.push(`\\text{${i}}`)
+  }
+  for (let j = 1; j <= 4; j++) {
+    entetesLigne.push(`\\text{${j}}`)
+  }
+
+  // Remplit le tableau
+  let nbIssuesGagnantes = 0
+  for (let i = 1; i <= 4; i++) {
+    for (let j = 1; j <= 6; j++) {
+      const isGagnante = conditionChoisie.test(i, j)
+      if (isGagnante) {
+        contenu.push('\\textbf{gagné}')
+        nbIssuesGagnantes++
+      } else {
+        contenu.push('\\text{perdu}')
+      }
+    }
+  }
+
+  const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
+  correction += tableau + '<br>'
+
+  const totalIssues = 24
+  const probaGagner = fraction(nbIssuesGagnantes, totalIssues)
+
+  correction += `Il y a ${nbIssuesGagnantes} issues gagnantes parmi ${totalIssues} issues possibles.<br>`
+  correction += `La probabilité de gagner à ce jeu est donc de $${!probaGagner.estIrreductible ? probaGagner.texFraction + '=' + miseEnEvidence(probaGagner.texFractionSimplifiee) : miseEnEvidence(probaGagner.texFraction)}$.<br>`
+
+  return {
+    enonce,
+    correction,
+    alea: { condition: conditionChoisie.nom },
+    reponse: probaGagner.texFraction,
+  }
+}
+
+// Tirer une carte de chaque tas parmi des cartes (Valet, Dame, Roi, As) de différentes couleurs
+// On gagne si les deux cartes ont la même figure ou la même couleur
+function experience5() {
+  // Créer le jeu complet de 16 cartes
+  const figures = ['V', 'D', 'R', 'A'] as const // Valet, Dame, Roi, As
+  const couleurs = context.isHtml
+    ? (['♣', '♦', '♥', '♠'] as const)
+    : (['\\clubsuit', '\\diamondsuit', '\\heartsuit', '\\spadesuit'] as const) // Trèfle, Carreau, Coeur, Pique
+  const nomsFigures = { V: 'Valet', D: 'Dame', R: 'Roi', A: 'As' }
+  const nomsCouleurs = context.isHtml
+    ? {
+        '♣': 'Trèfle',
+        '♦': 'Carreau',
+        '♥': 'Coeur',
+        '♠': 'Pique',
+      }
+    : {
+        '\\clubsuit': 'Trèfle',
+        '\\diamondsuit': 'Carreau',
+        '\\heartsuit': 'Coeur',
+        '\\spadesuit': 'Pique',
+      }
+
+  // Créer toutes les cartes
+  const toutesLesCartes: Array<{ figure: string; couleur: string }> = []
+  for (const figure of figures) {
+    for (const couleur of couleurs) {
+      toutesLesCartes.push({ figure, couleur })
+    }
+  }
+
+  // Mélanger et distribuer entre deux tas
+  const cartesMelangees = shuffle([...toutesLesCartes])
+  const nbCartesTas1 = randint(4, 6)
+  const tas1 = cartesMelangees.slice(0, nbCartesTas1)
+  const tas2 = cartesMelangees.slice(nbCartesTas1, nbCartesTas1 + randint(4, 6))
+
+  const enonce = `Un joueur dispose de deux tas de cartes à jouer (composées de valets, dames, rois et as).<br>
+Le premier tas contient ${nbCartesTas1} cartes : ${tas1
+    .map(
+      (c) =>
+        `${nomsFigures[c.figure as keyof typeof nomsFigures]} de ${nomsCouleurs[c.couleur as keyof typeof nomsCouleurs]}`,
+    )
+    .join(', ')}.<br>
+Le deuxième tas contient ${tas2.length} cartes : ${tas2
+    .map(
+      (c) =>
+        `${nomsFigures[c.figure as keyof typeof nomsFigures]} de ${nomsCouleurs[c.couleur as keyof typeof nomsCouleurs]}`,
+    )
+    .join(', ')}.<br>
+Le joueur tire une carte au hasard dans chaque tas.<br>
+Il gagne si les deux cartes ont la même figure ou la même couleur.<br>
+Calculer la probabilité de gagner à ce jeu.`
+
+  let correction = `Pour gagner, les deux cartes doivent avoir la même figure ou la même couleur.<br>
+  On remplit le tableau à double entrée des issues possibles de cette expérience aléatoire :<br>`
+
+  const entetesColonne = ['\\text{Tas 1\\textbackslash Tas 2}']
+  const entetesLigne = []
+  const contenu = []
+
+  // Crée les étiquettes du tableau
+  for (const carte2 of tas2) {
+    entetesColonne.push(
+      `\\text{${nomsFigures[carte2.figure as keyof typeof nomsFigures]} ${carte2.couleur}}`,
+    )
+  }
+  for (const carte1 of tas1) {
+    entetesLigne.push(
+      `\\text{${nomsFigures[carte1.figure as keyof typeof nomsFigures]} ${carte1.couleur}}`,
+    )
+  }
+
+  // Remplit le tableau
+  let nbIssuesGagnantes = 0
+  for (const carte1 of tas1) {
+    for (const carte2 of tas2) {
+      const gagne =
+        carte1.figure === carte2.figure || carte1.couleur === carte2.couleur
+      if (gagne) {
+        contenu.push('\\textbf{gagné}')
+        nbIssuesGagnantes++
+      } else {
+        contenu.push('\\text{perdu}')
+      }
+    }
+  }
+
+  const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
+  correction += tableau + '<br>'
+
+  const totalIssues = tas1.length * tas2.length
+  const probaGagner = fraction(nbIssuesGagnantes, totalIssues)
+
+  correction += `Il y a ${nbIssuesGagnantes} issues gagnantes parmi ${totalIssues} issues possibles.<br>`
+  correction += `La probabilité de gagner à ce jeu est donc de $${!probaGagner.estIrreductible ? probaGagner.texFraction + '=' + miseEnEvidence(probaGagner.texFractionSimplifiee) : miseEnEvidence(probaGagner.texFraction)}$.<br>`
+
+  return {
+    enonce,
+    correction,
+    alea: { tas1: JSON.stringify(tas1), tas2: JSON.stringify(tas2) },
+    reponse: probaGagner.texFraction,
+  }
+}
+
 /**
  * On doit calculer la probabilité qu'un événement se réalise après une expérience aléatoire à deux épreuves
  * @author Jean-Claude Lhote
@@ -322,19 +523,35 @@ export const refs = {
 export default class CalculProbaExperience2Epreuves3e extends Exercice {
   constructor() {
     super()
-
+    this.besoinFormulaireTexte = [
+      "Types d'expérience",
+      `Nombres séparés par des tirets\n\n1 : Un dé et une urne\n2 : Deux dés\n3 : Une urne avec remise\n4 : Deux dés de tailles différentes\n5 : Deux tas de cartes\n0 : Mélange`,
+    ]
+    this.sup = '0'
     this.nbQuestions = 1
     this.spacing = context.isHtml ? 2 : 1.5
     this.spacingCorr = context.isHtml ? 2 : 1.5
   }
 
   nouvelleVersion() {
-    const experiences = combinaisonListes(
-      [experience1, experience2, experience3],
-      this.nbQuestions,
-    )
+    const typeExperiences = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 5,
+      melange: 0,
+      nbQuestions: this.nbQuestions,
+      defaut: 0,
+    }).map(Number)
+    const experiences = [
+      experience1,
+      experience2,
+      experience3,
+      experience4,
+      experience5,
+    ]
+
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
-      const question = experiences[i]()
+      const question = experiences[typeExperiences[i] - 1]()
 
       if (this.questionJamaisPosee(i, JSON.stringify(question.alea))) {
         this.listeQuestions[i] =
