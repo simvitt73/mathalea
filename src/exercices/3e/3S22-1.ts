@@ -55,16 +55,14 @@ Calculer la probabilité de gagner à ce jeu.`
     entetesLigne.push(`\\text{${i}}`)
     for (let j = 1; j <= 6; j++) {
       contenu.push(
-        i <= j && boules[j - 1] === 'B'
-          ? miseEnEvidence('\\text{gagné}', 'black')
-          : '\\text{perdu}',
+        i <= j && boules[j - 1] === 'B' ? '\\textbf{gagné}' : '\\text{perdu}',
       )
     }
   }
   const tableau = tableauColonneLigne(entetesColonne, entetesLigne, contenu)
   correction += tableau + '<br>'
   const nbIssuesGagnantes = contenu.filter(
-    (issue) => issue === miseEnEvidence('\\text{gagné}', 'black'),
+    (issue) => issue === '\\textbf{gagné}',
   ).length
   const probaGagner = fraction(nbIssuesGagnantes, 36)
   correction += `Il y a ${nbIssuesGagnantes} issues gagnantes parmi 36 issues possibles.<br>`
@@ -182,7 +180,7 @@ Calculer la probabilité de gagner à ce jeu.`
     for (let j = 0; j < totalBoules; j++) {
       contenu.push(
         gagnePerdu(conditionDeVictoire)(urne[i], urne[j])
-          ? miseEnEvidence('\\text{gagné}', 'black')
+          ? '\\textbf{gagné}'
           : '\\text{perdu}',
       )
     }
@@ -192,7 +190,7 @@ Calculer la probabilité de gagner à ce jeu.`
   correction += tableau + '<br>'
 
   const nbIssuesGagnantes = contenu.filter(
-    (issue) => issue === miseEnEvidence('\\text{gagné}', 'black'),
+    (issue) => issue === '\\textbf{gagné}',
   ).length
   const probaGagner = fraction(nbIssuesGagnantes, totalIssues)
 
@@ -281,7 +279,7 @@ Calculer la probabilité de gagner à ce jeu.`
         }
 
         if (isGagnante) {
-          contenu.push(miseEnEvidence('\\text{gagné}', 'black'))
+          contenu.push('\\textbf{gagné}')
           nbIssuesGagnantes++
         } else {
           contenu.push('\\text{perdu}')
@@ -381,7 +379,7 @@ Calculer la probabilité de gagner à ce jeu.`
     for (let j = 1; j <= 6; j++) {
       const isGagnante = conditionChoisie.test(i, j)
       if (isGagnante) {
-        contenu.push(miseEnEvidence('\\text{gagné}', 'black'))
+        contenu.push('\\textbf{gagné}')
         nbIssuesGagnantes++
       } else {
         contenu.push('\\text{perdu}')
@@ -486,7 +484,7 @@ Calculer la probabilité de gagner à ce jeu.`
       const gagne =
         carte1.figure === carte2.figure || carte1.couleur === carte2.couleur
       if (gagne) {
-        contenu.push(miseEnEvidence('\\text{gagné}', 'black'))
+        contenu.push('\\textbf{gagné}')
         nbIssuesGagnantes++
       } else {
         contenu.push('\\text{perdu}')
