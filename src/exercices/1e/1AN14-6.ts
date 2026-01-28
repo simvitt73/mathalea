@@ -10,18 +10,16 @@ import {
   miseEnEvidence,
   texteEnCouleurEtGras,
 } from '../../lib/outils/embellissements'
-import FractionEtendue from '../../modules/FractionEtendue'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
   randint,
 } from '../../modules/outils'
-import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
 export const titre = 'Dériver $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
-export const dateDeModifImportante = '07/05/2024'
+export const dateDeModifImportante = '27/01/2026'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
