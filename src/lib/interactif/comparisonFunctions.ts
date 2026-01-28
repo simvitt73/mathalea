@@ -2076,7 +2076,14 @@ export function ensembleNombres(
   goodAnswer: string,
   { kUplet = false, avecAccolades = true } = {},
 ): ResultType {
-  const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
+  const clean = generateCleaner([
+    'virgules',
+    'fractions',
+    'parentheses',
+    'espaces',
+    'espaceNormal',
+    'doubleEspaces',
+  ])
   const cleanInput = clean(input)
     .replaceAll('∅', '\\emptyset')
     .replaceAll('\\lbrace', '\\{')
