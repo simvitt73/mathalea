@@ -23,11 +23,11 @@ export const dateDeModifImportante = '14/05/2023'
  * Déterminer une fonction affine à partir de deux images
  * @author Stéphane Guyon et Gilles Mora
  */
-export const uuid = 'ef898'
+export const uuid = 'ef897'
 
 export const refs = {
-  'fr-fr': ['2F10-4'],
-  'fr-ch': ['11FA8-11'],
+  'fr-fr': [],
+  'fr-ch': [],
 }
 export default class Determinerfonctionaffine extends Exercice {
   constructor() {
