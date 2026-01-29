@@ -74,20 +74,21 @@ ortho +=`Donc : <br>$\\begin{aligned}\\phantom{\\iff}&\\overrightarrow{MH} \\cdo
 \\iff &${rienSi1(ux)}  x + ${rienSi1(uy)} y + ${rienSi1(uz)} z  ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\quad(1)\\end{aligned}$ <br>`
 let pointH=''
 pointH=`${texteEnCouleurEtGras('Le point $H$ appartient à la droite $(AB)$.')}<br>`
-pointH +=`Pour utiliser que le point $H$ appartient à la droite $(AB)$ , on détermine la représentation paramétrique de cette droite : <br>`
-pointH +=`$\\left\\{ \\begin{array}{l} x = ${xA}  ${ecritureAlgebriqueSauf1(ux)} t \\\\ y = ${yA}  ${ecritureAlgebriqueSauf1(uy)} t \\quad (t\\in\\mathbb{R}) \\\\ z = ${zA}  ${ecritureAlgebriqueSauf1(uz)} t \\end{array} \\right.$ <br>`
+pointH +=`Pour utiliser que le point $H$ appartient à la droite $(AB)$ , on détermine une représentation paramétrique de cette droite : <br>`
+pointH +=`$(AB):\\left\\{ \\begin{array}{l} x = ${xA}  ${ecritureAlgebriqueSauf1(ux)} t \\\\ y = ${yA}  ${ecritureAlgebriqueSauf1(uy)} t \\quad (t\\in\\mathbb{R}) \\\\ z = ${zA}  ${ecritureAlgebriqueSauf1(uz)} t \\end{array} \\right.$ <br>`
 
       texteCorr =
-        'Soit $x$, $y$ et $z$ des réels tels que les coordonnées du point $H$ soient $H(x;y;z)$.<br>' 
+        'Soit $x_H$, $y_H$ et $z_H$ des réels tels que les coordonnées du point $H$ soient $H(x_H;y_H;z_H)$.<br>' 
 texteCorr +='<br>Par définition du projeté orthogonal, on déduit deux informations :'
 + createList({items :[ortho,pointH], style: 'fleches'})
 
 texteCorr +=`${texteEnCouleurEtGras('<br>Synthèse des deux éléments précédents :')} <br>`
-texteCorr +=`Les coordonnées du point $H$ vérifient donc ce système de $4$ équations à $4$ inconnues :<br>`
+texteCorr +=`$H\\in(AB)\\cap\\mathcal{P}$. La droite $(AB)$ étant orthogonale au plan $\\mathscr{P}$, il existe un unique point $H$ solution. <br>`
+texteCorr +=`$H(x_H,y_H,z_H)\\in(AB)\\cap\\mathcal{P}$ si et seulement s'il existe $t\\in\\mathbb{R}$ tel que : <br>`
 texteCorr +=`$\\begin{cases}
-x = ${xA}  ${ecritureAlgebriqueSauf1(ux)} t \\\\ y = ${yA}  ${ecritureAlgebriqueSauf1(uy)} t \\\\ z = ${zA}  ${ecritureAlgebriqueSauf1(uz)} t \\\\
-${rienSi1(ux)}  x + ${rienSi1(uy)} y + ${rienSi1(uz)} z  ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\end{cases}$ <br>`
-texteCorr +=`En remplaçant $x$, $y$ et $z$ dans la dernière équation, on obtient : <br>`
+x_H = ${xA}  ${ecritureAlgebriqueSauf1(ux)} t \\\\ y_H = ${yA}  ${ecritureAlgebriqueSauf1(uy)} t \\\\ z_H = ${zA}  ${ecritureAlgebriqueSauf1(uz)} t \\\\
+${rienSi1(ux)}  x_H + ${rienSi1(uy)} y_H + ${rienSi1(uz)} z_H  ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\end{cases}$ <br>`
+texteCorr +=`En remplaçant $x_H$, $y_H$ et $z_H$ dans la dernière équation, on obtient : <br>`
 texteCorr +=`$\\begin{aligned}
 &${rienSi1(ux)}  (${xA}  ${ecritureAlgebriqueSauf1(ux)}  t) + ${rienSi1(uy)}  (${yA}  ${ecritureAlgebriqueSauf1(uy)}  t) + ${rienSi1(uz)}  (${zA}  ${ecritureAlgebriqueSauf1(uz)}  t)  ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\\\
 \\iff &${ux*xA}  ${ecritureAlgebriqueSauf1(ux*ux)}t  ${ecritureAlgebrique(uy*yA)} ${ecritureAlgebriqueSauf1(uy*uy)} t ${ecritureAlgebrique(uz*zA)} ${ecritureAlgebriqueSauf1(uz*uz)}t ${ecritureAlgebrique(-(ux * xM + uy * yM + uz * zM))}=0\\\\
@@ -99,6 +100,7 @@ texteCorr +=`$\\begin{cases}
 x_H = ${xA}  ${ecritureAlgebrique(ux)} \\times ${valeurt.texFSP} \\\\\\\\ y_H = ${yA}  ${ecritureAlgebrique(uy)} \\times ${valeurt.texFSP} \\\\\\\\ z_H = ${zA}  ${ecritureAlgebrique(uz)} \\times ${valeurt.texFSP} \\end{cases}$ d'où finalement`
 texteCorr +=`$\\begin{cases}
 x_H = ${abscisseH.texFractionSimplifiee} \\\\ y_H = ${ordonneeH.texFractionSimplifiee} \\\\ z_H = ${coteH.texFractionSimplifiee} \\end{cases}$ <br>`
+texteCorr +=`On vérifie que le point $H$ ainsi déterminé satisfait bien la dernière équation du système. <br>`
 texteCorr +=`Ainsi, les coordonnées du point $H$ sont $${miseEnEvidence(`H(${abscisseH.texFractionSimplifiee} ; ${ordonneeH.texFractionSimplifiee} ; ${coteH.texFractionSimplifiee}).`)}$`
 
       

@@ -1,8 +1,12 @@
-import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeQuestionsToContenu, randint } from '../../modules/outils'
-import { ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
+import {
+  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
+  rienSi1,
+} from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 export const titre =
   "Déterminer si un point appartient à une droite de l'espace"
 
@@ -35,7 +39,6 @@ export default class nomExercice extends Exercice {
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
-
     ) {
       // Boucle principale où i+1 correspond au numéro de la question
       const xA = randint(-10, 10, 0)
@@ -59,7 +62,7 @@ export default class nomExercice extends Exercice {
           texteCorr =
             "Il suffit de vérifier s'il existe un réel $t$ qui valide le système pour les coordonnées du point $M$.<br>"
           texteCorr += `Résolvons le système :<br><br>$ \\phantom{\\iff }\\begin{cases}${xM}=${xA}${ecritureAlgebriqueSauf1(a)} t\\\\${yM}=${yA}${ecritureAlgebriqueSauf1(b)} t\\\\${zM}=${zA}${ecritureAlgebriqueSauf1(c)} t\\end{cases}$<br>`
-          texteCorr += `<br>$\\iff \\begin{cases}${rienSi1(a)} t=${xM}${ecritureAlgebriqueSauf1(-xA)}\\\\${rienSi1(b)} t=${yM}${ecritureAlgebriqueSauf1(-yA)}\\\\${rienSi1(c)} t=${zM}${ecritureAlgebriqueSauf1(-zA)}\\end{cases}$<br>`
+          texteCorr += `<br>$\\iff \\begin{cases}${rienSi1(a)} t=${xM}${ecritureAlgebrique(-xA)}\\\\${rienSi1(b)} t=${yM}${ecritureAlgebrique(-yA)}\\\\${rienSi1(c)} t=${zM}${ecritureAlgebrique(-zA)}\\end{cases}$<br>`
           texteCorr += `<br>$\\iff \\begin{cases}${rienSi1(a)} t=${xM - xA}\\\\${rienSi1(b)} t=${yM - yA}\\\\${rienSi1(c)} t=${zM - zA}\\end{cases}$<br>`
           texteCorr += `<br>$\\iff \\begin{cases} t=${t}\\\\ t=${t}\\\\t=${t}\\end{cases}$`
           texteCorr += `<br>Le système a pour solution $t=${t}$ donc le point M appartient à la droite  $(\\Delta)$.`
