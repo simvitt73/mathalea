@@ -6,13 +6,15 @@ import {
   ecritureParentheseSiNegatif,
   rienSi0,
 } from '../../lib/outils/ecritures'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import {
+  miseEnEvidence,
+  texteEnCouleurEtGras,
+} from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre =
-  'Calculer le volume d\'un tétraèdre.'
+export const titre = "Calculer le volume d'un tétraèdre."
 
 export const dateDePublication = '28/01/2026'
 
@@ -97,7 +99,8 @@ export default class NomExercice extends Exercice {
       const question2 = `Soit $\\vec n \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$. Vérifier que ce vecteur est orthogonal au plan $(ABC)$.`
       const question3 = 'En déduire une équation cartésienne du plan $(ABC)$.'
       const question4 = `Donner une représentation paramétrique de la droite $(d)$ passant par $D(${xD} ; ${yD} ; ${zD})$ et de vecteur directeur $\\vec n$.`
-      const question5 = 'Calculer les coordonnées du point $H$, projection orthogonale de $D$ sur $(ABC)$.'
+      const question5 =
+        'Calculer les coordonnées du point $H$, projection orthogonale de $D$ sur $(ABC)$.'
       const question6 = 'Calculer la longueur $DH$.'
       const question7 = 'Calculer le volume du tétraèdre $ABCD$.'
 
@@ -105,15 +108,31 @@ export default class NomExercice extends Exercice {
         'Dans un repère orthonormé de l’espace, on considère les points :<br>' +
         `$A(${xA} ; ${yA} ; ${zA})$, $B(${xB} ; ${yB} ; ${zB})$, $C(${xC} ; ${yC} ; ${zC})$ et $D(${xD} ; ${yD} ; ${zD})$.<br>` +
         createList({
-          items: [question1, question2, question3, question4, question5, question6, question7],
+          items: [
+            question1,
+            question2,
+            question3,
+            question4,
+            question5,
+            question6,
+            question7,
+          ],
           style: 'nombres',
         })
 
       // Corrections
-      const reponse1 =
-        texteEnCouleurEtGras('Triangle rectangle en A :') +
-        `<br>$\\overrightarrow{AB}\\begin{pmatrix}${ABx}\\\\${ABy}\\\\${ABz}\\end{pmatrix}$ et $\\overrightarrow{AC}\\begin{pmatrix}${ACx}\\\\${ACy}\\\\${ACz}\\end{pmatrix}$.<br>` +
-        `Le produit scalaire vaut $${ABx}\\times${ACx} + ${ABy}\\times${ACy} + ${ABz}\\times${ACz} = ${ABx * ACx + ABy * ACy + ABz * ACz}$.<br>` +
+      let reponse1 = lampeMessage({
+        titre: 'Méthode :',
+        texte:
+          'Pour montrer qu’un triangle $ABC$ est rectangle en $A$, on peut appliquer la réciproque du théorème de Pythagore ou vérifier que les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ sont orthogonaux en calculant leur produit scalaire.<br> La deuxième idée est plus rapide.',
+      })
+
+      reponse1 +='<br>On calcule les coordonnées des vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ : <br>'
+      reponse1 +='$\\overrightarrow{AB}\\begin{pmatrix}${xB}${ecritureAlgebrique(-xA)}\\\\${yB}${ecritureAlgebrique(-yA)}\\\\${zB}${ecritureAlgebrique(-zA)}\\end{pmatrix}$ donc $\\overrightarrow{AB}\\begin{pmatrix}${ABx}\\\\${ABy}\\\\${ABz}\\end{pmatrix}$'
+      reponse1 +=`$\\overrightarrow{AC}\\begin{pmatrix}${xC}${ecritureAlgebrique(-xA)}\\\\${yC}${ecritureAlgebrique(-yA)}\\\\${zC}${ecritureAlgebrique(-zA)}\\end{pmatrix}$ donc $\\overrightarrow{AC}\\begin{pmatrix}${ACx}\\\\${ACy}\\\\${ACz}\\end{pmatrix}$.<br>` 
+          reponse1 +=`Pour vérifier si ces vecteurs sont orthogonaux, on calcule leur produit scalaire : <bt>'` +
+        ` $\\begin{aligned}\\overrightarrow{AB}\\cdot\\overrightarrow{AC} &= ${ABx}\\times${ACx} + ${ABy}\\times${ACy} + ${ABz}\\times${ACz} \\\\
+        &= ${ABx * ACx + ABy * ACy + ABz * ACz}\\end{aligned}$.<br>` +
         'Il est nul et les deux vecteurs sont non nuls, donc $ABC$ est rectangle en $A$.'
 
       const reponse2 =
@@ -192,8 +211,7 @@ z = ${zD} ${ecritureAlgebrique(nz)}t
       // Volume tétraèdre sans produit vectoriel : aire du triangle rectangle ABC puis hauteur DH
       const AB2 = ABx * ABx + ABy * ABy + ABz * ABz
       const AC2 = ACx * ACx + ACy * ACy + ACz * ACz
-      const volumeDec =
-        (Math.sqrt(AB2) * Math.sqrt(AC2) * normeDHDec) / 6
+      const volumeDec = (Math.sqrt(AB2) * Math.sqrt(AC2) * normeDHDec) / 6
       const reponse7 =
         texteEnCouleurEtGras('Volume du tétraèdre :') +
         `<br>Le triangle $ABC$ est rectangle en $A$, donc $\\mathscr A_{ABC} = \\dfrac{\\|\\overrightarrow{AB}\\|\\,\\|\\overrightarrow{AC}\\|}{2} = \\dfrac{\\sqrt{${AB2}}\\,\\sqrt{${AC2}}}{2}$.<br>` +
@@ -202,7 +220,15 @@ z = ${zD} ${ecritureAlgebrique(nz)}t
         )}$.`
 
       texteCorr = createList({
-        items: [reponse1, reponse2, reponse3, reponse4, reponse5, reponse6, reponse7],
+        items: [
+          reponse1,
+          reponse2,
+          reponse3,
+          reponse4,
+          reponse5,
+          reponse6,
+          reponse7,
+        ],
         style: 'nombres',
       })
 
