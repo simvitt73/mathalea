@@ -82,6 +82,11 @@ const waitForElement = async (
       } else if (ele.length === 0 && tempTime > timeWait1000) {
         // console.log('Doesn\'t exist...')
         clearInterval(checkExist)
+        const domSnapshot = document.body.outerHTML
+        window.notify(`Timeout waiting for element ${elementId}`, {
+          timeWait,
+          domSnapshot,
+        })
         reject(new Error(`Element not found ${elementId}`))
       } else {
         tempTime++
