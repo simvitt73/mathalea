@@ -7,6 +7,7 @@ import { vide2d } from '../../lib/2d/Vide2d'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { enleveElement } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context'
@@ -47,6 +48,7 @@ export const refs = {
   'fr-ch': ['9NO3-1'],
 }
 export default class AdditionsSoustractionsMultiplicationsPosees extends Exercice {
+  version: string
   constructor() {
     super()
     this.spacing = 2
@@ -67,13 +69,21 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
       false,
     ]
     // this.besoinFormulaire4CaseACocher = ['Couleurs pour élève dys', false]
-    this.sup = 6
+    this.sup = '6'
     this.sup2 = 3
     this.sup3 = false
     this.sup4 = false
+    this.version = '6e'
   }
 
   nouvelleVersion() {
+    if (this.version === 'CM1') {
+      this.sup = String(this.sup).replace(
+        /[123]/g,
+        (c: string): string => ({ '1': '4', '2': '5', '3': '6' })[c]!,
+      )
+    }
+
     let typesDeQuestions, reponse
     this.consigne =
       this.nbQuestions > 1
@@ -88,10 +98,16 @@ export default class AdditionsSoustractionsMultiplicationsPosees extends Exercic
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
       defaut: randint(1, 5),
-      nbQuestions: this.nbQuestions,
+      nbQuestions: 5,
       melange: 6,
       saisie: this.sup,
-    })
+    }).map(Number)
+
+    if (this.version === 'CM1') {
+      enleveElement(listeTypeDeQuestions, 1)
+      enleveElement(listeTypeDeQuestions, 2)
+      enleveElement(listeTypeDeQuestions, 3)
+    }
 
     let grilletxt
     if (this.sup2 < 3) {
