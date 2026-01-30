@@ -15,6 +15,7 @@ import {
 import {
   type AnswerValueType,
   type IExercice,
+  type IExerciceStatique,
   type InterfaceGlobalOptions,
   type InterfaceParams,
   type Valeur,
@@ -263,16 +264,27 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       const ClasseExercice = module.default
       const exercice = new ClasseExercice()
 
-      // Copie des propriétés optionnelles
-      ;[
+      // Définir explicitement les propriétés à copier
+      type OptionalExerciceProps =
+        | 'titre'
+        | 'amcReady'
+        | 'amcType'
+        | 'interactifType'
+        | 'interactifReady'
+
+      const propsToClone: OptionalExerciceProps[] = [
         'titre',
         'amcReady',
         'amcType',
         'interactifType',
         'interactifReady',
-      ].forEach((p) => {
-        if (module[p as keyof ExerciceModule] !== undefined) {
-          exercice[p] = module[p as keyof ExerciceModule]
+      ]
+
+      propsToClone.forEach((prop) => {
+        if (module[prop as keyof ExerciceModule] !== undefined) {
+          // Assertion sûre après vérification
+          ;(exercice as Record<string, any>)[prop] =
+            module[prop as keyof ExerciceModule]
         }
       })
 
@@ -330,7 +342,7 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
  */
 export async function mathaleaGetExercicesFromParams(
   params: InterfaceParams[],
-): Promise<IExercice[]> {
+): Promise<(IExercice | IExerciceStatique)[]> {
   const exercices = []
   for (const param of params) {
     if (
@@ -348,6 +360,14 @@ export async function mathaleaGetExercicesFromParams(
         param.uuid.substring(0, 7) === 'evacom_'
           ? getExerciceByUuid(referentielStaticCH, param.uuid)
           : getExerciceByUuid(referentielStaticFR, param.uuid)
+
+      // Vérifier que infosExerciceStatique n'est pas null
+      if (!infosExerciceStatique) {
+        throw new Error(
+          `Informations introuvables pour l'exercice statique avec l'UUID : ${param.uuid}`,
+        )
+      }
+
       let content = ''
       let contentCorr = ''
       const sujet = param.uuid.split('_')[0]
@@ -359,31 +379,35 @@ export async function mathaleaGetExercicesFromParams(
         sujet === 'sti2d' ||
         sujet === 'stl'
       ) {
-        let response = await window.fetch(
-          `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`,
-        )
-        if (response.status === 200) {
-          const text = await response.clone().text()
-          if (!text.trim().startsWith('<!DOCTYPE html>')) {
-            content = text
-          } else {
-            content = '\n\n\t%Exercice non disponible\n\n'
+        if ('annee' in infosExerciceStatique) {
+          let response = await window.fetch(
+            `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}.tex`,
+          )
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              content = text
+            } else {
+              content = '\n\n\t%Exercice non disponible\n\n'
+            }
           }
-        }
-        response = await window.fetch(
-          `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}_cor.tex`,
-        )
-        if (response.status === 200) {
-          const text = await response.clone().text()
-          if (!text.trim().startsWith('<!DOCTYPE html>')) {
-            contentCorr = text
-          } else {
-            contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+          response = await window.fetch(
+            `static/${sujet}/${infosExerciceStatique.annee}/tex/${param.uuid}_cor.tex`,
+          )
+          if (response.status === 200) {
+            const text = await response.clone().text()
+            if (!text.trim().startsWith('<!DOCTYPE html>')) {
+              contentCorr = text
+            } else {
+              contentCorr = '\n\n\t%Pas de correction disponible\n\n'
+            }
           }
         }
       } else {
-        if (infosExerciceStatique?.url) {
-          const response = await window.fetch(infosExerciceStatique.url)
+        if (infosExerciceStatique && 'url' in infosExerciceStatique) {
+          const response = await window.fetch(
+            infosExerciceStatique.url as string,
+          )
           if (response.status === 200) {
             const text = await response.clone().text()
             if (!text.trim().startsWith('<!DOCTYPE html>')) {
@@ -393,8 +417,10 @@ export async function mathaleaGetExercicesFromParams(
             }
           }
         }
-        if (infosExerciceStatique?.urlcor) {
-          const response = await window.fetch(infosExerciceStatique.urlcor)
+        if (infosExerciceStatique && 'urlcor' in infosExerciceStatique) {
+          const response = await window.fetch(
+            infosExerciceStatique.urlcor as string,
+          )
           if (response.status === 200) {
             const text = await response.clone().text()
             if (!text.trim().startsWith('<!DOCTYPE html>')) {
@@ -405,10 +431,18 @@ export async function mathaleaGetExercicesFromParams(
           }
         }
       }
-      const annee = infosExerciceStatique?.annee
-      const lieu = infosExerciceStatique?.lieu
-      const mois = infosExerciceStatique?.mois
-      const numeroInitial = infosExerciceStatique?.numeroInitial
+      const annee =
+        'annee' in infosExerciceStatique
+          ? infosExerciceStatique.annee
+          : undefined
+      const lieu =
+        'lieu' in infosExerciceStatique ? infosExerciceStatique.lieu : undefined
+      const mois =
+        'mois' in infosExerciceStatique ? infosExerciceStatique.mois : undefined
+      const numeroInitial =
+        'numeroInitial' in infosExerciceStatique
+          ? infosExerciceStatique.numeroInitial
+          : undefined
       let examen: string = ''
       if (param.uuid.substring(0, 4) === 'crpe') examen = 'CRPE'
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
@@ -428,7 +462,7 @@ export async function mathaleaGetExercicesFromParams(
         mois,
         numeroInitial,
         examen,
-      })
+      } as IExerciceStatique)
     } else {
       const exercice = await mathaleaLoadExerciceFromUuid(param.uuid)
       if (typeof exercice === 'undefined') continue
@@ -525,19 +559,24 @@ export function renderDiv(HtmlElement: HTMLElement, _content: string) {
 }
 
 export function renderKatex(element: HTMLElement) {
-  renderMathInElement(element, {
+  const options = {
     delimiters: [
       { left: '\\[', right: '\\]', display: true },
       { left: '$', right: '$', display: false },
     ],
-    // Les accolades permettent d'avoir une formule non coupée
-    preProcess: (chaine: string) =>
-      '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
     throwOnError: true,
     errorColor: '#CC0000',
     strict: 'warn',
     trust: false,
+  }
+
+  // Ajouter preProcess sans typage strict
+  Object.assign(options, {
+    preProcess: (chaine: string) =>
+      '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
   })
+
+  renderMathInElement(element, options as any)
   document.dispatchEvent(new window.Event('katexRendered'))
 }
 
