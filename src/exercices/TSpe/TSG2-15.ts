@@ -103,7 +103,8 @@ export default class NomExercice extends Exercice {
       const question5 =
         'Calculer les coordonnées du point $H$, projection orthogonale de $D$ sur $(ABC)$.'
       const question6 = 'Calculer la longueur $DH$.'
-      const question7 = 'Calculer le volume du tétraèdre $ABCD$. On donnera la valeur exacte et le cas échéant, une valeur approchée au centième.'
+      const question7 =
+        'Calculer le volume du tétraèdre $ABCD$. On donnera la valeur exacte et le cas échéant, une valeur approchée au centième.'
 
       texte =
         'Dans un repère orthonormé de l’espace, on considère les points :<br>' +
@@ -125,7 +126,7 @@ export default class NomExercice extends Exercice {
       let reponse1 = lampeMessage({
         titre: 'Méthode :',
         texte:
-          'Pour montrer qu’un triangle $ABC$ est rectangle en $A$, on peut appliquer la réciproque du théorème de Pythagore ou vérifier que les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ sont orthogonaux en calculant leur produit scalaire.<br> La deuxième idée est plus rapide.',
+          'Pour montrer qu’un triangle $ABC$ est rectangle en $A$, il suffit de vérifier que les vecteurs $\\overrightarrow{AB}$ et $\\overrightarrow{AC}$ sont orthogonaux en calculant leur produit scalaire.',
       })
 
       reponse1 +=
@@ -138,18 +139,19 @@ export default class NomExercice extends Exercice {
         '$\\overrightarrow{AB}\\cdot\\overrightarrow{AC}$ et les deux vecteurs sont non nuls, ils sont donc orthogonaux. <br>' +
         'donc $ABC$ est un triangle rectangle en $A$.'
 
-      let reponse2 =
-       lampeMessage({
+      let reponse2 = lampeMessage({
         titre: 'Méthode :',
         texte:
-          'Pour montrer qu’un vecteur est orthogonal à un plan, il suffit de vérifier qu\'il est orthogonal à deux vecteurs non-colinéaires de ce plan. <br> Il suffit ici de montrer par exemple que $\\vec n \\cdot \\overrightarrow{AB}=0$ et $\\vec n \\cdot \\overrightarrow{AC}=0$ .',
+          "Pour montrer qu’un vecteur est orthogonal à un plan, il suffit de vérifier qu'il est orthogonal à deux vecteurs non-colinéaires de ce plan. <br> Il suffit ici de montrer par exemple que $\\vec n \\cdot \\overrightarrow{AB}=0$ et $\\vec n \\cdot \\overrightarrow{AC}=0$ .",
       })
-       reponse2+= `<br>On calcule <br>$\\begin{aligned}\\vec n \\cdot \\overrightarrow{AB} &= ${nx}\\times${ecritureParentheseSiNegatif(
-      ABx,)} ${ecritureAlgebrique(nx)}\\times ${ecritureParentheseSiNegatif(ABy)} ${ecritureAlgebrique(nx)}\\times ${ecritureParentheseSiNegatif(ABz)} \\\\
-        &=${nx*ABx} ${ecritureAlgebrique(ny*ABy)} ${ecritureAlgebrique(nz*ABz)} \\\\
+      reponse2 +=
+        `<br>On calcule <br>$\\begin{aligned}\\vec n \\cdot \\overrightarrow{AB} &= ${nx}\\times${ecritureParentheseSiNegatif(
+          ABx,
+        )} ${ecritureAlgebrique(nx)}\\times ${ecritureParentheseSiNegatif(ABy)} ${ecritureAlgebrique(nx)}\\times ${ecritureParentheseSiNegatif(ABz)} \\\\
+        &=${nx * ABx} ${ecritureAlgebrique(ny * ABy)} ${ecritureAlgebrique(nz * ABz)} \\\\
       &= ${nx * ABx + ny * ABy + nz * ABz}\\end{aligned}$<br>` +
-        ` $\\begin{aligned}\\vec n \\cdot \\overrightarrow{AC} &= ${nx}\\times${ecritureParentheseSiNegatif(ACx,)} ${ecritureAlgebrique(nx * ACy)} ${ecritureAlgebrique(nx * ACz)} \\\\
-        &= ${nx*ACx} ${ecritureAlgebrique(ny * ACy)} ${ecritureAlgebrique(nz * ACz)} \\\\
+        ` $\\begin{aligned}\\vec n \\cdot \\overrightarrow{AC} &= ${nx}\\times${ecritureParentheseSiNegatif(ACx)} ${ecritureAlgebrique(nx * ACy)} ${ecritureAlgebrique(nx * ACz)} \\\\
+        &= ${nx * ACx} ${ecritureAlgebrique(ny * ACy)} ${ecritureAlgebrique(nz * ACz)} \\\\
         &= ${nx * ACx + ny * ACy + nz * ACz}\\end{aligned}$.<br>` +
         'Le vecteur $\\vec n$ est bien orthogonal à deux vecteurs non-colinéaires du plan $(ABC)$ (à une base), il est donc orthogonal au plan $(ABC)$.'
 
@@ -163,19 +165,21 @@ export default class NomExercice extends Exercice {
          Une équation cartésienne de ce plan est donc sous la forme :
         $${rienSi1(nx)}x ${ecritureAlgebrique(ny)}y ${ecritureAlgebrique(nz)}z + d = 0$ où $d$ est un réel à trouver.<br>
         Pour déterminer $d$, on utilise que le point $A(${xA} ; ${yA} ; ${zA})$ appartient au plan $(ABC)$, ses coordonnées vérifient donc l'équation cartésienne de ce plan :<br>
-        $\\begin{aligned}&${nx}\\times ${ecritureParentheseSiNegatif(xA,)} ${ecritureAlgebrique(ny)}\\times${ecritureParentheseSiNegatif(yA)} ${ecritureAlgebrique(nz)}\\times${ecritureParentheseSiNegatif(
-        zA,)} + d = 0\\\\
-       \\iff &${rienSi0(nx * xA)} ${ecritureAlgebriqueSauf0(ny*yA)} ${ecritureAlgebriqueSauf0(nz*zA)} + d = 0\\\\
+        $\\begin{aligned}&${nx}\\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebrique(ny)}\\times${ecritureParentheseSiNegatif(yA)} ${ecritureAlgebrique(nz)}\\times${ecritureParentheseSiNegatif(
+          zA,
+        )} + d = 0\\\\
+       \\iff &${rienSi0(nx * xA)} ${ecritureAlgebriqueSauf0(ny * yA)} ${ecritureAlgebriqueSauf0(nz * zA)} + d = 0\\\\
         \\iff&d = ${dPlan}\\end{aligned}$.<br>` +
         `Ainsi, une équation du plan $(ABC)$ est : $${rienSi1(nx)}x ${ecritureAlgebriqueSauf1(ny)}y ${ecritureAlgebriqueSauf1(
-            nz,)}z ${ecritureAlgebriqueSauf0(dPlan)} = 0$`
+          nz,
+        )}z ${ecritureAlgebriqueSauf0(dPlan)} = 0$`
 
       const reponse4 =
-         lampeMessage({
+        lampeMessage({
           titre: 'Méthode :',
-          texte:
-            `La représentation paramétrique d'une droite de vecteur directeur $\\vec{u} \\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ (avec $a,\\, b$ et $c$ trois réels) et passant par un point $A(x_A ; y_A ; z_A)$  est donnée par :
-        $\\begin{cases} x=x_A+at\\\\y=y_A+bt\\quad(t\\in\\mathbb{R})\\\\z=z_A+ct\\end{cases}$`})+
+          texte: `La représentation paramétrique d'une droite de vecteur directeur $\\vec{u} \\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ (avec $a,\\, b$ et $c$ trois réels) et passant par un point $A(x_A ; y_A ; z_A)$  est donnée par :
+        $\\begin{cases} x=x_A+at\\\\y=y_A+bt\\quad(t\\in\\mathbb{R})\\\\z=z_A+ct\\end{cases}$`,
+        }) +
         `La droite passe par le point $D(${xD} ; ${yD} ; ${zD})$ et a pour vecteur directeur $\\vec n \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$.<br>
          Une représentation paramétrique de la droite $(d)$ est<br>` +
         `$ (d) :\\begin{cases}
@@ -187,34 +191,35 @@ z = ${zD} ${ecritureAlgebriqueSauf1(nz)}t
       // Projection orthogonale de D sur le plan (ABC)
       const denom = nx * nx + ny * ny + nz * nz // dénominateur de t pour calculer coordonénes de H
       const numer = nx * xD + ny * yD + nz * zD + dPlan // numérateur de t pour calculer coordonénes de H
-      const fracT = new FractionEtendue(abs(-numer), abs(denom))// Valeur de t pour trouver H
+      const fracT = new FractionEtendue(abs(-numer), abs(denom)) // Valeur de t pour trouver H
       const xHFrac = new FractionEtendue(xD * denom - numer * nx, denom) // coordonnées de H
       const yHFrac = new FractionEtendue(yD * denom - numer * ny, denom)
       const zHFrac = new FractionEtendue(zD * denom - numer * nz, denom)
       const fracTDec = -numer / denom
-     
-      const reponse5 =lampeMessage({
-        titre: 'Méthode :',
-        texte:
-          "Le point $H$ est le projeté orthogonal du point $D$ sur le plan $(ABC)$ donc $H\\in(ABC)$ et $H\\in(d)$. Les coordonnées du point $H$ vérifient donc l'équation cartésienne du plan $(ABC)$ et la représentation paramétrique de la droite $(d)$.",
-      }) +
+      const fracTSimplifie = fracT.simplifie()
+      const reponse5 =
+        lampeMessage({
+          titre: 'Méthode :',
+          texte:
+            "Le point $H$ est le projeté orthogonal du point $D$ sur le plan $(ABC)$ donc $H\\in(ABC)$ et $H\\in(d)$. Les coordonnées du point $H$ vérifient donc l'équation cartésienne du plan $(ABC)$ et la représentation paramétrique de la droite $(d)$.",
+        }) +
         `<br>On cherche l'ensemble des $(x_H,y_H,z_H,t)$ qui vérifient le système :  :
       $\\begin{cases} 
       x_H = ${xD} ${ecritureAlgebriqueSauf1(nx)}t \\\\
       y_H = ${yD} ${ecritureAlgebriqueSauf1(ny)}t \\\\
       z_H = ${zD} ${ecritureAlgebriqueSauf1(nz)}t\\\\
-      ${rienSi1(nx)}x_H ${ecritureAlgebriqueSauf1(ny,)}y_H ${ecritureAlgebriqueSauf1(nz)}z_H ${ecritureAlgebriqueSauf0(dPlan)} = 0
+      ${rienSi1(nx)}x_H ${ecritureAlgebriqueSauf1(ny)}y_H ${ecritureAlgebriqueSauf1(nz)}z_H ${ecritureAlgebriqueSauf0(dPlan)} = 0
       \\end{cases}$.<br>` +
         `En remplaçant $x_H$, $y_H$ et $z_H$ par leurs expressions en fonction de $t$, dans l'équation cartésienne, on obtient :<br>` +
         `$\\begin{aligned}
-        ${rienSi1(nx)}(${xD} ${ecritureAlgebrique(nx)}\\times ${fracT.texFractionSignee}) ${ecritureAlgebrique(ny)}(${yD} ${ecritureAlgebrique(ny)}\\times ${fracT.texFractionSignee}) ${ecritureAlgebrique(nz,)}(${zD} ${ecritureAlgebrique(nz)}\\times ${fracT.texFractionSignee}) ${ecritureAlgebrique(dPlan)} &= 0\\\\
-         ${nx*nx+ny*ny+nz*nz} t ${ecritureAlgebrique(nx*xD+ny*yD+nz*zD+dPlan)} &= 0\\\\
+        ${rienSi1(nx)}(${xD} ${ecritureAlgebrique(nx)} t) ${ecritureAlgebrique(ny)}(${yD} ${ecritureAlgebrique(ny)}t) ${ecritureAlgebrique(nz)}(${zD} ${ecritureAlgebrique(nz)}t) ${ecritureAlgebrique(dPlan)} &= 0\\\\
+         ${nx * nx + ny * ny + nz * nz} t ${ecritureAlgebrique(nx * xD + ny * yD + nz * zD + dPlan)} &= 0\\\\
          t&=${fracT.texFractionSimplifiee}
          \\end{aligned}.$<br>` +
-        `En remplaçant $t$ dans les $3$ premières équations du système, on trouve : <br>`+
-        `$\\begin{cases}  x_H = ${xD} ${ecritureAlgebrique(nx)}\\times ${fracT.texFSP}\\\\\\\\
-      y_H = ${yD} ${ecritureAlgebrique(ny)}\\times ${fracT.texFSP} \\\\\\\\
-      z_H = ${zD} ${ecritureAlgebrique(nz)}\\times ${fracT.texFSP}\\\\\\end{cases} 
+        `En remplaçant $t$ dans les $3$ premières équations du système, on trouve : <br>` +
+        `$\\begin{cases}  x_H = ${xD} ${ecritureAlgebrique(nx)}\\times ${fracTSimplifie}\\\\\\\\
+      y_H = ${yD} ${ecritureAlgebrique(ny)}\\times ${fracTSimplifie} \\\\\\\\
+      z_H = ${zD} ${ecritureAlgebrique(nz)}\\times ${fracTSimplifie}\\\\\\end{cases} 
       \\iff \\begin{cases}  x_H = ${xHFrac.texFractionSimplifiee} \\\\\\\\
       y_H = ${yHFrac.texFractionSimplifiee} \\\\\\\\
       z_H = ${zHFrac.texFractionSimplifiee}\\\\\\end{cases}$
@@ -241,16 +246,23 @@ z = ${zD} ${ecritureAlgebriqueSauf1(nz)}t
             "Pour calculer le volume d'un tétraèdre, on utilise la formule de la pyramide : $\\mathscr V = \\dfrac{\\mathscr A_{base} \\times hauteur}{3}$, où $\\mathscr A_{base}$ est l'aire de la base et la hauteur la distance du sommet au plan de base.<br> Ici, on prend le triangle $ABC$ comme base et $DH$ comme hauteur.",
         }) +
         `Le triangle $ABC$ est rectangle en $A$, donc <br>$\\begin{aligned}
-        \\mathscr A_{ABC} &= \\dfrac{\\|\\overrightarrow{AB}\\|\\,\\|\\overrightarrow{AC}\\|}{2}\\\\
+        \\mathscr A_{ABC} &= \\dfrac{\\|\\overrightarrow{AB}\\|\\times\\|\\overrightarrow{AC}\\|}{2}\\\\
         & = \\dfrac{\\sqrt{${AB2}}\\times \\sqrt{${AC2}}}{2}.\\end{aligned}$<br>` +
         `On peut maintenant calculer le volume du tétraèdre :<br>
         $\\begin{aligned}\\mathscr V &= \\dfrac{\\mathscr A_{ABC}\\times DH}{3}\\\\
         & = \\dfrac{\\sqrt{${AB2}}\\times\\sqrt{${AC2}}\\times${fracT.texFractionSimplifiee}\\times\\sqrt{${denom}}}{6} \\\\\\end{aligned}$`
-        if (Number.isInteger(volumeDec)) {reponse7 += `<br>
+      const vol10 = Math.round(volumeDec * 10) // arrondi au dixième
+      const estEntierAuDixieme = Number.isInteger(vol10)
+      const vol100 = Math.round(volumeDec * 100) // arrondi au centieme
+      const estEntierAuCentieme = Number.isInteger(vol100)
+      if (Number.isInteger(volumeDec) || estEntierAuDixieme|| estEntierAuCentieme) {
+        reponse7 += `<br>
           $\\begin{aligned} \\phantom{ \\mathscr V}&= ${texNombre(volumeDec)}.\\end{aligned}$<br>
-          La valeur excate du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec)}`)} `}
-else {reponse7 +=`<br>$\\begin{aligned} \\phantom{ \\mathscr V}&\\approx ${texNombre(volumeDec, 2)}.\\end{aligned}$<br>
-  La valeur approchée du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec,2)}`)} $`}
+          La valeur excate du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec)}`)}$ `
+      } else {
+        reponse7 += `<br>$\\begin{aligned} \\phantom{ \\mathscr V}&\\approx ${texNombre(volumeDec, 2)}.\\end{aligned}$<br>
+  La valeur approchée du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec, 4)}`)} $`
+      }
       texteCorr = createList({
         items: [
           reponse1,
