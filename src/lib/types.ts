@@ -933,6 +933,18 @@ export interface IExerciceSimple extends IExercice {
   versionQcm?: boolean
 }
 
+export interface IExerciceStatique {
+  typeExercice: 'statique'
+  uuid: string
+  content: string
+  contentCorr: string
+  annee: any
+  lieu: any
+  mois: any
+  numeroInitial: any
+  examen: string
+}
+
 export interface IEtiquette {
   id: string
   contenu: string
