@@ -264,7 +264,7 @@ z = ${zD} ${ecritureAlgebriqueSauf1(nz)}t
           La valeur excate du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec)}`)}$ `
       } else {
         reponse7 += `<br>$\\begin{aligned} \\phantom{ \\mathscr V}&\\approx ${texNombre(volumeDec, 2)}.\\end{aligned}$<br>
-  La valeur approchée du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec, 4)}`)} $`
+  La valeur approchée du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec, 4)}`)}. $`
       }
       texteCorr = createList({
         items: [
