@@ -12,8 +12,7 @@ import { context } from '../../modules/context'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 
-export const titre =
-  "Déterminer le dernier chiffre d'une somme ou différence entre décimaux"
+export const titre = "Déterminer le dernier chiffre d'un produit entre décimaux"
 export const dateDePublication = '28/01/2026'
 export const amcReady = true
 export const interactifReady = true
@@ -21,14 +20,14 @@ export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
 /**
- * Trouver le dernier chiffre d'un calcul (somme, différence) entre décimaux
+ * Trouver le dernier chiffre d'un produit entre décimaux
  * @author Eric Elter
  */
 
 export const uuid = 'em8m3'
 
 export const refs = {
-  'fr-fr': ['6N2A-3'],
+  'fr-fr': ['6N2E-4'],
   'fr-ch': [],
 }
 
