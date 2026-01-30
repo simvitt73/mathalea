@@ -3,13 +3,14 @@ import { lampeMessage } from '../../lib/format/message'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf0,
+  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi0,
+  rienSi1,
 } from '../../lib/outils/ecritures'
-import {
-  miseEnEvidence,
-  texteEnCouleurEtGras,
-} from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { abs } from '../../lib/outils/nombres'
+import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -102,7 +103,7 @@ export default class NomExercice extends Exercice {
       const question5 =
         'Calculer les coordonnées du point $H$, projection orthogonale de $D$ sur $(ABC)$.'
       const question6 = 'Calculer la longueur $DH$.'
-      const question7 = 'Calculer le volume du tétraèdre $ABCD$.'
+      const question7 = 'Calculer le volume du tétraèdre $ABCD$. On donnera la valeur exacte et le cas échéant, une valeur approchée au centième.'
 
       texte =
         'Dans un repère orthonormé de l’espace, on considère les points :<br>' +
@@ -156,80 +157,100 @@ export default class NomExercice extends Exercice {
         lampeMessage({
           titre: 'Méthode :',
           texte:
-            "Un vecteur  $\\vec{n}\\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ (avec $a,\\, b$ et $c$ trois réels) est un vecteur normal aux plans d'équation cartésienne $ax+by+cz+d=0$ où $d$ est un réel. <br>Pour déterminer $d$, on remplace les coordonnées d'un point du plan dans l'équation.",
+            "Un vecteur  $\\vec{n}\\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ est un vecteur normal aux plans d'équation cartésienne $ax+by+cz+d=0$ où $d$ est un réel. <br>Pour déterminer $d$, on remplace les coordonnées d'un point du plan dans l'équation.",
         }) +
-        `On vient de montrer que le vecteur $\\vec n \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$ est normal au plan $ABC$. Une équation cartésienne de ce plan est donc sous la forme :<br>
-        $${nx}x ${ecritureAlgebrique(ny)}y ${ecritureAlgebrique(nz)}z + d = 0$ où $d$ est un réel à trouver.
-        Pour déterminer $d$, on utilise que le point $A(${xA} ; ${yA} ; ${zA})$ appartient au plan $(ABC), ses coordonnées vérifient donc l'équation cartésienne de ce plan :<br>
+        `On vient de montrer que le vecteur $\\vec n \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$ est normal au plan $ABC$.<br>
+         Une équation cartésienne de ce plan est donc sous la forme :
+        $${rienSi1(nx)}x ${ecritureAlgebrique(ny)}y ${ecritureAlgebrique(nz)}z + d = 0$ où $d$ est un réel à trouver.<br>
+        Pour déterminer $d$, on utilise que le point $A(${xA} ; ${yA} ; ${zA})$ appartient au plan $(ABC)$, ses coordonnées vérifient donc l'équation cartésienne de ce plan :<br>
         $\\begin{aligned}&${nx}\\times ${ecritureParentheseSiNegatif(xA,)} ${ecritureAlgebrique(ny)}\\times${ecritureParentheseSiNegatif(yA)} ${ecritureAlgebrique(nz)}\\times${ecritureParentheseSiNegatif(
         zA,)} + d = 0\\\\
        \\iff &${rienSi0(nx * xA)} ${ecritureAlgebriqueSauf0(ny*yA)} ${ecritureAlgebriqueSauf0(nz*zA)} + d = 0\\\\
         \\iff&d = ${dPlan}\\end{aligned}$.<br>` +
-        `Ainsi, une équation du plan $(ABC)$ est : $${rienSi0(nx)}x ${ecritureAlgebriqueSauf0(ny)}y ${ecritureAlgebriqueSauf0(
+        `Ainsi, une équation du plan $(ABC)$ est : $${rienSi1(nx)}x ${ecritureAlgebriqueSauf1(ny)}y ${ecritureAlgebriqueSauf1(
             nz,)}z ${ecritureAlgebriqueSauf0(dPlan)} = 0$`
 
       const reponse4 =
          lampeMessage({
           titre: 'Méthode :',
           texte:
-            `La représentation paramétrique d'une droite de vecteur directeur $\\vec{u} \\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ (avec $a,\\, b$ et $c$ trois réels) et passant par un point $A(x_A ; y_A ; z_A)$ ($x_A, y_A, zA$ trois réels) est donnée par :<br>,
-        $\\begin{cases} x=x_A+at\\\\y=y_A+bt\\\\z=z_A+ct\\end{cases}$`})+
-        `<br>La droite passe par le point $D(${xD} ; ${yD} ; ${zD})$ et a pour vecteur directeur $\\vec n \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$.<br>
+            `La représentation paramétrique d'une droite de vecteur directeur $\\vec{u} \\begin{pmatrix}a\\\\b\\\\c\\end{pmatrix}$ (avec $a,\\, b$ et $c$ trois réels) et passant par un point $A(x_A ; y_A ; z_A)$  est donnée par :
+        $\\begin{cases} x=x_A+at\\\\y=y_A+bt\\quad(t\\in\\mathbb{R})\\\\z=z_A+ct\\end{cases}$`})+
+        `La droite passe par le point $D(${xD} ; ${yD} ; ${zD})$ et a pour vecteur directeur $\\vec n \\begin{pmatrix}${nx}\\\\${ny}\\\\${nz}\\end{pmatrix}$.<br>
          Une représentation paramétrique de la droite $(d)$ est<br>` +
-        `$ \\begin{cases}
-x = ${xD} ${ecritureAlgebrique(nx)}t \\\\
-y = ${yD} ${ecritureAlgebrique(ny)}t \\quad (t\\in\\mathbb{R}\\\\
-z = ${zD} ${ecritureAlgebrique(nz)}t
+        `$ (d) :\\begin{cases}
+x = ${xD} ${ecritureAlgebriqueSauf1(nx)}t \\\\
+y = ${yD} ${ecritureAlgebriqueSauf1(ny)}t \\quad (t\\in\\mathbb{R})\\\\
+z = ${zD} ${ecritureAlgebriqueSauf1(nz)}t
 \\end{cases}  $.`
 
       // Projection orthogonale de D sur le plan (ABC)
-      const denom = nx * nx + ny * ny + nz * nz
-      const numer = nx * xD + ny * yD + nz * zD + dPlan
-      const fracT = new FractionEtendue(-numer, denom)
-      const xHFrac = new FractionEtendue(xD * denom - numer * nx, denom)
+      const denom = nx * nx + ny * ny + nz * nz // dénominateur de t pour calculer coordonénes de H
+      const numer = nx * xD + ny * yD + nz * zD + dPlan // numérateur de t pour calculer coordonénes de H
+      const fracT = new FractionEtendue(abs(-numer), abs(denom))// Valeur de t pour trouver H
+      const xHFrac = new FractionEtendue(xD * denom - numer * nx, denom) // coordonnées de H
       const yHFrac = new FractionEtendue(yD * denom - numer * ny, denom)
       const zHFrac = new FractionEtendue(zD * denom - numer * nz, denom)
       const fracTDec = -numer / denom
-      const xHDec = xHFrac.valeurDecimale
-      const yHDec = yHFrac.valeurDecimale
-      const zHDec = zHFrac.valeurDecimale
+     
       const reponse5 =lampeMessage({
         titre: 'Méthode :',
         texte:
-          "Le point $H$ est le projeté orthogonal du point $D$ sur le plan $(ABC)$ donc $H\\in(ABC)$ et $H\\in(d)$ puisque la droite $(d)$ est perpendiculaire au plan, passant par le point $D$.",
+          "Le point $H$ est le projeté orthogonal du point $D$ sur le plan $(ABC)$ donc $H\\in(ABC)$ et $H\\in(d)$. Les coordonnées du point $H$ vérifient donc l'équation cartésienne du plan $(ABC)$ et la représentation paramétrique de la droite $(d)$.",
       }) +
-        `<br>Les coordonnées du point $H(x_H ; y_H ; z_H)$ vérifient le système suivant en $(x_H,y_h,z_h,t)$ :
-        , on cherche $t$ tel que $D + t\\vec n$ appartienne au plan d’équation $${nx}x ${ecritureAlgebrique(
-          ny,
-        )}y ${ecritureAlgebrique(nz)}z ${ecritureAlgebrique(dPlan)} = 0$ :<br>` +
-        `${nx}(x_D + t\\,${nx}) ${ecritureAlgebrique(ny)}(y_D + t\\,${ny}) ${ecritureAlgebrique(
-          nz,
-        )}(z_D + t\\,${nz}) ${ecritureAlgebrique(dPlan)} = 0.<br>` +
-        `Il vient $t = \\dfrac{-(${nx}x_D + ${ny}y_D + ${nz}z_D + ${dPlan})}{${denom}} = ${fracT.texFractionSimplifiee} \\approx ${fracTDec.toFixed(
-          2,
-        )}$.<br>` +
-        `Donc $H\\left(${xHFrac.texFractionSimplifiee} ; ${yHFrac.texFractionSimplifiee} ; ${zHFrac.texFractionSimplifiee}\\right)$, soit numériquement $H(${xHDec.toFixed(
-          2,
-        )} ; ${yHDec.toFixed(2)} ; ${zHDec.toFixed(2)})$, et $\\overrightarrow{DH} = t\\,\\vec n$ est bien orthogonal au plan.`
+        `<br>On cherche l'ensemble des $(x_H,y_H,z_H,t)$ qui vérifient le système :  :
+      $\\begin{cases} 
+      x_H = ${xD} ${ecritureAlgebriqueSauf1(nx)}t \\\\
+      y_H = ${yD} ${ecritureAlgebriqueSauf1(ny)}t \\\\
+      z_H = ${zD} ${ecritureAlgebriqueSauf1(nz)}t\\\\
+      ${rienSi1(nx)}x_H ${ecritureAlgebriqueSauf1(ny,)}y_H ${ecritureAlgebriqueSauf1(nz)}z_H ${ecritureAlgebriqueSauf0(dPlan)} = 0
+      \\end{cases}$.<br>` +
+        `En remplaçant $x_H$, $y_H$ et $z_H$ par leurs expressions en fonction de $t$, dans l'équation cartésienne, on obtient :<br>` +
+        `$\\begin{aligned}
+        ${rienSi1(nx)}(${xD} ${ecritureAlgebrique(nx)}\\times ${fracT.texFractionSignee}) ${ecritureAlgebrique(ny)}(${yD} ${ecritureAlgebrique(ny)}\\times ${fracT.texFractionSignee}) ${ecritureAlgebrique(nz,)}(${zD} ${ecritureAlgebrique(nz)}\\times ${fracT.texFractionSignee}) ${ecritureAlgebrique(dPlan)} &= 0\\\\
+         ${nx*nx+ny*ny+nz*nz} t ${ecritureAlgebrique(nx*xD+ny*yD+nz*zD+dPlan)} &= 0\\\\
+         t&=${fracT.texFractionSimplifiee}
+         \\end{aligned}.$<br>` +
+        `En remplaçant $t$ dans les $3$ premières équations du système, on trouve : <br>`+
+        `$\\begin{cases}  x_H = ${xD} ${ecritureAlgebrique(nx)}\\times ${fracT.texFSP}\\\\\\\\
+      y_H = ${yD} ${ecritureAlgebrique(ny)}\\times ${fracT.texFSP} \\\\\\\\
+      z_H = ${zD} ${ecritureAlgebrique(nz)}\\times ${fracT.texFSP}\\\\\\end{cases} 
+      \\iff \\begin{cases}  x_H = ${xHFrac.texFractionSimplifiee} \\\\\\\\
+      y_H = ${yHFrac.texFractionSimplifiee} \\\\\\\\
+      z_H = ${zHFrac.texFractionSimplifiee}\\\\\\end{cases}$
+      Donc $H\\left(${xHFrac.texFractionSimplifiee} ; ${yHFrac.texFractionSimplifiee} ; ${zHFrac.texFractionSimplifiee}\\right)$.`
 
       const normeDHDec = Math.abs(fracTDec) * Math.sqrt(denom)
-      const reponse6 =
-        texteEnCouleurEtGras('Longueur $DH$ :') +
-        `<br>$DH = |t|\\,\\|\\vec n\\| = \\left|${fracT.texFractionSimplifiee}\\right|\\,\\sqrt{${denom}} \\approx ${normeDHDec.toFixed(
-          2,
-        )}.$`
+      let reponse6 = lampeMessage({
+        titre: 'Méthode :',
+        texte:
+          'Pour calculer la longueur $DH$, on peut calculer la norme du vecteur $\\overrightarrow{DH}$ : $\\vert\\vert\\overrightarrow{DH}\\vert\\vert=\\sqrt{(x_H - x_D)^2 + (y_H - y_D)^2 + (z_H - z_D)^2}$.',
+      })
+      reponse6 += `On calcule la norme du vecteur $\\overrightarrow{DH}$ :<br>
+       $\\begin{aligned}\\vert\\vert\\overrightarrow{DH}\\vert\\vert&=\\sqrt{\\left(${xHFrac.texFractionSimplifiee} ${ecritureAlgebriqueSauf0(-xD)}\\right)^2 + \\left(${yHFrac.texFractionSimplifiee}  ${ecritureAlgebriqueSauf0(-yD)}\\right)^2 + \\left(${zHFrac.texFractionSimplifiee}  ${ecritureAlgebriqueSauf0(-zD)}\\right)^2}\\\\
+       & = ${fracT.texFractionSimplifiee}\\sqrt{${denom}}. \\end{aligned}.$`
 
       // Volume tétraèdre sans produit vectoriel : aire du triangle rectangle ABC puis hauteur DH
       const AB2 = ABx * ABx + ABy * ABy + ABz * ABz
       const AC2 = ACx * ACx + ACy * ACy + ACz * ACz
       const volumeDec = (Math.sqrt(AB2) * Math.sqrt(AC2) * normeDHDec) / 6
-      const reponse7 =
-        texteEnCouleurEtGras('Volume du tétraèdre :') +
-        `<br>Le triangle $ABC$ est rectangle en $A$, donc $\\mathscr A_{ABC} = \\dfrac{\\|\\overrightarrow{AB}\\|\\,\\|\\overrightarrow{AC}\\|}{2} = \\dfrac{\\sqrt{${AB2}}\\,\\sqrt{${AC2}}}{2}$.<br>` +
-        `Avec la hauteur $DH$, le volume vaut $V = \\dfrac{\\mathscr A_{ABC}\\,DH}{3} = \\dfrac{\\sqrt{${AB2}}\\,\\sqrt{${AC2}}\\,${fracT.texFractionSimplifiee}\\,\\sqrt{${denom}}}{6} \\approx ${volumeDec.toFixed(
-          2,
-        )}$.`
-
+      let reponse7 =
+        lampeMessage({
+          titre: 'Méthode :',
+          texte:
+            "Pour calculer le volume d'un tétraèdre, on utilise la formule de la pyramide : $\\mathscr V = \\dfrac{\\mathscr A_{base} \\times hauteur}{3}$, où $\\mathscr A_{base}$ est l'aire de la base et la hauteur la distance du sommet au plan de base.<br> Ici, on prend le triangle $ABC$ comme base et $DH$ comme hauteur.",
+        }) +
+        `Le triangle $ABC$ est rectangle en $A$, donc <br>$\\begin{aligned}
+        \\mathscr A_{ABC} &= \\dfrac{\\|\\overrightarrow{AB}\\|\\,\\|\\overrightarrow{AC}\\|}{2}\\\\
+        & = \\dfrac{\\sqrt{${AB2}}\\times \\sqrt{${AC2}}}{2}.\\end{aligned}$<br>` +
+        `On peut maintenant calculer le volume du tétraèdre :<br>
+        $\\begin{aligned}\\mathscr V &= \\dfrac{\\mathscr A_{ABC}\\times DH}{3}\\\\
+        & = \\dfrac{\\sqrt{${AB2}}\\times\\sqrt{${AC2}}\\times${fracT.texFractionSimplifiee}\\times\\sqrt{${denom}}}{6} \\\\\\end{aligned}$`
+        if (Number.isInteger(volumeDec)) {reponse7 += `<br>
+          $\\begin{aligned} \\phantom{ \\mathscr V}&= ${texNombre(volumeDec)}.\\end{aligned}$<br>
+          La valeur excate du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec)}`)} `}
+else {reponse7 +=`<br>$\\begin{aligned} \\phantom{ \\mathscr V}&\\approx ${texNombre(volumeDec, 2)}.\\end{aligned}$<br>
+  La valeur approchée du volume du tétraèdre est $${miseEnEvidence(`${texNombre(volumeDec,2)}`)} $`}
       texteCorr = createList({
         items: [
           reponse1,
