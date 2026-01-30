@@ -25,7 +25,10 @@ export const refs = {
   'fr-fr': ['TSG2-15'],
   'fr-ch': [],
 }
-
+/**
+ *
+ * @author Stéphane Guyon
+ */
 export default class NomExercice extends Exercice {
   constructor() {
     super()
