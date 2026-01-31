@@ -1214,19 +1214,19 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             texteCorr += ` duquel on a découpé un demi-disque de rayon $${texNombre(L2 / 2, 1)}\\text{ cm}$ dans sa largeur pour le recoller sur sa longueur.<br>`
             texteCorr +=
               this.sup4 !== 2
-                ? `$\\mathcal{P}=${texNombre(L1, 1)}+${texNombre(L2, 1)}+${texNombre(L1, 1)}-${texNombre(L2, 1)}+${texNombre(L2, 1)}\\times \\pi \\approx ${texNombre(troncature(2 * L1 + L2 * Math.PI, 3), 3)}${sp()}${texTexte('cm')}$<br>`
+                ? `$\\mathcal{P}=${texNombre(L1, 1)}+${texNombre(L2, 1)}+${texNombre(L1, 1)}-${texNombre(L2, 1)}+${texNombre(L2, 1)}\\times \\pi \\approx ${texNombre(troncature(2 * L1 + L2 * Math.PI, 3), 3)}\\text{ cm'}$<br>`
                 : ''
             texteCorr +=
               this.sup4 !== 1
-                ? `$\\mathcal{A}=${texNombre(L1, 1)}\\times${texNombre(L2, 1)} = ${texNombre(troncature(L1 * L2, 3), 3)}${sp()}${texTexte('cm')}^2$<br>`
+                ? `$\\mathcal{A}=${texNombre(L1, 1)}\\times${texNombre(L2, 1)} = ${texNombre(troncature(L1 * L2, 3), 3)}\\text{ cm}^2$<br>`
                 : ''
             texteCorr +=
               this.sup4 !== 2
-                ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${miseEnEvidence(texNombre(troncature(2 * L1 + L2 * Math.PI, this.sup3 - 1), 1))}${sp()}${texTexte('cm')}$.<br>`
+                ? `Une valeur approchée ${this.sup3 === 1 ? 'au $\\text{cm}$' : 'au dixième de $\\text{cm}$'} est donc $\\mathcal{P}\\approx ${miseEnEvidence(texNombre(troncature(2 * L1 + L2 * Math.PI, this.sup3 - 1), 1))}\\text{ cm}$.<br>`
                 : ''
             texteCorr +=
               this.sup4 !== 1
-                ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${miseEnEvidence(texNombre(troncature(L1 * L2, this.sup3 - 1), 2))}${sp()}${texTexte('cm')}^2$.<br>`
+                ? `Une valeur approchée ${this.sup3 === 1 ? 'au $\\text{cm}^2$' : 'au dixième de $\\text{cm}^2$'} est donc $\\mathcal{A}\\approx ${miseEnEvidence(texNombre(troncature(L1 * L2, this.sup3 - 1), 2))}\\text{ cm}^2$.<br>`
                 : ''
           }
 
