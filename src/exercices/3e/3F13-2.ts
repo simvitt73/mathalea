@@ -127,7 +127,7 @@ export default class AntecedentGraphique extends Exercice {
         texteCorr = ''
 
         reponses = [racine1DuTrinome, racine2DuTrinome].sort((a, b) => a - b)
-        texteCorr = `Les antécédents de $${imageChoisie}$ sont $${racine1DuTrinome}$ et $${racine2DuTrinome}$, on note $f(${racine1DuTrinome})=${imageChoisie}$ et $f(${racine2DuTrinome})=${imageChoisie}$.<br>`
+        texteCorr = `Les antécédents de $${imageChoisie}$ sont $${reponses[0]}$ et $${reponses[1]}$, on note $f(${reponses[0]})=${imageChoisie}$ et $f(${reponses[1]})=${imageChoisie}$.<br>`
       } else {
         yUnite = 1 / 3
         yMin = -30
@@ -166,7 +166,7 @@ export default class AntecedentGraphique extends Exercice {
           racine2DeLaCubique,
           racine3DeLaCubique,
         ].sort((a, b) => a - b)
-        texteCorr = `Les antécédents de $${imageChoisie}$ sont $${racine1DeLaCubique}$, $${racine2DeLaCubique}$ et $${racine3DeLaCubique}$, on note $f(${racine1DeLaCubique})=${imageChoisie}$, $f(${racine2DeLaCubique})=${imageChoisie}$ et $f(${racine3DeLaCubique})=${imageChoisie}$.<br>`
+        texteCorr = `Les antécédents de $${imageChoisie}$ sont $${reponses[0]}$, $${reponses[1]}$ et $${reponses[2]}$, on note $f(${reponses[0]})=${imageChoisie}$, $f(${reponses[1]})=${imageChoisie}$ et $f(${reponses[2]})=${imageChoisie}$.<br>`
       }
       texte =
         'On a tracé ci-dessous la courbe représentative de la fonction $f$.<br>'
@@ -196,11 +196,13 @@ export default class AntecedentGraphique extends Exercice {
         texteAvant: `Le ou les antécédents de $${imageChoisie}$ (séparer les nombres avec un point-virgule) :`,
       })
       const horizontale = droiteHorizontaleParPoint(
-        pointAbstrait(0, pointsDePassage[0].y),
+        pointAbstrait(0, pointsDePassage[0].y * yUnite),
         '',
         'red',
       )
-      const pointsY = pointsDePassage.map((pt) => pointAbstrait(pt.x, pt.y))
+      const pointsY = pointsDePassage
+        .sort((a, b) => a.x - b.x)
+        .map((pt) => pointAbstrait(pt.x, pt.y * yUnite))
       texteCorr += mathalea2d(
         {
           xmin: -10,
