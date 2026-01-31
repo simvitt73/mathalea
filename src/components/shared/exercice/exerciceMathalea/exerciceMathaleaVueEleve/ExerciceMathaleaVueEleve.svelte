@@ -1,6 +1,6 @@
 <script lang="ts">
   import seedrandom from 'seedrandom'
-  import { afterUpdate, beforeUpdate, onDestroy, onMount, tick } from 'svelte'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { get } from 'svelte/store'
   import type TypeExercice from '../../../../../exercices/Exercice'
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
@@ -57,8 +57,8 @@
   let columnsCount = interfaceParams?.cols || 1
 
   let debug = false
-  function log(str: string) {
-    if (debug || window.logDebug > 1) {
+  function log(str: string, level: number = 3) {
+    if (debug || window.logDebug >= level) {
       console.info(str)
     }
   }
@@ -179,27 +179,20 @@
 
   afterUpdate(async () => {
     log('afterUpdate:' + exercise.id + ', v:' + $globalOptions.v)
-    // console.trace()
-    // const starttime = window.performance.now()
-    if (exercise) {
-      await tick()
-      // let time = window.performance.now()
-      // log('duration tick:'+ (time - starttime))
-      updateAnswers()
-      // time = window.performance.now()
-      // log('duration updateAnswers:'+ (time - starttime))
+    const starttime = window.performance.now()
+    if (exercise && divExercice) {
       mathaleaRenderDiv(divExercice)
-      // time = window.performance.now()
-      // log('duration mathaleaRenderDiv:'+ (time - starttime))
+      let time = window.performance.now()
+      log('duration mathaleaRenderDiv:' + (time - starttime))
       adjustMathalea2dFiguresWidth()
-      // time = window.performance.now()
-      // log('duration adjustMathalea2dFiguresWidth:'+ (time - starttime))
+      time = window.performance.now()
+      log('duration adjustMathalea2dFiguresWidth:' + (time - starttime))
       if (exercise.interactif) {
         log('loadMathLive')
         loadMathLive(divExercice)
         log('end loadMathLive')
-        // time = window.performance.now()
-        // log('duration loadMathLive:'+ (time - starttime))
+        time = window.performance.now()
+        log('duration loadMathLive:' + (time - starttime))
         if (exercise.interactifType === 'cliqueFigure' && !isCorrectVisible) {
           prepareExerciceCliqueFigure(exercise)
         }
@@ -218,9 +211,12 @@
         } catch (e) {
           console.error(e)
         }
-        // time = window.performance.now()
-        // log('duration interactif:'+ (time - starttime))
+        time = window.performance.now()
+        log('localStorage:' + exerciseIndex + ':' + (time - starttime))
       }
+      updateAnswers()
+      time = window.performance.now()
+      log('duration updateAnswers:' + (time - starttime))
     }
     // affectation du zoom pour les figures scratch
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
@@ -247,6 +243,17 @@
     if (isCorrectVisible) {
       handleCorrectionAffichee()
     }
+    log(
+      'afterUpdate:n° ' +
+        exerciseIndex +
+        ', id: ' +
+        exercise.id +
+        ', v:' +
+        $globalOptions.v +
+        ', d:' +
+        (window.performance.now() - starttime),
+      2,
+    )
   })
 
   async function newData() {
@@ -318,6 +325,13 @@
         }
       }
       if (changed) {
+        log(
+          'updateDisplay: updating exercicesParams for index ' +
+            exerciseIndex +
+            ': ' +
+            JSON.stringify(interfaceParams),
+          2,
+        )
         exercicesParams.update((l: InterfaceParams[]) => {
           if (interfaceParams) {
             l[exerciseIndex] = interfaceParams
@@ -344,7 +358,7 @@
     await adjustMathalea2dFiguresWidth()
   }
 
-  function verifExerciceVueEleve() {
+  async function verifExerciceVueEleve() {
     log('verifExerciceVueEleve')
     if (exercise.numeroExercice != null && !(exercise.isDone === true))
       statsTracker(
@@ -354,6 +368,7 @@
         buttonScore?.dataset?.capytaleLoadAnswers === '1' ? 'review' : '',
       )
     exercise.isDone = true
+
     if (exercise.numeroExercice != null) {
       const previousBestScore = interfaceParams?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(
@@ -421,7 +436,9 @@
         })
       }
 
-      if ($globalOptions.isSolutionAccessible) isCorrectVisible = true
+      if ($globalOptions.isSolutionAccessible) {
+        isCorrectVisible = true
+      }
 
       if ($globalOptions.recorder === 'moodle') {
         const url = new URL(window.location.href)
@@ -514,10 +531,9 @@
           Ne surtout pas mettre la référence de l'exercice dans la requête suivante,
           car dans svelte, la référence est liée au dernier exercice chargé, ce qui bug!
           */
-        const consigneDiv = mathalea2dFigures[k]
-          .closest('article')
+        const consigneDiv = divExercice
+          ?.querySelector('article')
           ?.querySelector('[id^="consigne"]')
-        // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
         if (
           consigneDiv &&
           mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
