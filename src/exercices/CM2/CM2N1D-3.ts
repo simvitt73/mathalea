@@ -59,6 +59,9 @@ class Decomp1 extends Exercice {
       this.nbQuestions === 1
         ? "Compléter cette décomposition d'entier."
         : "Compléter chaque décomposition d'entier."
+    if (this.interactif)
+      this.consigne +=
+        "<br>S'il y en a besoin, penser à mettre des espaces dans le nombre."
     const typeDeQuestions =
       this.sup4 % 2 === 0
         ? ['classe']
