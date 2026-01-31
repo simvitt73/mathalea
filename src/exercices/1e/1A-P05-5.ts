@@ -15,34 +15,10 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'Calculer une probabilité dans un tableau'
 
-interface TableauConfig {
-  v11: number  // Ligne 1, Colonne 1 (Pratique sport)
-  v12: number  // Ligne 1, Colonne 2 (Ne pratique pas sport)
-  v21: number  // Ligne 2, Colonne 1
-  v22: number  // Ligne 2, Colonne 2
-  v31: number  // Ligne 3, Colonne 1
-  v32: number  // Ligne 3, Colonne 2
-}
-
 export default class ProbabiliteTableau extends ExerciceQcmA {
-  private genererTableauEtEnonce(config: TableauConfig): string {
-    // Calcul des totaux
-    const total1 = config.v11 + config.v12  // Total ligne 1
-    const total2 = config.v21 + config.v22  // Total ligne 2
-    const total3 = config.v31 + config.v32  // Total ligne 3
-    const totalCol1 = config.v11 + config.v21 + config.v31  // Total colonne Pratique sport
-    const totalCol2 = config.v12 + config.v22 + config.v32  // Total colonne Ne pratique pas
-    const totalGeneral = total1 + total2 + total3
-
-    const valeurs = [
-      String(config.v11), String(config.v12), String(total1),
-      String(config.v21), String(config.v22), String(total2),
-      String(config.v31), String(config.v32), String(total3),
-      String(totalCol1), String(totalCol2), String(totalGeneral)
-    ]
-
+  private genererEnonce(valeurs: string[], totalPersonnes: number): string {
     const enonceCommunDebut = 
-      'On interroge un groupe de $400$ personnes sur leurs habitudes sportives. Les réponses sont consignées dans le tableau ci-dessous :<br><br>'
+      `On interroge un groupe de $${totalPersonnes}$ personnes sur leurs habitudes sportives. Les réponses sont consignées dans le tableau ci-dessous :<br><br>`
     
     const tableau = tableauColonneLigne(
       ['', '\\text{Pratique un sport}', '\\text{Ne pratique pas de sport}', '\\text{Total}'],
@@ -61,25 +37,20 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
   }
 
   private appliquerLesValeurs(
-    config: TableauConfig,
-    typeQuestion: number
+    valeurs: string[],
+    typeQuestion: number,
+    totalPersonnes: number
   ): void {
-    // Calcul des totaux
-    const total1 = config.v11 + config.v12
-    const total2 = config.v21 + config.v22
-    const total3 = config.v31 + config.v32
-    const totalGeneral = total1 + total2 + total3
-
-    this.enonce = this.genererTableauEtEnonce(config)
+    this.enonce = this.genererEnonce(valeurs, totalPersonnes)
 
     switch (typeQuestion) {
       case 1:
         // P(A_2)
         this.enonce += '$P(A_2)$ correspond à la valeur de :'
         this.correction = 
-          `L'événement $A_2$ correspond à la ligne « Entre 25 et 45 ans ».<br>` +
-          `Il y a $${total2}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-          `Donc : $P(A_2)=\\dfrac{${total2}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{3}{8}')}$`
+          'L\'événement $A_2$ correspond à la ligne « Entre 25 et 45 ans ».<br>' +
+          `Il y a $150$ personnes dans cette catégorie sur un total de $${totalPersonnes}$ personnes.<br>` +
+          `Donc : $P(A_2)=\\dfrac{150}{${totalPersonnes}}=${miseEnEvidence('\\dfrac{3}{8}')}$.`
         this.reponses = [
           '$\\dfrac{3}{8}$',
           '$\\dfrac{1}{5}$',
@@ -92,9 +63,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P(A_3)
         this.enonce += '$P(A_3)$ correspond à la valeur de :'
         this.correction = 
-          `L'événement $A_3$ correspond à la ligne « Plus de 45 ans ».<br>` +
-          `Il y a $${total3}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-          `Donc : $P(A_3)=\\dfrac{${total3}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{17}{40}')}$`
+          'L\'événement $A_3$ correspond à la ligne « Plus de 45 ans ».<br>' +
+          `Il y a $170$ personnes dans cette catégorie sur un total de $${totalPersonnes}$ personnes.<br>` +
+          `Donc : $P(A_3)=\\dfrac{170}{${totalPersonnes}}=${miseEnEvidence('\\dfrac{17}{40}')}$.`
         this.reponses = [
           '$\\dfrac{17}{40}$',
           '$\\dfrac{1}{5}$',
@@ -107,9 +78,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P(S ∩ A_1)
         this.enonce += '$P(S \\cap A_1)$ correspond à la valeur de :'
         this.correction = 
-          `L'événement $S \\cap A_1$ correspond à l'intersection de la colonne « Pratique un sport » et de la ligne « Moins de 25 ans ».<br>` +
-          `Il y a $${config.v11}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-          `Donc : $P(S \\cap A_1)=\\dfrac{${config.v11}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{1}{8}')}$`
+          'L\'événement $S \\cap A_1$ correspond à l\'intersection de la colonne « Pratique un sport » et de la ligne « Moins de 25 ans ».<br>' +
+          `Il y a $50$ personnes dans cette catégorie sur un total de $${totalPersonnes}$ personnes.<br>` +
+          `Donc : $P(S \\cap A_1)=\\dfrac{50}{${totalPersonnes}}=${miseEnEvidence('\\dfrac{1}{8}')}$.`
         this.reponses = [
           '$\\dfrac{1}{8}$',
           '$\\dfrac{1}{5}$',
@@ -122,9 +93,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P(S ∩ A_2)
         this.enonce += '$P(S \\cap A_2)$ correspond à la valeur de :'
         this.correction = 
-          `L'événement $S \\cap A_2$ correspond à l'intersection de la colonne « Pratique un sport » et de la ligne « Entre 25 et 45 ans ».<br>` +
-          `Il y a $${config.v21}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-          `Donc : $P(S \\cap A_2)=\\dfrac{${config.v21}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{9}{40}')}$`
+          'L\'événement $S \\cap A_2$ correspond à l\'intersection de la colonne « Pratique un sport » et de la ligne « Entre 25 et 45 ans ».<br>' +
+          `Il y a $90$ personnes dans cette catégorie sur un total de $${totalPersonnes}$ personnes.<br>` +
+          `Donc : $P(S \\cap A_2)=\\dfrac{90}{${totalPersonnes}}=${miseEnEvidence('\\dfrac{9}{40}')}$.`
         this.reponses = [
           '$\\dfrac{9}{40}$',
           '$\\dfrac{1}{8}$',
@@ -137,9 +108,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P_{A_1}(S)
         this.enonce += '$P_{A_1}(S)$ correspond à la valeur de :'
         this.correction = 
-          `La probabilité conditionnelle $P_{A_1}(S)$ se calcule parmi les personnes de la catégorie « Moins de 25 ans ».<br>` +
-          `Il y a $${config.v11}$ personnes répondant aux deux critères sur $${total1}$ personnes dans cette catégorie.<br>` +
-          `Donc : $P_{A_1}(S)=\\dfrac{${config.v11}}{${total1}}=${miseEnEvidence('\\dfrac{5}{8}')}$`
+          'La probabilité conditionnelle $P_{A_1}(S)$ se calcule parmi les personnes de la catégorie « Moins de 25 ans ».<br>' +
+          'Il y a $50$ personnes répondant aux deux critères sur $80$ personnes dans cette catégorie.<br>' +
+          `Donc : $P_{A_1}(S)=\\dfrac{50}{80}=${miseEnEvidence('\\dfrac{5}{8}')}$.`
         this.reponses = [
           '$\\dfrac{5}{8}$',
           '$\\dfrac{3}{8}$',
@@ -152,9 +123,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P_{A_2}(S)
         this.enonce += '$P_{A_2}(S)$ correspond à la valeur de :'
         this.correction = 
-          `La probabilité conditionnelle $P_{A_2}(S)$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>` +
-          `Il y a $${config.v21}$ personnes répondant aux deux critères sur $${total2}$ personnes dans cette catégorie.<br>` +
-          `Donc : $P_{A_2}(S)=\\dfrac{${config.v21}}{${total2}}=${miseEnEvidence('\\dfrac{3}{5}')}$`
+          'La probabilité conditionnelle $P_{A_2}(S)$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>' +
+          'Il y a $90$ personnes répondant aux deux critères sur $150$ personnes dans cette catégorie.<br>' +
+          `Donc : $P_{A_2}(S)=\\dfrac{90}{150}=${miseEnEvidence('\\dfrac{3}{5}')}$.`
         this.reponses = [
           '$\\dfrac{3}{5}$',
           '$\\dfrac{2}{5}$',
@@ -167,9 +138,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P_{A_3}(S)
         this.enonce += '$P_{A_3}(S)$ correspond à la valeur de :'
         this.correction = 
-          `La probabilité conditionnelle $P_{A_3}(S)$ se calcule parmi les personnes de la catégorie « Plus de 45 ans ».<br>` +
-          `Il y a $${config.v31}$ personnes répondant aux deux critères sur $${total3}$ personnes dans cette catégorie.<br>` +
-          `Donc : $P_{A_3}(S)=\\dfrac{${config.v31}}{${total3}}=${miseEnEvidence('\\dfrac{7}{17}')}$`
+          'La probabilité conditionnelle $P_{A_3}(S)$ se calcule parmi les personnes de la catégorie « Plus de 45 ans ».<br>' +
+          'Il y a $70$ personnes répondant aux deux critères sur $170$ personnes dans cette catégorie.<br>' +
+          `Donc : $P_{A_3}(S)=\\dfrac{70}{170}=${miseEnEvidence('\\dfrac{7}{17}')}$.`
         this.reponses = [
           '$\\dfrac{7}{17}$',
           '$\\dfrac{7}{20}$',
@@ -182,9 +153,9 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
         // P_{A_2}(non S)
         this.enonce += '$P_{A_2}(\\overline{S})$ correspond à la valeur de :'
         this.correction = 
-          `La probabilité conditionnelle $P_{A_2}(\\overline{S})$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>` +
-          `Il y a $${config.v22}$ personnes ne pratiquant pas de sport sur $${total2}$ personnes dans cette catégorie.<br>` +
-          `Donc : $P_{A_2}(\\overline{S})=\\dfrac{${config.v22}}{${total2}}=${miseEnEvidence('\\dfrac{2}{5}')}$`
+          'La probabilité conditionnelle $P_{A_2}(\\overline{S})$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>' +
+          'Il y a $60$ personnes ne pratiquant pas de sport sur $150$ personnes dans cette catégorie.<br>' +
+          `Donc : $P_{A_2}(\\overline{S})=\\dfrac{60}{150}=${miseEnEvidence('\\dfrac{2}{5}')}$.`
         this.reponses = [
           '$\\dfrac{2}{5}$',
           '$\\dfrac{3}{5}$',
@@ -196,20 +167,16 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
   }
 
   versionOriginale: () => void = () => {
-    const config: TableauConfig = {
-      v11: 50, v12: 30,
-      v21: 90, v22: 60,
-      v31: 70, v32: 100
-    }
+    const valeurs = ['50', '30', '80', '90', '60', '150', '70', '100', '170', '210', '190', '400']
     
-    this.enonce = this.genererTableauEtEnonce(config)
+    this.enonce = this.genererEnonce(valeurs, 400)
     
     // Version originale : P_{A_3}(S)
     this.enonce += '$P_{A_3}(S)$ correspond à la valeur de :'
     this.correction = 
-      `La probabilité conditionnelle $P_{A_3}(S)$ se calcule parmi les personnes de la catégorie « Plus de 45 ans ».<br>` +
-      `Il y a $70$ personnes répondant aux deux critères sur $170$ personnes dans cette catégorie.<br>` +
-      `Donc : $P_{A_3}(S)=\\dfrac{70}{170}=${miseEnEvidence('\\dfrac{7}{17}')}$`
+      'La probabilité conditionnelle $P_{A_3}(S)$ se calcule parmi les personnes de la catégorie « Plus de 45 ans ».<br>' +
+      'Il y a $70$ personnes répondant aux deux critères sur $170$ personnes dans cette catégorie.<br>' +
+      `Donc : $P_{A_3}(S)=\\dfrac{70}{170}=${miseEnEvidence('\\dfrac{7}{17}')}$.`
     this.reponses = [
       '$\\dfrac{7}{17}$',
       '$\\dfrac{7}{20}$',
@@ -219,48 +186,28 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
   }
 
   versionAleatoire = () => {
-    // Définir les deux tableaux possibles
-    const tableaux: TableauConfig[] = [
-      {
-        v11: 50, v12: 30,
-        v21: 90, v22: 60,
-        v31: 70, v32: 100
-      },
-      {
-        v11: 60, v12: 40,
-        v21: 70, v22: 50,
-        v31: 90, v32: 90
-      }
-    ]
+    const cas = choice([1, 2])
     
-    const config = choice(tableaux)
-    
-    // Pour le tableau 1 : 8 questions possibles
-    // Pour le tableau 2 : 8 questions possibles
-    const typeQuestion = choice([1, 2, 3, 4, 5, 6, 7, 8])
-    
-    if (config === tableaux[0]) {
-      // Tableau 1
-      this.appliquerLesValeurs(config, typeQuestion)
+    if (cas === 1) {
+      const valeurs = ['50', '30', '80', '90', '60', '150', '70', '100', '170', '210', '190', '400']
+      const typeQuestion = choice([1, 2, 3, 4, 5, 6, 7, 8])
+      this.appliquerLesValeurs(valeurs, typeQuestion, 400)
     } else {
-      // Tableau 2
-      const total1 = config.v11 + config.v12
-      const total2 = config.v21 + config.v22
-      const total3 = config.v31 + config.v32
-      const totalGeneral = 400
-
-      this.enonce = this.genererTableauEtEnonce(config)
+      const valeurs = ['80', '40', '120', '90', '70', '160', '100', '120', '220', '270', '230', '500']
+      const typeQuestion = choice([1, 2, 3, 4, 5, 6, 7, 8])
+      
+      this.enonce = this.genererEnonce(valeurs, 500)
       
       switch (typeQuestion) {
         case 1:
           // P(A_1)
-          this.enonce += '$P(A_1)$ correspond à la valeur de :'
+          this.enonce += '$P(A_1)$ est égal à :'
           this.correction = 
-            `L'événement $A_1$ correspond à la ligne « Moins de 25 ans ».<br>` +
-            `Il y a $${total1}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-            `Donc : $P(A_1)=\\dfrac{${total1}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{1}{4}')}$`
+            'L\'événement $A_1$ correspond à la ligne « Moins de 25 ans ».<br>' +
+            'Il y a $120$ personnes dans cette catégorie sur un total de $500$ personnes.<br>' +
+            `Donc : $P(A_1)=\\dfrac{120}{500}=${miseEnEvidence('\\dfrac{6}{25}')}$.`
           this.reponses = [
-            '$\\dfrac{1}{4}$',
+            '$\\dfrac{6}{25}$',
             '$\\dfrac{3}{20}$',
             '$\\dfrac{3}{10}$',
             '$\\dfrac{11}{20}$'
@@ -271,11 +218,11 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           // P(A_3)
           this.enonce += '$P(A_3)$ correspond à la valeur de :'
           this.correction = 
-            `L'événement $A_3$ correspond à la ligne « Plus de 45 ans ».<br>` +
-            `Il y a $${total3}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-            `Donc : $P(A_3)=\\dfrac{${total3}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{9}{20}')}$`
+            'L\'événement $A_3$ correspond à la ligne « Plus de 45 ans ».<br>' +
+            'Il y a $220$ personnes dans cette catégorie sur un total de $500$ personnes.<br>' +
+            `Donc : $P(A_3)=\\dfrac{220}{500}=${miseEnEvidence('\\dfrac{11}{25}')}$.`
           this.reponses = [
-            '$\\dfrac{9}{20}$',
+            '$\\dfrac{11}{25}$',
             '$\\dfrac{1}{4}$',
             '$\\dfrac{3}{10}$',
             '$\\dfrac{11}{20}$'
@@ -286,11 +233,11 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           // P(S ∩ A_1)
           this.enonce += '$P(S \\cap A_1)$ correspond à la valeur de :'
           this.correction = 
-            `L'événement $S \\cap A_1$ correspond à l'intersection de la colonne « Pratique un sport » et de la ligne « Moins de 25 ans ».<br>` +
-            `Il y a $${config.v11}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-            `Donc : $P(S \\cap A_1)=\\dfrac{${config.v11}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{3}{20}')}$`
+            'L\'événement $S \\cap A_1$ correspond à l\'intersection de la colonne « Pratique un sport » et de la ligne « Moins de 25 ans ».<br>' +
+            'Il y a $80$ personnes dans cette catégorie sur un total de $500$ personnes.<br>' +
+            `Donc : $P(S \\cap A_1)=\\dfrac{80}{500}=${miseEnEvidence('\\dfrac{4}{25}')}$.`
           this.reponses = [
-            '$\\dfrac{3}{20}$',
+            '$\\dfrac{4}{25}$',
             '$\\dfrac{1}{4}$',
             '$\\dfrac{7}{40}$',
             '$\\dfrac{3}{10}$'
@@ -301,11 +248,11 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           // P(S ∩ A_2)
           this.enonce += '$P(S \\cap A_2)$ correspond à la valeur de :'
           this.correction = 
-            `L'événement $S \\cap A_2$ correspond à l'intersection de la colonne « Pratique un sport » et de la ligne « Entre 25 et 45 ans ».<br>` +
-            `Il y a $${config.v21}$ personnes dans cette catégorie sur un total de $${totalGeneral}$ personnes.<br>` +
-            `Donc : $P(S \\cap A_2)=\\dfrac{${config.v21}}{${totalGeneral}}=${miseEnEvidence('\\dfrac{7}{40}')}$`
+            'L\'événement $S \\cap A_2$ correspond à l\'intersection de la colonne « Pratique un sport » et de la ligne « Entre 25 et 45 ans ».<br>' +
+            'Il y a $90$ personnes dans cette catégorie sur un total de $500$ personnes.<br>' +
+            `Donc : $P(S \\cap A_2)=\\dfrac{90}{500}=${miseEnEvidence('\\dfrac{9}{50}')}$.`
           this.reponses = [
-            '$\\dfrac{7}{40}$',
+            '$\\dfrac{9}{50}$',
             '$\\dfrac{1}{4}$',
             '$\\dfrac{3}{20}$',
             '$\\dfrac{3}{10}$'
@@ -316,11 +263,11 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           // P_{A_1}(S)
           this.enonce += '$P_{A_1}(S)$ correspond à la valeur de :'
           this.correction = 
-            `La probabilité conditionnelle $P_{A_1}(S)$ se calcule parmi les personnes de la catégorie « Moins de 25 ans ».<br>` +
-            `Il y a $${config.v11}$ personnes répondant aux deux critères sur $${total1}$ personnes dans cette catégorie.<br>` +
-            `Donc : $P_{A_1}(S)=\\dfrac{${config.v11}}{${total1}}=${miseEnEvidence('\\dfrac{3}{5}')}$`
+            'La probabilité conditionnelle $P_{A_1}(S)$ se calcule parmi les personnes de la catégorie « Moins de 25 ans ».<br>' +
+            'Il y a $80$ personnes répondant aux deux critères sur $120$ personnes dans cette catégorie.<br>' +
+            `Donc : $P_{A_1}(S)=\\dfrac{80}{120}=${miseEnEvidence('\\dfrac{2}{3}')}$.`
           this.reponses = [
-            '$\\dfrac{3}{5}$',
+            '$\\dfrac{2}{3}$',
             '$\\dfrac{2}{5}$',
             '$\\dfrac{3}{20}$',
             '$\\dfrac{3}{10}$'
@@ -331,11 +278,11 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           // P_{A_2}(S)
           this.enonce += '$P_{A_2}(S)$ correspond à la valeur de :'
           this.correction = 
-            `La probabilité conditionnelle $P_{A_2}(S)$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>` +
-            `Il y a $${config.v21}$ personnes répondant aux deux critères sur $${total2}$ personnes dans cette catégorie.<br>` +
-            `Donc : $P_{A_2}(S)=\\dfrac{${config.v21}}{${total2}}=${miseEnEvidence('\\dfrac{7}{12}')}$`
+            'La probabilité conditionnelle $P_{A_2}(S)$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>' +
+            'Il y a $90$ personnes répondant aux deux critères sur $160$ personnes dans cette catégorie.<br>' +
+            `Donc : $P_{A_2}(S)=\\dfrac{90}{160}=${miseEnEvidence('\\dfrac{9}{16}')}$`
           this.reponses = [
-            '$\\dfrac{7}{12}$',
+            '$\\dfrac{9}{16}$',
             '$\\dfrac{7}{40}$',
             '$\\dfrac{5}{12}$',
             '$\\dfrac{3}{10}$'
@@ -346,11 +293,11 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           // P_{A_3}(S)
           this.enonce += '$P_{A_3}(S)$ correspond à la valeur de :'
           this.correction = 
-            `La probabilité conditionnelle $P_{A_3}(S)$ se calcule parmi les personnes de la catégorie « Plus de 45 ans ».<br>` +
-            `Il y a $${config.v31}$ personnes répondant aux deux critères sur $${total3}$ personnes dans cette catégorie.<br>` +
-            `Donc : $P_{A_3}(S)=\\dfrac{${config.v31}}{${total3}}=${miseEnEvidence('\\dfrac{1}{2}')}$`
+            'La probabilité conditionnelle $P_{A_3}(S)$ se calcule parmi les personnes de la catégorie « Plus de 45 ans ».<br>' +
+            'Il y a $100$ personnes répondant aux deux critères sur $220$ personnes dans cette catégorie.<br>' +
+            `Donc : $P_{A_3}(S)=\\dfrac{100}{220}=${miseEnEvidence('\\dfrac{5}{11}')}$.`
           this.reponses = [
-            '$\\dfrac{1}{2}$',
+            '$\\dfrac{5}{11}$',
             '$\\dfrac{9}{40}$',
             '$\\dfrac{9}{20}$',
             '$\\dfrac{11}{40}$'
@@ -358,14 +305,14 @@ export default class ProbabiliteTableau extends ExerciceQcmA {
           break
 
         case 8:
-          // P_{A_1}(non S)
-          this.enonce += '$P_{A_1}(\\overline{S})$ correspond à la valeur de :'
+          // P_{A_2}(non S)
+          this.enonce += '$P_{A_2}(\\overline{S})$ correspond à la valeur de :'
           this.correction = 
-            `La probabilité conditionnelle $P_{A_1}(\\overline{S})$ se calcule parmi les personnes de la catégorie « Moins de 25 ans ».<br>` +
-            `Il y a $${config.v12}$ personnes ne pratiquant pas de sport sur $${total1}$ personnes dans cette catégorie.<br>` +
-            `Donc : $P_{A_1}(\\overline{S})=\\dfrac{${config.v12}}{${total1}}=${miseEnEvidence('\\dfrac{2}{5}')}$`
+            'La probabilité conditionnelle $P_{A_2}(\\overline{S})$ se calcule parmi les personnes de la catégorie « Entre 25 et 45 ans ».<br>' +
+            'Il y a $70$ personnes ne pratiquant pas de sport sur $160$ personnes dans cette catégorie.<br>' +
+            `Donc : $P_{A_2}(\\overline{S})=\\dfrac{70}{160}=${miseEnEvidence('\\dfrac{7}{16}')}$.`
           this.reponses = [
-            '$\\dfrac{2}{5}$',
+            '$\\dfrac{7}{16}$',
             '$\\dfrac{3}{5}$',
             '$\\dfrac{1}{10}$',
             '$\\dfrac{9}{20}$'
