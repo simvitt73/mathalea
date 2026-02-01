@@ -1,0 +1,33 @@
+import{A as n,p,r,R as i,B as s}from"./index-Dkwu26bg.js";/* empty css                         */import"./vendors/svelte-BrkG1v2Q.js";import"./vendors/clsx-B-dksMZM.js";import"./vendors/esm-env-rsSWfq8L.js";import"./vendors/ua-parser-js-D4W63oil.js";import"./vendors/three-q_6hD11P.js";import"./vendors/decimal.js-BceHFVC1.js";import"./vendors/katex-BISJkeK-.js";import"./vendors/seedrandom-Cz-2rAdY.js";import"./vendors/apigeom-CvUqzk7F.js";import"./vendors/mathjs-DKCMnljp.js";import"./vendors/babel_runtime-BFeZ_VDU.js";import"./vendors/javascript-natural-sort-QZS4Fyws.js";import"./vendors/escape-latex-BegatI0j.js";import"./vendors/complex.js-C1JbXRlX.js";import"./vendors/typed-function-CVM02vEe.js";import"./vendors/fraction.js-CYLvagDM.js";import"./vendors/tiny-emitter-DbO2P2s3.js";import"./vendors/xstate-BSXD3zxA.js";import"./vendors/crypto-js-DElKCTCw.js";import"./json/referentielStaticCH-DrWiqhRe.js";import"./json/referentielStaticFR-DTeSOhOd.js";import"./json/uuidsToUrlFR-Cc7zu7XX.js";import"./vendors/cortex-js_compute-engine-Bo_2zfG3.js";import"./vendors/jspreadsheet-ce-kKqtlqR-.js";import"./vendors/jsuites-D-TmSgJs.js";import"./vendors/jspreadsheet_formula-CXu1m5Ak.js";import"./vendors/mathlive-2YgxEGya.js";import"./vendors/bugsnag_js-B7oJ4uO9.js";import"./vendors/bugsnag_browser-CBi0d3dm.js";import"./vendors/big-integer-RrBdqg8C.js";import"./vendors/mixer_postmessage-rpc-JyZjM7pP.js";import"./vendors/eventemitter3-COjgItKg.js";import"./vendors/scratchblocks-BVPCj2Ee.js";import"./json/scratchFr-BNITwCy2.js";import"./json/refToUuidFR-DByOnDAE.js";import"./json/refToUuidCH-Co2Ho8bY.js";import"./json/codeToLevelList-BfkorBF2.js";import"./json/codeToThemeList-B4uzTsqe.js";import"./vendors/loadjs-Dy50zFDn.js";import"./json/referentielProfs-BdpwqI3j.js";import"./json/uuidsRessources-jdCgFfXb.js";import"./json/referentielBibliotheque-sQm1j5fm.js";import"./vendors/file-saver-Cqu1O8xU.js";import"./vendors/jszip-BuNf6wCF.js";import"./vendors/jszip-utils-DhFX1KUq.js";import"./vendors/copy-image-clipboard-Cf9y-QAU.js";import"./vendors/qrcode-BsrOgw3n.js";import"./vendors/dijkstrajs-COg3n3zL.js";import"./vendors/brace-DEOAbY2S.js";import"./json/referentielAppsTierce-SxU58PZT.js";import"./vendors/sortablejs-DdTU3J9A.js";import"./json/carouselContent-Bjt6Yxr-.js";import"./json/levelsThemesList-CXNnIZKX.js";import"./json/levelsThemesListCH-BErSids0.js";import"./json/referentiel2022CH-DjDOIBSG.js";import"./json/referentiel2022FR-BT6kfVfP.js";import"./json/referentielGeometrieDynamique-BJ2PHXsv.js";import"./json/referentielRessources-BU2QQoSD.js";import"./json/referentielsActivation-CpD_hoec.js";const be="Déterminer un effectif à partir d'une proportion",xe=!0,he="mathLive",Ne=!0,ye="AMCNum",qe="5b5c0",ve={"fr-fr":["techno1P5"],"fr-ch":[]};class Ae extends n{constructor(){super(),this.typeExercice="simple",this.nbQuestions=1}nouvelleVersion(){let o,t,e;switch(p(["association","lycée","election"])){case"association":t=r(3,80),o=r(20,50),e=r(20,100),this.question=`Dans une association,  environ $${t}\\%$ des adhérents ont plus de  de $${o}$ ans. <br>
+       Sachant qu'ils représentent $${e}$ personnes, combien de personnes sont adhérentes à l'association ?<br>`,this.correction=`La population de référence est celle des membres du club.<br>
+        La sous-population est celle des plus de $${o}$ ans,
+        qui représente $p=${t}\\%$ des membres d'après l'énoncé. <br>
+        Appellons $N$ l'effectif de la population de référence, c'est-à-dire le nombre d'adhérents de l'association,<br>
+        et $n$ l'effectif de la sous population étudiée. On a donc $n=${e}$ .<br>
+        D'après le cours, on sait que $p=\\dfrac{\\text{effectif étudié}}{\\text{effectif total}}=\\dfrac{n}{N}=\\dfrac{${e}}{N}$.
+        <br><br>Ainsi,  $p=\\dfrac{${t}}{100}= \\dfrac{${e}}{N}$.<br>
+        Avec un produit en croix, on en déduit que : $${t}\\times N= 100\\times ${e}$.<br>
+        On en déduit que $N=\\dfrac{100\\times ${e}}{${t}}\\approx ${i(100*e/t,0)}$.<br>
+      Il y a  $${i(100*e/t,0)}$ adhérents dans ce club.`,this.reponse=s(t*e/100,0);break;case"lycée":t=r(25,35),o=r(20,50),e=r(25,200),this.question=`Dans une lycée,  $${t}\\%$ des lycéens sont en classe de 1ère. <br>
+            Sachant qu'il y a  $${e}$ élèves en classe de 1ère,
+            déterminer le nombre total d'élèves de ce lycée ?`,this.correction=`La population de référence est celle des élèves du lycée.<br>
+            La sous-population est celle des élèves de 1ère,
+            qui représente $p=${t}\\%$ des membres d'après l'énoncé. <br>
+            Appellons $N$ l'effectif de la population de référence, c'est-à-dire le nombre d'élèves du lycée,<br>
+            et $n$ l'effectif de la sous population étudiée. On a donc $n=${e}$ .<br>
+            D'après le cours, on sait que $p=\\dfrac{\\text{effectif étudié}}{\\text{effectif total}}=\\dfrac{n}{N}=\\dfrac{${e}}{N}$.
+            <br><br>Ainsi,  $p=\\dfrac{${t}}{100}= \\dfrac{${e}}{N}$.<br>
+            Avec un produit en croix, on en déduit que : $${t}\\times N= 100\\times ${e}$.<br>
+            On en déduit que $N=\\dfrac{100\\times ${e}}{${t}}\\approx ${i(100*e/t,0)}$.<br>
+          Il y a  $${i(100*e/t,0)}$ élèves dans ce lycée.`,this.reponse=s(t*e/100,0);break;case"election":t=r(20,40),o=r(20,50),e=r(10,70),this.question=`Lors d'une élection,  un candidat a obtenu environ $${t}\\%$ des suffrages exprimés, soit un total de $${e}$ voix.<br>
+  Calculer le nombre de suffrages exprimés lors de cette élection.`,this.correction=`La population de référence est celle des suffrages exprimés.<br>
+                La sous-population est celle des suffrages obtenus par le candidat.<br>
+                d'après l'énoncé, $p_1=${t}\\%$.<br>
+                Appellons $N$ l'effectif de la population de référence, c'est-à-dire le nombre suffrages exprimés,<br>
+            et $n$ l'effectif de la sous population étudiée. On a donc $n=${e}$ .<br>
+            D'après le cours, on sait que $p=\\dfrac{\\text{effectif étudié}}{\\text{effectif total}}=\\dfrac{n}{N}=\\dfrac{${e}}{N}$.
+            <br><br>Ainsi,  $p=\\dfrac{${t}}{100}= \\dfrac{${e}}{N}$.<br>
+            Avec un produit en croix, on en déduit que : $${t}\\times N= 100\\times ${e}$.<br>
+            On en déduit que $N=\\dfrac{100\\times ${e}}{${t}}\\approx ${i(100*e/t,0)}$.<br>
+          Il y a eu $${i(100*e/t,0)}$ suffrages exprimés lors de cette élection.`,this.reponse=s(t*e/100,0);break}}}export{Ne as amcReady,ye as amcType,Ae as default,xe as interactifReady,he as interactifType,ve as refs,be as titre,qe as uuid};
+//# sourceMappingURL=techno1P5-BnN4ePgq.js.map

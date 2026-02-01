@@ -1,2 +1,0 @@
-var o=Object.defineProperty;var a=(s,e,i)=>e in s?o(s,e,{enumerable:!0,configurable:!0,writable:!0,value:i}):s[e]=i;var r=(s,e,i)=>a(s,typeof e!="symbol"?e+"":e,i);import{E as t}from"./ExerciceQcm-ByjAGTRK.js";class l extends t{constructor(){super();r(this,"versionAleatoire",()=>{});r(this,"aleatoire",()=>{});this.besoinFormulaireCaseACocher=["Sujet original",!1],this.besoinFormulaire4CaseACocher=["Ajout de « Je ne sais pas »",!1],this.sup=!1,this.sup4=!1,this.enonce="",this.reponses=[],this.correction=""}}export{l as E};
-//# sourceMappingURL=ExerciceQcmA-CCRIa16T.js.map
