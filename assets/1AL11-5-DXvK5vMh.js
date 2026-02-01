@@ -1,0 +1,40 @@
+import{E as S,Y as D,$ as Q,p as A,r,B as i,n as h,x as _,a_ as v,a as g,K as x,o as C}from"./index-BB3ZcMz7.js";import{D as o}from"./vendors/decimal.js-BceHFVC1.js";/* empty css                         */import"./vendors/svelte-BrkG1v2Q.js";import"./vendors/clsx-B-dksMZM.js";import"./vendors/esm-env-rsSWfq8L.js";import"./vendors/ua-parser-js-D4W63oil.js";import"./vendors/three-DbtVOfJ6.js";import"./vendors/katex-BSW5_u9c.js";import"./vendors/seedrandom-Cz-2rAdY.js";import"./vendors/apigeom-DuS4UMKQ.js";import"./vendors/mathjs-DKCMnljp.js";import"./vendors/babel_runtime-BFeZ_VDU.js";import"./vendors/javascript-natural-sort-QZS4Fyws.js";import"./vendors/escape-latex-BegatI0j.js";import"./vendors/complex.js-C1JbXRlX.js";import"./vendors/typed-function-CVM02vEe.js";import"./vendors/fraction.js-CYLvagDM.js";import"./vendors/tiny-emitter-DbO2P2s3.js";import"./vendors/xstate-BSXD3zxA.js";import"./vendors/crypto-js-DElKCTCw.js";import"./json/referentielStaticCH-DrWiqhRe.js";import"./json/referentielStaticFR-DTeSOhOd.js";import"./json/uuidsToUrlFR-Cc7zu7XX.js";import"./vendors/cortex-js_compute-engine-Bo_2zfG3.js";import"./vendors/jspreadsheet-ce-kKqtlqR-.js";import"./vendors/jsuites-D-TmSgJs.js";import"./vendors/jspreadsheet_formula-CXu1m5Ak.js";import"./vendors/mathlive-2YgxEGya.js";import"./vendors/bugsnag_js-B7oJ4uO9.js";import"./vendors/bugsnag_browser-CBi0d3dm.js";import"./vendors/big-integer-RrBdqg8C.js";import"./vendors/mixer_postmessage-rpc-JyZjM7pP.js";import"./vendors/eventemitter3-COjgItKg.js";import"./vendors/scratchblocks-BVPCj2Ee.js";import"./json/scratchFr-BNITwCy2.js";import"./json/refToUuidFR-fVupTN-r.js";import"./json/refToUuidCH-BX1ZhSY0.js";import"./json/codeToLevelList-BfkorBF2.js";import"./json/codeToThemeList-B4uzTsqe.js";import"./vendors/loadjs-Dy50zFDn.js";import"./json/referentielProfs-BdpwqI3j.js";import"./json/uuidsRessources-jdCgFfXb.js";import"./json/referentielBibliotheque-sQm1j5fm.js";import"./vendors/file-saver-Cqu1O8xU.js";import"./vendors/jszip-BuNf6wCF.js";import"./vendors/jszip-utils-DhFX1KUq.js";import"./vendors/copy-image-clipboard-Cf9y-QAU.js";import"./vendors/qrcode-BsrOgw3n.js";import"./vendors/dijkstrajs-COg3n3zL.js";import"./vendors/brace-DEOAbY2S.js";import"./json/referentielAppsTierce-SxU58PZT.js";import"./vendors/sortablejs-DdTU3J9A.js";import"./json/carouselContent-Bjt6Yxr-.js";import"./json/levelsThemesList-CXNnIZKX.js";import"./json/levelsThemesListCH-BErSids0.js";import"./json/referentiel2022CH-eCsKGSUT.js";import"./json/referentiel2022FR-noHHLeEt.js";import"./json/referentielGeometrieDynamique-BJ2PHXsv.js";import"./json/referentielRessources-BU2QQoSD.js";import"./json/referentielsActivation-CpD_hoec.js";const Me="Calculer la raison d'une suite arithmétique ou géométrique",je=!0,Ke="mathLive",Re="23/10/2024",Je="db786",Ve={"fr-fr":["1AL11-5"],"fr-ch":[]};class Ye extends S{constructor(){super(),this.nbQuestions=1,this.sup="5",this.spacing=1.5,this.spacingCorr=2,this.besoinFormulaire2CaseACocher=["Avec des décimaux"],this.correctionDetaillee=!1,this.correctionDetailleeDisponible=!0,this.besoinFormulaireTexte=["Type de questions",["Nombres séparés par des tirets  :","1 : Suite arithmétique avec deux termes consécutifs","2 : Suite arithmétique avec deux termes non consécutifs","3 : Suite géométrique avec deux termes consécutifs","4 : Suite géométrique avec deux termes non consécutifs","5 : Mélange"].join(`
+`)]}nouvelleVersion(){const w=D({saisie:this.sup,min:1,max:4,melange:5,defaut:5,nbQuestions:this.nbQuestions}),b=Q(w,this.nbQuestions);for(let $=0,f=0;$<this.nbQuestions&&f<50;){let p="",u="",m;const e=A(["u","v","w","t"]);let c,d,n,a,l,q,t,s;switch(b[$]){case 1:n=this.sup2?new o(r(1,99)).div(10):r(-12,12,0),d=this.sup2?new o(r(-99,99,0)).div(10):r(-15,15,0),a=new o(n).add(d),t=r(0,10),s=t+1,m=i(d,2),h(this,$,{reponse:{value:m}}),p=`Soit $(${e}_n)$ une suite arithmétique telle que $${e}_{${t}}=${i(n,2)}$ et $${e}_{${s}}=${i(a,2)}$.<br>
+         Quelle est la valeur de la raison $r$ de cette suite ?`,this.correctionDetaillee?u=`Si $(u_n)$ est une suite arithmétique de raison $r$, alors pour tout entier naturel $n$, $u_{n+1}=u_n+r$.<br>
+           Ainsi, $r=u_{n+1}-u_n$.<br>`:u="",u+=`La suite $(${e}_n)$ est arithmétique, on obtient donc la raison de la suite en effectuant la différence de deux termes consécutifs : <br>
+          $\\begin{aligned}        
+          r&=${e}_{${s}}-${e}_{${t}}\\\\
+          &=${i(a,2)}-${v(i(n,2))}\\\\
+          &=${_(m)}
+          \\end{aligned}$    
+          `;break;case 2:n=this.sup2?new o(r(1,99)).div(10):r(-12,12,0),c=r(5,15),d=this.sup2?new o(r(-99,99,0)).div(10):r(-15,15,0),a=new o(d).mul(c).add(n),m=i(d,2),t=r(0,10),s=t+c,h(this,$,{reponse:{value:m}}),p=`Soit $(${e}_n)$ une suite arithmétique telle que $${e}_{${t}}=${i(n,2)}$ et $${e}_{${s}}=${i(a,2)}$.<br>
+         Quelle est la valeur de la raison $r$ de cette suite ?`,this.correctionDetaillee?u=`Si $(u_n)$ est une suite arithmétique de raison $r$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p+(n-p)\\times r$. <br>
+            Ainsi, $r=\\dfrac{u_n-u_p}{n-p}$.<br>`:u="",u+=`$(${e}_n)$ est une suite arithmétique, alors $${e}_{${s}}=${e}_{${t}}+(${s}-${t})\\times r$. <br>
+          Ainsi : <br>
+          $\\begin{aligned}
+          r&=\\dfrac{${e}_{${s}}-${e}_{${t}}}{${s}-${t}}\\\\
+          &=\\dfrac{${i(a,2)}-${v(i(n,2))}}{${s-t}}\\\\
+          &=${_(m)}
+          \\end{aligned}$
+          <br>   
+           `;break;case 3:n=this.sup2?new o(r(1,99,0)).div(10):r(-12,12,0),l=this.sup2?new o(r(0,10,[0,10])).div(10):r(-15,15,[0,1]),a=new o(n).mul(l),t=r(0,10),s=t+1,m=i(l,2),h(this,$,{reponse:{value:m}}),p=`Soit $(${e}_n)$ une suite géométrique telle que $${e}_{${t}}=${i(n,2)}$ et $${e}_{${s}}=${i(a,2)}$.<br>
+         Quelle est la valeur de la raison $q$ de cette suite ?`,this.correctionDetaillee?u=`Si $(u_n)$ est une suite géométrique de raison $q$, alors pour tout entier naturel $n$, $u_{n+1}=q\\times u_n$.<br>
+           Ainsi, $q=\\dfrac{u_{n+1}}{u_n}$.<br>`:u="",u+=`La suite $${e}_n$ est géométrique, on obtient donc la raison de la suite en effectuant le quotient  de deux termes consécutifs : <br>
+          $\\begin{aligned}        
+          q&=\\dfrac{${e}_{${s}}}{${e}_{${t}}}\\\\
+          &=\\dfrac{${i(a,2)}}{${i(n,2)}}\\\\
+          &=${_(m)}
+          \\end{aligned}$    
+          `;break;case 4:n=this.sup2?new o(r(1,99,0)).div(10):r(-12,12,0),c=2,l=this.sup2?new o(r(-99,99,[0,10])).div(10):r(-15,15,[0,1]),a=new o(l).pow(c).mul(n),q=new o(a).div(n),m=i(l,2),t=r(1,10),s=t+c,h(this,$,{reponse:{value:m}}),p=`Soit $(${e}_n)$ une suite géométrique de raison $q$ strictement ${o.sign(l)===1?"positive":"négative"} telle que $${e}_{${t}}=${i(n,5)}$ et $${e}_{${s}}=${i(a,5)}$.<br>
+           Quelle est la valeur de la raison de cette suite ?`,this.correctionDetaillee?u="Si $(u_n)$ est une suite géométrique de raison $q$, alors pour tout entier naturel $n$ et $p$, on a $u_n=u_p\\times q^{n-p}$.<br>":u="",u+=`$(${e}_n)$ est une suite géométrique, alors $${e}_{${s}}=${e}_{${t}}\\times q^{${s}-${t}}$. <br>
+            Ainsi : <br>
+            $\\begin{aligned}
+            ${e}_{${s}}&=${e}_{${t}}\\times q^{${s}-${t}}\\\\
+            ${i(a,2)}&=${i(n,2)}\\times q^{${s-t}}\\\\
+           q^{${s-t}} &=\\dfrac{${i(a,2)}}{${i(n,2)}}\\\\
+           q^{${s-t}}&=${i(q,4)}\\\\
+           q&=${o.sign(l)===1?"":"-"}\\sqrt{${i(q,4)}}${o.sign(l)===1?"\\text{ car d'après l'énoncé la raison est strictement positive.}":"\\text{ car d'après l'énoncé la raison est strictement négative.}"}\\\\
+            q&=${_(m)}
+            \\end{aligned}$  
+             `;break}b[$]===1||b[$]===2?p+="<br>"+g(this,$,x.clavierDeBase,{texteAvant:"$r=$"}):p+="<br>"+g(this,$,x.clavierDeBase,{texteAvant:"$q=$"}),this.questionJamaisPosee($,p)&&(this.listeQuestions[$]=p,this.listeCorrections[$]=u,$++),f++}C(this)}}export{Re as dateDePublication,Ye as default,je as interactifReady,Ke as interactifType,Ve as refs,Me as titre,Je as uuid};
+//# sourceMappingURL=1AL11-5-DXvK5vMh.js.map

@@ -1,0 +1,2 @@
+import{c as a}from"./utilitairesGeometriques-rO8Jz15i.js";import{S as c,a as n}from"./segmentsVecteurs-Bz-aNFOx.js";class l extends c{constructor(t,s,e="black",r=!1){super(t,s),this.opacite=1,this.pointilles=0,this.epaisseur=1;const o=n(s,t,-10);this.x2=o.x,this.y2=o.y,this.color=a(e),r&&(this.styleExtremites="|-")}}function h(i,t,s="black",e=!1){return new l(i,t,s,e)}export{l as D,h as d};
+//# sourceMappingURL=DemiDroite-17PsLdCW.js.map
