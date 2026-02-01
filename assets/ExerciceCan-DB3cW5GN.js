@@ -1,0 +1,2 @@
+var r=Object.defineProperty;var t=(i,e,s)=>e in i?r(i,e,{enumerable:!0,configurable:!0,writable:!0,value:s}):i[e]=s;var c=(i,e,s)=>t(i,typeof e!="symbol"?e+"":e,s);import{A as l}from"./index-vfG7N0N9.js";class f extends l{constructor(){super();c(this,"canOfficielle");this.typeExercice="simple",this.nbQuestions=1,this.canOfficielle=!1,this.besoinFormulaireCaseACocher=["sujet officiel",!1]}}export{f as E};
+//# sourceMappingURL=ExerciceCan-DB3cW5GN.js.map

@@ -1,2 +1,0 @@
-var o=Object.defineProperty;var t=(r,e,s)=>e in r?o(r,e,{enumerable:!0,configurable:!0,writable:!0,value:s}):r[e]=s;var i=(r,e,s)=>t(r,typeof e!="symbol"?e+"":e,s);import{E as a}from"./ExerciceBrevet-DkY5IZvr.js";class n extends a{constructor(){super();i(this,"versionAleatoire",()=>{});this.besoinFormulaireCaseACocher=["Sujet original",!1],this.sup=!1,this.versionAleatoire(0)}}export{n as E};
-//# sourceMappingURL=ExerciceBrevetA-CfFOIDgp.js.map
