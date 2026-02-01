@@ -334,6 +334,10 @@ export async function mathaleaLoadExerciceFromUuid(uuid: string) {
       }
     }
   }
+  const exercice = new Exercice()
+  exercice.titre = ERROR_MESSAGE
+  exercice.nouvelleVersion = () => {}
+  return exercice as IExercice
 }
 
 /**

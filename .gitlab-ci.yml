@@ -572,7 +572,13 @@ testExosModifiedWithoutPlayWright:
     - echo "$CHANGED_FILES"
     - CHANGED_FILES="$CHANGED_FILES" pnpm vitest --config tests/e2e/vitest.config.all_exercises.js --run
   rules:
-    - when: always
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
 
 testExosModified:
   extends: .testCI
@@ -607,7 +613,13 @@ testExosModified:
     - echo "$CHANGED_FILES"
     - CHANGED_FILES="$CHANGED_FILES" pnpm test:e2e:console_errors
   rules:
-    - when: always
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
 
 tests-unitaires:
   stage: build-projet
@@ -626,6 +638,12 @@ tests-unitaires:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:unit
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm test:src
   rules:
-    - when: always
+    - if: $CI_OPEN_MERGE_REQUESTS
+      when: always
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
   artifacts:
     when: on_failure

@@ -175,8 +175,8 @@
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
 
   let debug = false
-  function log(str: string) {
-    if (debug || window.logDebug > 1) {
+  function log(str: string, level: number = 3) {
+    if (debug || window.logDebug >= level) {
       console.info(str)
     }
   }
@@ -195,17 +195,23 @@
 
   afterUpdate(() => {
     log('Eleve.svelte afterUpdate')
-
+    const starttime = window.performance.now()
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event('exercicesAffiches', {
       bubbles: true,
     })
     document.dispatchEvent(exercicesAffiches)
-    if (eleveSection) {
+    if (eleveSection && $globalOptions.presMode === 'une_question_par_page') {
       const params = $globalOptions
       const zoom = Number(params.z) ?? 1
       resizeContent(eleveSection, zoom)
     }
+
+    log(
+      'Eleve.svelte afterUpdate done in ' +
+        (window.performance.now() - starttime),
+      2,
+    )
   })
 
   let resizeObserver: ResizeObserver
