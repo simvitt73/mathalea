@@ -1,0 +1,38 @@
+var u=Object.defineProperty;var p=(m,a,r)=>a in m?u(m,a,{enumerable:!0,configurable:!0,writable:!0,value:r}):m[a]=r;var c=(m,a,r)=>p(m,typeof a!="symbol"?a+"":a,r);import{D as i}from"./vendors/decimal.js-BceHFVC1.js";import{x as s,p as d,r as $,B as e}from"./index-CMKaCP9B.js";import{E as l}from"./ExerciceQcmA-yzB4dxov.js";/* empty css                         */import"./vendors/svelte-BrkG1v2Q.js";import"./vendors/clsx-B-dksMZM.js";import"./vendors/esm-env-rsSWfq8L.js";import"./vendors/ua-parser-js-D4W63oil.js";import"./vendors/three-q_6hD11P.js";import"./vendors/katex-BISJkeK-.js";import"./vendors/seedrandom-Cz-2rAdY.js";import"./vendors/apigeom-CvUqzk7F.js";import"./vendors/mathjs-DKCMnljp.js";import"./vendors/babel_runtime-BFeZ_VDU.js";import"./vendors/javascript-natural-sort-QZS4Fyws.js";import"./vendors/escape-latex-BegatI0j.js";import"./vendors/complex.js-C1JbXRlX.js";import"./vendors/typed-function-CVM02vEe.js";import"./vendors/fraction.js-CYLvagDM.js";import"./vendors/tiny-emitter-DbO2P2s3.js";import"./vendors/xstate-BSXD3zxA.js";import"./vendors/crypto-js-DElKCTCw.js";import"./json/referentielStaticCH-DrWiqhRe.js";import"./json/referentielStaticFR-DTeSOhOd.js";import"./json/uuidsToUrlFR-Cc7zu7XX.js";import"./vendors/cortex-js_compute-engine-Bo_2zfG3.js";import"./vendors/jspreadsheet-ce-kKqtlqR-.js";import"./vendors/jsuites-D-TmSgJs.js";import"./vendors/jspreadsheet_formula-CXu1m5Ak.js";import"./vendors/mathlive-2YgxEGya.js";import"./vendors/bugsnag_js-B7oJ4uO9.js";import"./vendors/bugsnag_browser-CBi0d3dm.js";import"./vendors/big-integer-RrBdqg8C.js";import"./vendors/mixer_postmessage-rpc-JyZjM7pP.js";import"./vendors/eventemitter3-COjgItKg.js";import"./vendors/scratchblocks-BVPCj2Ee.js";import"./json/scratchFr-BNITwCy2.js";import"./json/refToUuidFR-qEtoRB--.js";import"./json/refToUuidCH-DNJKehD0.js";import"./json/codeToLevelList-BfkorBF2.js";import"./json/codeToThemeList-B4uzTsqe.js";import"./vendors/loadjs-Dy50zFDn.js";import"./json/referentielProfs-BdpwqI3j.js";import"./json/uuidsRessources-jdCgFfXb.js";import"./json/referentielBibliotheque-sQm1j5fm.js";import"./vendors/file-saver-Cqu1O8xU.js";import"./vendors/jszip-BuNf6wCF.js";import"./vendors/jszip-utils-DhFX1KUq.js";import"./vendors/copy-image-clipboard-Cf9y-QAU.js";import"./vendors/qrcode-BsrOgw3n.js";import"./vendors/dijkstrajs-COg3n3zL.js";import"./vendors/brace-DEOAbY2S.js";import"./json/referentielAppsTierce-SxU58PZT.js";import"./vendors/sortablejs-DdTU3J9A.js";import"./json/carouselContent-Bjt6Yxr-.js";import"./json/levelsThemesList-CXNnIZKX.js";import"./json/levelsThemesListCH-BErSids0.js";import"./json/referentiel2022CH-hGgYBJeX.js";import"./json/referentiel2022FR-DRcEqmJS.js";import"./json/referentielGeometrieDynamique-BJ2PHXsv.js";import"./json/referentielRessources-BU2QQoSD.js";import"./json/referentielsActivation-CpD_hoec.js";import"./ExerciceQcm-Bg9RomNU.js";import"./lists-SAG-gkx2.js";const Ae="8cf80",Ue={"fr-fr":["1A-C15-4"],"fr-ch":[]},Fe=!0,ke="qcm",Re="true",qe="qcmMono",Ce="Résoudre un problème de facture",Te="29/07/2025";class Be extends l{constructor(){super();c(this,"versionOriginale",()=>{this.enonce=`Dans une région de France, le tarif de l'eau est le suivant : <br>
+              Un abonnement annuel et $3{,}50$ € par mètre cube consommé. <br>
+              Une famille a payé une facture de $352{,}50$ € pour une consommation de $85\\text{ m}^3$.<br>
+            Le prix de l'abonnement est donné par le calcul :`,this.correction=`La facture s'élève à $352{,}50$ € pour une consommation de $85\\text{ m}^3$.<br>
+                   En notant $a$ le montant de l'abonnement, on obtient : <br>
+                   $\\begin{aligned}
+                   a+3{,}50\\times 85 &=352{,}50\\\\
+                   a&=${s("352{,}50-3{,}50\\times 85")}
+                   \\end{aligned}$
+                   `,this.reponses=["$352{,}50-3{,}50\\times 85$","$\\dfrac{352{,}50}{3{,}50\\times 85}$","$\\dfrac{3{,}50\\times 85}{352{,}50}$","$352{,}50+3{,}50\\times 85$"]});c(this,"versionAleatoire",()=>{switch(d([1,2,3])){case 1:{const r=new i($(451,691)).div(10),o=new i($(301,399)).div(100),n=$(70,99),t=new i(o).mul(n).add(r);this.enonce=`Dans une région de France, le tarif de l'eau est le suivant : <br>
+                    un abonnement annuel et $${e(o,2,!0)}$ € par mètre cube consommé. <br>
+                    Une famille a payé une facture de $${e(t,2,!0)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
+                  Le prix de l'abonnement est donné par le calcul :`,this.correction=`La facture s'élève à $${e(t,3)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
+                         En notant $a$ le montant de l'abonnement, on obtient : <br>
+                         $\\begin{aligned}
+                         a+${e(o,2,!0)}\\times ${n} &=${e(t,3)}\\\\
+                         a&=${s(`${e(t,3)}-${e(o,2,!0)}\\times ${n}`)}
+                         \\end{aligned}$
+                         `,this.reponses=[`$${e(t,3)}-${e(o,2,!0)}\\times ${n}$`,`$\\dfrac{${e(t,3)}}{${e(o,2,!0)}\\times ${n}}$`,`$\\dfrac{${e(o,2,!0)}\\times ${n}}{${e(t,3)}}$`,`$${e(t,3)}+${e(o,2,!0)}\\times ${n}$`]}break;case 2:{const r=new i($(451,691)).div(10),o=new i($(301,399)).div(100),n=$(70,99),t=new i(o).mul(n).add(r);this.enonce=`Dans une région de France, le tarif de l'eau est le suivant : <br>
+                    un abonnement annuel de $${e(r,2,!0)}$ € et un prix par mètre cube consommé. <br>
+                    Une famille a payé une facture de $${e(t,2,!0)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
+                  Le prix du mètre cube consommé est donné par le calcul :`,this.correction=`La facture s'élève à $${e(t,3)}$ € pour une consommation de $${n}\\text{ m}^3$.<br>
+                         En notant $a$ le prix du mètre cube, on obtient : <br>
+                         $\\begin{aligned}
+                         ${e(r,2)}+a\\times ${n} &=${e(t,3)}\\\\
+                         a&=${s(`\\dfrac{${e(t,3)}-${e(r,2,!0)}}{${n}}`)}
+                         \\end{aligned}$
+                         `,this.reponses=[`$\\dfrac{${e(t,3)}-${e(r,2,!0)}}{${n}}$`,`$\\dfrac{${e(t,3)}-${n}}{${e(r,2,!0)}}$`,`$${e(t,3)}-${e(r,2,!0)}\\times ${n}$`,`$\\dfrac{${e(o,2,!0)}\\times ${n}}{${e(t,3)}}$`]}break;default:{const r=new i($(451,691)).div(10),o=new i($(301,399)).div(100),n=$(70,99),t=new i(o).mul(n).add(r);this.enonce=`Dans une région de France, le tarif de l'eau est le suivant : <br>
+                  un abonnement annuel de $${e(r,2,!0)}$ € et $${e(o,2,!0)}$ € par mètre cube consommé. <br>
+                    Une famille a payé une facture de $${e(t,2,!0)}$ € pour sa consommation annuelle.<br>
+                  Le nombre de mètres cubes consommés est donné par le calcul :`,this.correction=`La facture s'élève à $${e(t,3)}$ € pour la consommation annuelle.<br>
+                         En notant $a$ le nombre de  mètres cubes consommés, on obtient : <br>
+                         $\\begin{aligned}
+                         ${e(r,2)}+${e(o,2,!0)}\\times a &=${e(t,3)}\\\\
+                         a&=${s(`\\dfrac{${e(t,3)}-${e(r,2,!0)}}{${e(o,2,!0)}}`)}
+                         \\end{aligned}$
+                         `,this.reponses=[`$\\dfrac{${e(t,3)}-${e(r,2,!0)}}{${e(o,2,!0)}}$`,`$\\dfrac{${e(t,3)}-${e(o,2,!0)}}{${e(r,2,!0)}}$`,`$${e(t,3)}-${e(r,2,!0)}\\times ${e(o,2,!0)}$`,`$${e(r,2,!0)}\\times${e(o,3)}-${e(t,2,!0)}$`]}break}});this.versionAleatoire(),this.spacing=1.5}}export{Re as amcReady,qe as amcType,Te as dateDePublication,Be as default,Fe as interactifReady,ke as interactifType,Ue as refs,Ce as titre,Ae as uuid};
+//# sourceMappingURL=1A-C15-4-D6dy9cen.js.map
