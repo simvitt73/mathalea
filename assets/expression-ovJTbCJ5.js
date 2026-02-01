@@ -1,0 +1,2 @@
+function o(t,a=0,f=""){if(typeof t=="number"||typeof t=="string")return t.toString();if("operator"in t){const r=i(t.operator),u=o(t.left,r,"g"),c=o(t.right,r,"d");let e=!1;f==="d"&&r===a&&(e=!0),f==="g"&&r===a&&(e=!1),r<a&&(e=!0);const n=`${u} ${t.operator} ${c}`;return e?`(${n})`:n}throw new Error("Expression invalide")}function i(t){switch(t){case"^":return 3;case"\\times":case"\\div":return 2;case"+":case"-":return 1;default:return 0}}export{o as p};
+//# sourceMappingURL=expression-ovJTbCJ5.js.map

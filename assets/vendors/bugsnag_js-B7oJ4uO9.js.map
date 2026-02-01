@@ -1,0 +1,1 @@
+{"version":3,"file":"bugsnag_js-B7oJ4uO9.js","sources":["../../../node_modules/.pnpm/@bugsnag+js@8.8.1/node_modules/@bugsnag/js/browser/notifier.js"],"sourcesContent":["module.exports = require('@bugsnag/browser')\n"],"names":["notifier","require$$0"],"mappings":"mIAAAA,EAAiBC,EAAA","x_google_ignoreList":[0]}

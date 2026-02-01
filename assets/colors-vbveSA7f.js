@@ -1,0 +1,2 @@
+const n="#F15929",c="#4d8613",r="#216D9A",p=n,h=r,l=c;function i(e){const o=/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/,a=e.match(o);if(!a)return null;let t=a[1];return t.length===3&&(t=t.split("").map(s=>s+s).join("")),{withHash:`#${t.toUpperCase()}`,withoutHash:`${t.toUpperCase()}`,r:parseInt(t.slice(0,2),16),g:parseInt(t.slice(2,4),16),b:parseInt(t.slice(4,6),16)}}export{h as b,p as o,i as p,l as v};
+//# sourceMappingURL=colors-vbveSA7f.js.map

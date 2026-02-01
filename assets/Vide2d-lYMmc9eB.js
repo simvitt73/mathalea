@@ -1,0 +1,2 @@
+var a=Object.defineProperty;var o=(t,s,e)=>s in t?a(t,s,{enumerable:!0,configurable:!0,writable:!0,value:e}):t[s]=e;var r=(t,s,e)=>o(t,typeof s!="symbol"?s+"":s,e);import{O as d}from"./ObjetMathalea2D-CXcNXRpD.js";class h extends d{constructor(e,i){super();r(this,"x");r(this,"y");this.x=e,this.y=i,this.bordures=[e,i,e,i],this.tikz=()=>"",this.svg=()=>""}}function c(t=0,s=0){return new h(t,s)}export{h as V,c as v};
+//# sourceMappingURL=Vide2d-lYMmc9eB.js.map

@@ -1,0 +1,2 @@
+import{D as u}from"./vendors/decimal.js-BceHFVC1.js";function c(e,t){return e instanceof u?e.toNumber().toString(t).toUpperCase():e.toString(t).toUpperCase()}function f(e,t){let r=0;typeof e=="number"?e=e.toString():e instanceof u&&(e=e.toNumber().toString());for(let a=0;a<e.length;a++)r+=t**a*s(e.charAt(e.length-1-a));return r}function s(e){switch(e){case"A":return 10;case"B":return 11;case"C":return 12;case"D":return 13;case"E":return 14;case"F":return 15;default:return parseInt(e)}}export{f as a,c as b,s as v};
+//# sourceMappingURL=baseConversions-D-aCpEPJ.js.map

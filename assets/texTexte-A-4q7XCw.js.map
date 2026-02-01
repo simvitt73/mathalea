@@ -1,0 +1,1 @@
+{"version":3,"file":"texTexte-A-4q7XCw.js","sources":["../../src/lib/format/texTexte.ts"],"sourcesContent":["/**\n * Écrit du texte en mode mathématiques\n * @author Rémi Angot\n */\nexport function texTexte(texte: string): string {\n  return '~\\\\text{' + texte + '}'\n}\n"],"names":["texTexte","texte"],"mappings":"AAIO,SAASA,EAASC,EAAuB,CAC9C,MAAO,WAAaA,EAAQ,GAC9B"}
