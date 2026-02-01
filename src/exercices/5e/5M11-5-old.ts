@@ -6,13 +6,13 @@
 import { arc } from '../../lib/2d/Arc'
 import { cercle } from '../../lib/2d/cercle'
 import { codageAngleDroit } from '../../lib/2d/CodageAngleDroit'
-import { codageSegments } from '../../lib/2d/CodageSegment'
+import { codageSegment } from '../../lib/2d/CodageSegment'
 import { droite, droiteParPointEtPerpendiculaire } from '../../lib/2d/droites'
 import { fixeBordures } from '../../lib/2d/fixeBordures'
-import { placeLatexSurSegment } from '../../lib/2d/placeLatexSurSegment'
-import { pointAbstrait } from '../../lib/2d/PointAbstrait'
+import { PointAbstrait, pointAbstrait } from '../../lib/2d/PointAbstrait'
 import { polygoneAvecNom } from '../../lib/2d/polygones'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { texteSurSegment } from '../../lib/2d/texteSurSegment'
 import { tracePoint } from '../../lib/2d/TracePoint'
 import {
   pointIntersectionCC,
@@ -46,7 +46,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '31/01/2025' // Modification du paramètre de choix pour mettre mélange en 0 et ajouter un cas par Jean-Claude Lhote
+export const dateDeModifImportante = '06/05/2024'
 
 /**
  * Il faut calculer le périmètre et/ou l'aire par addition ou soustraction d'aires
@@ -55,12 +55,12 @@ export const dateDeModifImportante = '31/01/2025' // Modification du paramètre 
  * Ajout de this.sup4 et correction coquilles sur aire et puis aussi sur précision au dixième par Eric Elter le 25/07/2023
  * Ajout de la possibilité de demander un découpage au lieu de calculer des périmètres ou des aires par Guillaume Valmont le 28/10/2023
  */
-export const uuid = '5999e'
+export const uuid = '5999f'
 
 export const refs = {
-  'fr-fr': ['5M11-5', 'BP2AutoV5'],
-  'fr-2016': ['6M11-2', 'BP2AutoV5'],
-  'fr-ch': ['9GM1-8', '10GM1-6'],
+  'fr-fr': [],
+  'fr-2016': [],
+  'fr-ch': [],
 }
 
 function valeursApprochees(inputValue: number, sup3: number): number[] {
@@ -95,7 +95,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     super()
     this.besoinFormulaireTexte = [
       'Types de figures',
-      'Nombres séparés par des tirets :\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-disque\n5 : Rectangle & disque \n6 : Rectangle & demi-disque & triangle\n7 : Rectangle & 2 demi-disques\n0 : Mélange',
+      'Nombres séparés par des tirets :\n1 : Rectangle & triangle\n2 : Rectangle moins triangle\n3 : Rectangle moins deux triangles\n4 : Rectangle & demi-disque\n5 : Rectangle & disque \n6 : Rectangle & demi-disque & triangle\n7 : Mélange',
     ]
     this.besoinFormulaire2CaseACocher = ['Ordre aléatoire des figures choisies']
     this.besoinFormulaire3Numerique = [
@@ -113,7 +113,7 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     this.spacingCorr = 2
     this.nbQuestions = 2
 
-    this.sup = '0'
+    this.sup = 7
     this.sup2 = true
     this.sup3 = 1
     this.sup4 = 3
@@ -155,13 +155,25 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
     ]
 
     const typesDeQuestions = gestionnaireFormulaireTexte({
-      max: 7,
-      defaut: 0,
-      melange: 0,
+      max: 6,
+      defaut: 7,
+      melange: 7,
       nbQuestions: this.nbQuestions,
       shuffle: this.sup2,
       saisie: this.sup,
     }).map(Number)
+
+    const texteSurSeg = function (
+      A: PointAbstrait,
+      B: PointAbstrait,
+      texte: string,
+      d = 0.7,
+    ) {
+      const segT = texteSurSegment(texte, A, B, 'black', d)
+      segT.mathOn = false
+      segT.scale = 1.1
+      return segT
+    }
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let perimetreReponses: number[] = []
@@ -197,13 +209,14 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const D = pointAbstrait((L1 + L2) * zoom, l1 * zoom, 'D')
           const E = pointAbstrait(L1 * zoom, 0, 'E')
           const p1 = polygoneAvecNom(A, B, C, D, E)
-          p1[0].epaisseur = 2
           contourFigure.push(p1[0])
           codagesDecoupage.push(
             codageAngleDroit(B, C, E),
             codageAngleDroit(C, E, A),
-            codageSegments('/', 'black', A, B, C, E),
-            codageSegments('//', 'black', B, C, A, E),
+            codageSegment(A, B, '/', 'black'),
+            codageSegment(C, E, '/', 'black'),
+            codageSegment(B, C, '//', 'black'),
+            codageSegment(A, E, '//', 'black'),
             codageAngleDroit(E, C, D, 'blue'),
           )
           codagesSansDecoupage.push(
@@ -214,32 +227,16 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           CE.pointilles = 5
           decoupages.push(CE)
           labelsSansDecoupage.push(
-            placeLatexSurSegment(`${texNombre(hyp, 1)}\\text{ cm}`, D, E, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(l1, 1)}\\text{ cm}`, A, B, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L1, 1)}\\text{ cm}`, E, A, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L1 + L2, 1)}\\text{ cm}`, B, D, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(D, E, stringNombre(hyp, 1) + ' cm'),
+            texteSurSeg(A, B, stringNombre(l1, 1) + ' cm'),
+            texteSurSeg(E, A, stringNombre(L1, 1) + ' cm'),
+            texteSurSeg(B, D, stringNombre(L1 + L2, 1) + ' cm'),
           )
           labelsAvecDecoupage.push(
-            placeLatexSurSegment(`${texNombre(hyp, 1)}\\text{ cm}`, D, E, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(l1, 1)}\\text{ cm}`, A, B, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L1, 1)}\\text{ cm}`, E, A, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L2, 1)}\\text{ cm}`, C, D, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(D, E, stringNombre(hyp, 1) + ' cm'),
+            texteSurSeg(A, B, stringNombre(l1, 1) + ' cm'),
+            texteSurSeg(E, A, stringNombre(L1, 1) + ' cm'),
+            texteSurSeg(C, D, stringNombre(L2, 1) + ' cm'),
           )
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage)
@@ -339,7 +336,6 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             2,
           )
           const p2 = polygoneAvecNom(M, N, S, O, P)
-          p2[0].epaisseur = 2
           contourFigure.push(p2[0])
           const NO = segment(N, O)
           NO.pointilles = 5
@@ -348,22 +344,18 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             codageAngleDroit(N, S, O),
             codageAngleDroit(O, P, M),
             codageAngleDroit(P, M, N),
-            codageSegments('//', 'black', M, N, M, P, O, P),
+            codageSegment(M, N, '//', 'black'),
+            codageSegment(M, P, '//', 'black'),
+            codageSegment(O, P, '//', 'black'),
           )
           codagesDecoupage.push(
             codageAngleDroit(M, N, O),
             codageAngleDroit(N, O, P),
           )
           labelsSansDecoupage.push(
-            placeLatexSurSegment(`${texNombre(c, 1)}\\text{ cm}`, P, M, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(c1, 1)}\\text{ cm}`, S, N, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(c2, 1)}\\text{ cm}`, O, S, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(P, M, stringNombre(c, 1) + ' cm'),
+            texteSurSeg(S, N, stringNombre(c1, 1) + ' cm', -0.7),
+            texteSurSeg(O, S, stringNombre(c2, 1) + ' cm'),
           )
           labelsAvecDecoupage.push(...labelsSansDecoupage)
           if (this.sup4 === 4) {
@@ -508,7 +500,6 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             droiteParPointEtPerpendiculaire(S, droite(N, O)),
           )
           const p2 = polygoneAvecNom(M, N, S, O, P)
-          p2[0].epaisseur = 2
           contourFigure.push(p2[0])
           const HS = segment(H, S)
           HS.pointilles = 5
@@ -527,30 +518,32 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
             codageAngleDroit(N, O, P),
             codageAngleDroit(N, H, S),
             codageAngleDroit(S, H, O, 'blue'),
-            codageSegments('//', 'black', M, N, M, P, O, P),
+            codageSegment(M, N, '//', 'black'),
+            codageSegment(M, P, '//', 'black'),
+            codageSegment(O, P, '//', 'black'),
           )
           const codagesDecoupages2 = [
             codageAngleDroit(M, T, S),
             codageAngleDroit(N, T, S),
             codageAngleDroit(P, U, S),
             codageAngleDroit(O, U, S),
-            codageSegments('//', 'black', M, T, P, U),
-            codageSegments('/', 'black', T, N, U, O),
-            codageSegments('///', 'black', M, P, T, U),
+            codageSegment(M, T, '//', 'black'),
+            codageSegment(P, U, '//', 'black'),
+            codageSegment(T, N, '/', 'black'),
+            codageSegment(U, O, '/', 'black'),
+            codageSegment(M, P, '///', 'black'),
+            codageSegment(T, U, '///', 'black'),
           ]
           labelsAvecDecoupage.push(
-            placeLatexSurSegment(`${texNombre(c, 1)}\\text{ cm}`, P, M, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`  ${texNombre(h1, 1)}\\text{ cm}`, S, N, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`  ${texNombre(h2, 1)}\\text{ cm}`, O, S, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`  ${texNombre(com1, 1)}\\text{ cm}`, H, S, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(P, M, stringNombre(c, 1) + ' cm'),
+            texteSurSeg(S, N, stringNombre(h1, 1) + ' cm'),
+            texteSurSeg(O, S, stringNombre(h2, 1) + ' cm'),
+            texteSurSeg(
+              H,
+              S,
+              stringNombre(com1, 1) + ' cm',
+              H.x - N.x > O.x - H.x ? -0.7 : 0.7,
+            ),
           )
           objetsCorrection.push(
             ...contourFigure,
@@ -638,26 +631,22 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const D = pointAbstrait(L1 * zoom, 0, 'D')
           const E = pointAbstrait(L1 * zoom, L2 * zoom * 0.5, 'E')
           const R = pointSurCercle(cercle(E, (zoom * L2) / 2), -5, 'R')
-          const AB = segment(A, B)
-          AB.epaisseur = 2
-          const BC = segment(B, C)
-          BC.epaisseur = 2
-          const AD = segment(A, D)
-          AD.epaisseur = 2
-          contourFigure.push(AB, BC, AD)
+          contourFigure.push(segment(A, B), segment(B, C), segment(A, D))
           const demicercle = arc(D, E, 180, false, 'none')
-          demicercle.epaisseur = 2
           contourFigure.push(demicercle)
           codagesSansDecoupage.push(
             codageAngleDroit(A, B, C),
             codageAngleDroit(D, A, B),
-            codageSegments('/', 'black', A, B, C, B, A, D),
+            codageSegment(A, D, '/', 'black'),
+            codageSegment(C, B, '/', 'black'),
             tracePoint(C, D),
           )
           codagesDecoupage.push(
             codageAngleDroit(B, C, D),
             codageAngleDroit(A, D, C),
-            codageSegments('//', 'black', E, R, E, D, E, C),
+            codageSegment(E, R, '//', 'black'),
+            codageSegment(E, D, '//', 'black'),
+            codageSegment(E, C, '//', 'black'),
           )
           const CD = segment(C, D)
           CD.pointilles = 5
@@ -666,15 +655,9 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           decoupages.push(CD, ER)
           // labelsSansDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'))
           labelsAvecDecoupage.push(
-            placeLatexSurSegment(`  ${texNombre(L2, 1)}\\text{ cm}`, A, B, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`  ${texNombre(L1, 1)}\\text{ cm}`, A, D, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`  ${texNombre(L2 / 2, 1)}\\text{ cm}`, E, R, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'),
+            texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'),
+            texteSurSeg(E, R, stringNombre(L2 / 2, 1) + ' cm'),
           )
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage)
@@ -780,21 +763,26 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const S = pointSurCercle(cercle(F, (zoom * L2) / 2), -185, 'R')
           const demicercle = arc(D, E, 180, false, 'none')
           const demicercle2 = arc(B, F, 180, false, 'none')
-          demicercle.epaisseur = 2
-          demicercle2.epaisseur = 2
-          const BC = segment(B, C)
-          BC.epaisseur = 2
-          const AD = segment(A, D)
-          AD.epaisseur = 2
-          contourFigure.push(BC, AD, demicercle, demicercle2)
+          contourFigure.push(
+            segment(B, C),
+            segment(A, D),
+            demicercle,
+            demicercle2,
+          )
           codagesDecoupage.push(
-            codageSegments('/', 'black', A, D, C, B),
+            codageSegment(A, D, '/', 'black'),
+            codageSegment(C, B, '/', 'black'),
             tracePoint(A, B, C, D),
             codageAngleDroit(A, B, C),
             codageAngleDroit(B, C, D),
             codageAngleDroit(D, A, B),
             codageAngleDroit(A, D, C),
-            codageSegments('//', 'black', E, R, E, D, E, C, F, S, F, A, F, B),
+            codageSegment(E, R, '//', 'black'),
+            codageSegment(E, D, '//', 'black'),
+            codageSegment(E, C, '//', 'black'),
+            codageSegment(F, S, '//', 'black'),
+            codageSegment(F, B, '//', 'black'),
+            codageSegment(F, A, '//', 'black'),
           )
           const CD = segment(C, D)
           CD.pointilles = 5
@@ -806,12 +794,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           FS.pointilles = 5
           decoupages.push(CD, AB, ER, FS)
           labelsAvecDecoupage.push(
-            placeLatexSurSegment(`${texNombre(L2 / 2, 1)}\\text{ cm}`, E, R, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L1, 1)}\\text{ cm}`, D, A, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(E, R, stringNombre(L2 / 2, 1) + ' cm'),
+            texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'),
           )
           if (this.sup4 === 4) {
             objetsEnonce.push(
@@ -922,7 +906,8 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           )
           break
         }
-        case 6: {
+        case 6:
+        default: {
           // 'rectangle_triangle_demi_disque': {
           const triplet = choice(tripletsPythagoriciens)
           const adjust =
@@ -945,21 +930,22 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           const F = pointAbstrait(0, l1 * zoom * 0.5, 'E')
           const R = pointSurCercle(cercle(F, (zoom * l1) / 2), 185, 'R')
           const demicercle = arc(B, F, 180, false, 'none')
-          demicercle.epaisseur = 2
-          const AE = segment(A, E)
-          AE.epaisseur = 2
-          const DE = segment(D, E)
-          DE.epaisseur = 2
-          const BD = segment(B, D)
-          BD.epaisseur = 2
-          contourFigure.push(demicercle, AE, DE, BD)
+          contourFigure.push(
+            demicercle,
+            segment(A, E),
+            segment(D, E),
+            segment(B, D),
+          )
           codagesDecoupage.push(
             codageAngleDroit(A, B, C),
             codageAngleDroit(B, C, E),
             codageAngleDroit(C, E, A),
             codageAngleDroit(E, A, B),
-            codageSegments('//', 'black', F, R, F, A, F, B),
-            codageSegments('/', 'black', A, E, C, B),
+            codageSegment(F, R, '//', 'black'),
+            codageSegment(F, A, '//', 'black'),
+            codageSegment(F, B, '//', 'black'),
+            codageSegment(A, E, '/', 'black'),
+            codageSegment(C, B, '/', 'black'),
             codageAngleDroit(D, C, E, 'blue'),
           )
           const FR = segment(F, R)
@@ -970,21 +956,11 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           CE.pointilles = 5
           decoupages.push(FR, AB, CE)
           labelsAvecDecoupage.push(
-            placeLatexSurSegment(`${texNombre(l1 / 2, 1)}\\text{ cm}`, F, R, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(hyp, 1)}\\text{ cm}`, D, E, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(l1, 1)}\\text{ cm}`, E, C, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L1, 1)}\\text{ cm}`, E, A, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L2, 1)}\\text{ cm}`, C, D, {
-              letterSize: 'small',
-            }),
+            texteSurSeg(F, B, stringNombre(l1 / 2, 1) + ' cm', -0.8),
+            texteSurSeg(D, E, stringNombre(hyp, 1) + ' cm'),
+            texteSurSeg(E, C, stringNombre(l1, 1) + ' cm'),
+            texteSurSeg(E, A, stringNombre(L1, 1) + ' cm'),
+            texteSurSeg(C, D, stringNombre(L2, 1) + ' cm'),
           )
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage)
@@ -1071,171 +1047,6 @@ export default class PerimetreOuAireDeFiguresComposees extends Exercice {
           )
           aireReponses = valeursApprochees(
             L1 * l1 + (L2 * l1) / 2 + ((l1 / 2) * (l1 / 2) * Math.PI) / 2,
-            this.sup3,
-          )
-          break
-        }
-        case 7:
-        default: {
-          // 'Rectangle + un demidisque rentrant et un autre sortant
-          // 'rectangle_demi_cercle': {
-          let L1 = randint(4, 8)
-          let L2 = randint(3, L1 - 1)
-          L1 = L1 + 2 + randint(1, 9) / 10
-          // L2 = L2 + (randint(1, 9) / 10)
-          L2 = L2 + randint(1, 4) / 5
-          const zoom = 7 / L2
-          const A = pointAbstrait(0, 0, 'A')
-          const B = pointAbstrait(0, L2 * zoom, 'B')
-          const BB = pointAbstrait(L2 * zoom, L2 * zoom, 'BB')
-          const C = pointAbstrait(L1 * zoom, L2 * zoom, 'C')
-          const D = pointAbstrait(L1 * zoom, 0, 'D')
-          const E = pointAbstrait(L1 * zoom, L2 * zoom * 0.5, 'E')
-          const R = pointSurCercle(cercle(E, (zoom * L2) / 2), -175, 'R')
-          const F = pointAbstrait((L2 * zoom) / 2, L2 * zoom, 'F')
-          const S = pointSurCercle(cercle(F, (zoom * L2) / 2), 95, 'S')
-          const demicercle2 = arc(B, F, -180, false, 'none')
-          const AB = segment(A, B)
-          AB.epaisseur = 2
-          const BBC = segment(BB, C)
-          BBC.epaisseur = 2
-          const AD = segment(A, D)
-          AD.epaisseur = 2
-          contourFigure.push(AB, BBC, AD)
-          const demicercle = arc(D, E, -180, false, 'none')
-          demicercle2.epaisseur = 2
-          demicercle.epaisseur = 2
-          contourFigure.push(demicercle, demicercle2)
-          codagesSansDecoupage.push(codageAngleDroit(D, A, B))
-          codagesDecoupage.push(
-            codageAngleDroit(A, B, C),
-            codageAngleDroit(B, C, D),
-            codageAngleDroit(A, D, C),
-            codageSegments('//', 'black', E, R, E, D, E, C, B, F, F, BB, F, S),
-          )
-          const BBB = segment(B, BB)
-          BBB.pointilles = 5
-          const CD = segment(C, D)
-          CD.pointilles = 5
-          const ER = segment(E, R)
-          ER.pointilles = 5
-
-          const FS = segment(F, S)
-          FS.pointilles = 5
-          decoupages.push(CD, ER, FS, BBB)
-          // labelsSansDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'))
-          labelsAvecDecoupage.push(
-            placeLatexSurSegment(`${texNombre(L2, 1)}\\text{ cm}`, A, B, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L1, 1)}\\text{ cm}`, D, A, {
-              letterSize: 'small',
-            }),
-            placeLatexSurSegment(`${texNombre(L2 / 2, 1)}\\text{ cm}`, E, R, {
-              letterSize: 'small',
-            }),
-          )
-          if (this.sup4 === 4) {
-            objetsEnonce.push(...contourFigure, ...codagesSansDecoupage)
-            objetsCorrection.push(
-              ...contourFigure,
-              ...decoupages,
-              ...codagesSansDecoupage,
-              ...codagesDecoupage,
-            )
-          } else {
-            objetsEnonce.push(
-              ...contourFigure,
-              ...decoupages,
-              ...codagesSansDecoupage,
-              ...codagesDecoupage,
-              ...labelsAvecDecoupage,
-            )
-          }
-          texte = mathalea2d(
-            Object.assign(
-              {
-                scale: 0.7,
-                pixelsParCm: 20,
-                zoom: 1,
-                optionsTikz: 'baseline=(current bounding box.north)',
-              },
-              fixeBordures(
-                [
-                  A,
-                  B,
-                  C,
-                  D,
-                  E,
-                  demicercle,
-                  demicercle2,
-                  pointAbstrait(C.x, C.y + 0.2),
-                ],
-                {
-                  rxmin: -1.2,
-                  rymin: -1.2,
-                },
-              ),
-            ),
-            objetsEnonce,
-          )
-          if (this.sup4 === 4) {
-            texteCorr = mathalea2d(
-              Object.assign(
-                {
-                  scale: 0.7,
-                  pixelsParCm: 20,
-                  zoom: 1,
-                  optionsTikz: 'baseline=(current bounding box.north)',
-                },
-                fixeBordures(
-                  [
-                    A,
-                    B,
-                    C,
-                    D,
-                    E,
-                    demicercle,
-                    demicercle2,
-                    pointAbstrait(C.x, C.y + 0.2),
-                  ],
-                  {
-                    rxmin: -1,
-                    rymin: -1.2,
-                  },
-                ),
-              ),
-              objetsCorrection,
-            )
-            texteCorr +=
-              "La figure est composée d'un rectangle privé d'un demi-disque dans sa largeur que l'on a ajouté dans sa longueur."
-          } else {
-            texteCorr = `La figure est composée d'un rectangle de $${texNombre(L1, 1)}\\text{ cm}$ par $${texNombre(L2, 1)}\\text{ cm}$`
-            texteCorr += ` duquel on a découpé un demi-disque de rayon $${texNombre(L2 / 2, 1)}\\text{ cm}$ dans sa largeur pour le recoller sur sa longueur.<br>`
-            texteCorr +=
-              this.sup4 !== 2
-                ? `$\\mathcal{P}=${texNombre(L1, 1)}+${texNombre(L2, 1)}+${texNombre(L1, 1)}-${texNombre(L2, 1)}+${texNombre(L2, 1)}\\times \\pi \\approx ${texNombre(troncature(2 * L1 + L2 * Math.PI, 3), 3)}\\text{ cm'}$<br>`
-                : ''
-            texteCorr +=
-              this.sup4 !== 1
-                ? `$\\mathcal{A}=${texNombre(L1, 1)}\\times${texNombre(L2, 1)} = ${texNombre(troncature(L1 * L2, 3), 3)}\\text{ cm}^2$<br>`
-                : ''
-            texteCorr +=
-              this.sup4 !== 2
-                ? `Une valeur approchée ${this.sup3 === 1 ? 'au $\\text{cm}$' : 'au dixième de $\\text{cm}$'} est donc $\\mathcal{P}\\approx ${miseEnEvidence(texNombre(troncature(2 * L1 + L2 * Math.PI, this.sup3 - 1), 1))}\\text{ cm}$.<br>`
-                : ''
-            texteCorr +=
-              this.sup4 !== 1
-                ? `Une valeur approchée ${this.sup3 === 1 ? 'au $\\text{cm}^2$' : 'au dixième de $\\text{cm}^2$'} est donc $\\mathcal{A}\\approx ${miseEnEvidence(texNombre(troncature(L1 * L2, this.sup3 - 1), 2))}\\text{ cm}^2$.<br>`
-                : ''
-          }
-
-          perimetreReponses = valeursApprochees(
-            L1 + L2 + L1 + (L2 * Math.PI) / 2,
-            this.sup3,
-          )
-          aireReponses = valeursApprochees(
-            L1 * L2 + ((L2 / 2) * (L2 / 2) * Math.PI) / 2,
             this.sup3,
           )
           break
